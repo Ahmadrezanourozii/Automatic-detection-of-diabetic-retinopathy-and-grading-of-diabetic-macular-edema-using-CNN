@@ -58,12 +58,42 @@ def fetch(slug, dest):
     return moved, out
 
 
+def check_log_matches(run_dir, results):
+    """The log and the results must come from the same run.
+
+    Kaggle carries /kaggle/working across notebook versions, so a stale log from a failed
+    earlier attempt can be archived next to a successful run's results.json. An archive
+    that silently pairs one run's log with another run's numbers is worse than no archive
+    (ISSUES.md §13).
+    """
+    logs = sorted(glob.glob(os.path.join(run_dir, "train*.log")))
+    if not logs:
+        return
+    want = results.get("commit", "").split("-")[0]
+    for lp in logs:
+        head = open(lp, errors="replace").read(4000)
+        got = ""
+        for line in head.splitlines():
+            if line.startswith("COMMIT "):
+                got = line.split()[1].split("-")[0]
+                break
+        if want and got and got != want:
+            print(f"  !! {os.path.basename(lp)} is from commit {got[:10]}, but "
+                  f"results.json is from {want[:10]} — STALE LOG, do not read it as "
+                  f"this run's")
+            os.rename(lp, lp + ".stale")
+        elif want and not got:
+            print(f"  !! {os.path.basename(lp)} has no COMMIT line — cannot verify it "
+                  f"belongs to this run")
+
+
 def analyse(run_dir):
     rj = os.path.join(run_dir, "results.json")
     if not os.path.exists(rj):
         print("no results.json yet")
         return None
     r = json.load(open(rj))
+    check_log_matches(run_dir, r)
     print(f"\n{'='*78}")
     print(f"RUN {r['run_id']}   commit {r['commit'][:10]}   "
           f"split {r.get('split_fingerprint')}   {r.get('runtime_sec', 0)/60:.0f} min")

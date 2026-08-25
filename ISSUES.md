@@ -394,6 +394,43 @@ supposed to represent. Print the distribution of every evaluation set, not just 
 
 ---
 
+## §13. The archived log belonged to a different run than the archived results  — 2026-08-26, FIXED
+
+**Symptom.** `runs/E06/train.log` ended in the `NameError` of §11 and reported
+`PRETRAIN ... (5 epochs)`, while `runs/E06/results.json` from the same fetch carried the
+*fixed* commit `52d5ef4`, `pretrain_epochs: 4`, and complete metrics for all five folds. The
+log said the run crashed; the results said it finished.
+
+**Which one was true.** The results. Three independent confirmations: the commit in
+`results.json` is the one that fixed the crash; `pretrain_epochs: 4` was only ever passed on
+the relaunch; and the five `oof_*.npz` files exist at all, which a crashed run cannot
+produce — re-scoring from those logits reproduces the same numbers.
+
+**Root cause.** Kaggle carries `/kaggle/working` across versions of the same notebook, and
+the notebook opened its log with mode `"a"`. The failed version's log survived into the
+successful version's working directory and was archived alongside the new results.
+
+**Why it matters more than it looks.** Nothing errored. The fetch succeeded, the files
+landed, the metrics were correct. Only the *provenance* was wrong — and provenance is the
+entire point of the archive. A future session reading `runs/E06/` would have concluded the
+run crashed, or worse, would have paired E06's numbers with a different run's training
+curves and drawn conclusions about convergence from them.
+
+**Fix, two parts.**
+
+1. Each run writes a fresh timestamped `train_<stamp>.log` and deletes any stale
+   `train*.log` in its output directory first. No appending to a carried-over file.
+2. `kaggle/fetch.py` now reads the `COMMIT` line from every archived log and compares it
+   against `results.json`. A mismatch is reported loudly and the file is renamed to
+   `.stale` rather than left where it will be believed. This is why the training script's
+   first line has always been the commit SHA — it is what makes the check possible.
+
+**Recognise it by:** a log and a results file that disagree about anything — the config, the
+outcome, the number of epochs. Never reconcile them by choosing the more convenient one;
+find out which run each came from.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.

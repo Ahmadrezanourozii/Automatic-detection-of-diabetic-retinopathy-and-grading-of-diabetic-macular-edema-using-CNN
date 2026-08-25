@@ -76,7 +76,15 @@ if not ok:
 RUN_ID = "{run_id}"
 OUT = f"/kaggle/working/{{RUN_ID}}"
 os.makedirs(OUT, exist_ok=True)
-LOG = f"{{OUT}}/train.log"
+# Kaggle carries /kaggle/working across notebook versions, so appending to a fixed
+# filename can leave the previous version's log sitting next to this version's results
+# (ISSUES.md §13). Fresh file, stamped, every run.
+STAMP = time.strftime("%Y%m%d-%H%M%S")
+LOG = f"{{OUT}}/train_{{STAMP}}.log"
+for _stale in os.listdir(OUT) if os.path.isdir(OUT) else []:
+    if _stale.startswith("train") and _stale.endswith(".log"):
+        os.remove(os.path.join(OUT, _stale))
+        print("removed stale log", _stale)
 
 cmd = [sys.executable, "-u", "/kaggle/working/repo/src/train.py",
        "--datasets", "/kaggle/input",
@@ -89,8 +97,8 @@ print(" ".join(cmd), flush=True)
 
 # tee to the log file AND to the notebook output, so a killed session still leaves a log
 t0 = time.time()
-with open(LOG, "a") as f:
-    f.write(f"\\n===== launched {{time.strftime('%Y-%m-%d %H:%M:%S')}} =====\\n")
+with open(LOG, "w") as f:
+    f.write(f"===== launched {{time.strftime('%Y-%m-%d %H:%M:%S')}} =====\\n")
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
                          bufsize=1, cwd="/kaggle/working/repo")
     for line in p.stdout:
