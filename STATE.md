@@ -3,7 +3,7 @@
 **Project:** Automatic detection of diabetic retinopathy (DR) and grading of diabetic
 macular edema (DME) from a single retinal fundus photograph.
 **Owner:** Alireza Chegeni (810102111), MSc, ECE, University of Tehran.
-**Last updated:** 2026-08-25 — session 2 (autonomous mode; E05 training on Kaggle).
+**Last updated:** 2026-08-26 — session 2 (autonomous; E05 + E06 training on Kaggle).
 
 ---
 
@@ -69,10 +69,20 @@ Kaggle datasets attached: `aaryapatel98/indian-diabetic-retinopathy-image-datase
 
 ## What is running right now
 
-**E05** — the first real training run. Multi-output DenseNet121, **ordinal threshold heads**,
-5-fold grouped CV over the 2 260-image development pool, 448 px, 30 epochs, EMA, balanced
-sampling. Hypothesis: ordinal heads plus Messidor-2 partial-label supervision beat the
-frozen-feature probe on both heads.
+Two runs in parallel (Kaggle allows two concurrent GPU sessions):
+
+| run | what it tests | data |
+|---|---|---|
+| **E05** | multi-output DenseNet121, ordinal threshold heads, Messidor-2 partial-label DME supervision | IDRiD + Messidor-2 (2 260) |
+| **E06** | the same, **plus EyePACS pretraining** | + 35 126 EyePACS images |
+
+Both: 5-fold grouped CV, 448 px, EMA, balanced sampling, TTA. E06's pretraining is done once
+and reused by every fold.
+
+**Note before reading their numbers:** both were launched before `ISSUES.md` §12 was fixed,
+so their 3-class DME metric is computed on a biased 667-image set (59 % floor) instead of the
+correct 516-image one (47 % floor). Re-score them with `src/recompute.py` from the archived
+out-of-fold logits before believing any DME figure. No GPU needs to be re-spent.
 
 ## Blocking
 
