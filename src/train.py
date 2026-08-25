@@ -230,7 +230,11 @@ def evaluate(rows, dr_logits, dme_logits, head, n_boot=1000):
     out = {"dr": M.report(dr_true, dr_pred, N_DR, groups=groups,
                           n_boot=n_boot, referable_from=2)}
 
-    exact = np.array([r["dme"] is not None and len(r["dme_candidates"]) == 1
+    # 3-class DME is scored ONLY on corpora that grade all three levels. Messidor-2's
+    # referable rows do carry an exact grade -- but they are all grade 2, so including
+    # them would lift the majority floor from 47 % to 59 % and hand the model free
+    # accuracy on a biased set. See corpora.py.
+    exact = np.array([r.get("dme_label_space") == "3class" and r["dme"] is not None
                       for r in rows])
     if exact.any():
         dme_true = np.array([r["dme"] for r in rows])[exact]

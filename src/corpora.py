@@ -10,10 +10,21 @@ Label semantics are the ones justified in data/LABEL_MAPPING.md. In particular:
   dr   : 0..4 ICDR, identical across IDRiD / Messidor-2 / APTOS / EyePACS.
   dme  : 0..2 by hard-exudate distance to the macula centre
            0 = none, 1 = present but > 1 disc diameter out, 2 = within 1 DD (referable)
+  dme_label_space : "3class" when the corpus grades all three DME levels (IDRiD),
+           "binary" when it only separates referable from not (Messidor-2), None otherwise.
+           The 3-class DME metric is computed on "3class" corpora ONLY -- see below.
   dme_candidates : the set of DME grades this row is known to be in.
            IDRiD gives an exact grade    -> a single-element set, e.g. {2}
            Messidor-2 gives referable/not -> {2} when referable, {0,1} when not
            APTOS/EyePACS give nothing     -> None, the DME loss is masked for that row
+
+  WHY dme_label_space MATTERS FOR EVALUATION, NOT JUST TRAINING
+  Messidor-2's referable rows have an exact grade (2) and its non-referable rows do not.
+  Scoring the 3-class metric on "every row with an exact grade" therefore silently adds 151
+  images that are ALL grade 2, turning a 47 %-majority evaluation set into a 59 %-majority
+  one and inflating accuracy for free. Partial labels are legitimate supervision and
+  illegitimate evaluation: the 3-class number is reported on IDRiD only, and Messidor-2 is
+  scored on the binary referable task it can actually answer.
 
   The {0,1} case is why the DME head is trained with a marginal (partial-label) loss:
   Messidor-2 supervises the coarse distinction over 1 744 images, IDRiD supervises the
@@ -141,6 +152,7 @@ def load_idrid(roots):
                 "dr": int(r["Retinopathy grade"].strip()),
                 "dme": dme,
                 "dme_candidates": (dme,),
+                "dme_label_space": "3class",
                 "fovea": fovea.get(f"{'trai' if split=='train' else 'test'}_{name}"),
                 "optic_disc": od.get(f"{'trai' if split=='train' else 'test'}_{name}"),
             })
@@ -182,6 +194,8 @@ def load_messidor2(roots):
             # exact grade unknown when not referable -- see the module docstring
             "dme": 2 if referable else None,
             "dme_candidates": (2,) if referable else (0, 1),
+            # graded referable/not-referable only -- never scored on the 3-class metric
+            "dme_label_space": "binary",
             "fovea": None, "optic_disc": None,
         })
     return out
@@ -216,7 +230,7 @@ def load_aptos(roots):
                 "corpus": "APTOS",
                 "path": path,
                 "dr": int(r["diagnosis"]),
-                "dme": None, "dme_candidates": None,
+                "dme": None, "dme_candidates": None, "dme_label_space": None,
                 "fovea": None, "optic_disc": None,
             })
     return out
@@ -259,7 +273,7 @@ def load_eyepacs(roots):
             "corpus": "EyePACS",
             "path": path,
             "dr": int(r[lvl]),
-            "dme": None, "dme_candidates": None,
+            "dme": None, "dme_candidates": None, "dme_label_space": None,
             "fovea": None, "optic_disc": None,
             "patient": f"EYEPACS_P{m.group(1)}" if m else None,
         })

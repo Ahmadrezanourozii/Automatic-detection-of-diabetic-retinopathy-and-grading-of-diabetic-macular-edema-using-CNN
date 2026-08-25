@@ -354,6 +354,46 @@ replaced — an anchor that appears twice in a file is a landmine.
 
 ---
 
+## §12. The 3-class DME metric was scored on a biased subset  — 2026-08-25, FIXED
+
+**Symptom.** Found by reading the evaluation code rather than by a failure. `evaluate()`
+selected rows for the 3-class DME metric with "does this row have exactly one candidate
+grade?". That is true for all 516 IDRiD images — and also for Messidor-2's 151 *referable*
+rows, because "referable" pins the grade to exactly 2. It is false for Messidor-2's 1 593
+non-referable rows, whose grade is genuinely unknown between 0 and 1.
+
+So the evaluation set was 667 images of which **394 were grade 2**:
+
+| | n | grade 0 | grade 1 | grade 2 | majority floor |
+|---|---|---|---|---|---|
+| as scored (wrong) | 667 | 222 | 51 | 394 | **59.1 %** |
+| IDRiD only (right) | 516 | 222 | 51 | 243 | **47.1 %** |
+
+**Why it matters.** Every one of the 151 extra images belongs to the single class the model
+finds easiest, so accuracy on that set is inflated *and* the floor it is compared against
+rises by twelve points. The two errors do not cancel — they combine to make a mediocre model
+look like it clears a hard bar.
+
+**Root cause.** Confusing *supervision* with *evaluation*. A partial label is perfectly good
+supervision: "not referable" genuinely constrains the threshold P(y>1), and that is the
+whole reason Messidor-2 is in this project. But a corpus that can only answer one of the two
+ordinal questions cannot be scored on the three-way answer. Legitimate training signal,
+illegitimate test set.
+
+**Fix.** Every row now carries `dme_label_space` — `"3class"` (IDRiD), `"binary"`
+(Messidor-2), or `None`. The 3-class metric is computed on `"3class"` rows only; Messidor-2
+is scored on `dme_referable_binary`, the question it can actually answer. Both numbers are
+reported.
+
+**No GPU was re-spent.** Runs archive `oof_<fold>.npz` with uids and raw logits, so
+`src/recompute.py` re-scores a finished run under the corrected definition. This is the
+reason to archive predictions and not just metrics.
+
+**Recognise it by:** an evaluation subset whose class balance differs from the corpus it is
+supposed to represent. Print the distribution of every evaluation set, not just its size.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.
