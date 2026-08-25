@@ -1,0 +1,286 @@
+[{"stream_name":"stderr","time":6.629119181,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.629203273,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.629209609,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.629213204,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":7.231500793,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.231575002,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.231583429,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.231587374,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":9.515436301,"data":"CODE COMMIT 219881c05e0450e76f68c7cd579d0653fd4d2652\n"}
+,{"stream_name":"stdout","time":9.515496656,"data":"Anchor each corpus to its own dataset directory, and cache as JPEG\n"}
+,{"stream_name":"stdout","time":106.50838295,"data":"datasets                                                  73471 files\n"}
+,{"stream_name":"stdout","time":110.195284847,"data":"torch 2.10.0+cu128 | cuda True | Tesla P100-PCIE-16GB\n"}
+,{"stream_name":"stderr","time":110.1963057,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":110.196323482,"data":"    Found GPU0 Tesla P100-PCIE-16GB which is of cuda capability 6.0.\n"}
+,{"stream_name":"stderr","time":110.196328963,"data":"    Minimum and Maximum cuda capability supported by this version of PyTorch is\n"}
+,{"stream_name":"stderr","time":110.196334048,"data":"    (7.0) - (12.0)\n"}
+,{"stream_name":"stderr","time":110.196338637,"data":"    \n"}
+,{"stream_name":"stderr","time":110.196343767,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":110.19634818,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":110.196352919,"data":"    Please install PyTorch with a following CUDA\n"}
+,{"stream_name":"stderr","time":110.196357566,"data":"    configurations:  12.6 following instructions at\n"}
+,{"stream_name":"stderr","time":110.196362237,"data":"    https://pytorch.org/get-started/locally/\n"}
+,{"stream_name":"stderr","time":110.196367451,"data":"    \n"}
+,{"stream_name":"stderr","time":110.196372134,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":110.19637650600001,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":110.19638087,"data":"Tesla P100-PCIE-16GB with CUDA capability sm_60 is not compatible with the current PyTorch installation.\n"}
+,{"stream_name":"stderr","time":110.196385659,"data":"The current PyTorch install supports CUDA capabilities sm_70 sm_75 sm_80 sm_86 sm_90 sm_100 sm_120.\n"}
+,{"stream_name":"stderr","time":110.196390433,"data":"If you want to use the Tesla P100-PCIE-16GB GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/\n"}
+,{"stream_name":"stderr","time":110.196395644,"data":"\n"}
+,{"stream_name":"stderr","time":110.196399735,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":110.196403827,"data":"\n"}
+,{"stream_name":"stderr","time":110.196407948,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":110.196427196,"data":"    Found GPU0 Tesla P100-PCIE-16GB which is of cuda capability 6.0.\n"}
+,{"stream_name":"stderr","time":110.196431468,"data":"    Minimum and Maximum cuda capability supported by this version of PyTorch is\n"}
+,{"stream_name":"stderr","time":110.196434955,"data":"    (7.0) - (12.0)\n"}
+,{"stream_name":"stderr","time":110.196438271,"data":"    \n"}
+,{"stream_name":"stderr","time":110.196441472,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":110.196444723,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":110.19644822,"data":"    Please install PyTorch with a following CUDA\n"}
+,{"stream_name":"stderr","time":110.196451673,"data":"    configurations:  12.6 following instructions at\n"}
+,{"stream_name":"stderr","time":110.196455113,"data":"    https://pytorch.org/get-started/locally/\n"}
+,{"stream_name":"stderr","time":110.196458424,"data":"    \n"}
+,{"stream_name":"stderr","time":110.196461605,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":110.19646482,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":110.196468382,"data":"Tesla P100-PCIE-16GB with CUDA capability sm_60 is not compatible with the current PyTorch installation.\n"}
+,{"stream_name":"stderr","time":110.19647201,"data":"The current PyTorch install supports CUDA capabilities sm_70 sm_75 sm_80 sm_86 sm_90 sm_100 sm_120.\n"}
+,{"stream_name":"stderr","time":110.196475633,"data":"If you want to use the Tesla P100-PCIE-16GB GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/\n"}
+,{"stream_name":"stderr","time":110.196480768,"data":"\n"}
+,{"stream_name":"stderr","time":110.196483942,"data":"  queued_call()\n"}
+,{"stream_name":"stdout","time":110.396460883,"data":"GPU Tesla P100-PCIE-16GB  sm_60  torch 2.10.0+cu128\n"}
+,{"stream_name":"stdout","time":110.414422093,"data":"UNUSABLE: CUDA error: no kernel image is available for execution on the device\n"}
+,{"stream_name":"stdout","time":110.414457312,"data":"Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.\n"}
+,{"stream_name":"stdout","time":110.414463134,"data":"CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\n"}
+,{"stream_name":"stdout","time":110.414467903,"data":"For debugging consider passing CUDA_LAUNCH_BLOCKING=1\n"}
+,{"stream_name":"stdout","time":110.414472566,"data":"Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"}
+,{"stream_name":"stdout","time":110.414476794,"data":"\n"}
+,{"stream_name":"stdout","time":110.41448075,"data":"installing a torch build that supports this GPU ...\n"}
+,{"stream_name":"stdout","time":120.94821491,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 780.4/780.4 MB 2.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":121.150586591,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 780.4/780.4 MB 2.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":123.468663427,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.3/7.3 MB 104.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":123.669967053,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.3/7.3 MB 104.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":124.155923436,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 23.7/23.7 MB 191.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":124.358097173,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 23.7/23.7 MB 191.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":124.857875818,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 823.6/823.6 kB 214.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":125.060117711,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 823.6/823.6 kB 214.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":125.488053966,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.1/14.1 MB 184.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":125.690179278,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.1/14.1 MB 184.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":132.549691879,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 664.8/664.8 MB 2.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":132.752342101,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 664.8/664.8 MB 2.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":138.055125456,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 410.6/410.6 MB 80.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":138.257714519,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 410.6/410.6 MB 80.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":141.251774119,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 121.6/121.6 MB 140.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":141.455557664,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 121.6/121.6 MB 140.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":141.930774951,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.5/56.5 MB 177.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":142.132696726,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.5/56.5 MB 177.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":143.204816807,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 124.2/124.2 MB 136.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":143.410047176,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 124.2/124.2 MB 136.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":145.500767412,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 196.0/196.0 MB 123.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":145.703189455,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 196.0/196.0 MB 123.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":146.931494954,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.7/188.7 MB 138.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":147.13375487,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.7/188.7 MB 138.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":148.101095503,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 99.1/99.1 kB 103.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":148.303773924,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 99.1/99.1 kB 103.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":151.433355108,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 209.6/209.6 MB 4.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":151.635698877,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 209.6/209.6 MB 4.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":153.536672299,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.2/6.2 MB 5.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":153.738721636,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.2/6.2 MB 5.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stderr","time":262.630718523,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":262.63078089,"data":"torchaudio 2.10.0+cu128 requires torch==2.10.0, but you have torch 2.5.1+cu121 which is incompatible.\n"}
+,{"stream_name":"stderr","time":262.834472986,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":262.834504749,"data":"torchaudio 2.10.0+cu128 requires torch==2.10.0, but you have torch 2.5.1+cu121 which is incompatible.\n"}
+,{"stream_name":"stderr","time":262.834510624,"data":"\n"}
+,{"stream_name":"stderr","time":262.834515989,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":262.834521442,"data":"torchaudio 2.10.0+cu128 requires torch==2.10.0, but you have torch 2.5.1+cu121 which is incompatible.\n"}
+,{"stream_name":"stdout","time":263.279463629,"data":"installed -- src/train.py runs in a subprocess so it picks up the new build\n"}
+,{"stream_name":"stdout","time":263.293426662,"data":"/usr/bin/python3 -u /kaggle/working/repo/src/train.py --datasets /kaggle/input --splits /kaggle/working/repo/data/splits/dev_v1.json --run-id E06 --out /kaggle/working/E06 --cache /kaggle/temp/cache560 --channels-last --resume --folds 0,1,2,3,4 --epochs 25 --size 448 --batch 16 --backbone densenet121 --head ordinal --workers 2 --tta --pretrain-corpora EyePACS --pretrain-epochs 5 --hypothesis eyepacs-pretraining-then-finetune-on-dev-pool\n"}
+,{"stream_name":"stdout","time":265.499255109,"data":"COMMIT 219881c05e0450e76f68c7cd579d0653fd4d2652\n"}
+,{"stream_name":"stdout","time":265.500093184,"data":"RUN E06\n"}
+,{"stream_name":"stdout","time":265.500860665,"data":"HYPOTHESIS eyepacs-pretraining-then-finetune-on-dev-pool\n"}
+,{"stream_name":"stdout","time":265.554184483,"data":"device=cuda  torch=2.5.1+cu121  gpu=Tesla P100-PCIE-16GB\n"}
+,{"stream_name":"stdout","time":265.684650133,"data":"[gpu] sm_60 usable\n"}
+,{"stream_name":"stdout","time":324.336658506,"data":"[corpora] IDRiD          516 images\n"}
+,{"stream_name":"stdout","time":324.358927144,"data":"[corpora] Messidor-2    1744 images\n"}
+,{"stream_name":"stdout","time":324.36195851,"data":"  IDRiD       n=   516  DR0=168 DR1=25 DR2=168 DR3=93 DR4=62   dme_supervised=  516 (exact=516)\n"}
+,{"stream_name":"stdout","time":324.362824742,"data":"  Messidor-2  n=  1744  DR0=1017 DR1=270 DR2=347 DR3=75 DR4=35   dme_supervised= 1744 (exact=151)\n"}
+,{"stream_name":"stdout","time":324.365079808,"data":"[split] /kaggle/working/repo/data/splits/dev_v1.json fingerprint=0cfbbfeb081999af 5 folds\n"}
+,{"stream_name":"stdout","time":325.099906073,"data":"[corpora] EyePACS      35126 images\n"}
+,{"stream_name":"stdout","time":325.136718802,"data":"  EyePACS     n= 35126  DR0=25810 DR1=2443 DR2=5292 DR3=873 DR4=708   dme_supervised=    0 (exact=0)\n"}
+,{"stream_name":"stdout","time":325.365929739,"data":"[cache] decoding 37386 images -\u003e /kaggle/temp/cache560\n"}
+,{"stream_name":"stdout","time":362.15107443,"data":"[cache]   250/37386  37s, ~5464s left\n"}
+,{"stream_name":"stdout","time":398.9984118,"data":"[cache]   500/37386  74s, ~5432s left\n"}
+,{"stream_name":"stdout","time":405.665765557,"data":"[cache]   750/37386  80s, ~3922s left\n"}
+,{"stream_name":"stdout","time":409.925918825,"data":"[cache]   1000/37386  85s, ~3077s left\n"}
+,{"stream_name":"stdout","time":414.334418773,"data":"[cache]   1250/37386  89s, ~2572s left\n"}
+,{"stream_name":"stdout","time":418.698372662,"data":"[cache]   1500/37386  93s, ~2233s left\n"}
+,{"stream_name":"stdout","time":422.07441657,"data":"[cache]   1750/37386  97s, ~1969s left\n"}
+,{"stream_name":"stdout","time":425.194761131,"data":"[cache]   2000/37386  100s, ~1766s left\n"}
+,{"stream_name":"stdout","time":428.165885735,"data":"[cache]   2250/37386  103s, ~1605s left\n"}
+,{"stream_name":"stdout","time":433.219617665,"data":"[cache]   2500/37386  108s, ~1505s left\n"}
+,{"stream_name":"stdout","time":438.26312753,"data":"[cache]   2750/37386  113s, ~1422s left\n"}
+,{"stream_name":"stdout","time":443.18161328,"data":"[cache]   3000/37386  118s, ~1350s left\n"}
+,{"stream_name":"stdout","time":448.295702378,"data":"[cache]   3250/37386  123s, ~1291s left\n"}
+,{"stream_name":"stdout","time":453.26619551,"data":"[cache]   3500/37386  128s, ~1238s left\n"}
+,{"stream_name":"stdout","time":458.158148203,"data":"[cache]   3750/37386  133s, ~1191s left\n"}
+,{"stream_name":"stdout","time":463.032565236,"data":"[cache]   4000/37386  138s, ~1149s left\n"}
+,{"stream_name":"stdout","time":467.963823124,"data":"[cache]   4250/37386  143s, ~1112s left\n"}
+,{"stream_name":"stdout","time":472.834127022,"data":"[cache]   4500/37386  147s, ~1078s left\n"}
+,{"stream_name":"stdout","time":477.71158869,"data":"[cache]   4750/37386  152s, ~1047s left\n"}
+,{"stream_name":"stdout","time":482.696848207,"data":"[cache]   5000/37386  157s, ~1019s left\n"}
+,{"stream_name":"stdout","time":487.671385847,"data":"[cache]   5250/37386  162s, ~993s left\n"}
+,{"stream_name":"stdout","time":492.498702943,"data":"[cache]   5500/37386  167s, ~969s left\n"}
+,{"stream_name":"stdout","time":497.357890443,"data":"[cache]   5750/37386  172s, ~946s left\n"}
+,{"stream_name":"stdout","time":502.230727704,"data":"[cache]   6000/37386  177s, ~925s left\n"}
+,{"stream_name":"stdout","time":506.903691281,"data":"[cache]   6250/37386  182s, ~904s left\n"}
+,{"stream_name":"stdout","time":511.733058864,"data":"[cache]   6500/37386  186s, ~886s left\n"}
+,{"stream_name":"stdout","time":516.63563896,"data":"[cache]   6750/37386  191s, ~868s left\n"}
+,{"stream_name":"stdout","time":522.232008533,"data":"[cache]   7000/37386  197s, ~855s left\n"}
+,{"stream_name":"stdout","time":527.19985677,"data":"[cache]   7250/37386  202s, ~839s left\n"}
+,{"stream_name":"stdout","time":532.095428323,"data":"[cache]   7500/37386  207s, ~824s left\n"}
+,{"stream_name":"stdout","time":536.862120226,"data":"[cache]   7750/37386  211s, ~809s left\n"}
+,{"stream_name":"stdout","time":541.664986391,"data":"[cache]   8000/37386  216s, ~795s left\n"}
+,{"stream_name":"stdout","time":546.474994454,"data":"[cache]   8250/37386  221s, ~781s left\n"}
+,{"stream_name":"stdout","time":551.168563695,"data":"[cache]   8500/37386  226s, ~767s left\n"}
+,{"stream_name":"stdout","time":556.062147885,"data":"[cache]   8750/37386  231s, ~755s left\n"}
+,{"stream_name":"stdout","time":560.742737071,"data":"[cache]   9000/37386  235s, ~742s left\n"}
+,{"stream_name":"stdout","time":565.332729211,"data":"[cache]   9250/37386  240s, ~730s left\n"}
+,{"stream_name":"stdout","time":569.995718358,"data":"[cache]   9500/37386  245s, ~718s left\n"}
+,{"stream_name":"stdout","time":574.633070789,"data":"[cache]   9750/37386  249s, ~707s left\n"}
+,{"stream_name":"stdout","time":579.457086751,"data":"[cache]   10000/37386  254s, ~696s left\n"}
+,{"stream_name":"stdout","time":584.221646065,"data":"[cache]   10250/37386  259s, ~685s left\n"}
+,{"stream_name":"stdout","time":588.981854732,"data":"[cache]   10500/37386  264s, ~675s left\n"}
+,{"stream_name":"stdout","time":593.718615409,"data":"[cache]   10750/37386  268s, ~665s left\n"}
+,{"stream_name":"stdout","time":598.490662922,"data":"[cache]   11000/37386  273s, ~655s left\n"}
+,{"stream_name":"stdout","time":603.346816752,"data":"[cache]   11250/37386  278s, ~646s left\n"}
+,{"stream_name":"stdout","time":608.120515738,"data":"[cache]   11500/37386  283s, ~636s left\n"}
+,{"stream_name":"stdout","time":612.955620886,"data":"[cache]   11750/37386  288s, ~627s left\n"}
+,{"stream_name":"stdout","time":617.67696318,"data":"[cache]   12000/37386  292s, ~618s left\n"}
+,{"stream_name":"stdout","time":622.407374577,"data":"[cache]   12250/37386  297s, ~610s left\n"}
+,{"stream_name":"stdout","time":627.165643386,"data":"[cache]   12500/37386  302s, ~601s left\n"}
+,{"stream_name":"stdout","time":631.793654312,"data":"[cache]   12750/37386  306s, ~592s left\n"}
+,{"stream_name":"stdout","time":636.519614729,"data":"[cache]   13000/37386  311s, ~584s left\n"}
+,{"stream_name":"stdout","time":641.285274394,"data":"[cache]   13250/37386  316s, ~575s left\n"}
+,{"stream_name":"stdout","time":646.033500452,"data":"[cache]   13500/37386  321s, ~567s left\n"}
+,{"stream_name":"stdout","time":650.773573314,"data":"[cache]   13750/37386  325s, ~559s left\n"}
+,{"stream_name":"stdout","time":655.500182018,"data":"[cache]   14000/37386  330s, ~551s left\n"}
+,{"stream_name":"stdout","time":660.194276109,"data":"[cache]   14250/37386  335s, ~544s left\n"}
+,{"stream_name":"stdout","time":665.218849186,"data":"[cache]   14500/37386  340s, ~536s left\n"}
+,{"stream_name":"stdout","time":670.259095786,"data":"[cache]   14750/37386  345s, ~529s left\n"}
+,{"stream_name":"stdout","time":674.971025784,"data":"[cache]   15000/37386  350s, ~522s left\n"}
+,{"stream_name":"stdout","time":679.954811455,"data":"[cache]   15250/37386  355s, ~515s left\n"}
+,{"stream_name":"stdout","time":684.997248047,"data":"[cache]   15500/37386  360s, ~508s left\n"}
+,{"stream_name":"stdout","time":689.767299765,"data":"[cache]   15750/37386  364s, ~501s left\n"}
+,{"stream_name":"stdout","time":694.713539496,"data":"[cache]   16000/37386  369s, ~494s left\n"}
+,{"stream_name":"stdout","time":699.604950923,"data":"[cache]   16250/37386  374s, ~487s left\n"}
+,{"stream_name":"stdout","time":704.465649346,"data":"[cache]   16500/37386  379s, ~480s left\n"}
+,{"stream_name":"stdout","time":709.117841171,"data":"[cache]   16750/37386  384s, ~473s left\n"}
+,{"stream_name":"stdout","time":713.920943402,"data":"[cache]   17000/37386  389s, ~466s left\n"}
+,{"stream_name":"stdout","time":718.771685959,"data":"[cache]   17250/37386  393s, ~459s left\n"}
+,{"stream_name":"stdout","time":723.493799501,"data":"[cache]   17500/37386  398s, ~452s left\n"}
+,{"stream_name":"stdout","time":728.319623178,"data":"[cache]   17750/37386  403s, ~446s left\n"}
+,{"stream_name":"stdout","time":733.052698406,"data":"[cache]   18000/37386  408s, ~439s left\n"}
+,{"stream_name":"stdout","time":737.868400667,"data":"[cache]   18250/37386  412s, ~433s left\n"}
+,{"stream_name":"stdout","time":742.586071865,"data":"[cache]   18500/37386  417s, ~426s left\n"}
+,{"stream_name":"stdout","time":747.643962781,"data":"[cache]   18750/37386  422s, ~420s left\n"}
+,{"stream_name":"stdout","time":752.593657142,"data":"[cache]   19000/37386  427s, ~413s left\n"}
+,{"stream_name":"stdout","time":757.538652652,"data":"[cache]   19250/37386  432s, ~407s left\n"}
+,{"stream_name":"stdout","time":762.533453224,"data":"[cache]   19500/37386  437s, ~401s left\n"}
+,{"stream_name":"stdout","time":767.56223292,"data":"[cache]   19750/37386  442s, ~395s left\n"}
+,{"stream_name":"stdout","time":772.675665238,"data":"[cache]   20000/37386  447s, ~389s left\n"}
+,{"stream_name":"stdout","time":777.586683352,"data":"[cache]   20250/37386  452s, ~383s left\n"}
+,{"stream_name":"stdout","time":782.606328849,"data":"[cache]   20500/37386  457s, ~377s left\n"}
+,{"stream_name":"stdout","time":787.62202666,"data":"[cache]   20750/37386  462s, ~371s left\n"}
+,{"stream_name":"stdout","time":792.631645075,"data":"[cache]   21000/37386  467s, ~365s left\n"}
+,{"stream_name":"stdout","time":797.590865661,"data":"[cache]   21250/37386  472s, ~359s left\n"}
+,{"stream_name":"stdout","time":802.515771522,"data":"[cache]   21500/37386  477s, ~353s left\n"}
+,{"stream_name":"stdout","time":807.476562792,"data":"[cache]   21750/37386  482s, ~347s left\n"}
+,{"stream_name":"stdout","time":812.440454638,"data":"[cache]   22000/37386  487s, ~341s left\n"}
+,{"stream_name":"stdout","time":817.330277381,"data":"[cache]   22250/37386  492s, ~335s left\n"}
+,{"stream_name":"stdout","time":822.218381909,"data":"[cache]   22500/37386  497s, ~329s left\n"}
+,{"stream_name":"stdout","time":827.209640144,"data":"[cache]   22750/37386  502s, ~323s left\n"}
+,{"stream_name":"stdout","time":832.156464017,"data":"[cache]   23000/37386  507s, ~317s left\n"}
+,{"stream_name":"stdout","time":837.204535139,"data":"[cache]   23250/37386  512s, ~311s left\n"}
+,{"stream_name":"stdout","time":842.283325911,"data":"[cache]   23500/37386  517s, ~305s left\n"}
+,{"stream_name":"stdout","time":847.187905835,"data":"[cache]   23750/37386  522s, ~300s left\n"}
+,{"stream_name":"stdout","time":852.196348489,"data":"[cache]   24000/37386  527s, ~294s left\n"}
+,{"stream_name":"stdout","time":857.279398831,"data":"[cache]   24250/37386  532s, ~288s left\n"}
+,{"stream_name":"stdout","time":862.21906114,"data":"[cache]   24500/37386  537s, ~282s left\n"}
+,{"stream_name":"stdout","time":867.095518041,"data":"[cache]   24750/37386  542s, ~277s left\n"}
+,{"stream_name":"stdout","time":872.042326496,"data":"[cache]   25000/37386  547s, ~271s left\n"}
+,{"stream_name":"stdout","time":876.88714383,"data":"[cache]   25250/37386  552s, ~265s left\n"}
+,{"stream_name":"stdout","time":881.673639382,"data":"[cache]   25500/37386  556s, ~259s left\n"}
+,{"stream_name":"stdout","time":886.569295212,"data":"[cache]   25750/37386  561s, ~254s left\n"}
+,{"stream_name":"stdout","time":891.438296538,"data":"[cache]   26000/37386  566s, ~248s left\n"}
+,{"stream_name":"stdout","time":896.372714081,"data":"[cache]   26250/37386  571s, ~242s left\n"}
+,{"stream_name":"stdout","time":901.192698702,"data":"[cache]   26500/37386  576s, ~237s left\n"}
+,{"stream_name":"stdout","time":905.977062204,"data":"[cache]   26750/37386  581s, ~231s left\n"}
+,{"stream_name":"stdout","time":910.967590543,"data":"[cache]   27000/37386  586s, ~225s left\n"}
+,{"stream_name":"stdout","time":916.006636442,"data":"[cache]   27250/37386  591s, ~220s left\n"}
+,{"stream_name":"stdout","time":920.940567683,"data":"[cache]   27500/37386  596s, ~214s left\n"}
+,{"stream_name":"stdout","time":925.859342126,"data":"[cache]   27750/37386  600s, ~209s left\n"}
+,{"stream_name":"stdout","time":930.808263836,"data":"[cache]   28000/37386  605s, ~203s left\n"}
+,{"stream_name":"stdout","time":935.732797488,"data":"[cache]   28250/37386  610s, ~197s left\n"}
+,{"stream_name":"stdout","time":940.580851075,"data":"[cache]   28500/37386  615s, ~192s left\n"}
+,{"stream_name":"stdout","time":945.533743636,"data":"[cache]   28750/37386  620s, ~186s left\n"}
+,{"stream_name":"stdout","time":950.671590371,"data":"[cache]   29000/37386  625s, ~181s left\n"}
+,{"stream_name":"stdout","time":955.590645263,"data":"[cache]   29250/37386  630s, ~175s left\n"}
+,{"stream_name":"stdout","time":960.471036574,"data":"[cache]   29500/37386  635s, ~170s left\n"}
+,{"stream_name":"stdout","time":965.54870667,"data":"[cache]   29750/37386  640s, ~164s left\n"}
+,{"stream_name":"stdout","time":970.47248296,"data":"[cache]   30000/37386  645s, ~159s left\n"}
+,{"stream_name":"stdout","time":975.472006561,"data":"[cache]   30250/37386  650s, ~153s left\n"}
+,{"stream_name":"stdout","time":980.443616214,"data":"[cache]   30500/37386  655s, ~148s left\n"}
+,{"stream_name":"stdout","time":985.394060908,"data":"[cache]   30750/37386  660s, ~142s left\n"}
+,{"stream_name":"stdout","time":990.267045224,"data":"[cache]   31000/37386  665s, ~137s left\n"}
+,{"stream_name":"stdout","time":995.201289459,"data":"[cache]   31250/37386  670s, ~132s left\n"}
+,{"stream_name":"stdout","time":1000.098247375,"data":"[cache]   31500/37386  675s, ~126s left\n"}
+,{"stream_name":"stdout","time":1005.034013994,"data":"[cache]   31750/37386  680s, ~121s left\n"}
+,{"stream_name":"stdout","time":1009.880266505,"data":"[cache]   32000/37386  685s, ~115s left\n"}
+,{"stream_name":"stdout","time":1014.77281885,"data":"[cache]   32250/37386  689s, ~110s left\n"}
+,{"stream_name":"stdout","time":1019.620309185,"data":"[cache]   32500/37386  694s, ~104s left\n"}
+,{"stream_name":"stdout","time":1024.556268234,"data":"[cache]   32750/37386  699s, ~99s left\n"}
+,{"stream_name":"stdout","time":1029.398353116,"data":"[cache]   33000/37386  704s, ~94s left\n"}
+,{"stream_name":"stdout","time":1034.389663676,"data":"[cache]   33250/37386  709s, ~88s left\n"}
+,{"stream_name":"stdout","time":1039.610059619,"data":"[cache]   33500/37386  714s, ~83s left\n"}
+,{"stream_name":"stdout","time":1044.652427633,"data":"[cache]   33750/37386  719s, ~77s left\n"}
+,{"stream_name":"stdout","time":1049.671025656,"data":"[cache]   34000/37386  724s, ~72s left\n"}
+,{"stream_name":"stdout","time":1054.527720097,"data":"[cache]   34250/37386  729s, ~67s left\n"}
+,{"stream_name":"stdout","time":1059.520171745,"data":"[cache]   34500/37386  734s, ~61s left\n"}
+,{"stream_name":"stdout","time":1064.682604006,"data":"[cache]   34750/37386  739s, ~56s left\n"}
+,{"stream_name":"stdout","time":1070.523380563,"data":"[cache]   35000/37386  745s, ~51s left\n"}
+,{"stream_name":"stdout","time":1076.342864795,"data":"[cache]   35250/37386  751s, ~46s left\n"}
+,{"stream_name":"stdout","time":1082.307803416,"data":"[cache]   35500/37386  757s, ~40s left\n"}
+,{"stream_name":"stdout","time":1087.537098531,"data":"[cache]   35750/37386  762s, ~35s left\n"}
+,{"stream_name":"stdout","time":1092.797882688,"data":"[cache]   36000/37386  767s, ~30s left\n"}
+,{"stream_name":"stdout","time":1098.279965642,"data":"[cache]   36250/37386  773s, ~24s left\n"}
+,{"stream_name":"stdout","time":1103.267597194,"data":"[cache]   36500/37386  778s, ~19s left\n"}
+,{"stream_name":"stdout","time":1108.484473101,"data":"[cache]   36750/37386  783s, ~14s left\n"}
+,{"stream_name":"stdout","time":1113.547293061,"data":"[cache]   37000/37386  788s, ~8s left\n"}
+,{"stream_name":"stdout","time":1118.660235774,"data":"[cache]   37250/37386  793s, ~3s left\n"}
+,{"stream_name":"stdout","time":1121.373233906,"data":"[cache]   37386/37386  796s, ~0s left\n"}
+,{"stream_name":"stdout","time":1121.378479546,"data":"\n"}
+,{"stream_name":"stdout","time":1121.379771556,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":1121.380491093,"data":"PRETRAIN on 35126 images (5 epochs)\n"}
+,{"stream_name":"stdout","time":1121.381224128,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":1128.12159534,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stdout","time":1130.678793234,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stdout","time":1130.680136418,"data":"  File \"/kaggle/working/repo/src/train.py\", line 630, in \u003cmodule\u003e\n"}
+,{"stream_name":"stdout","time":1130.681044818,"data":"    main()\n"}
+,{"stream_name":"stdout","time":1130.68209357,"data":"  File \"/kaggle/working/repo/src/train.py\", line 582, in main\n"}
+,{"stream_name":"stdout","time":1130.683141475,"data":"    init_state = pretrain(pre_rows, args, device, out_dir, amp_dtype) if pre_rows else None\n"}
+,{"stream_name":"stdout","time":1130.68403694,"data":"                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stdout","time":1130.685389189,"data":"  File \"/kaggle/working/repo/src/train.py\", line 293, in pretrain\n"}
+,{"stream_name":"stdout","time":1130.686282185,"data":"    if init_state is not None:\n"}
+,{"stream_name":"stdout","time":1130.687201914,"data":"       ^^^^^^^^^^\n"}
+,{"stream_name":"stdout","time":1130.688076681,"data":"NameError: name 'init_state' is not defined\n"}
+,{"stream_name":"stdout","time":1131.704226583,"data":"\n"}
+,{"stream_name":"stdout","time":1131.704266719,"data":"exit=1  868s\n"}
+,{"stream_name":"stdout","time":1131.731968637,"data":"    0.01 MB  train.log\n"}
+,{"stream_name":"stderr","time":1136.642564106,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1136.642608437,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1136.791412824,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1136.791457651,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1137.396649689,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":1137.735678577,"data":"[NbConvertApp] Writing 23832 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":1140.292147918,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1141.177633073,"data":"[NbConvertApp] Writing 313755 bytes to __results__.html\n"}
+]

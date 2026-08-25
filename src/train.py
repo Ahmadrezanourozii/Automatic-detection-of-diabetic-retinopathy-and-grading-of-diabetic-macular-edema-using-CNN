@@ -290,9 +290,6 @@ def pretrain(rows, args, device, out_dir, amp_dtype):
                     num_workers=args.workers, pin_memory=True, drop_last=True,
                     persistent_workers=args.workers > 0)
     model = MultiOutputNet(args.backbone, True, args.head, args.hidden, args.dropout).to(device)
-    if init_state is not None:
-        model.load_state_dict({k: v.to(device) for k, v in init_state.items()})
-        print("  initialised from the pretrained backbone", flush=True)
     if args.channels_last:
         model = model.to(memory_format=torch.channels_last)
     opt = torch.optim.AdamW(model.parameters(), lr=args.lr_pretrain,

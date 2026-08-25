@@ -320,6 +320,40 @@ comparison.
 
 ---
 
+## §11. A text patch landed in two functions at once  — 2026-08-25, FIXED
+
+**Symptom.** E06 died twenty minutes in, right after building a 37 386-image cache and
+starting the pretraining phase:
+
+    NameError: name 'init_state' is not defined
+
+**Root cause.** The `init_state` block belongs in `run_fold()`. It was added with a
+string replacement whose anchor —
+
+    model = MultiOutputNet(...).to(device)
+    if args.channels_last:
+
+— appears **identically in both `pretrain()` and `run_fold()`**, and `str.replace` replaces
+every occurrence. So the block was inserted into `pretrain()` too, where no such variable
+exists.
+
+**Why it survived every check.** `ast.parse` passed, the module imported fine, and the
+misplaced line only executes once `pretrain()` is actually called — which happens after the
+corpora load, after the split check and after 37 k images are cached. Every cheap check
+this project had was blind to it, and the expensive one caught it.
+
+**Fix.** Removed the block from `pretrain()`, and added **`src/lint.py`**: a symbol-table
+pass that reports any name referenced in a function but never bound there, at module scope,
+or as a builtin. It needs no data, no GPU and no imports, runs in milliseconds, and is now
+run before every push.
+
+**How to recognise it if it comes back.** A `NameError` deep into a run, in a function you
+did not think you were editing. When patching by string replacement, either anchor on
+something unique to the target function or use an editor that reports how many matches it
+replaced — an anchor that appears twice in a file is a landmine.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.
