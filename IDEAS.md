@@ -45,6 +45,7 @@ that improve a working model are worth nothing until one exists.
 | I05 | Backbone comparison: EfficientNet, ConvNeXt, Swin, retinal foundation model (RETFound). | untested | Do not start before E01. |
 | I08 | Loss weighting: α/β sweep, then uncertainty-based task weighting. | untested | Low expected value until the heads work at all. |
 | I09 | Hard vs soft gating of the DME branch; cost of DR-head errors propagating. | untested | See `PROTOCOL.md` §5.1 — the gate discards nothing, so this is about metric definition more than architecture. |
+| I10b | **Acquire a full-resolution Messidor-2 mirror** | **queued, high value** | Our mirror is 512 px and holds 270 of the 295 Mild images, the class that carries most of the error. Microaneurysms are 1–2 px at 448. Until this exists, the Mild class is capped by the data, not the model. |
 | I10 | Resolution: 512 vs 640 vs 768, traded against batch size and quota. | untested | **Confounded on Messidor-2**, which is already 512 px (`ISSUES.md` §4). Run on IDRiD + APTOS only. |
 | I12b | **Acquire Messidor-1** — the only realistic external test for 3-class DME | **queued, not started** | Same clinical definition as IDRiD. Needs a duplicate check against our Messidor-2 mirror first (`ISSUES.md` §3). Until this exists there is no external DME number, and that is a stated limitation. |
 | I14 | Grad-CAM on correct and incorrect cases. | untested | Addresses the interpretability gap *and* works as a bug detector: if the model attends to the optic disc rather than to lesions, something is wrong. Cheap. |

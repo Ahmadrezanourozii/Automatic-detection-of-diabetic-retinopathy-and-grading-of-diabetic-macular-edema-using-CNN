@@ -49,7 +49,15 @@ def load_runs(runs_dir):
 
 
 def headline(run):
-    """The pooled out-of-fold metrics if present, else the mean over completed folds."""
+    """The corrected re-scoring if present, then pooled out-of-fold, then a fold mean.
+
+    `recomputed` wins because it is the run re-scored under the current evaluation
+    definition from its archived logits (ISSUES.md §12). Preferring the stale `pooled_oof`
+    would quietly report a number computed under a definition we have since rejected.
+    """
+    if run.get("recomputed"):
+        return (run["recomputed"]["metrics"], run["recomputed"]["n_images"],
+                "pooled OOF, re-scored")
     if run.get("pooled_oof"):
         return run["pooled_oof"]["metrics"], run["pooled_oof"]["n_images"], "pooled OOF"
     folds = [f["metrics"] for f in run.get("folds", []) if f.get("metrics")]
@@ -92,6 +100,7 @@ def experiments_table(runs):
             continue
         c = r.get("config", {})
         dr, dme = m.get("dr", {}), m.get("dme_ungated", {})
+        tuned = (r.get("threshold_tuning") or {}).get("summary", {})
         beats = []
         for k, lbl in (("dr", "DR"), ("dme_ungated", "DME")):
             if m.get(k, {}).get("beats_floor") is True:
@@ -105,6 +114,17 @@ def experiments_table(runs):
             f"{dr.get('accuracy',0)*100:.1f}% | {dr.get('qwk',0):.3f} | "
             f"{dme.get('accuracy',0)*100:.1f}% | {dme.get('qwk',0):.3f} | "
             f"{', '.join(beats) or '—'} |")
+        if tuned.get("DR 5-class", {}).get("tuned"):
+            t = tuned["DR 5-class"]
+            sig = "significant" if t["significant"] else "n.s."
+            lines.append(
+                f"| `{r['run_id']}`+cuts | `{r['commit'][:7]}` | "
+                f"cross-fitted decision cut-points | tuned on other folds only | "
+                f"{t['tuned']['n']} | {t['tuned']['accuracy']*100:.1f}% | "
+                f"{t['tuned']['qwk']:.3f} | "
+                f"{tuned.get('DME 3-class (ungated)',{}).get('tuned',{}).get('accuracy',0)*100:.1f}% | "
+                f"{tuned.get('DME 3-class (ungated)',{}).get('tuned',{}).get('qwk',0):.3f} | "
+                f"QWK {t['qwk_diff']:+.3f} {sig} |")
     return "\n".join(lines)
 
 

@@ -53,6 +53,35 @@ alone is not allowed to lead (`PROTOCOL.md` §4).
 was 30 points above what this pipeline achieves on that set — and that pipeline is a working
 one, where the archived original scored 27.2 %.
 
+
+### E05 — what the confusion matrix says about *where* to spend the next GPU-hour
+
+Two things are visible in `docs/generated/confusion_dr.png` that the summary metrics hide.
+
+**The ordinal structure works.** Errors sit almost entirely on the adjacent-grade band. The
+model never once predicted Severe or Proliferative for a No-DR or Mild image — the entire
+top-right of the matrix is zero. That is the threshold decomposition doing its job, and it is
+the failure mode the previous version of this thesis identified as its main weakness.
+
+**One cell holds most of the loss: Mild → No DR, 203 of 295 images (69 %).** Mild NPDR is
+defined by the presence of a few microaneurysms, which are roughly 30–100 µm across. At
+448 px over a 50° field they span barely one or two pixels. The error is therefore most
+likely a **resolution** limit rather than a loss, backbone or sampling problem — the
+information may simply not survive the downsampling.
+
+That reading is testable and cheap, and it changes the queue: resolution moves ahead of
+focal loss and aggressive resampling, both of which reweight a signal that may not be there.
+
+**But the test is confounded, and the confound is decisive.** Messidor-2 in our mirror is
+already downsampled to 512 px (`ISSUES.md` §4), and it holds 270 of the 295 Mild images.
+Training at 640 px would upsample Messidor-2 and add nothing to precisely the corpus that
+carries the problem. So:
+
+* Resolution must be tested on IDRiD and reported per corpus, not pooled; **and**
+* the higher-value move is to **acquire a full-resolution Messidor-2 mirror**. Without it,
+  the Mild class is capped by the data rather than by the model, and no amount of training
+  will fix it.
+
 ### E05 — three things to fix, in order of value
 
 1. **The screening operating point is wrong.** Referable-DR sensitivity is 73.7 % at the
