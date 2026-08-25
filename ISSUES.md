@@ -192,6 +192,56 @@ laterality pass, and until it does, every Messidor-2 result carries that caveat.
 
 ---
 
+## §8. IDRiD image names are not unique across its official splits  — 2026-08-25, FIXED
+
+**Symptom.** `src/check_invariants.py` reported "cached manifest matches the source label
+CSVs — **413** rows identical" for a corpus that has **516** images.
+
+**Root cause.** IDRiD numbers its training set and its testing set independently, both
+starting at `IDRiD_001`. So `IDRiD_001` names two different images, of two different
+patients, with different labels:
+
+| name | split | DR | DME |
+|---|---|---|---|
+| IDRiD_001 | train | 3 | 2 |
+| IDRiD_001 | test | 4 | 0 |
+
+103 names collide this way — every name in the test set.
+
+**What it had already broken, silently.** Three things, none of which would have raised an
+error:
+
+1. **The image cache in E01 was corrupt.** It wrote one file per `name`, so each of the 103
+   test images *overwrote* the train image with the same number. The run in progress had
+   written 398 files for what should have been 516, and 103 of those "training" images were
+   actually test images.
+2. **Features would have been read against the wrong labels.** Rows 1–103 of the training
+   set would have received test images' pixels while keeping training labels — simultaneous
+   label corruption and train/test contamination.
+3. **The grouping was wrong.** `group = name` merged the train and test `IDRiD_001` into one
+   group, so a group-wise split would have treated two unrelated patients as one unit.
+
+Any accuracy that came out of that would have been meaningless, and nothing in the run would
+have looked wrong.
+
+**Fix.** Every row now carries `uid = f"IDRiD_{split}_{name}"`, unique across the corpus.
+`uid` is used for the cache filename, the feature index and the group. `name` is kept for
+display only. Applied in `data_idrid.py`, `e01_linear_probe.py`, `dedup_groups.py` and
+`check_invariants.py`; the corrupt cache was deleted and E01 restarted from scratch.
+
+A new invariant, "image identifiers are unique", now fails loudly if this recurs, and
+`build_cache` asserts uid uniqueness before writing anything.
+
+**How to recognise it if it comes back.** A count that is short by exactly the size of one
+split. More generally: **never key on a filename that a dataset's own directory structure
+disambiguates.** IDRiD, and datasets like it, rely on the folder to make the name unique.
+
+**Worth noting.** This was found by an invariant check written for an unrelated purpose,
+before it had produced a single number — which is the entire argument for writing
+`check_invariants.py` before the first result rather than after the tenth.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.

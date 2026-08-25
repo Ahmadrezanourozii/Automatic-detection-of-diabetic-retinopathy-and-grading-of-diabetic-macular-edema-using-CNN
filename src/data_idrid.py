@@ -1,8 +1,14 @@
 """
 data_idrid.py — the IDRiD manifest, built once and cached.
 
-One row per image: name, DR grade, DME grade, official split, fovea centre, optic-disc
-centre, and the absolute path. Nothing here loads pixels; that is the caller's job.
+One row per image: uid, name, DR grade, DME grade, official split, fovea centre,
+optic-disc centre, and the absolute path. Nothing here loads pixels; that is the caller's
+job.
+
+`uid` exists because **IDRiD image names are not unique**. The training set and the testing
+set each number their images from IDRiD_001, so 103 names appear twice with different
+patients, different images and different labels (ISSUES.md §8). Key on `uid`, never on
+`name`.
 
 Label semantics (ISSUES.md §2 — the old code got these wrong):
   DR  0..4  ICDR: none / mild / moderate / severe / proliferative
@@ -93,6 +99,8 @@ def build_manifest(idrid_root: str) -> list[dict]:
                 alt = os.path.join(imgs, img_dir, name + ".JPG")
                 path = alt if os.path.exists(alt) else path
             rows.append({
+                # unique across the whole corpus; `name` alone is NOT (ISSUES.md §8)
+                "uid": f"IDRiD_{split}_{name}",
                 "name": name,
                 "dr": int(r["Retinopathy grade"].strip()),
                 "dme": int(r[dme_key].strip()),
@@ -102,8 +110,10 @@ def build_manifest(idrid_root: str) -> list[dict]:
                 "path": path,
                 # IDRiD publishes no patient IDs and one image per eye, so each image is
                 # its own group until the near-duplicate pass says otherwise.
-                # PROTOCOL.md §1.
-                "group": name,
+                # PROTOCOL.md §1. Grouping on `name` would merge the train and test images
+                # that share a number into one group -- different patients, different
+                # labels (ISSUES.md §8).
+                "group": f"IDRiD_{split}_{name}",
                 "source": "IDRiD",
             })
     return rows
@@ -133,3 +143,6 @@ if __name__ == "__main__":
     print(f"  with fovea coords     : {sum(1 for r in rows if r['fovea'])}")
     print(f"  with optic-disc coords: {sum(1 for r in rows if r['optic_disc'])}")
     print(f"  missing image files   : {sum(1 for r in rows if not os.path.exists(r['path']))}")
+    print(f"  unique uids           : {len(set(r['uid'] for r in rows))}  "
+          f"(unique bare names: {len(set(r['name'] for r in rows))} -- "
+          f"why uid exists, ISSUES.md §8)")

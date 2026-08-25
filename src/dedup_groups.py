@@ -119,11 +119,14 @@ def enumerate_images(datasets_root: str) -> list[dict]:
     for enc in ("B.%20Disease%20Grading", "B. Disease Grading"):
         base = os.path.join(idrid, enc, "B. Disease Grading", "1. Original Images")
         if os.path.isdir(base):
-            for sub in ("a. Training Set", "b. Testing Set"):
+            for sub, tag in (("a. Training Set", "train"), ("b. Testing Set", "test")):
                 d = os.path.join(base, sub)
                 for fn in sorted(os.listdir(d)):
                     if fn.lower().endswith((".jpg", ".jpeg", ".png")):
-                        out.append({"corpus": "IDRiD", "name": os.path.splitext(fn)[0],
+                        # the split tag is required: IDRiD numbers both sets from 001,
+                        # so bare names collide 103 times (ISSUES.md §8)
+                        out.append({"corpus": "IDRiD",
+                                    "name": f"{tag}_{os.path.splitext(fn)[0]}",
                                     "path": os.path.join(d, fn)})
             break
 

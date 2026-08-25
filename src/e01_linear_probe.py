@@ -64,7 +64,8 @@ def build_cache(rows, cache_dir, cache_size=640):
     dominate the runtime and make every rerun expensive.
     """
     os.makedirs(cache_dir, exist_ok=True)
-    todo = [r for r in rows if not os.path.exists(os.path.join(cache_dir, r["name"] + ".png"))]
+    assert len({r["uid"] for r in rows}) == len(rows), "uids are not unique"
+    todo = [r for r in rows if not os.path.exists(os.path.join(cache_dir, r["uid"] + ".png"))]
     if not todo:
         print(f"[cache] {len(rows)} images already cached in {cache_dir}")
         return
@@ -73,7 +74,7 @@ def build_cache(rows, cache_dir, cache_size=640):
     t0 = time.time()
     for i, r in enumerate(todo, 1):
         img = load_cropped(r["path"], cache_size)
-        cv2.imwrite(os.path.join(cache_dir, r["name"] + ".png"), img)
+        cv2.imwrite(os.path.join(cache_dir, r["uid"] + ".png"), img)
         if i % 50 == 0 or i == len(todo):
             el = time.time() - t0
             print(f"[cache]   {i}/{len(todo)}  {el:.0f}s elapsed, "
@@ -95,7 +96,7 @@ def extract_features(rows, cache_dir, variant, size, device, batch=32):
         for s in range(0, len(rows), batch):
             chunk = rows[s:s + batch]
             xs = np.stack([
-                apply_variant(cv2.imread(os.path.join(cache_dir, r["name"] + ".png"),
+                apply_variant(cv2.imread(os.path.join(cache_dir, r["uid"] + ".png"),
                                          cv2.IMREAD_COLOR), variant, size)
                 for r in chunk])
             out = model(torch.from_numpy(xs).to(device))
