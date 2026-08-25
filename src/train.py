@@ -50,6 +50,10 @@ def seed_all(seed):
 
 
 # ── image cache ───────────────────────────────────────────────────────────────
+CACHE_EXT = ".jpg"
+CACHE_QUALITY = 95
+
+
 def build_cache(rows, cache_dir, cache_size=560):
     """Decode, border-crop and downscale every source image once.
 
@@ -59,7 +63,8 @@ def build_cache(rows, cache_dir, cache_size=560):
     """
     os.makedirs(cache_dir, exist_ok=True)
     assert len({r["uid"] for r in rows}) == len(rows), "uids are not unique"
-    todo = [r for r in rows if not os.path.exists(os.path.join(cache_dir, r["uid"] + ".png"))]
+    todo = [r for r in rows
+            if not os.path.exists(os.path.join(cache_dir, r["uid"] + CACHE_EXT))]
     if not todo:
         print(f"[cache] all {len(rows)} images already cached", flush=True)
         return
@@ -76,7 +81,8 @@ def build_cache(rows, cache_dir, cache_size=560):
             s = cache_size / max(h, w)
             img = cv2.resize(img, (int(round(w * s)), int(round(h * s))),
                              interpolation=cv2.INTER_AREA)
-        cv2.imwrite(os.path.join(cache_dir, r["uid"] + ".png"), img)
+        cv2.imwrite(os.path.join(cache_dir, r["uid"] + CACHE_EXT), img,
+                    [cv2.IMWRITE_JPEG_QUALITY, CACHE_QUALITY])
         if i % 250 == 0 or i == len(todo):
             el = time.time() - t0
             print(f"[cache]   {i}/{len(todo)}  {el:.0f}s, ~{el/i*(len(todo)-i):.0f}s left",
@@ -125,7 +131,7 @@ class FundusDataset(Dataset):
 
     def __getitem__(self, i):
         r = self.rows[i]
-        img = cv2.imread(os.path.join(self.cache_dir, r["uid"] + ".png"), cv2.IMREAD_COLOR)
+        img = cv2.imread(os.path.join(self.cache_dir, r["uid"] + CACHE_EXT), cv2.IMREAD_COLOR)
         if img is None:
             img = np.zeros((self.size, self.size, 3), np.uint8)
         if self.train:

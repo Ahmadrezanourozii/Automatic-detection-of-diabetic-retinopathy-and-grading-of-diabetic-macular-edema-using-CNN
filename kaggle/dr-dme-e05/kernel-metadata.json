@@ -6,7 +6,7 @@
  "kernel_type": "notebook",
  "is_private": true,
  "enable_gpu": true,
- "accelerator": "nvidiaTeslaT4",
+ "machine_shape": "GPU T4 x2",
  "enable_internet": true,
  "dataset_sources": [
   "aaryapatel98/indian-diabetic-retinopathy-image-dataset",

@@ -19,6 +19,10 @@ DATASETS = [
     "google-brain/messidor2-dr-grades",
     "mariaherrerot/messidor2preprocess",
 ]
+# EyePACS 2015 (~35 k images, DR only). Pretraining corpus, never a test set -- its labels
+# are single-grader and noisy. Attached only for runs that ask for it, because it adds
+# 7.8 GB and ~10 minutes of cache building.
+EYEPACS = "tanlikesmath/diabetic-retinopathy-resized"
 
 
 def cells(run_id, train_args, commit):
@@ -126,6 +130,8 @@ def main():
     ap.add_argument("--slug", default=None)
     ap.add_argument("--gpu", default="GPU T4 x2")
     ap.add_argument("--out", default=None)
+    ap.add_argument("--eyepacs", action="store_true",
+                    help="attach the EyePACS 2015 corpus for pretraining")
     ap.add_argument("--push", action="store_true")
     a = ap.parse_args()
 
@@ -163,7 +169,7 @@ def main():
         # pin is not honoured.
         "machine_shape": a.gpu,
         "enable_internet": True,
-        "dataset_sources": DATASETS,
+        "dataset_sources": DATASETS + ([EYEPACS] if a.eyepacs else []),
         "competition_sources": [],
         "kernel_sources": [],
     }

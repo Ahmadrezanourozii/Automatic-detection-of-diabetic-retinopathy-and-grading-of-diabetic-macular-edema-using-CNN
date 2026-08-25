@@ -46,6 +46,23 @@ def find_file(roots, *name_fragments, must_end=None):
     return None
 
 
+def dataset_root_of(path, roots):
+    """The top-level corpus directory a file belongs to.
+
+    Without this, load_eyepacs' `find_dir(roots, "train")` happily matched IDRiD's
+    "a. Training Set" and indexed the wrong corpus's images. Each loader must stay inside
+    the dataset that supplied its label file.
+    """
+    path = os.path.abspath(path)
+    for root in roots:
+        root = os.path.abspath(root)
+        if not path.startswith(root + os.sep):
+            continue
+        rel = os.path.relpath(path, root).split(os.sep)
+        return os.path.join(root, rel[0]) if len(rel) > 1 else root
+    return os.path.dirname(path)
+
+
 def find_dir(roots, *fragments):
     frags = [f.lower() for f in fragments]
     for root in roots:
@@ -185,7 +202,7 @@ def load_aptos(roots):
             continue
         if not rows or "id_code" not in rows[0] or "diagnosis" not in rows[0]:
             continue
-        idx = index_images(find_dir(roots, "aptos") or (roots[0] if roots else None))
+        idx = index_images(dataset_root_of(p, roots))
         for r in rows:
             code = r["id_code"].strip()
             if code in seen:
@@ -229,7 +246,7 @@ def load_eyepacs(roots):
     lvl = "level" if rows and "level" in rows[0] else "diagnosis"
     if not rows or key not in rows[0] or lvl not in rows[0]:
         return []
-    idx = index_images(find_dir(roots, "train") or (roots[0] if roots else None))
+    idx = index_images(dataset_root_of(p, roots))
     out = []
     for r in rows:
         code = r[key].strip()
