@@ -109,7 +109,10 @@ def main():
 
     if a.commit == "HEAD":
         a.commit = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode().strip()
-    slug = a.slug or f"drdme-{a.run_id.lower()}"
+    # Kaggle derives the slug from the TITLE, so they must agree or every
+    # status/output call afterwards addresses a kernel that does not exist
+    slug = a.slug or f"dr-dme-{a.run_id.lower()}"
+    title = slug.replace("-", " ").upper().replace("DR DME", "DR/DME")
     out = a.out or f"kaggle/{slug}"
     os.makedirs(out, exist_ok=True)
 
@@ -125,7 +128,7 @@ def main():
 
     meta = {
         "id": f"{OWNER}/{slug}",
-        "title": f"DR/DME {a.run_id}",
+        "title": title,
         "code_file": f"{slug}.ipynb",
         "language": "python",
         "kernel_type": "notebook",

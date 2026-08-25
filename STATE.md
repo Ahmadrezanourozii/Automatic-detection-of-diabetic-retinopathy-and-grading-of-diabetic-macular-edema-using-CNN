@@ -3,7 +3,7 @@
 **Project:** Automatic detection of diabetic retinopathy (DR) and grading of diabetic
 macular edema (DME) from a single retinal fundus photograph.
 **Owner:** Alireza Chegeni (810102111), MSc, ECE, University of Tehran.
-**Last updated:** 2026-08-25 — session 1 (audit; protocol agreed; E01 running).
+**Last updated:** 2026-08-25 — session 2 (autonomous mode; E05 training on Kaggle).
 
 ---
 
@@ -46,19 +46,42 @@ held-out set. The honest current state of the art for this repository is:
    call, revisable. **External DME test: Messidor-1**, to be acquired.
 5. Development pool = IDRiD 516 + Messidor-2 1 744 = 2 260; EyePACS for pretraining only.
 
+## Operating mode
+
+**Autonomous, since 2026-08-25.** The owner has asked for the loop to run without
+per-step approval: push to GitHub → run on Kaggle → fetch logs → analyse → change
+something → run again. Protocol and honest reporting stay as they are; what is dropped is
+waiting for sign-off between iterations.
+
+## Infrastructure — live
+
+| piece | where |
+|---|---|
+| code | `github.com/Ahmadrezanourozii/Automatic-detection-...-using-CNN` (branch `main`) |
+| training | Kaggle notebook `ah22reza/dr-dme-<runid>`, GPU, clones the repo at a pinned SHA |
+| data | attached Kaggle datasets — nothing uploaded, nothing downloaded locally |
+| archive | `runs/<RUN_ID>/results.json` + `train.log` + `oof_*.npz`, committed permanently |
+| launch | `python kaggle/build_kernel.py --run-id EXX --args "..." --push` |
+| fetch | `python kaggle/fetch.py --run-id EXX --wait` |
+
+Kaggle datasets attached: `aaryapatel98/indian-diabetic-retinopathy-image-dataset`,
+`google-brain/messidor2-dr-grades`, `mariaherrerot/messidor2preprocess`.
+
 ## What is running right now
 
-**E01** — frozen-feature linear probe on IDRiD, locally on Apple-silicon MPS. No Kaggle
-quota spent. Three preprocessing variants as a declared factorial (`src/e01_linear_probe.py`).
+**E05** — the first real training run. Multi-output DenseNet121, **ordinal threshold heads**,
+5-fold grouped CV over the 2 260-image development pool, 448 px, 30 epochs, EMA, balanced
+sampling. Hypothesis: ordinal heads plus Messidor-2 partial-label supervision beat the
+frozen-feature probe on both heads.
 
 ## Blocking
 
-1. **Credentials.** A GitHub PAT and a Kaggle API key were pasted into a chat transcript on
-   2026-08-25. Both must be revoked and reissued before any push or Kaggle run. Nothing has
-   been pushed; the repo is committed locally only.
-2. **Unanswered:** defence date, weekly GPU budget, Kaggle username.
-3. **To acquire:** Messidor-1 (external DME validation), after a pHash duplicate check
-   against our Messidor-2 mirror (`ISSUES.md` §3).
+1. **Credentials must be rotated when convenient.** Two GitHub PATs and two Kaggle keys have
+   now been pasted into chat transcripts. They work and are in `.env` (gitignored, verified
+   absent from git history), but they are exposed.
+2. **Unknown:** defence date, weekly GPU budget. Both affect planning, neither blocks work.
+3. **To acquire:** Messidor-1 (external DME validation), after a duplicate check against the
+   Messidor-2 mirror (`ISSUES.md` §3).
 
 ## Next three planned experiments
 
