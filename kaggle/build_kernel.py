@@ -100,7 +100,8 @@ with open(LOG, "a") as f:
 print(f"\\nexit={{p.returncode}}  {{time.time()-t0:.0f}}s")
 '''
 
-    collect = f'''# keep results.json, the log and the out-of-fold predictions; drop the heavy checkpoints
+    collect = f'''# keep results.json, the log, the OOF predictions and the selected weights;
+# drop only the resumable checkpoints, which carry optimiser state and are ~3x larger
 import glob, os, shutil, json
 RUN_ID = "{run_id}"
 OUT = f"/kaggle/working/{{RUN_ID}}"

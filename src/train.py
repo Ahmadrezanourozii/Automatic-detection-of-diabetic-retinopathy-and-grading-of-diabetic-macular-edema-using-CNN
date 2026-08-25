@@ -450,6 +450,12 @@ def run_fold(rows, fold, args, device, out_dir, amp_dtype, init_state=None):
                     "ema": ema.shadow if ema else None}, ckpt_path)
 
     if best_state is not None:
+        # The resumable ckpt_<fold>.pt carries optimiser and scheduler state and is ~90 MB;
+        # this is the selected weights alone (~28 MB), which is what external validation,
+        # ensembling and Grad-CAM actually need. Without it a finished run leaves no model.
+        torch.save({"state_dict": best_state, "config": vars(args), "fold": fold,
+                    "score": best},
+                   os.path.join(out_dir, f"best_{fold}.pt"))
         final_model = ema_model if ema_model is not None else model
         final_model.load_state_dict(best_state)
         dr_lg, dme_lg, order = predict(final_model, dl_va, device, args.head,
