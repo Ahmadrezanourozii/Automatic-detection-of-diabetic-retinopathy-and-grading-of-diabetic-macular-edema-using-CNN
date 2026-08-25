@@ -1,0 +1,146 @@
+{
+ "dr_official|rgb-green_clahe|acc": {
+  "diff": -0.03681067961165048,
+  "ci95": [
+   -0.13616504854368935,
+   0.06796116504854371
+  ],
+  "significant": false
+ },
+ "dr_official|rgb-green_clahe|QWK": {
+  "diff": -0.06626757942305647,
+  "ci95": [
+   -0.20527243272876775,
+   0.07301131548383931
+  ],
+  "significant": false
+ },
+ "dr_official|rgb-green_clahe_raw01|acc": {
+  "diff": 0.00038349514563106756,
+  "ci95": [
+   -0.09708737864077671,
+   0.09708737864077671
+  ],
+  "significant": false
+ },
+ "dr_official|rgb-green_clahe_raw01|QWK": {
+  "diff": -0.0643929966808741,
+  "ci95": [
+   -0.19605460780149067,
+   0.05849882428613269
+  ],
+  "significant": false
+ },
+ "dr_official|green_clahe-green_clahe_raw01|acc": {
+  "diff": 0.037194174757281546,
+  "ci95": [
+   -0.06796116504854371,
+   0.14563106796116504
+  ],
+  "significant": false
+ },
+ "dr_official|green_clahe-green_clahe_raw01|QWK": {
+  "diff": 0.0018745827421823792,
+  "ci95": [
+   -0.09834129035001797,
+   0.10090487950788014
+  ],
+  "significant": false
+ },
+ "dme_official_ungated|rgb-green_clahe|acc": {
+  "diff": 0.028961165048543683,
+  "ci95": [
+   -0.04854368932038833,
+   0.10679611650485432
+  ],
+  "significant": false
+ },
+ "dme_official_ungated|rgb-green_clahe|QWK": {
+  "diff": 0.07497813870372898,
+  "ci95": [
+   -0.03458210313374684,
+   0.1919430597424319
+  ],
+  "significant": false
+ },
+ "dme_official_ungated|rgb-green_clahe_raw01|acc": {
+  "diff": 0.06774271844660194,
+  "ci95": [
+   -0.009708737864077666,
+   0.1456310679611651
+  ],
+  "significant": false
+ },
+ "dme_official_ungated|rgb-green_clahe_raw01|QWK": {
+  "diff": 0.06761658892228456,
+  "ci95": [
+   -0.02562668228210254,
+   0.17031108480285193
+  ],
+  "significant": false
+ },
+ "dme_official_ungated|green_clahe-green_clahe_raw01|acc": {
+  "diff": 0.03878155339805826,
+  "ci95": [
+   -0.04854368932038833,
+   0.12621359223300965
+  ],
+  "significant": false
+ },
+ "dme_official_ungated|green_clahe-green_clahe_raw01|QWK": {
+  "diff": -0.007361549781444417,
+  "ci95": [
+   -0.12118209013957443,
+   0.10379750138521038
+  ],
+  "significant": false
+ },
+ "dme_official_gated|rgb-green_clahe|acc": {
+  "diff": -0.013362318840579712,
+  "ci95": [
+   -0.10144927536231885,
+   0.07246376811594202
+  ],
+  "significant": false
+ },
+ "dme_official_gated|rgb-green_clahe|QWK": {
+  "diff": 0.056088550554995266,
+  "ci95": [
+   -0.08517632987544756,
+   0.19702258222326458
+  ],
+  "significant": false
+ },
+ "dme_official_gated|rgb-green_clahe_raw01|acc": {
+  "diff": 0.0007753623188405796,
+  "ci95": [
+   -0.1159420289855072,
+   0.10144927536231885
+  ],
+  "significant": false
+ },
+ "dme_official_gated|rgb-green_clahe_raw01|QWK": {
+  "diff": 0.036304476995524824,
+  "ci95": [
+   -0.11606311189042075,
+   0.18312052718006464
+  ],
+  "significant": false
+ },
+ "dme_official_gated|green_clahe-green_clahe_raw01|acc": {
+  "diff": 0.014137681159420289,
+  "ci95": [
+   -0.07246376811594202,
+   0.10144927536231885
+  ],
+  "significant": false
+ },
+ "dme_official_gated|green_clahe-green_clahe_raw01|QWK": {
+  "diff": -0.01978407355947045,
+  "ci95": [
+   -0.13958716101195404,
+   0.09738293471326397
+  ],
+  "significant": false
+ }
+}

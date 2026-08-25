@@ -138,6 +138,11 @@ def eval_head(rows, feats, key, k, tr_idx, te_idx, label, referable_from):
                    referable_from=referable_from)
     rep["chosen_C"] = C
     rep["label"] = label
+    # predictions and their group ids are stored so variants can be compared by PAIRED
+    # bootstrap later without refitting (PROTOCOL.md §4)
+    rep["y_true"] = y[te_idx].tolist()
+    rep["y_pred"] = np.asarray(pred).tolist()
+    rep["groups"] = groups.tolist()
     return rep, pred
 
 

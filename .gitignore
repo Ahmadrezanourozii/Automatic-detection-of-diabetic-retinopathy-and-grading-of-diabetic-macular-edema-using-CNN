@@ -31,3 +31,7 @@ venv/
 
 # ── OS ────────────────────────────────────────────────────────────────────────
 .DS_Store
+
+# ── run artifacts: keep results.json and logs, drop the bulky caches ──────────
+runs/**/*.npy
+runs/**/manifest_*.json
