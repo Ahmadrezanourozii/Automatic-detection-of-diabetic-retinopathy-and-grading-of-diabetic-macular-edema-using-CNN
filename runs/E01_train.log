@@ -1,0 +1,10 @@
+COMMIT af854f8044e1693302c1715d4ff37ea1fa3c7e31-dirty
+EXPERIMENT E01 — frozen-feature linear probe
+device=mps  size=224  seed=0
+IDRiD manifest: 516 images
+[cache] decoding 516 images (once) -> data/cache/idrid_640
+[cache]   50/516  78s elapsed, ~723s left
+[cache]   100/516  161s elapsed, ~669s left
+[cache]   150/516  244s elapsed, ~595s left
+[cache]   200/516  325s elapsed, ~514s left
+[cache]   250/516  407s elapsed, ~434s left

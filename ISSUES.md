@@ -147,6 +147,51 @@ avoid importing TensorFlow, which takes minutes over the Drive mount.
 
 ---
 
+## §7. Standard perceptual hashing does not work on fundus images  — 2026-08-25, FIXED
+
+**Symptom.** The first version of `src/dedup_groups.py` used the textbook recipe — 64-bit
+dHash and pHash, near-duplicate if Hamming distance ≤ 6. Run on 40 IDRiD images, every one
+of them a different patient, it reported **26 duplicate pairs**.
+
+**How it was diagnosed.** Rather than tuning the threshold by eye, both populations were
+measured on 60 IDRiD images (1 770 distinct pairs), with true duplicates simulated by
+re-encoding and resizing the same image:
+
+| Hash | Distinct pairs | Same image, degraded | Separated? |
+|---|---|---|---|
+| 64-bit dHash | min **2**, p1 4, median 15 | 0–2 | **no** |
+| 64-bit pHash | min **2**, p1 6, median 22 | 2–6 | **no** |
+| 64×64 NCC | max **0.9911** | 0.9921–1.0000 | barely |
+| **256-bit dHash (16×16)** | **min 28**, p1 36, median 66 | **0–8** | **yes, wide gap** |
+
+**Root cause.** Every fundus photograph is a bright ellipse on a black ground. Reduced to an
+8×8 thumbnail they are all nearly the same picture, so a 64-bit hash carries almost no
+patient-specific information. This is a property of the imaging modality, not a bug — the
+recipe is simply wrong for this domain.
+
+**Why it mattered.** A false-positive duplicate merges two unrelated patients into one
+group. At the observed rate that would have merged a large fraction of the corpus into a few
+giant groups, wrecking the stratification, starving the folds, and — worst — doing it
+silently, because a grouped split that is too *coarse* produces conservative-looking numbers
+that nobody thinks to question.
+
+**Fix.** 256-bit dHash on a 16×16 grid, threshold 16 bits, which sits in the empty gap
+between the two populations. NCC on a 64×64 contrast-normalised thumbnail is recorded
+alongside as a second opinion but is deliberately **not** the criterion, since it does not
+separate. Re-run on the same 60 images: 60 groups, zero duplicate pairs.
+
+**How to recognise it if it comes back.** Any grouping pass that merges an implausible
+fraction of a corpus. Before trusting a similarity threshold on a new corpus, measure both
+populations — distinct pairs and simulated duplicates — and confirm there is a gap. Do not
+pick the threshold from a blog post.
+
+**Still open.** This catches re-encodings, mirrored copies and cross-corpus overlap. It does
+**not** catch fellow-eye pairs, which are not visually near-identical. Messidor-2's
+examination pairing still has to come from the upstream release or from an optic-disc
+laterality pass, and until it does, every Messidor-2 result carries that caveat.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.
