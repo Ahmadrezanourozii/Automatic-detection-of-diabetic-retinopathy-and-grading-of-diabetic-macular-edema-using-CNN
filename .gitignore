@@ -1,0 +1,33 @@
+# ── Credentials — NEVER commit ────────────────────────────────────────────────
+.env
+.env.*
+kaggle.json
+*.pem
+*token*
+secrets/
+
+# ── Data & weights — live in Kaggle datasets, not git ─────────────────────────
+data/raw/
+data/cache/
+data/preprocessed/
+*.zip
+*.jpg
+*.jpeg
+*.png
+*.tif
+*.keras
+*.h5
+*.pt
+*.pth
+*.ckpt
+!docs/img/*.png
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+.ipynb_checkpoints/
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
