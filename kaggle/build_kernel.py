@@ -134,6 +134,10 @@ def main():
         "kernel_type": "notebook",
         "is_private": True,
         "enable_gpu": True,
+        # MUST be pinned: Kaggle hands out P100 (sm_60) by default in some pools, and the
+        # preinstalled torch cu128 build supports sm_70 and up only -- every CUDA call on a
+        # P100 dies with "no kernel image is available" (ISSUES.md §9). T4 is sm_75.
+        "accelerator": a.gpu,
         "enable_internet": True,
         "dataset_sources": DATASETS,
         "competition_sources": [],

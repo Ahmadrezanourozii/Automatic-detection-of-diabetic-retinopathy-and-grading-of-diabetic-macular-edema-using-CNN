@@ -35,13 +35,20 @@ def fetch(slug, dest):
     out = kaggle("kernels", "output", f"ah22reza/{slug}", "-p", tmp)
     os.makedirs(dest, exist_ok=True)
     moved = []
+    run_id = os.path.basename(dest)
     for src in glob.glob(os.path.join(tmp, "**", "*"), recursive=True):
         if os.path.isdir(src):
             continue
         rel = os.path.relpath(src, tmp)
-        # flatten the run-id directory the notebook writes into
-        parts = [p for p in rel.split(os.sep) if not p.startswith("kaggle")]
-        name = parts[-1]
+        parts = rel.split(os.sep)
+        # Take only the run's own outputs and the kernel log. The notebook clones the repo
+        # into its working directory, so a naive glob copies the whole repo back over the
+        # run directory -- including a results.json that is not this run's.
+        is_run_file = run_id in parts
+        is_kernel_log = len(parts) == 1 and rel.endswith(".log")
+        if not (is_run_file or is_kernel_log):
+            continue
+        name = parts[-1] if is_run_file else "kernel.log"
         if name.endswith((".pt", ".pth")):
             continue                        # checkpoints are not archived; they are huge
         dst = os.path.join(dest, name)

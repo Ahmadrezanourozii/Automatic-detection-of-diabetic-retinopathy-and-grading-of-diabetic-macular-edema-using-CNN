@@ -428,6 +428,21 @@ def main():
     amp_dtype = torch.float16 if device == "cuda" else None
     print(f"device={device}  torch={torch.__version__}  "
           f"gpu={torch.cuda.get_device_name(0) if device=='cuda' else '-'}", flush=True)
+    if device == "cuda":
+        # A GPU that torch can see is not necessarily one it can run on: Kaggle's P100 is
+        # sm_60 and the preinstalled cu128 build ships sm_70+ kernels only. Without this
+        # check the run dies 2 minutes in, after rebuilding the whole image cache
+        # (ISSUES.md §9).
+        cap = torch.cuda.get_device_capability(0)
+        try:
+            (torch.zeros(8, 8, device="cuda") @ torch.zeros(8, 8, device="cuda")).sum().item()
+            print(f"[gpu] sm_{cap[0]}{cap[1]} usable", flush=True)
+        except Exception as e:
+            raise SystemExit(
+                f"GPU {torch.cuda.get_device_name(0)} (sm_{cap[0]}{cap[1]}) cannot execute "
+                f"kernels from this torch build ({torch.__version__}): {e}\n"
+                f"Pin a supported accelerator in kernel-metadata.json "
+                f'("accelerator": "nvidiaTeslaT4") and relaunch.')
 
     out_dir = args.out or os.path.join("runs", args.run_id)
     os.makedirs(out_dir, exist_ok=True)

@@ -242,6 +242,44 @@ before it had produced a single number — which is the entire argument for writ
 
 ---
 
+## §9. Kaggle's P100 cannot run the preinstalled PyTorch  — 2026-08-25, FIXED
+
+**Symptom.** Run E05 died two minutes in, immediately after spending those two minutes
+rebuilding the 2 260-image cache:
+
+    torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device
+
+**Root cause.** Kaggle assigned a **Tesla P100**, which is compute capability **sm_60**. The
+preinstalled `torch 2.10.0+cu128` ships kernels for **sm_70 and above only**. Torch happily
+reports `cuda.is_available() == True` and names the device — it just cannot execute anything
+on it. The failure surfaces at the first real CUDA call, which happened to be
+`model.to(memory_format=channels_last)`, so the traceback points at a line that is not the
+problem.
+
+**Fix, two parts.**
+
+1. **Pin the accelerator.** `kernel-metadata.json` now carries
+   `"accelerator": "nvidiaTeslaT4"` (sm_75, supported). `enable_gpu: true` alone lets Kaggle
+   hand out whatever its pool has, and some pools default to P100.
+2. **Fail fast.** `src/train.py` now runs a real 8×8 matmul on the GPU before touching the
+   data, and exits with the device's compute capability and the fix in the message. Without
+   it the run burns two minutes of quota rebuilding a cache it will never use, and the error
+   arrives disguised as a `channels_last` problem.
+
+**How to recognise it if it comes back.** `cuda.is_available()` true, device name printed,
+then a CUDA error on the first tensor operation. Check
+`torch.cuda.get_device_capability()` against the build's supported list — `is_available()`
+is not evidence that a kernel will run.
+
+**Collateral, fixed at the same time.** `kaggle/fetch.py` archived everything the notebook
+left in its working directory. The notebook clones the repo there, so the fetch copied the
+whole repository back over `runs/E05/` — including a `results.json` that belonged to a
+different run entirely. It now takes only the run's own directory plus the kernel log. A
+fetch that silently overwrites one run's results with another's is precisely the kind of
+bookkeeping error that makes an archive worthless.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.
