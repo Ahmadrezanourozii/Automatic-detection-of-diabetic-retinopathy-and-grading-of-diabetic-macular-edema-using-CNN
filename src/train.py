@@ -561,6 +561,15 @@ def main():
     pre_rows = []
     if args.pretrain_corpora:
         pre_rows = corpora.build(args.datasets, tuple(args.pretrain_corpora.split(",")))
+        if not pre_rows:
+            # A silent zero here would turn this run into an unlabelled duplicate of the
+            # no-pretraining baseline, and the comparison would then "show" that
+            # pretraining does not help -- when it simply never happened.
+            raise SystemExit(
+                f"--pretrain-corpora {args.pretrain_corpora} matched 0 images under "
+                f"{args.datasets}. Is the corpus attached to this kernel? Refusing to "
+                f"run, because a silently skipped pretraining phase produces a result "
+                f"that looks like evidence and is not.")
         overlap = {r["uid"] for r in pre_rows} & {r["uid"] for r in rows}
         if overlap:
             raise SystemExit(f"{len(overlap)} pretraining images are also in the "

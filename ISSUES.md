@@ -291,6 +291,35 @@ bookkeeping error that makes an archive worthless.
 
 ---
 
+## §10. A missing pretraining corpus would have looked like a negative result  — 2026-08-25, FIXED (pre-emptively)
+
+**Not a bug that fired — one that was about to.** `load_eyepacs` returns `[]` when it cannot
+find a labels CSV, and `main()` treated an empty pretraining set as "no pretraining
+requested". So if the EyePACS corpus were mis-attached or laid out differently than
+expected, run E06 would have quietly become an exact duplicate of the E05 baseline — and
+the paired comparison between them would have reported *"EyePACS pretraining makes no
+difference"*, with a perfectly tight confidence interval around zero.
+
+That is the most dangerous class of failure in this project: not a crash, but a **null
+result manufactured by a silent no-op**. It looks like evidence. It would have gone into the
+thesis.
+
+**Fix.** `--pretrain-corpora X` matching zero images is now a hard exit with a message
+saying so. The general rule: *whenever a flag is supposed to change what a run does, the run
+must fail if that change cannot be applied.* Never let a requested condition silently
+degrade into the control condition.
+
+**Verified separately** that `tanlikesmath/diabetic-retinopathy-resized` does ship
+`trainLabels.csv` (35 126 images, 17 563 patients, columns `image,level`) by downloading
+just that file — the CLI file listing does not reach it within 12 000 entries because it
+sorts after the whole `resized_train/` tree.
+
+**Recognise it by:** a run whose distinguishing feature produces exactly the baseline's
+numbers. Check the log for the count the corpus loader printed before believing the
+comparison.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.
