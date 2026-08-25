@@ -46,22 +46,33 @@ N_DR, N_DME = 5, 3
 
 # ── backbone ──────────────────────────────────────────────────────────────────
 def build_backbone(name: str = "densenet121", pretrained: bool = True):
-    """Returns (module, feature_dim). Prefers timm (present on Kaggle), falls back to
-    torchvision so the same code runs locally."""
+    """Returns (module, feature_dim).
+
+    Prefers timm (present on Kaggle); torchvision serves densenet121 so the same code runs
+    anywhere. Falling back to densenet121 when a *different* backbone was requested is
+    forbidden: it would turn a backbone experiment into a silent duplicate of the baseline
+    and then report "the backbone makes no difference" (the failure mode of ISSUES.md §10).
+    """
     try:
         import timm
         m = timm.create_model(name, pretrained=pretrained, num_classes=0, global_pool="avg")
         return m, m.num_features
+    except ImportError:
+        if name != "densenet121":
+            raise SystemExit(
+                f"backbone '{name}' needs timm, which is not installed here. Refusing to "
+                f"substitute densenet121: that would silently turn this run into the "
+                f"baseline and the comparison would be meaningless.")
+        print("[model] timm not installed; using torchvision densenet121")
     except Exception as e:
-        print(f"[model] timm unavailable or model unknown ({e}); using torchvision")
-        import torchvision.models as tvm
-        if not name.startswith("densenet121"):
-            print(f"[model] torchvision fallback cannot serve '{name}', using densenet121")
-        w = tvm.DenseNet121_Weights.IMAGENET1K_V1 if pretrained else None
-        m = tvm.densenet121(weights=w)
-        dim = m.classifier.in_features
-        m.classifier = nn.Identity()
-        return m, dim
+        raise SystemExit(f"timm could not create backbone '{name}': {e}")
+
+    import torchvision.models as tvm
+    w = tvm.DenseNet121_Weights.IMAGENET1K_V1 if pretrained else None
+    m = tvm.densenet121(weights=w)
+    dim = m.classifier.in_features
+    m.classifier = nn.Identity()
+    return m, dim
 
 
 # ── heads ─────────────────────────────────────────────────────────────────────
