@@ -258,13 +258,24 @@ problem.
 
 **Fix, two parts.**
 
-1. **Pin the accelerator.** `kernel-metadata.json` now carries
-   `"accelerator": "nvidiaTeslaT4"` (sm_75, supported). `enable_gpu: true` alone lets Kaggle
-   hand out whatever its pool has, and some pools default to P100.
-2. **Fail fast.** `src/train.py` now runs a real 8×8 matmul on the GPU before touching the
+1. **Pin the accelerator — with the right key.** The first attempt wrote
+   `"accelerator": "nvidiaTeslaT4"` into `kernel-metadata.json`. **Kaggle silently ignores
+   that key** and handed out a P100 again. The key it actually reads is **`machine_shape`**,
+   and the CLI equivalent is `kaggle kernels push --accelerator "GPU T4 x2"`. Confirmed by
+   reading `kaggle_api_extended.py`: `request.machine_shape = acc or meta["machine_shape"]`,
+   with the comment "the allowed names are in an enum that is not currently included in
+   kagglesdk" — so there is no validation and a wrong key fails silently. Valid strings are
+   the ones the notebook UI shows, e.g. `"GPU T4 x2"`.
+2. **Fail fast.** `src/train.py` runs a real 8×8 matmul on the GPU before touching the
    data, and exits with the device's compute capability and the fix in the message. Without
    it the run burns two minutes of quota rebuilding a cache it will never use, and the error
-   arrives disguised as a `channels_last` problem.
+   arrives disguised as a `channels_last` problem. This worked on the second attempt: the
+   run died in seconds with an accurate message instead of two minutes in with a misleading
+   traceback.
+
+3. **Runtime fallback.** Because the pin is not always honoured, the notebook now probes the
+   device and, if its kernels cannot run, installs `torch==2.5.1+cu121` (which supports
+   sm_50–sm_90) before launching training. Costs a few minutes; saves the run.
 
 **How to recognise it if it comes back.** `cuda.is_available()` true, device name printed,
 then a CUDA error on the first tensor operation. Check

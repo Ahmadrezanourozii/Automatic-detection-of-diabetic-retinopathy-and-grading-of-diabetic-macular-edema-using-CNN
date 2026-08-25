@@ -46,6 +46,28 @@ print("torch", torch.__version__, "| cuda", torch.cuda.is_available(),
       "|", torch.cuda.get_device_name(0) if torch.cuda.is_available() else "no gpu")
 '''
 
+    guard = '''# The pool does not always honour the pinned accelerator. A P100 is sm_60 and the
+# preinstalled torch cu128 build ships sm_70+ kernels only, so every CUDA call fails.
+# Rather than lose the run, install a torch that supports this device (ISSUES.md §9).
+import subprocess, sys, torch
+cap = torch.cuda.get_device_capability(0) if torch.cuda.is_available() else (0, 0)
+name = torch.cuda.get_device_name(0) if torch.cuda.is_available() else "none"
+print(f"GPU {name}  sm_{cap[0]}{cap[1]}  torch {torch.__version__}")
+ok = True
+try:
+    (torch.zeros(8, 8, device="cuda") @ torch.zeros(8, 8, device="cuda")).sum().item()
+    print("kernels execute fine on this device")
+except Exception as e:
+    ok = False
+    print("UNUSABLE:", e)
+if not ok:
+    print("installing a torch build that supports this GPU ...", flush=True)
+    subprocess.run([sys.executable, "-m", "pip", "install", "-q",
+                    "torch==2.5.1", "torchvision==0.20.1",
+                    "--index-url", "https://download.pytorch.org/whl/cu121"], check=False)
+    print("installed -- src/train.py runs in a subprocess so it picks up the new build")
+'''
+
     train = f'''import subprocess, sys, os, time
 RUN_ID = "{run_id}"
 OUT = f"/kaggle/working/{{RUN_ID}}"
@@ -93,7 +115,7 @@ if os.path.exists(rj):
             print(f"  {{k:22s}} n={{v['n']:5d}} acc {{v['accuracy']*100:5.1f}}% "
                   f"floor {{v['majority_floor']*100:5.1f}}% QWK {{v['qwk']:6.3f}}")
 '''
-    return [setup, inputs, train, collect]
+    return [setup, inputs, guard, train, collect]
 
 
 def main():
@@ -102,7 +124,7 @@ def main():
     ap.add_argument("--args", default="--folds 0,1,2,3,4 --epochs 30 --size 448")
     ap.add_argument("--commit", default="HEAD")
     ap.add_argument("--slug", default=None)
-    ap.add_argument("--gpu", default="nvidiaTeslaT4")
+    ap.add_argument("--gpu", default="GPU T4 x2")
     ap.add_argument("--out", default=None)
     ap.add_argument("--push", action="store_true")
     a = ap.parse_args()
@@ -134,10 +156,12 @@ def main():
         "kernel_type": "notebook",
         "is_private": True,
         "enable_gpu": True,
-        # MUST be pinned: Kaggle hands out P100 (sm_60) by default in some pools, and the
-        # preinstalled torch cu128 build supports sm_70 and up only -- every CUDA call on a
-        # P100 dies with "no kernel image is available" (ISSUES.md §9). T4 is sm_75.
-        "accelerator": a.gpu,
+        # The key Kaggle actually reads is machine_shape -- "accelerator" in the metadata
+        # file is silently ignored, which cost two runs (ISSUES.md §9). It must be pinned:
+        # some pools hand out a P100 (sm_60) and the preinstalled torch cu128 build ships
+        # sm_70+ kernels only. The notebook still carries a runtime fallback in case the
+        # pin is not honoured.
+        "machine_shape": a.gpu,
         "enable_internet": True,
         "dataset_sources": DATASETS,
         "competition_sources": [],
@@ -148,7 +172,8 @@ def main():
     print(f"wrote {out}/  (id {meta['id']}, commit {a.commit[:10]})")
 
     if a.push:
-        r = subprocess.run(["kaggle", "kernels", "push", "-p", out],
+        r = subprocess.run(["kaggle", "kernels", "push", "-p", out,
+                            "--accelerator", a.gpu],
                            capture_output=True, text=True)
         print(r.stdout or r.stderr)
 

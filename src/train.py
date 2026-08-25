@@ -186,15 +186,30 @@ class EMA:
 
 # ── evaluation ────────────────────────────────────────────────────────────────
 @torch.no_grad()
-def predict(model, loader, device, head, amp_dtype):
+def predict(model, loader, device, head, amp_dtype, tta=False):
+    """Forward pass over a loader. With `tta`, average logits over the four dihedral flips.
+
+    Flips are the safe augmentation to average over here: a retina has no canonical
+    orientation, and a mirrored right eye is a plausible left eye, so all four views are
+    in-distribution rather than adversarial.
+    """
     model.eval()
     dr_logits, dme_logits, order = [], [], []
     for b in loader:
         x = b["x"].to(device, non_blocking=True)
-        with torch.autocast(device_type=device.split(":")[0], dtype=amp_dtype,
-                            enabled=amp_dtype is not None):
-            dl, ml = model(x)
-        dr_logits.append(dl.float().cpu()); dme_logits.append(ml.float().cpu())
+        views = [x]
+        if tta:
+            views += [torch.flip(x, [3]), torch.flip(x, [2]), torch.flip(x, [2, 3])]
+        dl_sum = ml_sum = None
+        for v in views:
+            with torch.autocast(device_type=device.split(":")[0], dtype=amp_dtype,
+                                enabled=amp_dtype is not None):
+                dl, ml = model(v)
+            dl, ml = dl.float(), ml.float()
+            dl_sum = dl if dl_sum is None else dl_sum + dl
+            ml_sum = ml if ml_sum is None else ml_sum + ml
+        dr_logits.append((dl_sum / len(views)).cpu())
+        dme_logits.append((ml_sum / len(views)).cpu())
         order.append(b["idx"])
     return (torch.cat(dr_logits), torch.cat(dme_logits), torch.cat(order))
 
@@ -245,8 +260,68 @@ def fmt(head_name, rep):
             + ("  BEATS" if rep["beats_floor"] else "  below-floor"))
 
 
+# ── pretraining ───────────────────────────────────────────────────────────────
+def pretrain(rows, args, device, out_dir, amp_dtype):
+    """Train the shared extractor on a large DR corpus before the folds.
+
+    EyePACS is ~35 k images with DR grades and no DME labels at all. Because the loss masks
+    each head per sample, those rows train the backbone and the DR head and contribute
+    nothing to the DME head -- no special code path is needed.
+
+    Done ONCE and reused by every fold. EyePACS is disjoint from the development pool, so
+    this leaks nothing; running it per fold would cost five times as much for the same
+    weights. The result is cached to disk so a killed Kaggle session does not repeat it.
+    """
+    ck = os.path.join(out_dir, "pretrained.pt")
+    if os.path.exists(ck):
+        print(f"[pretrain] reusing {ck}", flush=True)
+        return torch.load(ck, map_location="cpu", weights_only=False)
+
+    print(f"\n{'='*78}\nPRETRAIN on {len(rows)} images "
+          f"({args.pretrain_epochs} epochs)\n{'='*78}", flush=True)
+    ds = FundusDataset(rows, args.cache, args.size, True, args.seed)
+    dl = DataLoader(ds, batch_size=args.batch, sampler=make_sampler(rows, args.seed),
+                    num_workers=args.workers, pin_memory=True, drop_last=True,
+                    persistent_workers=args.workers > 0)
+    model = MultiOutputNet(args.backbone, True, args.head, args.hidden, args.dropout).to(device)
+    if init_state is not None:
+        model.load_state_dict({k: v.to(device) for k, v in init_state.items()})
+        print("  initialised from the pretrained backbone", flush=True)
+    if args.channels_last:
+        model = model.to(memory_format=torch.channels_last)
+    opt = torch.optim.AdamW(model.parameters(), lr=args.lr_pretrain,
+                            weight_decay=args.weight_decay)
+    steps = max(1, len(dl)) * args.pretrain_epochs
+    sched = torch.optim.lr_scheduler.OneCycleLR(opt, max_lr=args.lr_pretrain,
+                                                total_steps=steps, pct_start=0.1)
+    scaler = torch.amp.GradScaler(device.split(":")[0], enabled=amp_dtype == torch.float16)
+    for ep in range(args.pretrain_epochs):
+        model.train(); t0, tot = time.time(), 0.0
+        for b in dl:
+            b = {k: v.to(device, non_blocking=True) for k, v in b.items()}
+            if args.channels_last:
+                b["x"] = b["x"].to(memory_format=torch.channels_last)
+            with torch.autocast(device_type=device.split(":")[0], dtype=amp_dtype,
+                                enabled=amp_dtype is not None):
+                dl_, ml_ = model(b["x"])
+                loss, _, _ = multitask_loss(dl_, ml_, b, 1.0, 0.0,
+                                            smoothing=args.smoothing, head=args.head)
+            opt.zero_grad(set_to_none=True)
+            scaler.scale(loss).backward()
+            scaler.unscale_(opt)
+            nn.utils.clip_grad_norm_(model.parameters(), args.clip)
+            scaler.step(opt); scaler.update(); sched.step()
+            tot += loss.item()
+        print(f"  pretrain ep {ep:2d}/{args.pretrain_epochs}  "
+              f"loss {tot/max(1,len(dl)):.4f}  {time.time()-t0:.0f}s", flush=True)
+    state = {k: v.detach().cpu().clone() for k, v in model.state_dict().items()}
+    torch.save(state, ck)
+    print(f"[pretrain] saved {ck}", flush=True)
+    return state
+
+
 # ── one fold ──────────────────────────────────────────────────────────────────
-def run_fold(rows, fold, args, device, out_dir, amp_dtype):
+def run_fold(rows, fold, args, device, out_dir, amp_dtype, init_state=None):
     tr = [r for r in rows if r["fold"] != fold]
     va = [r for r in rows if r["fold"] == fold]
     print(f"\n{'='*78}\nFOLD {fold}   train={len(tr)}  val={len(va)}\n{'='*78}", flush=True)
@@ -260,6 +335,9 @@ def run_fold(rows, fold, args, device, out_dir, amp_dtype):
                        num_workers=args.workers, pin_memory=True)
 
     model = MultiOutputNet(args.backbone, True, args.head, args.hidden, args.dropout).to(device)
+    if init_state is not None:
+        model.load_state_dict({k: v.to(device) for k, v in init_state.items()})
+        print("  initialised from the pretrained backbone", flush=True)
     if args.channels_last:
         model = model.to(memory_format=torch.channels_last)
 
@@ -367,7 +445,8 @@ def run_fold(rows, fold, args, device, out_dir, amp_dtype):
     if best_state is not None:
         final_model = ema_model if ema_model is not None else model
         final_model.load_state_dict(best_state)
-        dr_lg, dme_lg, order = predict(final_model, dl_va, device, args.head, amp_dtype)
+        dr_lg, dme_lg, order = predict(final_model, dl_va, device, args.head,
+                                       amp_dtype, tta=args.tta)
         inv = torch.argsort(order)
         final = evaluate(va, dr_lg[inv], dme_lg[inv], args.head, n_boot=1000)
     else:
@@ -409,6 +488,12 @@ def main():
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--channels-last", action="store_true")
     p.add_argument("--resume", action="store_true")
+    p.add_argument("--pretrain-corpora", default="",
+                   help="e.g. EyePACS -- trained on once, before the folds, then reused")
+    p.add_argument("--pretrain-epochs", type=int, default=6)
+    p.add_argument("--lr-pretrain", type=float, default=3e-4)
+    p.add_argument("--tta", action="store_true",
+                   help="average logits over the four dihedral flips at final evaluation")
     p.add_argument("--corpora", default="IDRiD,Messidor-2",
                    help="comma-separated; used for fast local smoke tests")
     p.add_argument("--limit", type=int, default=0, help="debug: keep only N images")
@@ -467,7 +552,18 @@ def main():
     print(f"[split] {args.splits} fingerprint={split_meta['fingerprint']} "
           f"{split_meta['n_folds']} folds", flush=True)
 
-    build_cache(rows, args.cache)
+    pre_rows = []
+    if args.pretrain_corpora:
+        pre_rows = corpora.build(args.datasets, tuple(args.pretrain_corpora.split(",")))
+        overlap = {r["uid"] for r in pre_rows} & {r["uid"] for r in rows}
+        if overlap:
+            raise SystemExit(f"{len(overlap)} pretraining images are also in the "
+                             f"development pool -- that is leakage, not pretraining")
+        for r in pre_rows:
+            r.setdefault("group", r["uid"])
+        print(corpora.summarise(pre_rows), flush=True)
+
+    build_cache(rows + pre_rows, args.cache)
 
     results = {
         "run_id": args.run_id, "commit": sha, "hypothesis": args.hypothesis,
@@ -477,8 +573,13 @@ def main():
                 "gpu": torch.cuda.get_device_name(0) if device == "cuda" else None},
         "folds": [],
     }
+    init_state = pretrain(pre_rows, args, device, out_dir, amp_dtype) if pre_rows else None
+    results["pretrain"] = {"corpora": args.pretrain_corpora, "n_images": len(pre_rows),
+                           "epochs": args.pretrain_epochs if pre_rows else 0}
+
     for fold in [int(x) for x in args.folds.split(",") if x != ""]:
-        results["folds"].append(run_fold(rows, fold, args, device, out_dir, amp_dtype))
+        results["folds"].append(run_fold(rows, fold, args, device, out_dir, amp_dtype,
+                                         init_state))
         results["runtime_sec"] = round(time.time() - t_start, 1)
         with open(os.path.join(out_dir, "results.json"), "w") as f:
             json.dump(results, f, indent=1, default=str)
