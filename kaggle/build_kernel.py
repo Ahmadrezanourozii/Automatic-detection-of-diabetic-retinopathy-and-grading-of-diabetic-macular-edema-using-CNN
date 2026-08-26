@@ -26,6 +26,10 @@ EYEPACS = "tanlikesmath/diabetic-retinopathy-resized"
 # APTOS 2019, held out entirely since the protocol was frozen. Attached ONLY for runs that
 # do the final external evaluation, so it cannot drift into a development run by accident.
 APTOS = "mariaherrerot/aptos2019"
+# Messidor-2 at native 2240x1488 rather than the 512x512 default mirror. Covers 1057 of
+# the 1744 labelled images -- the IM*-named ones are absent, so the corpus is left at
+# mixed resolution. Worth it because E09 showed Mild recall is resolution-bound.
+MESSIDOR_HI = "borhan2003/messidor-diabetic-retinopathy-dataset-jpg-format"
 
 
 def cells(run_id, train_args, commit, external_only=False, from_run=""):
@@ -212,6 +216,8 @@ def main():
                          "e.g. ah22reza/dr-dme-e08")
     ap.add_argument("--aptos", action="store_true",
                     help="attach APTOS and run the external evaluation after training")
+    ap.add_argument("--messidor-hi", action="store_true",
+                    help="attach the native-resolution Messidor-2 mirror (1057 of 1744)")
     ap.add_argument("--eyepacs", action="store_true",
                     help="attach the EyePACS 2015 corpus for pretraining")
     ap.add_argument("--push", action="store_true")
@@ -252,7 +258,8 @@ def main():
         "machine_shape": a.gpu,
         "enable_internet": True,
         "dataset_sources": (DATASETS + ([EYEPACS] if a.eyepacs else [])
-                            + ([APTOS] if a.aptos else [])),
+                            + ([APTOS] if a.aptos else [])
+                            + ([MESSIDOR_HI] if a.messidor_hi else [])),
         "competition_sources": [],
         "kernel_sources": [a.from_run] if a.from_run else [],
     }

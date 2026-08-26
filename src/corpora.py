@@ -165,8 +165,20 @@ def load_messidor2(roots):
     csv_path = find_file(roots, "messidor_data", must_end=".csv")
     if not csv_path:
         return []
-    img_dir = find_dir(roots, "messidor-2", "preprocess") or find_dir(roots, "messidor")
-    idx = index_images(img_dir)
+    # Prefer a native-resolution mirror when one is attached. Our default mirror is
+    # 512x512, and E09 showed resolution binds for DR -- Mild recall falls 18.6 points
+    # between 448 and 224 px, because mild NPDR is defined by microaneurysms. A 2240x1488
+    # mirror covers 1057 of the 1744 labelled images; the rest stay at 512, so the corpus
+    # ends up at mixed resolution and that is recorded rather than hidden.
+    idx = {}
+    hi_dir = find_dir(roots, "messidor-diabetic-retinopathy-dataset-jpg-format")
+    if hi_dir:
+        idx.update(index_images(hi_dir))
+        print(f"[corpora] Messidor-2: native-resolution mirror found, "
+              f"{len(idx)//2} files", flush=True)
+    lo_dir = find_dir(roots, "messidor-2", "preprocess") or find_dir(roots, "messidor")
+    for k, v in index_images(lo_dir).items():
+        idx.setdefault(k, v)      # only fills gaps; never overrides the native mirror
     rows = _rows(csv_path)
     if not rows:
         return []
@@ -188,6 +200,7 @@ def load_messidor2(roots):
         referable = int(r["adjudicated_dme"])
         out.append({
             "uid": f"MESSIDOR2_{os.path.splitext(fn)[0]}",
+            "native_res": bool(hi_dir) and path.startswith(hi_dir),
             "corpus": "Messidor-2",
             "path": path,
             "dr": int(r[dr_col]),

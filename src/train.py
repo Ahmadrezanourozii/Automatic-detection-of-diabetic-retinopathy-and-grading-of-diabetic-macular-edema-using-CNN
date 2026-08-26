@@ -546,6 +546,11 @@ def main():
     os.makedirs(out_dir, exist_ok=True)
 
     rows = corpora.build(args.datasets, tuple(args.corpora.split(",")))
+    nat = sum(1 for r in rows if r.get("native_res"))
+    if nat:
+        print(f"[corpora] {nat}/{sum(1 for r in rows if r['corpus']=='Messidor-2')} "
+              f"Messidor-2 images come from the native-resolution mirror; the rest are "
+              f"512 px. Report resolution results per corpus, not pooled.", flush=True)
     print(corpora.summarise(rows), flush=True)
 
     with open(args.splits) as f:
