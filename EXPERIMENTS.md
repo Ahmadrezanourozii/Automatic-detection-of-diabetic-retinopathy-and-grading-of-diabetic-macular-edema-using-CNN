@@ -16,6 +16,7 @@ A number without a row here does not exist.
 
 | ID | Date | SHA | Hypothesis | Δ vs parent | DR acc | DR QWK | DME acc | DME QWK | macro-F1 | 95 % CI | Sig? | Log |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **E09** | 2026-08-26 | `cebfc20` | Halving the resolution tests whether Mild recall is resolution-bound | E08 at 224 px instead of 448 | 69.0 % | 0.820 | 84.3 % | 0.866 | — | DR [67.2, 70.9] | resolution test | `runs/E09/` |
 | **E08** | 2026-08-26 | `98b5ece` | EyePACS pretraining + a longer schedule; first external validation | E06 + 40 epochs (from 25), weights persisted | **74.2 %** | **0.860** | 84.1 % | **0.884** | 0.646 / 0.715 | DR [72.5, 76.0] · DME [81.0, 87.2] | best DR so far | `runs/E08/` |
 | **E06** | 2026-08-26 | `52d5ef4` | EyePACS pretraining then fine-tune on the dev pool | E05 + 35 126-image EyePACS pretraining (4 ep), 25 ep fine-tune | **71.9 %** | **0.847** | **86.0 %** | **0.879** | 0.631 / 0.758 | DR [70.1, 73.8] · DME [83.1, 88.8] | **QWK +0.064 vs E05, significant** | `runs/E06/` |
 | **E05** | 2026-08-26 | `219881c` | Ordinal heads + Messidor-2 partial labels beat the frozen probe | first real training run; 5-fold grouped CV, 448 px, 30 ep, EMA, TTA | **70.4 %** | **0.783** | **84.1 %** | **0.874** | 0.547 / 0.736 | DR [68.6, 72.3] · DME [81.0, 87.0] | **yes vs floor** | `runs/E05/` |
@@ -30,6 +31,46 @@ gated floor**. All pairwise variant comparisons: `runs/E01/comparisons.json`.
 
 
 
+
+
+### E09 — resolution binds for DR and not for DME, and the gain scales with lesion size
+
+A single-factor test: E08's exact configuration at **224 px instead of 448**. Paired
+bootstrap over the same 2 260 groups:
+
+| | difference (448 − 224) | 95 % interval | verdict |
+|---|---|---|---|
+| DR accuracy | **+5.2 pts** | [+3.2, +7.2] | **significant** |
+| DR QWK | **+0.040** | [+0.024, +0.056] | **significant** |
+| DME accuracy | −0.2 pts | [−3.1, +2.7] | indistinguishable |
+| DME QWK | +0.019 | [−0.011, +0.051] | indistinguishable |
+
+**The per-class breakdown is the finding.** The benefit of resolution grows monotonically as
+the lesion that defines the grade gets smaller:
+
+| grade | defining lesion | 448 px | 224 px | gain |
+|---|---|---|---|---|
+| **Mild** | microaneurysms (~30–100 µm) | 45.4 % | 26.8 % | **+18.6** |
+| Moderate | haemorrhages, exudates | 73.4 % | 64.1 % | +9.3 |
+| Severe | venous beading, IRMA | 67.3 % | 64.3 % | +3.0 |
+| No DR | — | 85.1 % | 84.0 % | +1.1 |
+| Proliferative | neovascularisation (large) | 45.4 % | 48.5 % | −3.1 (n=97) |
+
+And DME is untouched, which fits: hard exudates are bright and comparatively large, so
+halving the resolution does not remove them.
+
+**This settles the data-acquisition question that was deliberately left open.** The Mild
+class *is* resolution-bound, so acquiring a full-resolution Messidor-2 mirror
+(`IDEAS.md` I10b) is worth doing — it holds 270 of the 295 Mild images, and our current
+mirror caps them at 512 px. Testing 640 or 768 px *before* that acquisition would move
+almost nothing, because only IDRiD's 25 Mild images could benefit.
+
+**Why this is worth a paragraph in the thesis rather than a line in a hyper-parameter
+table.** The resolution was not chosen by sweeping and keeping the best. It was chosen after
+a prediction — "the errors concentrate in the grade defined by the smallest lesion, so
+resolution should bind there and nowhere else" — was tested and held, with the effect sizes
+ordered exactly as the clinical definitions predict. That is an explanation, not a tuning
+result.
 
 ### E08X — external validation on APTOS: the ranking transfers, the calibration does not
 

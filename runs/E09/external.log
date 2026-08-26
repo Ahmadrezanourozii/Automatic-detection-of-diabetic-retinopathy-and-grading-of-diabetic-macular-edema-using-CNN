@@ -1,0 +1,3 @@
+run E09  commit cebfc2067c  device=cuda  backbone=densenet121 head=ordinal size=224
+[corpora] APTOS            0 images
+APTOS matched 0 images — is it attached to this kernel?
