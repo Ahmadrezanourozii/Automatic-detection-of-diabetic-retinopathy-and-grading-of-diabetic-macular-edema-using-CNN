@@ -431,6 +431,33 @@ find out which run each came from.
 
 ---
 
+## §14. The checker passed on exactly the numbers it was written to catch  — 2026-08-26, FIXED
+
+**Symptom.** `src/check_thesis_numbers.py` was written to fail when the thesis states a
+result no archived run produced. Run against the real chapter 4 — which contains ۹۱٫۶ and
+۸۷٫۶, the two figures this whole project started from — it reported **0 problems**.
+
+**Root cause.** The scanner recognised a percentage as `91.6\%` or `91.6%`. In a Persian
+thesis the unit is a *word*: `۹۱٫۶ درصد`. Every claim in chapter 4 is written that way, so
+none of them matched the "looks like a result" test and all were skipped.
+
+**Why this one is worth its own entry.** A checker that silently passes is worse than no
+checker, because it converts an unexamined document into an apparently verified one. The
+output "0 numeric literals match no archived result" would have been quoted as evidence that
+chapter 4 was clean.
+
+**Fix.** The number pattern now accepts `\%`, `%`, and `درصد` as the unit, and a bare
+decimal in [0,1] with two or more places counts as a result claim (a QWK, an F1, an AUC).
+Re-run: **9 unexplained numbers**, comprising 91.6 % and 87.6 % in two places each, and the
+entire preprocessing ablation table (10, 8, 4, 3 %).
+
+**The general rule this cost me.** *Every checker needs a test that makes it fail.* This one
+now ships with a self-test — a two-line file containing one known-bad number and one
+legitimate one — and the fix was only trusted after that file produced exactly one warning.
+A green result from a check that has never been seen to go red is not evidence.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.
