@@ -226,7 +226,7 @@ def main():
     train_args = ", ".join(f'"{t}"' for t in a.args.split())
     nb = {"cells": [{"cell_type": "code", "source": c, "metadata": {},
                      "execution_count": None, "outputs": []}
-                    for c in cells(a.run_id, train_args, a.commit)],
+                    for c in cells(a.run_id, train_args, a.commit, a.external_only, a.from_run)],
           "metadata": {"kernelspec": {"language": "python", "display_name": "Python 3",
                                       "name": "python3"}},
           "nbformat": 4, "nbformat_minor": 4}
