@@ -19,6 +19,7 @@ A number without a row here does not exist.
 | **E07** | 2026-08-26 | `c79dac6` | EfficientNet-B3 and a 60-epoch schedule beat DenseNet121 at 30 | E05 + efficientnet_b3, 60 epochs, no pretraining | 73.8 %¹ | 0.837¹ | — | — | — | folds 0–3 only | **killed at the 12 h wall clock after 4/5 folds** | `runs/E07/` |
 
 ¹ folds 0–3 only (n = 1 811); the run was cancelled during fold 4.
+| **E10** | 2026-08-26 | `4413fc7` | Native-resolution Messidor-2 at 640 px lifts the Mild class | E08 + native mirror, size 640 (**effectively 560 — see below**) | **74.4 %** | **0.868** | **87.2 %** | **0.899** | — | DR [72.6, 76.3] · DME [84.3, 89.9] | best DME so far | `runs/E10/` |
 | **E09** | 2026-08-26 | `cebfc20` | Halving the resolution tests whether Mild recall is resolution-bound | E08 at 224 px instead of 448 | 69.0 % | 0.820 | 84.3 % | 0.866 | — | DR [67.2, 70.9] | resolution test | `runs/E09/` |
 | **E08** | 2026-08-26 | `98b5ece` | EyePACS pretraining + a longer schedule; first external validation | E06 + 40 epochs (from 25), weights persisted | **74.2 %** | **0.860** | 84.1 % | **0.884** | 0.646 / 0.715 | DR [72.5, 76.0] · DME [81.0, 87.2] | best DR so far | `runs/E08/` |
 | **E06** | 2026-08-26 | `52d5ef4` | EyePACS pretraining then fine-tune on the dev pool | E05 + 35 126-image EyePACS pretraining (4 ep), 25 ep fine-tune | **71.9 %** | **0.847** | **86.0 %** | **0.879** | 0.631 / 0.758 | DR [70.1, 73.8] · DME [83.1, 88.8] | **QWK +0.064 vs E05, significant** | `runs/E06/` |
@@ -62,10 +63,15 @@ and E09.
 and the two that are significant both involve E07 on folds 0–3 (n = 415), where E07 is the
 *worse* run. Stated plainly:
 
-> **No intervention in this programme has significantly improved 3-class DME.** EyePACS
-> pretraining, the longer schedule, the bigger backbone and the resolution change all move
-> DME by an amount whose interval contains zero. The DME head reached QWK ≈ 0.87 in E05 and
-> has stayed there.
+> **No intervention in this programme has significantly improved 3-class DME on QWK, the
+> primary metric.** EyePACS pretraining, the longer schedule and the bigger backbone all move
+> DME QWK by an amount whose interval contains zero.
+>
+> *Amended 2026-08-26 after E10:* raising the effective resolution from 448 to 560 px did
+> significantly improve DME **accuracy** (+3.04 pts [+0.39, +5.62]) while leaving **QWK**
+> indistinguishable. The negative result therefore stands for the primary metric and is
+> broken for the secondary one — a distinction worth keeping, because accuracy moving without
+> QWK means one-grade corrections rather than the two-grade errors that matter clinically.
 
 This is worth saying clearly rather than letting the DR gains carry the whole story. Two
 readings, and they are distinguishable by experiment rather than argument:
@@ -121,17 +127,45 @@ DenseNet121 plus the same pretraining, and because pretraining converges faster 
 at ~30 epochs and fit the window.
 
 
-### E10 — CONFOUNDED, do not read its resolution result
+### E10 — a 560 px run wearing a 640 px label, and the first DME movement
 
-E10 is still running and its numbers **must not be entered as a resolution result when they
-land**. `build_cache()` caps every image at 560 px on the long side; E10 trains at 640 px, so
-every image is *upsampled* 560 → 640 and the native 2240 × 1488 Messidor-2 mirror it was
-launched to exploit is discarded at 560 before training sees it (`ISSUES.md` §18).
+E10 was flagged as confounded before its numbers landed, and it was — but **not in the way
+first described, and the correction matters.** `build_cache()` caps images at 560 px.
+E08 trains at 448, so it *downsamples* and sees 448 px of information. E10 trains at 640, so
+it *upsamples* and sees 560. E10 therefore carries **more** effective resolution than E08,
+not the same: it is a genuine **448-vs-560** comparison wearing a 448-vs-640 label. The
+earlier claim that it paid double for "the same information" was my error, corrected in
+`ISSUES.md` §18.
 
-E10 is therefore a 560 px run paying 640 px compute — roughly twice E08 for the same
-information. Against E08 it measures only "does upsampling help?", whose answer is already
-known. Whatever it returns, it is **not** evidence about resolution above 448 px, and the
-native-mirror question remains open until a run is made with `cache_size >= size`.
+Paired bootstrap against E08 over the same 2 260 groups:
+
+| quantity | E08 → E10 | 95 % interval | verdict |
+|---|---|---|---|
+| DR accuracy | +0.15 pts | [−1.7, +1.9] | indistinguishable |
+| DR QWK | +0.008 | [−0.006, +0.022] | indistinguishable |
+| **DME accuracy** | **+3.04 pts** | **[+0.39, +5.62]** | **significant** |
+| DME QWK | +0.014 | [−0.008, +0.038] | indistinguishable |
+
+**Two readings, stated precisely.**
+
+**DR resolution saturates.** E09 showed 224 → 448 is worth +0.040 QWK, significant. E10 shows
+448 → 560 is worth +0.008, indistinguishable. So the benefit of resolution for DR is real but
+**flattens somewhere between 224 and 448 px** rather than continuing upward. That is a more
+useful finding than "higher is better", and it means the expensive 768 px runs on the backlog
+are unlikely to pay.
+
+**The DME negative result is now partly broken — on the secondary metric only.** This is the
+first significant DME improvement in the programme. Being exact about what it does and does
+not overturn: the standing negative result concerned **QWK**, the primary metric, and QWK
+remains indistinguishable [−0.008, +0.038]. What moved is **accuracy**, the secondary metric,
+by +3.04 points. Accuracy rising while QWK does not means the extra correct calls are
+mostly one-grade corrections rather than the two-grade errors QWK charges for.
+
+**What it is not evidence for.** The native-resolution Messidor-2 mirror was attached, and the
+log confirms it was found and used — but every image from it was still downscaled to 560 in
+the cache, so its 2240 × 1488 source contributed at most 560 px. The real question — does
+native-resolution source data lift the Mild class — **remains open**, and needs a run with
+`cache_size >= size`. `build_cache()` now refuses to start such a mislabelled run.
 
 ### E09 — resolution binds for DR and not for DME, and the gain scales with lesion size
 
