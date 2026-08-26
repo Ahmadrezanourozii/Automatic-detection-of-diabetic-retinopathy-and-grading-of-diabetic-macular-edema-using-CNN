@@ -28,6 +28,34 @@ gated floor**. All pairwise variant comparisons: `runs/E01/comparisons.json`.
 
 
 
+
+### Threshold tuning: a fix that mattered on the weak model and vanished on the strong one
+
+Cross-fitted cut-point tuning was applied to both runs, identically:
+
+| | E05 (no pretraining) | E06 (EyePACS pretrained) |
+|---|---|---|
+| DR QWK, default cuts | 0.783 | 0.847 |
+| DR QWK, tuned cuts | **0.831** | 0.855 |
+| change | **+0.047 [+0.034, +0.061] significant** | +0.008 [−0.001, +0.017] **indistinguishable** |
+| referable-DR at default decode | 73.7 % sens / 98.0 % spec | **88.3 % sens / 94.9 % spec** |
+| referable-DR tuned for ≥90 % sens | 90.0 % / 85.8 % | 89.7 % / 93.4 % |
+
+Pretraining fixed the same miscalibration that threshold tuning was compensating for. The
+two interventions overlap almost completely, and on the better model the patch is worth
+nothing.
+
+**This is worth stating in the thesis as a methodological point.** Had only E05 been run,
+threshold tuning would have been written up as a key contribution worth +0.047 QWK. It is
+not a contribution — it is a repair for an under-trained, poorly calibrated output layer, and
+it disappears the moment the output layer is trained properly. An improvement measured
+against a weak baseline is a statement about the baseline as much as about the method.
+
+The same caution applies in reverse: E06 needs no threshold tuning to reach a usable
+screening operating point (88.3 % sensitivity at 94.9 % specificity straight out of the
+decode), so the tuning machinery stays in the repository as a diagnostic rather than as part
+of the reported pipeline.
+
 ### E06 — verdict: EyePACS pretraining works, and only on the head it can reach
 
 **Confirmed for DR, not measurable for DME.** Paired bootstrap over the same 2 260 groups,
