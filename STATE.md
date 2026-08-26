@@ -3,7 +3,7 @@
 **Project:** Automatic detection of diabetic retinopathy (DR) and grading of diabetic
 macular edema (DME) from a single retinal fundus photograph.
 **Owner:** Alireza Chegeni (810102111), MSc, ECE, University of Tehran.
-**Last updated:** 2026-08-26 — session 2 (autonomous; E05/E06 done, E07/E08 running).
+**Last updated:** 2026-08-26 — session 2. GPU quota exhausted; E10/E11 running, CPU-only work until the reset (~59 h).
 
 ---
 
@@ -25,26 +25,35 @@ every number in this file. See `ISSUES.md` §1 for the full diagnosis.
 
 ## Current best result
 
-**E06** — DenseNet121, ordinal threshold heads, Messidor-2 partial-label DME supervision,
-EyePACS pretraining. Pooled out-of-fold over all 2 260 development images:
+**E06 and E08 are statistically tied on DR**; E08 is reported as the headline because it also
+persisted its fold weights, which is what the external evaluation needed.
 
 | head | n | floor | accuracy | QWK |
 |---|---|---|---|---|
-| DR, 5-class | 2 260 | 52.4 % | 71.9 % | **0.847** |
-| DME, 3-class ungated *(primary)* | 516 | 47.1 % | **86.0 %** | **0.879** |
-| DME, 3-class gated DR≥1 *(secondary)* | 348 | 69.8 % | 80.5 % | 0.719 |
-| Referable DME, binary | 2 260 | 82.6 % | 94.8 % | 0.819 |
-| Referable DR (the screening decision) | 2 260 | — | sens **88.3 %** / spec 94.9 % | — |
+| DR, 5-class | 2 260 | 52.4 % | 74.2 % | **0.860** |
+| DME, 3-class ungated *(primary)* | 516 | 47.1 % | **86.0 %**¹ | **0.884** |
+| Referable DME, binary | 2 260 | 82.6 % | 94.9 % | 0.819 |
+| Referable DR (screening decision) | 2 260 | — | sens 88.3 %¹ / spec 94.9 %¹ | — |
 
-**External validation (E08X):** on 3 662 APTOS images never seen in training, DR accuracy
-**73.5 %** and QWK **0.897** — no drop from internal, QWK actually higher. Referable-DR
-sensitivity **99.5 %** at 84.3 % specificity. The model over-grades APTOS by about one step,
-so the ranking transfers but the cut-points do not; deployment elsewhere would need local
-threshold recalibration. There is still no external number for 3-class DME.
+¹ best value is E06's; E08 − E06 is indistinguishable on every DME metric.
 
-On IDRiD's official 103-image test split — the set the old thesis quoted 91.6 % on — the
-E05 pipeline scores **61.2 %**. Every number above is re-scored under the corrected DME
-definition (`ISSUES.md` §12) from archived logits.
+**External validation (E08X):** 3 662 APTOS images never seen in training — DR accuracy
+**73.5 %**, QWK **0.897**, referable-DR sensitivity **99.5 %** at 84.3 % specificity. No
+generalisation drop; QWK is higher than internal. The model over-grades APTOS by about one
+step, so the ranking transfers and the cut-points do not — deployment elsewhere needs local
+threshold recalibration. **There is still no external number for 3-class DME.**
+
+On IDRiD's official 103-image test split — the set the old thesis quoted 91.6 % on — the E05
+pipeline scores **61.2 %**.
+
+## The standing negative result
+
+**No intervention has significantly improved 3-class DME.** Eight of ten pairwise DME
+comparisons are indistinguishable (`docs/generated/comparisons.md`). Every gain in this
+project so far is on the DR head. Either the 516-image DME evaluation set is too small to
+resolve the differences (interval ≈ ±0.03), or the interventions tried do not address what
+that head lacks — which is exudate position, not capacity. Messidor-1 would settle the first;
+the macula-centred crop would test the second.
 
 ## Operating mode
 
@@ -66,6 +75,17 @@ waiting for sign-off between iterations.
 
 Kaggle datasets attached: `aaryapatel98/indian-diabetic-retinopathy-image-dataset`,
 `google-brain/messidor2-dr-grades`, `mariaherrerot/messidor2preprocess`.
+
+## GPU budget — binding constraint
+
+**30 h/week, currently 0 h left, resets in ~59 h.** Rules adopted after E07 was killed at the
+12-hour wall having produced 4 of 5 folds:
+
+* **No single run over ~10 h wall clock.** Split long configurations across sessions by fold.
+* Every run checkpoints **every epoch** and writes `results.json` **after every fold**, so a
+  kill costs one epoch, not the run (`ISSUES.md` §17 — verified: E07's full working directory
+  was published despite being cancelled).
+* An empty Output tab on a **running** kernel means "not published yet", never "nothing saved".
 
 ## What is running right now
 

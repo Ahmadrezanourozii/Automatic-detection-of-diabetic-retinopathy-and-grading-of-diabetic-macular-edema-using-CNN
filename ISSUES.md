@@ -599,6 +599,39 @@ been observed to change — the same lesson as §15.
 
 ---
 
+## §19. The group bootstrap was quadratic and never finished  — 2026-08-26, FIXED
+
+**Symptom.** `src/compare_runs.py` produced no output at all after several minutes and had to
+be killed. It looked like the Google Drive mount being slow.
+
+**Root cause, and it was mine.** `_resample_groups()` rebuilt its group → rows index inside
+**every bootstrap draw**:
+
+    uniq, inv = np.unique(groups, return_inverse=True)
+    rows_by_group = [np.flatnonzero(inv == g) for g in range(len(uniq))]   # O(G x N)
+
+With 2 260 one-image groups that is 5.1 M operations per draw, times 2 000 draws, times 4
+metrics, times 10 run pairs — on the order of 10^11 operations. It was not slow, it was never
+going to finish.
+
+**Why it went unnoticed for so long.** Every earlier use was small enough to hide it:
+in-epoch validation uses `n_boot=200` on ~450 rows, and the single-run reports ran once at
+2 000 draws and merely felt sluggish. Only the all-pairs sweep made the cost visible.
+
+**Fix.** Precompute the index once per call and make each draw a single fancy-index; the
+common case here (every group is one image) collapses to `order[starts[picked]]`.
+**2 000 draws over 2 260 groups: 2.0 s**, from unbounded.
+
+**Correctness was re-verified, not assumed.** Both invariants still hold: a single group
+gives a zero-width interval (proving the grouping is respected), and a perfect predictor
+gives [1, 1]. A speed fix to a statistical routine that is not re-checked against its
+invariants is a correctness risk, not an optimisation.
+
+**Recognise it by:** an analysis that produces nothing rather than producing something slowly.
+Silence usually means a complexity bug, not I/O.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.

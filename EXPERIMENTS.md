@@ -37,6 +37,53 @@ gated floor**. All pairwise variant comparisons: `runs/E01/comparisons.json`.
 
 
 
+
+### All-pairs comparison, and the negative result that matters
+
+`src/compare_runs.py` now generates every pairwise paired bootstrap into
+`docs/generated/comparisons.md`, restricted to the folds both runs completed (so anything
+involving E07 covers folds 0–3 only, and says so). 41 comparisons.
+
+**DR — the ordering, with ties named as ties:**
+
+| comparison | DR QWK difference | verdict |
+|---|---|---|
+| E08 − E06 | +0.012 [−0.002, +0.028] | **indistinguishable — E08 does not beat E06** |
+| E06 − E09 (448 vs 224) | +0.027 [+0.010, +0.045] | significant |
+| E08 − E09 (448 vs 224) | +0.040 [+0.024, +0.056] | significant |
+| E08 − E07 | +0.020 [+0.001, +0.041] | significant |
+| E08 − E05 | +0.077 [+0.056, +0.099] | significant |
+| E06 − E05 | +0.064 [+0.042, +0.087] | significant |
+
+So the current best is **E06 and E08, statistically tied**, and both clearly above E05, E07
+and E09.
+
+**DME — nothing has worked.** Of the ten DME comparisons, **eight are indistinguishable**,
+and the two that are significant both involve E07 on folds 0–3 (n = 415), where E07 is the
+*worse* run. Stated plainly:
+
+> **No intervention in this programme has significantly improved 3-class DME.** EyePACS
+> pretraining, the longer schedule, the bigger backbone and the resolution change all move
+> DME by an amount whose interval contains zero. The DME head reached QWK ≈ 0.87 in E05 and
+> has stayed there.
+
+This is worth saying clearly rather than letting the DR gains carry the whole story. Two
+readings, and they are distinguishable by experiment rather than argument:
+
+1. **The DME task is already near the ceiling of what 516 exactly-labelled images can
+   measure.** The 95 % interval on its QWK is roughly ±0.03, so an improvement smaller than
+   that is invisible no matter what we do. This predicts that acquiring Messidor-1 — which
+   would roughly triple the 3-class DME evaluation set — should shrink the interval enough
+   for real differences to appear.
+2. **The interventions genuinely do not help DME.** EyePACS carries no DME labels at all, so
+   it could only ever have helped through shared features; resolution does not bind for DME
+   (E09 confirmed this directly, unlike for DR); and neither backbone nor schedule addresses
+   what the DME head lacks, which is exudate *position* relative to the macula.
+
+Reading 2 has a cheap test already queued: the macula-centred crop (`IDEAS.md` I07), which
+uses the fovea coordinates IDRiD ships for all 516 images and is the only queued idea that
+addresses position rather than capacity.
+
 ### E07 — data beats architecture, and the run did not fit the budget
 
 E07 was cancelled at Kaggle's 12-hour wall clock having finished 4 folds of 5. Comparing it

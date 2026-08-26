@@ -90,17 +90,34 @@ def binary_sens_spec(y_true, y_pred, positive_from):
 
 
 # ── uncertainty ───────────────────────────────────────────────────────────────
-def _resample_groups(groups, rng):
+def _group_index(groups):
+    """Precompute group -> row indices ONCE.
+
+    The obvious implementation rebuilds this inside every bootstrap iteration, which is
+    O(n_groups x n_rows) per draw. With 2 260 one-image groups and 2 000 draws that is
+    ~10^10 operations and the comparison never finishes — it looks like the data is slow
+    when it is the resampler. Hoisting it out makes each draw a single fancy-index.
+    """
+    uniq, inv = np.unique(groups, return_inverse=True)
+    order = np.argsort(inv, kind="stable")
+    starts = np.searchsorted(inv[order], np.arange(len(uniq)))
+    ends = np.searchsorted(inv[order], np.arange(len(uniq)), side="right")
+    return order, starts, ends, len(uniq)
+
+
+def _resample_groups(index, rng):
     """Resample WHOLE GROUPS with replacement and return the row indices they select.
 
     This is the point of the module. Resampling rows would treat two eyes of one patient —
     or two fields of one eye — as independent evidence, which makes the interval roughly
     twice too narrow. PROTOCOL.md §4.
     """
-    uniq, inv = np.unique(groups, return_inverse=True)
-    rows_by_group = [np.flatnonzero(inv == g) for g in range(len(uniq))]
-    picked = rng.integers(0, len(uniq), size=len(uniq))
-    return np.concatenate([rows_by_group[g] for g in picked])
+    order, starts, ends, n_groups = index
+    picked = rng.integers(0, n_groups, size=n_groups)
+    counts = ends[picked] - starts[picked]
+    if counts.max() == 1:                     # every group is one row: the common case here
+        return order[starts[picked]]
+    return np.concatenate([order[starts[g]:ends[g]] for g in picked])
 
 
 def bootstrap_ci(y_true, y_pred, fn, groups=None, n_boot=2000, alpha=0.05, seed=0):
@@ -108,9 +125,10 @@ def bootstrap_ci(y_true, y_pred, fn, groups=None, n_boot=2000, alpha=0.05, seed=
     y_true, y_pred = np.asarray(y_true), np.asarray(y_pred)
     groups = np.arange(len(y_true)) if groups is None else np.asarray(groups)
     rng = np.random.default_rng(seed)
+    index = _group_index(groups)
     stats = []
     for _ in range(n_boot):
-        idx = _resample_groups(groups, rng)
+        idx = _resample_groups(index, rng)
         stats.append(fn(y_true[idx], y_pred[idx]))
     lo, hi = np.nanpercentile(stats, [100 * alpha / 2, 100 * (1 - alpha / 2)])
     return float(lo), float(hi)
@@ -128,9 +146,10 @@ def paired_bootstrap_diff(y_true, pred_a, pred_b, fn, groups=None,
     pred_a, pred_b = np.asarray(pred_a), np.asarray(pred_b)
     groups = np.arange(len(y_true)) if groups is None else np.asarray(groups)
     rng = np.random.default_rng(seed)
+    index = _group_index(groups)
     diffs = []
     for _ in range(n_boot):
-        idx = _resample_groups(groups, rng)
+        idx = _resample_groups(index, rng)
         diffs.append(fn(y_true[idx], pred_a[idx]) - fn(y_true[idx], pred_b[idx]))
     lo, hi = np.nanpercentile(diffs, [100 * alpha / 2, 100 * (1 - alpha / 2)])
     return float(np.mean(diffs)), float(lo), float(hi), bool(lo > 0 or hi < 0)

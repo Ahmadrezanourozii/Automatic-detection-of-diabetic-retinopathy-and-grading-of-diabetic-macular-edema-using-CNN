@@ -1,0 +1,141 @@
+# DERIVED, NOT ORIGINAL STDOUT.
+# runs/E06/train.log was the stale log of E06's FAILED first attempt (ISSUES.md §13)
+# and was renamed .stale-from-failed-attempt. The successful run's text log was never
+# fetched. Every per-epoch metric below is reconstructed from results.json['folds']
+# ['history'], which is complete. No number here is inferred or interpolated.
+# run E06  commit 52d5ef48175a84275e22cf4910cf1db494e48662  runtime 9120.5s
+
+FOLD 0  train=1805 val=455
+  ep   0  loss 0.3380 (dr 0.3065 dme 0.3853)  DR qwk 0.738 acc 54.1%  DME qwk 0.365 acc 49.3%  score 0.5892  lr 8.00e-04
+  ep   1  loss 0.2498 (dr 0.2578 dme 0.2379)  DR qwk 0.751 acc 54.7%  DME qwk 0.789 acc 75.7%  score 0.7662  lr 9.98e-04
+  ep   2  loss 0.2195 (dr 0.2259 dme 0.2100)  DR qwk 0.765 acc 55.4%  DME qwk 0.826 acc 78.7%  score 0.7889  lr 9.87e-04
+  ep   3  loss 0.2034 (dr 0.2138 dme 0.1878)  DR qwk 0.765 acc 56.0%  DME qwk 0.832 acc 79.4%  score 0.7918  lr 9.68e-04
+  ep   4  loss 0.1849 (dr 0.1959 dme 0.1685)  DR qwk 0.791 acc 58.0%  DME qwk 0.855 acc 80.9%  score 0.8164  lr 9.41e-04
+  ep   5  loss 0.1776 (dr 0.1852 dme 0.1662)  DR qwk 0.808 acc 59.8%  DME qwk 0.861 acc 81.6%  score 0.8292  lr 9.06e-04
+  ep   6  loss 0.1631 (dr 0.1740 dme 0.1467)  DR qwk 0.820 acc 62.2%  DME qwk 0.874 acc 81.6%  score 0.8417  lr 8.65e-04
+  ep   7  loss 0.1585 (dr 0.1671 dme 0.1456)  DR qwk 0.826 acc 63.7%  DME qwk 0.869 acc 80.9%  score 0.8433  lr 8.17e-04
+  ep   8  loss 0.1503 (dr 0.1549 dme 0.1434)  DR qwk 0.829 acc 65.5%  DME qwk 0.875 acc 81.6%  score 0.8474  lr 7.64e-04
+  ep   9  loss 0.1450 (dr 0.1501 dme 0.1375)  DR qwk 0.839 acc 67.7%  DME qwk 0.870 acc 80.9%  score 0.8517  lr 7.07e-04
+  ep  10  loss 0.1413 (dr 0.1461 dme 0.1340)  DR qwk 0.841 acc 68.6%  DME qwk 0.867 acc 82.4%  score 0.8513  lr 6.46e-04
+  ep  11  loss 0.1399 (dr 0.1446 dme 0.1328)  DR qwk 0.838 acc 69.2%  DME qwk 0.867 acc 82.4%  score 0.8494  lr 5.83e-04
+  ep  12  loss 0.1388 (dr 0.1440 dme 0.1308)  DR qwk 0.839 acc 69.5%  DME qwk 0.872 acc 83.1%  score 0.8520  lr 5.18e-04
+  ep  13  loss 0.1340 (dr 0.1362 dme 0.1306)  DR qwk 0.838 acc 69.7%  DME qwk 0.872 acc 83.1%  score 0.8517  lr 4.53e-04
+  ep  14  loss 0.1364 (dr 0.1378 dme 0.1342)  DR qwk 0.842 acc 69.9%  DME qwk 0.872 acc 83.1%  score 0.8538  lr 3.90e-04
+  ep  15  loss 0.1332 (dr 0.1359 dme 0.1292)  DR qwk 0.845 acc 71.0%  DME qwk 0.872 acc 83.1%  score 0.8555  lr 3.28e-04
+  ep  16  loss 0.1330 (dr 0.1352 dme 0.1297)  DR qwk 0.849 acc 71.6%  DME qwk 0.865 acc 83.8%  score 0.8555  lr 2.70e-04
+  ep  17  loss 0.1306 (dr 0.1334 dme 0.1264)  DR qwk 0.851 acc 72.1%  DME qwk 0.865 acc 83.8%  score 0.8567  lr 2.15e-04
+  ep  18  loss 0.1324 (dr 0.1337 dme 0.1305)  DR qwk 0.849 acc 72.1%  DME qwk 0.865 acc 83.8%  score 0.8555  lr 1.66e-04
+  ep  19  loss 0.1323 (dr 0.1331 dme 0.1310)  DR qwk 0.849 acc 72.1%  DME qwk 0.865 acc 83.8%  score 0.8551  lr 1.23e-04
+  ep  20  loss 0.1299 (dr 0.1309 dme 0.1286)  DR qwk 0.850 acc 72.3%  DME qwk 0.865 acc 83.8%  score 0.8556  lr 8.70e-05
+  ep  21  loss 0.1295 (dr 0.1310 dme 0.1272)  DR qwk 0.862 acc 72.7%  DME qwk 0.860 acc 83.1%  score 0.8612  lr 5.81e-05
+  ep  22  loss 0.1302 (dr 0.1324 dme 0.1268)  DR qwk 0.864 acc 73.2%  DME qwk 0.857 acc 82.4%  score 0.8609  lr 3.70e-05
+  ep  23  loss 0.1301 (dr 0.1320 dme 0.1272)  DR qwk 0.864 acc 73.4%  DME qwk 0.853 acc 81.6%  score 0.8599  lr 2.43e-05
+  ep  24  loss 0.1298 (dr 0.1315 dme 0.1274)  DR qwk 0.865 acc 73.6%  DME qwk 0.849 acc 80.9%  score 0.8584  lr 2.00e-05
+
+FOLD 1  train=1805 val=455
+  ep   0  loss 0.3462 (dr 0.3203 dme 0.3849)  DR qwk 0.714 acc 53.6%  DME qwk 0.294 acc 47.4%  score 0.5464  lr 8.00e-04
+  ep   1  loss 0.2584 (dr 0.2659 dme 0.2472)  DR qwk 0.721 acc 54.1%  DME qwk 0.773 acc 76.7%  score 0.7418  lr 9.98e-04
+  ep   2  loss 0.2251 (dr 0.2322 dme 0.2144)  DR qwk 0.739 acc 55.6%  DME qwk 0.812 acc 77.4%  score 0.7683  lr 9.87e-04
+  ep   3  loss 0.2073 (dr 0.2203 dme 0.1877)  DR qwk 0.751 acc 57.4%  DME qwk 0.790 acc 75.9%  score 0.7668  lr 9.68e-04
+  ep   4  loss 0.1921 (dr 0.2060 dme 0.1712)  DR qwk 0.763 acc 57.6%  DME qwk 0.813 acc 78.9%  score 0.7827  lr 9.41e-04
+  ep   5  loss 0.1777 (dr 0.1869 dme 0.1639)  DR qwk 0.771 acc 58.7%  DME qwk 0.835 acc 78.2%  score 0.7967  lr 9.06e-04
+  ep   6  loss 0.1678 (dr 0.1777 dme 0.1530)  DR qwk 0.783 acc 59.6%  DME qwk 0.839 acc 78.9%  score 0.8054  lr 8.65e-04
+  ep   7  loss 0.1579 (dr 0.1671 dme 0.1441)  DR qwk 0.784 acc 59.6%  DME qwk 0.831 acc 79.7%  score 0.8029  lr 8.17e-04
+  ep   8  loss 0.1564 (dr 0.1659 dme 0.1422)  DR qwk 0.788 acc 60.2%  DME qwk 0.832 acc 79.7%  score 0.8057  lr 7.64e-04
+  ep   9  loss 0.1505 (dr 0.1575 dme 0.1399)  DR qwk 0.798 acc 61.8%  DME qwk 0.842 acc 81.2%  score 0.8151  lr 7.07e-04
+  ep  10  loss 0.1458 (dr 0.1520 dme 0.1364)  DR qwk 0.815 acc 63.7%  DME qwk 0.842 acc 81.2%  score 0.8259  lr 6.46e-04
+  ep  11  loss 0.1395 (dr 0.1434 dme 0.1338)  DR qwk 0.815 acc 64.2%  DME qwk 0.854 acc 82.7%  score 0.8305  lr 5.83e-04
+  ep  12  loss 0.1411 (dr 0.1442 dme 0.1365)  DR qwk 0.821 acc 65.3%  DME qwk 0.862 acc 82.0%  score 0.8376  lr 5.18e-04
+  ep  13  loss 0.1378 (dr 0.1412 dme 0.1328)  DR qwk 0.830 acc 65.5%  DME qwk 0.873 acc 83.5%  score 0.8468  lr 4.53e-04
+  ep  14  loss 0.1351 (dr 0.1387 dme 0.1297)  DR qwk 0.831 acc 66.4%  DME qwk 0.873 acc 83.5%  score 0.8474  lr 3.90e-04
+  ep  15  loss 0.1333 (dr 0.1360 dme 0.1292)  DR qwk 0.834 acc 66.2%  DME qwk 0.877 acc 84.2%  score 0.8513  lr 3.28e-04
+  ep  16  loss 0.1356 (dr 0.1371 dme 0.1332)  DR qwk 0.832 acc 67.0%  DME qwk 0.877 acc 84.2%  score 0.8503  lr 2.70e-04
+  ep  17  loss 0.1312 (dr 0.1340 dme 0.1270)  DR qwk 0.838 acc 68.6%  DME qwk 0.877 acc 84.2%  score 0.8537  lr 2.15e-04
+  ep  18  loss 0.1329 (dr 0.1363 dme 0.1278)  DR qwk 0.836 acc 69.0%  DME qwk 0.882 acc 85.0%  score 0.8545  lr 1.66e-04
+  ep  19  loss 0.1324 (dr 0.1347 dme 0.1290)  DR qwk 0.833 acc 68.8%  DME qwk 0.882 acc 85.0%  score 0.8522  lr 1.23e-04
+  ep  20  loss 0.1304 (dr 0.1333 dme 0.1261)  DR qwk 0.831 acc 69.7%  DME qwk 0.882 acc 85.0%  score 0.8511  lr 8.70e-05
+  ep  21  loss 0.1292 (dr 0.1315 dme 0.1258)  DR qwk 0.834 acc 70.3%  DME qwk 0.873 acc 83.5%  score 0.8497  lr 5.81e-05
+  ep  22  loss 0.1300 (dr 0.1317 dme 0.1275)  DR qwk 0.836 acc 70.8%  DME qwk 0.878 acc 84.2%  score 0.8527  lr 3.70e-05
+  ep  23  loss 0.1295 (dr 0.1316 dme 0.1263)  DR qwk 0.836 acc 71.4%  DME qwk 0.883 acc 85.0%  score 0.8548  lr 2.43e-05
+  ep  24  loss 0.1291 (dr 0.1309 dme 0.1265)  DR qwk 0.834 acc 71.6%  DME qwk 0.883 acc 85.0%  score 0.8538  lr 2.00e-05
+
+FOLD 2  train=1808 val=452
+  ep   0  loss 0.3582 (dr 0.3260 dme 0.4067)  DR qwk 0.776 acc 58.4%  DME qwk 0.292 acc 48.1%  score 0.5822  lr 8.01e-04
+  ep   1  loss 0.2536 (dr 0.2637 dme 0.2383)  DR qwk 0.784 acc 58.6%  DME qwk 0.740 acc 73.3%  score 0.7665  lr 9.98e-04
+  ep   2  loss 0.2309 (dr 0.2400 dme 0.2172)  DR qwk 0.786 acc 61.1%  DME qwk 0.763 acc 74.8%  score 0.7766  lr 9.87e-04
+  ep   3  loss 0.2092 (dr 0.2228 dme 0.1888)  DR qwk 0.797 acc 62.6%  DME qwk 0.804 acc 79.4%  score 0.8000  lr 9.68e-04
+  ep   4  loss 0.1860 (dr 0.1935 dme 0.1748)  DR qwk 0.817 acc 63.1%  DME qwk 0.820 acc 81.7%  score 0.8183  lr 9.41e-04
+  ep   5  loss 0.1770 (dr 0.1881 dme 0.1603)  DR qwk 0.821 acc 64.6%  DME qwk 0.824 acc 82.4%  score 0.8222  lr 9.06e-04
+  ep   6  loss 0.1702 (dr 0.1809 dme 0.1542)  DR qwk 0.829 acc 65.7%  DME qwk 0.824 acc 82.4%  score 0.8270  lr 8.65e-04
+  ep   7  loss 0.1604 (dr 0.1682 dme 0.1488)  DR qwk 0.836 acc 67.9%  DME qwk 0.829 acc 83.2%  score 0.8335  lr 8.17e-04
+  ep   8  loss 0.1559 (dr 0.1628 dme 0.1456)  DR qwk 0.840 acc 69.0%  DME qwk 0.834 acc 84.0%  score 0.8374  lr 7.64e-04
+  ep   9  loss 0.1526 (dr 0.1599 dme 0.1416)  DR qwk 0.841 acc 68.8%  DME qwk 0.839 acc 84.7%  score 0.8400  lr 7.07e-04
+  ep  10  loss 0.1455 (dr 0.1505 dme 0.1381)  DR qwk 0.853 acc 71.0%  DME qwk 0.839 acc 84.7%  score 0.8474  lr 6.46e-04
+  ep  11  loss 0.1437 (dr 0.1489 dme 0.1358)  DR qwk 0.855 acc 70.8%  DME qwk 0.849 acc 86.3%  score 0.8527  lr 5.83e-04
+  ep  12  loss 0.1385 (dr 0.1429 dme 0.1317)  DR qwk 0.856 acc 70.6%  DME qwk 0.844 acc 85.5%  score 0.8515  lr 5.18e-04
+  ep  13  loss 0.1379 (dr 0.1422 dme 0.1315)  DR qwk 0.862 acc 73.7%  DME qwk 0.849 acc 86.3%  score 0.8563  lr 4.53e-04
+  ep  14  loss 0.1337 (dr 0.1370 dme 0.1287)  DR qwk 0.860 acc 74.3%  DME qwk 0.868 acc 87.0%  score 0.8634  lr 3.90e-04
+  ep  15  loss 0.1324 (dr 0.1349 dme 0.1287)  DR qwk 0.863 acc 75.0%  DME qwk 0.868 acc 87.0%  score 0.8649  lr 3.28e-04
+  ep  16  loss 0.1325 (dr 0.1356 dme 0.1278)  DR qwk 0.865 acc 75.7%  DME qwk 0.868 acc 87.0%  score 0.8665  lr 2.70e-04
+  ep  17  loss 0.1314 (dr 0.1337 dme 0.1279)  DR qwk 0.867 acc 76.1%  DME qwk 0.863 acc 86.3%  score 0.8657  lr 2.15e-04
+  ep  18  loss 0.1322 (dr 0.1344 dme 0.1289)  DR qwk 0.868 acc 76.1%  DME qwk 0.863 acc 86.3%  score 0.8658  lr 1.66e-04
+  ep  19  loss 0.1307 (dr 0.1320 dme 0.1289)  DR qwk 0.868 acc 76.3%  DME qwk 0.868 acc 87.0%  score 0.8681  lr 1.23e-04
+  ep  20  loss 0.1309 (dr 0.1330 dme 0.1278)  DR qwk 0.869 acc 76.5%  DME qwk 0.868 acc 87.0%  score 0.8687  lr 8.70e-05
+  ep  21  loss 0.1302 (dr 0.1316 dme 0.1280)  DR qwk 0.871 acc 76.5%  DME qwk 0.863 acc 86.3%  score 0.8682  lr 5.81e-05
+  ep  22  loss 0.1314 (dr 0.1313 dme 0.1316)  DR qwk 0.871 acc 77.0%  DME qwk 0.863 acc 86.3%  score 0.8677  lr 3.70e-05
+  ep  23  loss 0.1305 (dr 0.1323 dme 0.1277)  DR qwk 0.870 acc 76.8%  DME qwk 0.863 acc 86.3%  score 0.8673  lr 2.43e-05
+  ep  24  loss 0.1307 (dr 0.1317 dme 0.1292)  DR qwk 0.868 acc 76.1%  DME qwk 0.863 acc 86.3%  score 0.8659  lr 2.00e-05
+
+FOLD 3  train=1811 val=449
+  ep   0  loss 0.3418 (dr 0.3152 dme 0.3817)  DR qwk 0.736 acc 55.9%  DME qwk 0.396 acc 50.7%  score 0.6002  lr 8.01e-04
+  ep   1  loss 0.2637 (dr 0.2613 dme 0.2673)  DR qwk 0.746 acc 56.1%  DME qwk 0.790 acc 73.9%  score 0.7638  lr 9.98e-04
+  ep   2  loss 0.2293 (dr 0.2363 dme 0.2188)  DR qwk 0.750 acc 56.6%  DME qwk 0.787 acc 75.4%  score 0.7647  lr 9.87e-04
+  ep   3  loss 0.2016 (dr 0.2120 dme 0.1860)  DR qwk 0.757 acc 57.0%  DME qwk 0.787 acc 75.4%  score 0.7688  lr 9.68e-04
+  ep   4  loss 0.1848 (dr 0.1935 dme 0.1718)  DR qwk 0.766 acc 57.7%  DME qwk 0.804 acc 77.6%  score 0.7809  lr 9.41e-04
+  ep   5  loss 0.1779 (dr 0.1899 dme 0.1599)  DR qwk 0.768 acc 57.5%  DME qwk 0.826 acc 80.6%  score 0.7915  lr 9.06e-04
+  ep   6  loss 0.1697 (dr 0.1793 dme 0.1553)  DR qwk 0.776 acc 57.5%  DME qwk 0.832 acc 81.3%  score 0.7986  lr 8.65e-04
+  ep   7  loss 0.1575 (dr 0.1583 dme 0.1563)  DR qwk 0.784 acc 57.5%  DME qwk 0.832 acc 81.3%  score 0.8031  lr 8.17e-04
+  ep   8  loss 0.1500 (dr 0.1555 dme 0.1417)  DR qwk 0.791 acc 58.6%  DME qwk 0.838 acc 82.1%  score 0.8098  lr 7.64e-04
+  ep   9  loss 0.1486 (dr 0.1529 dme 0.1422)  DR qwk 0.802 acc 59.7%  DME qwk 0.846 acc 81.3%  score 0.8193  lr 7.07e-04
+  ep  10  loss 0.1443 (dr 0.1511 dme 0.1342)  DR qwk 0.814 acc 62.1%  DME qwk 0.854 acc 80.6%  score 0.8304  lr 6.46e-04
+  ep  11  loss 0.1394 (dr 0.1429 dme 0.1342)  DR qwk 0.816 acc 63.0%  DME qwk 0.854 acc 80.6%  score 0.8316  lr 5.83e-04
+  ep  12  loss 0.1411 (dr 0.1439 dme 0.1370)  DR qwk 0.823 acc 65.3%  DME qwk 0.854 acc 80.6%  score 0.8353  lr 5.18e-04
+  ep  13  loss 0.1347 (dr 0.1374 dme 0.1307)  DR qwk 0.823 acc 65.7%  DME qwk 0.860 acc 81.3%  score 0.8376  lr 4.53e-04
+  ep  14  loss 0.1395 (dr 0.1396 dme 0.1393)  DR qwk 0.829 acc 66.6%  DME qwk 0.860 acc 81.3%  score 0.8415  lr 3.90e-04
+  ep  15  loss 0.1320 (dr 0.1335 dme 0.1298)  DR qwk 0.830 acc 66.8%  DME qwk 0.856 acc 80.6%  score 0.8405  lr 3.28e-04
+  ep  16  loss 0.1330 (dr 0.1340 dme 0.1316)  DR qwk 0.832 acc 67.0%  DME qwk 0.856 acc 80.6%  score 0.8416  lr 2.70e-04
+  ep  17  loss 0.1309 (dr 0.1334 dme 0.1272)  DR qwk 0.830 acc 67.7%  DME qwk 0.856 acc 80.6%  score 0.8404  lr 2.15e-04
+  ep  18  loss 0.1320 (dr 0.1343 dme 0.1285)  DR qwk 0.828 acc 67.7%  DME qwk 0.860 acc 81.3%  score 0.8408  lr 1.66e-04
+  ep  19  loss 0.1306 (dr 0.1327 dme 0.1275)  DR qwk 0.830 acc 68.2%  DME qwk 0.860 acc 81.3%  score 0.8421  lr 1.23e-04
+  ep  20  loss 0.1303 (dr 0.1320 dme 0.1277)  DR qwk 0.827 acc 69.0%  DME qwk 0.860 acc 81.3%  score 0.8402  lr 8.70e-05
+  ep  21  loss 0.1305 (dr 0.1326 dme 0.1273)  DR qwk 0.831 acc 69.9%  DME qwk 0.860 acc 81.3%  score 0.8427  lr 5.81e-05
+  ep  22  loss 0.1298 (dr 0.1314 dme 0.1275)  DR qwk 0.832 acc 70.2%  DME qwk 0.860 acc 81.3%  score 0.8434  lr 3.70e-05
+  ep  23  loss 0.1288 (dr 0.1306 dme 0.1260)  DR qwk 0.828 acc 70.6%  DME qwk 0.852 acc 82.1%  score 0.8378  lr 2.43e-05
+  ep  24  loss 0.1299 (dr 0.1322 dme 0.1263)  DR qwk 0.826 acc 70.8%  DME qwk 0.852 acc 82.1%  score 0.8366  lr 2.00e-05
+
+FOLD 4  train=1811 val=449
+  ep   0  loss 0.3421 (dr 0.3242 dme 0.3689)  DR qwk 0.728 acc 54.1%  DME qwk 0.396 acc 53.4%  score 0.5956  lr 8.01e-04
+  ep   1  loss 0.2571 (dr 0.2643 dme 0.2462)  DR qwk 0.740 acc 54.6%  DME qwk 0.748 acc 77.4%  score 0.7433  lr 9.98e-04
+  ep   2  loss 0.2296 (dr 0.2395 dme 0.2149)  DR qwk 0.753 acc 55.5%  DME qwk 0.804 acc 78.9%  score 0.7730  lr 9.87e-04
+  ep   3  loss 0.2027 (dr 0.2138 dme 0.1860)  DR qwk 0.764 acc 55.7%  DME qwk 0.797 acc 79.7%  score 0.7771  lr 9.68e-04
+  ep   4  loss 0.1910 (dr 0.2007 dme 0.1764)  DR qwk 0.772 acc 56.1%  DME qwk 0.798 acc 79.7%  score 0.7827  lr 9.41e-04
+  ep   5  loss 0.1786 (dr 0.1895 dme 0.1622)  DR qwk 0.783 acc 57.9%  DME qwk 0.798 acc 79.7%  score 0.7890  lr 9.06e-04
+  ep   6  loss 0.1613 (dr 0.1723 dme 0.1448)  DR qwk 0.792 acc 58.6%  DME qwk 0.801 acc 78.2%  score 0.7957  lr 8.65e-04
+  ep   7  loss 0.1600 (dr 0.1678 dme 0.1483)  DR qwk 0.802 acc 59.5%  DME qwk 0.815 acc 78.2%  score 0.8070  lr 8.17e-04
+  ep   8  loss 0.1504 (dr 0.1557 dme 0.1425)  DR qwk 0.811 acc 61.5%  DME qwk 0.836 acc 79.7%  score 0.8209  lr 7.64e-04
+  ep   9  loss 0.1511 (dr 0.1593 dme 0.1387)  DR qwk 0.812 acc 61.9%  DME qwk 0.836 acc 79.7%  score 0.8216  lr 7.07e-04
+  ep  10  loss 0.1440 (dr 0.1490 dme 0.1366)  DR qwk 0.816 acc 63.5%  DME qwk 0.841 acc 80.5%  score 0.8257  lr 6.46e-04
+  ep  11  loss 0.1418 (dr 0.1470 dme 0.1341)  DR qwk 0.823 acc 64.8%  DME qwk 0.841 acc 80.5%  score 0.8301  lr 5.83e-04
+  ep  12  loss 0.1374 (dr 0.1411 dme 0.1317)  DR qwk 0.822 acc 65.5%  DME qwk 0.841 acc 80.5%  score 0.8297  lr 5.18e-04
+  ep  13  loss 0.1347 (dr 0.1375 dme 0.1304)  DR qwk 0.827 acc 65.9%  DME qwk 0.841 acc 80.5%  score 0.8328  lr 4.53e-04
+  ep  14  loss 0.1340 (dr 0.1376 dme 0.1285)  DR qwk 0.826 acc 66.8%  DME qwk 0.847 acc 81.2%  score 0.8345  lr 3.90e-04
+  ep  15  loss 0.1335 (dr 0.1364 dme 0.1292)  DR qwk 0.834 acc 68.2%  DME qwk 0.842 acc 80.5%  score 0.8369  lr 3.28e-04
+  ep  16  loss 0.1310 (dr 0.1331 dme 0.1277)  DR qwk 0.836 acc 68.6%  DME qwk 0.842 acc 80.5%  score 0.8383  lr 2.70e-04
+  ep  17  loss 0.1316 (dr 0.1349 dme 0.1267)  DR qwk 0.828 acc 69.5%  DME qwk 0.842 acc 80.5%  score 0.8334  lr 2.15e-04
+  ep  18  loss 0.1316 (dr 0.1342 dme 0.1278)  DR qwk 0.833 acc 70.2%  DME qwk 0.842 acc 80.5%  score 0.8365  lr 1.66e-04
+  ep  19  loss 0.1383 (dr 0.1394 dme 0.1367)  DR qwk 0.822 acc 70.4%  DME qwk 0.847 acc 81.2%  score 0.8321  lr 1.23e-04
+  ep  20  loss 0.1294 (dr 0.1312 dme 0.1268)  DR qwk 0.823 acc 70.6%  DME qwk 0.852 acc 82.0%  score 0.8346  lr 8.70e-05
+  ep  21  loss 0.1325 (dr 0.1329 dme 0.1319)  DR qwk 0.824 acc 71.7%  DME qwk 0.852 acc 82.0%  score 0.8350  lr 5.81e-05
+  ep  22  loss 0.1294 (dr 0.1319 dme 0.1255)  DR qwk 0.821 acc 71.9%  DME qwk 0.852 acc 82.0%  score 0.8335  lr 3.70e-05
+  ep  23  loss 0.1289 (dr 0.1305 dme 0.1266)  DR qwk 0.824 acc 72.8%  DME qwk 0.856 acc 82.7%  score 0.8371  lr 2.43e-05
+  ep  24  loss 0.1306 (dr 0.1323 dme 0.1281)  DR qwk 0.824 acc 73.3%  DME qwk 0.856 acc 82.7%  score 0.8368  lr 2.00e-05

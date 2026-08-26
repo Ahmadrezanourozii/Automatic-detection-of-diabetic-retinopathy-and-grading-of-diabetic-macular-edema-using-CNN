@@ -4,4 +4,6 @@
 | `E05`+cuts | `3bf6f51` | cross-fitted decision cut-points | tuned on other folds only | 2260 | 68.0% | 0.831 | 84.1% | 0.884 | QWK +0.047 significant |
 | `E06` | `52d5ef4` | eyepacs-pretraining-then-finetune-on-dev-pool | densenet121 / ordinal @448px | 2260 | 71.9% | 0.847 | 86.0% | 0.879 | DR yes, DME yes |
 | `E06`+cuts | `52d5ef4` | cross-fitted decision cut-points | tuned on other folds only | 2260 | 71.7% | 0.855 | 85.9% | 0.876 | QWK +0.008 n.s. |
+| `E07` | `c79dac6` | efficientnet-b3-and-longer-schedule-beat-densenet121-at-30-epochs | tf_efficientnet_b3 / ordinal @448px | 1811 | 74.8% | 0.835 | 88.2% | 0.914 | — |
 | `E08` | `98b5ece` | eyepacs-pretrain-plus-longer-schedule-and-first-external-validation | densenet121 / ordinal @448px | 2260 | 74.2% | 0.860 | 84.1% | 0.884 | DR yes, DME yes |
+| `E09` | `cebfc20` | halving-resolution-tests-whether-mild-recall-is-resolution-bound | densenet121 / ordinal @224px | 2260 | 69.0% | 0.820 | 84.3% | 0.866 | DR yes, DME yes |
