@@ -25,23 +25,26 @@ every number in this file. See `ISSUES.md` §1 for the full diagnosis.
 
 ## Current best result
 
-**E06 and E08 are statistically tied on DR**; E08 is reported as the headline because it also
-persisted its fold weights, which is what the external evaluation needed.
+**E11 — EfficientNet-B3 with EyePACS pretraining.** Significantly the best DR configuration:
++0.029 QWK over E08 [+0.012, +0.046], fold-matched.
 
 | head | n | floor | accuracy | QWK |
 |---|---|---|---|---|
-| DR, 5-class | 2 260 | 52.4 % | 74.2 % | **0.860** |
-| DME, 3-class ungated *(primary)* | 516 | 47.1 % | **86.0 %**¹ | **0.884** |
-| Referable DME, binary | 2 260 | 82.6 % | 94.9 % | 0.819 |
-| Referable DR (screening decision) | 2 260 | — | sens 88.3 %¹ / spec 94.9 %¹ | — |
+| DR, 5-class *(folds 0–2)* | 1 362 | 52.3 % | **78.1 %** | **0.894** |
+| DME, 3-class ungated *(folds 0–2)* | 314 | 48.1 % | **87.6 %** | **0.902** |
 
-¹ best value is E06's; E08 − E06 is indistinguishable on every DME metric.
+**Caveat: three folds, not five.** E11 was sized to fit the wall clock and finished in 9.49 h.
+Its headline is not on the same basis as the other runs until folds 3–4 are added (~3.2 h,
+queued first when quota returns). The paired comparisons above *are* fold-matched and valid.
 
-**External validation (E08X):** 3 662 APTOS images never seen in training — DR accuracy
-**73.5 %**, QWK **0.897**, referable-DR sensitivity **99.5 %** at 84.3 % specificity. No
-generalisation drop; QWK is higher than internal. The model over-grades APTOS by about one
-step, so the ranking transfers and the cut-points do not — deployment elsewhere needs local
-threshold recalibration. **There is still no external number for 3-class DME.**
+Five-fold reference points, for comparison: E10 DR 74.4 % / QWK 0.868, DME 87.2 % / 0.899;
+E08 DR 74.2 % / 0.860.
+
+**External validation (E08X, verified):** on 3 662 APTOS images never seen in training, DR
+accuracy **73.5 %** (95 % CI 72.0–74.9), **QWK 0.897** (95 % CI 0.889–0.905), floor 49.3 %;
+referable-DR sensitivity **99.5 %** at 84.3 % specificity. The model over-grades APTOS by
+about one step, so ranking transfers and cut-points do not. **This used E08's weights — it is
+an open question whether E11 generalises as well, and must be measured rather than assumed.**
 
 On IDRiD's official 103-image test split — the set the old thesis quoted 91.6 % on — the E05
 pipeline scores **61.2 %**.
@@ -63,9 +66,10 @@ the three caveats attached to the external number.
 
 ## The standing negative result
 
-**No intervention has significantly improved 3-class DME.** Eight of ten pairwise DME
-comparisons are indistinguishable (`docs/generated/comparisons.md`). Every gain in this
-project so far is on the DR head. Either the 516-image DME evaluation set is too small to
+**No intervention has significantly improved 3-class DME on QWK, the primary metric.** That
+now spans pretraining, schedule, backbone, and architecture-plus-data combined. The single
+exception is effective resolution (E10), which moved DME **accuracy** +3.04 pts while leaving
+QWK indistinguishable. Every other gain in this project is on the DR head. Either the 516-image DME evaluation set is too small to
 resolve the differences (interval ≈ ±0.03), or the interventions tried do not address what
 that head lacks — which is exudate position, not capacity. Messidor-1 would settle the first;
 the macula-centred crop would test the second.

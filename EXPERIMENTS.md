@@ -19,6 +19,11 @@ A number without a row here does not exist.
 | **E07** | 2026-08-26 | `c79dac6` | EfficientNet-B3 and a 60-epoch schedule beat DenseNet121 at 30 | E05 + efficientnet_b3, 60 epochs, no pretraining | 73.8 %¹ | 0.837¹ | — | — | — | folds 0–3 only | **killed at the 12 h wall clock after 4/5 folds** | `runs/E07/` |
 
 ¹ folds 0–3 only (n = 1 811); the run was cancelled during fold 4.
+| **E11** | 2026-08-26 | `ebe8a61` | EfficientNet-B3 **plus** EyePACS pretraining beats DenseNet121 plus the same | E08 + efficientnet_b3, 30 ep, **folds 0–2 only** | **78.1 %**¹ | **0.894**¹ | **87.6 %**¹ | **0.902**¹ | — | DR [75.8, 80.3] · DME [83.8, 91.1] | **best DR; +0.029 QWK vs E08, significant** | `runs/E11/` |
+
+¹ folds 0–2 only (DR n = 1 362, DME n = 314). Sized to fit the 12 h window after E07 was
+killed; finished in 9.49 h. The remaining two folds are queued so the headline can be quoted
+on the same 5-fold basis as every other run.
 | **E10** | 2026-08-26 | `4413fc7` | Native-resolution Messidor-2 at 640 px lifts the Mild class | E08 + native mirror, size 640 (**effectively 560 — see below**) | **74.4 %** | **0.868** | **87.2 %** | **0.899** | — | DR [72.6, 76.3] · DME [84.3, 89.9] | best DME so far | `runs/E10/` |
 | **E09** | 2026-08-26 | `cebfc20` | Halving the resolution tests whether Mild recall is resolution-bound | E08 at 224 px instead of 448 | 69.0 % | 0.820 | 84.3 % | 0.866 | — | DR [67.2, 70.9] | resolution test | `runs/E09/` |
 | **E08** | 2026-08-26 | `98b5ece` | EyePACS pretraining + a longer schedule; first external validation | E06 + 40 epochs (from 25), weights persisted | **74.2 %** | **0.860** | 84.1 % | **0.884** | 0.646 / 0.715 | DR [72.5, 76.0] · DME [81.0, 87.2] | best DR so far | `runs/E08/` |
@@ -107,6 +112,8 @@ on those four folds only (n = 1 811), against runs restricted to the same folds:
 | E07 − E08 (vs pretrained DenseNet) | +0.1 [−2.0, +2.3] n.s. | **−0.020 [−0.041, −0.001]** | **significant, against E07** |
 
 **A bigger backbone helps — and 35 000 extra pretraining images on a smaller one helps more.**
+*(Refined after E11: they are complementary. See the E11 section — the combination beats both,
+and the phrase "data beats architecture" was too broad.)*
 EfficientNet-B3 with ImageNet initialisation is significantly *worse* than DenseNet121 with
 EyePACS pretraining, on the metric that leads. The two are indistinguishable on accuracy,
 which is again the pattern from E06: extra data buys ordinal quality that accuracy cannot see.
@@ -126,6 +133,48 @@ in isolation. The open question is whether EfficientNet-B3 **plus** EyePACS pret
 DenseNet121 plus the same pretraining, and because pretraining converges faster it can be run
 at ~30 epochs and fit the window.
 
+
+
+### E11 — architecture and data are complementary, and my E07 conclusion was too broad
+
+E11 is EfficientNet-B3 **with** EyePACS pretraining — the combination E07 and E08 each had
+only half of. Paired bootstrap on the three folds all runs share (DR n = 1 362, DME n = 314):
+
+| comparison | DR accuracy | DR QWK | DME |
+|---|---|---|---|
+| E11 − E08 (DenseNet + pretraining) | **+4.37 pts [+1.91, +6.83]** | **+0.029 [+0.012, +0.046]** | indistinguishable |
+| E11 − E10 (DenseNet + pretraining, 560 px) | **+4.49 pts [+1.91, +6.98]** | **+0.029 [+0.013, +0.046]** | indistinguishable |
+
+**Correction to the E07 verdict.** From E07 I concluded "data beats architecture", because
+EfficientNet-B3 *without* pretraining lost to DenseNet121 *with* it. That was true but the
+phrasing was too broad, and read as "the backbone does not matter". It does. The accurate
+statement is:
+
+> Given a choice between a bigger backbone and 35 000 extra pretraining images, take the
+> images. Given both, take both — they are complementary, and the combination is
+> significantly better than either alone.
+
+The evidence is now complete on this point: pretraining alone (E06 − E05) is +0.064 QWK;
+backbone alone (E07 − E05) is +0.055; and backbone **on top of** pretraining (E11 − E08) is a
+further +0.029, all significant. Nothing here supports the idea that architecture is
+irrelevant, and I should not have implied it from a single half-configuration.
+
+**DME is unchanged again.** Indistinguishable against both comparators on both metrics, which
+keeps the standing negative result intact for the primary metric: the DME head has not been
+moved by pretraining, schedule, backbone, or the architecture-plus-data combination. The only
+thing that has ever moved it is effective resolution, and only its accuracy (E10).
+
+**Two caveats attached to this result.**
+
+1. **Three folds, not five.** E11 was deliberately sized to fit the wall clock after E07 was
+   killed at it, and finished in 9.49 h — inside the ~10 h budget rule. Its headline numbers
+   are therefore on a different basis from every other run's. The comparisons above are
+   fold-matched and valid; the *headline* is not directly comparable until folds 3 and 4 are
+   run, which is ~3.2 h and is queued.
+2. **The DR gain does not transfer automatically to the external number.** E08X's APTOS
+   result used E08's weights. Whether E11's larger backbone also generalises to an unseen
+   corpus is an open question, not an assumption — and worth checking before the headline is
+   changed, given E08X already showed that ranking transfers while calibration does not.
 
 ### E10 — a 560 px run wearing a 640 px label, and the first DME movement
 
