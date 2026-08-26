@@ -54,13 +54,20 @@ CACHE_EXT = ".jpg"
 CACHE_QUALITY = 95
 
 
-def build_cache(rows, cache_dir, cache_size=560):
+def build_cache(rows, cache_dir, cache_size=560, train_size=None):
     """Decode, border-crop and downscale every source image once.
 
     IDRiD is 4288x2848; decoding it 30 times per fold would dominate the run and burn the
     weekly GPU quota on JPEG decoding. Keyed on uid, which is unique -- keying on the
     filename silently overwrote 103 images once already (ISSUES.md §8).
     """
+    if train_size is not None and cache_size < train_size:
+        raise SystemExit(
+            f"cache_size={cache_size} is below train size={train_size}: every image would "
+            f"be UPSAMPLED from the cache and the extra pixels would carry no information. "
+            f"E10 ran this way and was a {cache_size}px experiment wearing a "
+            f"{train_size}px label (ISSUES.md §18). Raise --cache-size to at least "
+            f"--size, and higher where the source images support it.")
     os.makedirs(cache_dir, exist_ok=True)
     assert len({r["uid"] for r in rows}) == len(rows), "uids are not unique"
     todo = [r for r in rows
@@ -480,6 +487,9 @@ def main():
     p.add_argument("--run-id", default="E05")
     p.add_argument("--out", default=None)
     p.add_argument("--cache", default="/kaggle/temp/cache560")
+    p.add_argument("--cache-size", type=int, default=560,
+                   help="long side of the cached image; must be >= --size or the run "
+                        "upsamples and the resolution label is a lie (ISSUES.md §18)")
     p.add_argument("--folds", default="0")
     p.add_argument("--epochs", type=int, default=30)
     p.add_argument("--size", type=int, default=448)
@@ -590,7 +600,7 @@ def main():
             r.setdefault("group", r["uid"])
         print(corpora.summarise(pre_rows), flush=True)
 
-    build_cache(rows + pre_rows, args.cache)
+    build_cache(rows + pre_rows, args.cache, args.cache_size, args.size)
 
     results = {
         "run_id": args.run_id, "commit": sha, "hypothesis": args.hypothesis,

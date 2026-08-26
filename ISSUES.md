@@ -581,8 +581,15 @@ native-resolution Messidor-2 mirror that E10 was built to exploit — 2240 × 14
 away at 560 before training ever sees it.
 
 **E10 cannot answer the question it was launched to answer.** It is not a 640 px run; it is a
-560 px run paying 640 px compute, roughly **2× the cost of E08 for the same information**.
-Compared against E08 it measures only "does upsampling help?", whose answer is already known.
+**560 px run wearing a 640 px label**, paying 640 px compute for 560 px of information.
+
+**Correction, made after E10 finished (2026-08-26).** The sentence originally here said E10
+paid twice E08's cost "for the same information". That was wrong, and the error was mine.
+E08 trains at 448 from the same 560 px cache, so it *downsamples* and sees 448 px of
+information; E10 upsamples and sees 560. E10 therefore carries **more** effective resolution
+than E08, not the same — it is a genuine 448-vs-560 comparison, just not the 448-vs-640 one
+its configuration claims. Calling it worthless was an overcorrection; the right description
+is that its resolution label is inflated and its native-mirror benefit is capped at 560.
 
 **E11 is unaffected** — it trains at 448 ≤ 560, so its cache is a genuine downsample. But its
 native-resolution benefit is also nearly nil: 560 versus the 512 it would have had anyway.
