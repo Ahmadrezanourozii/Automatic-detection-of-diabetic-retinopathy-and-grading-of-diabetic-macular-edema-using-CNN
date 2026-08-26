@@ -37,9 +37,21 @@ DR QWK **0.860** [0.845, 0.874] and accuracy **74.2 %** against a 52.4 % floor, 
 above the E05 baseline, and macro-F1 up from 0.547 to 0.646. Referable-DR sensitivity 87.2 %
 at 95.5 % specificity, straight from the decode with no threshold tuning.
 
-Relative to E06 the only changes are 40 epochs instead of 25 and persisted fold weights, so
-DR QWK 0.847 → 0.860 is attributable to the longer schedule. That difference has **not** yet
-been tested by paired bootstrap and is not claimed as significant until it has been.
+**Attribution, now tested.** Paired bootstrap over the same 2 260 groups:
+
+| comparison | what changed | DR accuracy | DR QWK |
+|---|---|---|---|
+| E06 − E05 | EyePACS pretraining | +1.4 [−0.7, +3.5] n.s. | **+0.064 [+0.042, +0.087]** |
+| E08 − E06 | 25 → 40 epochs | **+2.3 [+0.6, +4.2]** | +0.012 [−0.002, +0.028] n.s. |
+| E08 − E05 | both together | **+3.8 [+1.8, +5.9]** | **+0.077 [+0.056, +0.099]** |
+
+Two interventions, each significant on a *different* metric and neither on both. Pretraining
+buys ordinal quality — it fixes the two-grade errors QWK charges for — and buys no measurable
+accuracy. The longer schedule buys accuracy and no measurable QWK. Reporting either one as
+"an improvement" without naming the metric would be a half-truth in both directions.
+
+So **E08's headline QWK of 0.860 is not claimed to beat E06's 0.847**; that interval contains
+zero. What E08 adds over E06 is accuracy and the persisted weights.
 
 **The external number is still missing**, for infrastructure reasons rather than scientific
 ones — see `ISSUES.md` §15. The weights exist; a follow-up kernel scores them on APTOS
