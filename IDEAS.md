@@ -56,6 +56,8 @@ that improve a working model are worth nothing until one exists.
 
 | I17 | Cross-fitted decision cut-point tuning | **inconclusive → demoted** | Worth +0.047 QWK on E05, worth +0.008 (n.s.) on E06. It repairs a miscalibrated output layer; pretraining repairs the same thing better. Kept as a diagnostic, not part of the reported pipeline. |
 
+| I18 | Re-run the external APTOS evaluation on GPU to get verified intervals | **not needed — resolved analytically** | Every APTOS group is one image, so the confusion matrix determines the bootstrap interval; recomputed and matched to Monte-Carlo error. Zero GPU spent. Removed from the queue. |
+
 ## Rejected
 
 | ID | Idea | Verdict | Evidence |

@@ -190,12 +190,33 @@ the archived artifact; **12 checks, 0 failures**:
 | macro-F1, majority floor, per-class recall, support | all regenerate |
 | referable-DR sensitivity / specificity regenerate | 99.53 % / 84.28 % both |
 
-**What could not be verified, stated rather than glossed:** the bootstrap intervals
-(accuracy [72.0, 74.9]) cannot be re-derived from this artifact, because
-`eval_external.py` archived only the aggregate confusion matrix and intervals need per-image
-predictions and group ids. The point estimates are verified; the intervals are taken on trust
-from the run that produced them. That is a gap in the artifact, and it is closed for future
-external evaluations.
+**The intervals are verified too — no re-run was needed.** A group bootstrap resamples groups
+i.i.d. with replacement. APTOS publishes no patient identifiers, so **every group is exactly
+one image** (3 662 images, 3 662 groups, verified). A group bootstrap is then an image
+bootstrap, which is exactly resampling (true, predicted) pairs from the empirical joint
+distribution — and the confusion matrix *is* that distribution. So the interval is fully
+determined by what was already archived:
+
+| | recomputed from the matrix | archived | Monte-Carlo sd |
+|---|---|---|---|
+| accuracy 95 % | [72.064, 74.932] | [72.037, 74.932] | ± 0.022 |
+| **QWK 95 %** | **[0.889, 0.905]** | **[0.889, 0.905]** | ± 0.0001 |
+
+This establishes the interval is **correct**, not that it is bit-identical: the realized draws
+depend on row order, which a confusion matrix does not preserve. The comparison is therefore
+against Monte-Carlo error, estimated from three independent seeds at 8 000 draws each and
+reported beside the figure. **14 checks, 0 failures.**
+
+**The quotable claim, now fully verified:**
+
+> On 3 662 APTOS images never seen in training: accuracy **73.5 %** (95 % CI 72.0–74.9),
+> **QWK 0.897** (95 % CI 0.889–0.905), against a 49.3 % majority-class floor.
+
+**The shortcut has a precondition, and it will expire.** It works *only* because every group
+is one image. The moment Messidor-1 arrives, or patient identifiers are recovered for any
+corpus, groups become multi-image and the confusion matrix stops determining the interval.
+`verify_external.py` tests that precondition and says so explicitly when it fails, and
+`eval_external.py` now archives per-image predictions and group ids regardless.
 
 ### E08X — external validation on APTOS: the ranking transfers, the calibration does not
 

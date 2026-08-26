@@ -100,11 +100,42 @@ def main():
               f"recomputed {s*100:.2f}% / {sp*100:.2f}% vs archived "
               f"{rep['referable_sensitivity']*100:.2f}% / {rep['referable_specificity']*100:.2f}%")
 
-    # ── 4. what cannot be checked from this artifact ──────────────────────────
-    print(f"\n[ note ] the bootstrap intervals in this file "
-          f"({rep.get('accuracy_ci95')}) CANNOT be re-derived here: they need per-image "
-          f"predictions and group ids, and only the aggregate confusion matrix was archived. "
-          f"Point estimates above are verified; the intervals are taken on trust from the run.")
+    # ── 4. the intervals, when every group is a single image ──────────────────
+    #
+    # A group bootstrap resamples groups i.i.d. with replacement. When every group holds
+    # exactly one image -- true of APTOS, which publishes no patient ids -- that is exactly
+    # resampling (y_true, y_pred) pairs i.i.d. from the empirical joint distribution. The
+    # confusion matrix IS that distribution. So the interval is fully determined by the
+    # archived matrix and needs no per-image file after all.
+    #
+    # This verifies the interval is CORRECT, not that it is bit-identical: the realized
+    # draws depend on row order, which the matrix does not preserve. The comparison is
+    # therefore against Monte-Carlo error, which is reported alongside.
+    one_per_group = ext and len({r["uid"] for r in ext}) == len(ext)
+    if not one_per_group:
+        print("\n[ note ] groups are not one image each, so the intervals cannot be "
+              "re-derived from the confusion matrix; per-image predictions are needed.")
+    else:
+        print(f"\n  every group in {a.corpus} is a single image "
+              f"({len(ext)} images, {len(ext)} groups), so the group bootstrap is an image "
+              f"bootstrap and the confusion matrix determines the interval.")
+        g = np.arange(n)
+        for key, fn, scale in (
+                ("accuracy", M.accuracy, 100),
+                ("qwk", lambda t, q: M.quadratic_weighted_kappa(t, q, k), 1)):
+            arch = rep.get(key + "_ci95")
+            if not arch or arch[0] is None:
+                continue
+            reps = [M.bootstrap_ci(y, pred, fn, groups=g, n_boot=8000, seed=sd)
+                    for sd in (0, 1, 2)]
+            los, his = [r[0] for r in reps], [r[1] for r in reps]
+            mc = max(np.std(los), np.std(his))          # spread across independent seeds
+            agree = (abs(np.mean(los) - arch[0]) <= 4 * mc + 1e-9 and
+                     abs(np.mean(his) - arch[1]) <= 4 * mc + 1e-9)
+            check(agree, f"{key} interval regenerates from the confusion matrix",
+                  f"recomputed [{np.mean(los)*scale:.3f}, {np.mean(his)*scale:.3f}] "
+                  f"vs archived [{arch[0]*scale:.3f}, {arch[1]*scale:.3f}]  "
+                  f"(Monte-Carlo sd across seeds {mc*scale:.4f})")
 
     print(f"\n{len(OK)} checks passed, {len(BAD)} failed")
     sys.exit(1 if BAD else 0)

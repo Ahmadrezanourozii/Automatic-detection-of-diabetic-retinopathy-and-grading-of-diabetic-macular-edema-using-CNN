@@ -95,9 +95,16 @@ commit reachable on the current branch, resolving documented rewrites through
 git history while archives reference it.
 
 `src/verify_external.py` re-derives an external claim from its archived artifact. The APTOS
-result passes **12 of 12** checks; its bootstrap intervals are the one thing that cannot be
-re-derived, because only the aggregate confusion matrix was archived. Fixed forward:
-`eval_external.py` now also saves per-image predictions and group ids.
+result passes **14 of 14** checks, **intervals included**: every APTOS group is a single
+image, so the group bootstrap is an image bootstrap and the confusion matrix determines the
+interval. No GPU re-run was needed.
+
+> **Defence claim, fully verified:** on 3 662 unseen APTOS images, DR accuracy **73.5 %**
+> (95 % CI 72.0–74.9), **QWK 0.897** (95 % CI 0.889–0.905), floor 49.3 %.
+
+That shortcut expires the moment groups stop being one image each — when Messidor-1 arrives,
+or patient ids are recovered. `eval_external.py` archives per-image predictions and groups
+from now on, and `verify_external.py` checks the precondition before relying on it.
 
 ## What is running right now
 
