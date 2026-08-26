@@ -46,6 +46,21 @@ threshold recalibration. **There is still no external number for 3-class DME.**
 On IDRiD's official 103-image test split — the set the old thesis quoted 91.6 % on — the E05
 pipeline scores **61.2 %**.
 
+## Chapter 4 — rewritten from computed numbers
+
+`thesis-chegeni/tex/chapter4.tex` is rewritten. It contains **no result numbers in prose**;
+every table and figure is `\input`-ed from `docs/generated/`, which `src/report.py` writes
+from archived `results.json` files. Re-running that script after a new run updates the
+chapter without touching its text.
+
+`src/check_thesis_numbers.py` enforces this structurally: **0 result-shaped literals in
+prose**. Its self-test (`tests/thesis_numbers_selftest.tex`) still goes red on both a
+fabricated figure and a true one, because being correct does not exempt a result from
+belonging in a table rather than a sentence.
+
+The chapter reports what was actually found, including the negative result below, and states
+the three caveats attached to the external number.
+
 ## The standing negative result
 
 **No intervention has significantly improved 3-class DME.** Eight of ten pairwise DME

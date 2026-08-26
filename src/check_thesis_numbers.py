@@ -63,6 +63,7 @@ def legit_values(summary_path):
 # on exactly the numbers it was written to catch (ISSUES.md §14).
 NUM_RE = re.compile(
     r"(?<![\w.])(\d{1,3}(?:\.\d{1,3})?)\s*(\\%|%|\u062f\u0631\u0635\u062f)?")
+NUMOK_RE = re.compile(r"%\s*NUMOK\s*:")
 SKIP_LINE = re.compile(r"^\s*%|\\label|\\ref|\\cite|\\includegraphics|\\input|"
                        r"\\section|\\subsection|\\chapter|\\begin|\\end|\\usepackage")
 
@@ -73,6 +74,8 @@ def scan(chapter_path, vals, tol=0.15):
     problems = []
     for lineno, line in enumerate(text.splitlines(), 1):
         if SKIP_LINE.search(line):
+            continue
+        if NUMOK_RE.search(line):                     # documented prose number
             continue
         stripped = re.sub(r"%.*$", "", line)          # trailing LaTeX comment
         for m in NUM_RE.finditer(stripped):
@@ -89,9 +92,8 @@ def scan(chapter_path, vals, tol=0.15):
                 continue
             if v in (0.0, 100.0, 1.0):
                 continue                              # trivially not a claim
-            if any(abs(v - g) <= tol for g in vals):
-                continue
-            problems.append((lineno, m.group(0).strip(), line.strip()[:90]))
+            coincides = any(abs(v - g) <= tol for g in vals)
+            problems.append((lineno, m.group(0).strip(), line.strip()[:88], coincides))
     return problems
 
 
@@ -113,14 +115,18 @@ def main():
         sys.exit(1)
 
     problems = scan(a.chapter, vals, a.tol)
-    for lineno, tok, ctx in problems:
-        print(f"  UNEXPLAINED  {os.path.basename(a.chapter)}:{lineno}  {tok}\n"
-              f"               {ctx}")
-    print(f"\n{len(problems)} numeric literal(s) in the chapter match no archived result.")
+    for lineno, tok, ctx, coincides in problems:
+        note = "  (coincides with some archived value — coincidence is not provenance)" \
+               if coincides else ""
+        print(f"  IN PROSE  {os.path.basename(a.chapter)}:{lineno}  {tok}{note}\n"
+              f"            {ctx}")
+    print(f"\n{len(problems)} result-shaped literal(s) in prose.")
     if problems:
-        print("Each one must either come from a \\input-ed generated table, or be deleted. "
-              "A number in the thesis that no run produced is the failure this project "
-              "started from (ISSUES.md §1).")
+        print("Each must come from a \\input-ed generated table, be deleted, or carry an "
+              "explicit `% NUMOK: <reason>` comment on its line. A number in the thesis "
+              "that no run produced is the failure this project started from "
+              "(ISSUES.md §1); a number that merely happens to match one is no better "
+              "(§21).")
     sys.exit(1 if problems else 0)
 
 

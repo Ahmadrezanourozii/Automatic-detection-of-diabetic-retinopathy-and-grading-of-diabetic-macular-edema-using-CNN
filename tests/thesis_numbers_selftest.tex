@@ -1,5 +1,11 @@
-% Self-test for src/check_thesis_numbers.py -- see ISSUES.md §14.
-% Line 4 must be flagged (91.6 % appears in no archived run).
-% Line 5 must NOT be flagged (0.847 is E06's DR QWK).
+% Self-test for src/check_thesis_numbers.py -- see ISSUES.md §14 and §21.
+% The check is STRUCTURAL: a result-shaped number in prose is flagged whether or not it
+% coincides with an archived value. Coincidence is not provenance.
+%
+% Line 8  MUST be flagged: a figure no run produced.
+% Line 9  MUST be flagged: a real figure (E06's DR QWK) -- results belong in generated
+%         tables, not in prose, so being true does not exempt it.
+% Line 10 must NOT be flagged: a prose number with a documented NUMOK exemption.
 دقت کلی ۹۱٫۶ درصد در طبقه‌بندی پنج‌کلاسه‌ی رتینوپاتی دیابتی است.
-مقدار QWK برابر 0.847 است که از نتایج آرشیوشده می‌آید.
+مقدار \lr{QWK} برابر 0.847 است که از نتایج آرشیوشده می‌آید.
+همه‌ی بازه‌ها در سطح اطمینان ۹۵ درصد گزارش شده‌اند. % NUMOK: confidence level, not a result

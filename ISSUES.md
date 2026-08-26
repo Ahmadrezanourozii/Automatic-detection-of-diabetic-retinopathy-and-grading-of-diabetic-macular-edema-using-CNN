@@ -676,6 +676,49 @@ raise. Each needs a check that can go red.
 
 ---
 
+## §21. A check whose power decays as the project grows  — 2026-08-26, FIXED
+
+**Symptom.** `check_thesis_numbers.py` was written to fail when the thesis states a result no
+run produced (§14). After it had been working for a while, its own self-test — a file
+containing the literal ۹۱٫۶, the figure the whole project started from — began reporting
+**0 problems**.
+
+**Root cause.** The check matched by **value**: a number passed if it came within 0.15 of
+anything in `summary.json`. As runs accumulate, that value set fills in. By the time E08's
+metrics were the reference there were 136 legitimate values, covering roughly **35 % of the
+range [0, 100]** at that tolerance — so about one arbitrary number in three passes by
+coincidence. And 91.6 passed for the most ordinary reason imaginable: some unrelated
+per-class metric in E08 happens to equal 0.916.
+
+**Why this is worse than a check that never worked.** A check that degrades silently reports
+success *more* confidently over time, exactly as the archive it guards gets larger and
+harder to audit by hand. Its green result was about to be quoted as evidence that chapter 4
+was clean.
+
+**Fix — the criterion is now structural, not numerical.** Any result-shaped literal appearing
+in the chapter's **prose** is flagged, whether or not it coincides with an archived value.
+Results belong in `\input`-ed generated tables, which are not scanned because
+`src/report.py` wrote them from an archived `results.json`. A number that genuinely belongs
+in prose — a confidence level, say — is permitted only with an explicit
+`% NUMOK: <reason>` comment on its line, so the exemption is documented in the source
+instead of silently granted. The value set is still loaded, but only to *annotate* a flagged
+number with "coincides with some archived value — coincidence is not provenance".
+
+The self-test now carries three lines: a fabricated figure, a **true** figure (E06's DR QWK),
+and an exempted prose number. It expects the first two to be flagged — **being correct does
+not exempt a result from belonging in a table** — and the third not to be.
+
+**A second thing this forced, and it is the better half of the fix.** Two floors were quoted
+in the chapter's prose *and* appeared in a generated table. Even though both were right,
+that is the same quantity arriving by two code paths, which is precisely what the "one script
+regenerates every number" rule exists to prevent. The prose now points at the table instead.
+
+**The general rule.** *Ask what makes a check go red, and whether that will still be true in
+six months.* A criterion that depends on the sparseness of a growing set is a criterion with
+an expiry date.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.
