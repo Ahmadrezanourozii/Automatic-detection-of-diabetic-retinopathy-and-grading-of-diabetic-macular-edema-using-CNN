@@ -30,6 +30,66 @@ gated floor**. All pairwise variant comparisons: `runs/E01/comparisons.json`.
 
 
 
+
+### E08X — external validation on APTOS: the ranking transfers, the calibration does not
+
+**The first external number this project has.** E08's five folds, ensembled by logit
+averaging with flip TTA, scored on 3 662 APTOS images — a different population, different
+cameras, different graders — held out since the protocol was frozen and never touched.
+
+| | external (APTOS) | internal (pooled OOF) | difference |
+|---|---|---|---|
+| n | 3 662 | 2 260 | |
+| majority floor | 49.3 % | 52.4 % | |
+| DR accuracy | 73.5 % [72.0, 74.9] | 74.2 % | **−0.7 pts** |
+| **DR QWK** | **0.897** | 0.860 | **+0.037** |
+| referable-DR sensitivity | **99.5 %** | 87.2 % | |
+| referable-DR specificity | 84.3 % | 95.5 % | |
+
+**There is no generalisation drop.** Accuracy is within a point and QWK is *higher* on the
+unseen corpus. For a thesis whose previous version had no external validation at all, this is
+the single most defensible result in it.
+
+**But the confusion matrix says something the summary hides.**
+
+| true | n | correct | dominant error |
+|---|---|---|---|
+| No DR | 1 805 | 97 % | — |
+| Mild | 370 | **6 %** | 314 → Moderate |
+| Moderate | 999 | 64 % | 337 → Severe |
+| Severe | 193 | 64 % | — |
+| Proliferative | 295 | 52 % | 80 → Severe, 59 → Moderate |
+
+The model **systematically over-grades APTOS by about one step** through the middle of the
+scale. Note this is the *opposite* direction from the internal error: on IDRiD and Messidor-2,
+Mild was mostly called No DR; on APTOS it is mostly called Moderate.
+
+**The interpretation, and it is the useful one.** QWK measures ranking quality and it went
+*up*; accuracy measures agreement with the cut-points and it stayed flat only because the
+over-grading and the corpus's easier majority class cancelled. What transferred is the
+model's ordering of severity. What did not transfer is where the boundaries between grades
+sit — those were learned on IDRiD and Messidor-2 and are specific to how those corpora were
+graded.
+
+**Consequences to state in the thesis:**
+
+1. **The 99.5 % referable sensitivity is real but must be quoted with its 84.3 %
+   specificity.** Over-grading pushes borderline cases across the referral line, which is why
+   almost nothing referable is missed — and why 342 of 2 175 non-referable patients would be
+   referred unnecessarily. For a screening programme that is a defensible trade; presenting
+   the sensitivity alone would not be.
+2. **Deployment to a new population would need threshold recalibration on a small local
+   labelled sample.** The ranking is transferable; the cut-points are not. This is a concrete,
+   clinically meaningful recommendation rather than a hedge.
+3. **Recalibrating on APTOS itself is not allowed** and has not been done. Fitting cut-points
+   on the external corpus would make it no longer external. The number above is the
+   uncalibrated one, which is the honest one.
+
+**Caveats that stay attached to this result.** APTOS labels are single-grader and noisier than
+IDRiD's or Messidor-2's adjudicated ones. APTOS carries DR grades only, so **there is still no
+external number for 3-class DME** — that needs Messidor-1, which is not on Kaggle, and its
+absence is a stated limitation of this thesis rather than an oversight.
+
 ### E08 — best run so far
 
 DR QWK **0.860** [0.845, 0.874] and accuracy **74.2 %** against a 52.4 % floor, over all

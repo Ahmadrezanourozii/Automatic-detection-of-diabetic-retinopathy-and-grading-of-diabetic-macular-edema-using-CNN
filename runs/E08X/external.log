@@ -1,7 +1,35 @@
-Traceback (most recent call last):
-  File "/kaggle/working/repo/src/eval_external.py", line 118, in <module>
-    main()
-  File "/kaggle/working/repo/src/eval_external.py", line 49, in main
-    print(f"run {res['run_id']}  commit {res['commit'][:10]}  device={device}")
-                 ~~~^^^^^^^^^^
-KeyError: 'run_id'
+run E08  commit 98b5ece46e  device=cuda  backbone=densenet121 head=ordinal size=448
+[corpora] APTOS         3662 images
+  APTOS       n=  3662  DR0=1805 DR1=370 DR2=999 DR3=193 DR4=295   dme_supervised=    0 (exact=0)
+[corpora] IDRiD          516 images
+[corpora] Messidor-2    1744 images
+[cache] decoding 3662 images -> /kaggle/temp/cache_ext
+[cache]   250/3662  32s, ~434s left
+[cache]   500/3662  61s, ~383s left
+[cache]   750/3662  91s, ~352s left
+[cache]   1000/3662  118s, ~314s left
+[cache]   1250/3662  147s, ~283s left
+[cache]   1500/3662  174s, ~251s left
+[cache]   1750/3662  203s, ~222s left
+[cache]   2000/3662  234s, ~194s left
+[cache]   2250/3662  262s, ~165s left
+[cache]   2500/3662  296s, ~138s left
+[cache]   2750/3662  325s, ~108s left
+[cache]   3000/3662  355s, ~78s left
+[cache]   3250/3662  385s, ~49s left
+[cache]   3500/3662  413s, ~19s left
+[cache]   3662/3662  432s, ~0s left
+ensembling 5 folds: ['best_0.pt', 'best_1.pt', 'best_2.pt', 'best_3.pt', 'best_4.pt']
+
+==============================================================================
+EXTERNAL — APTOS, never seen in training
+==============================================================================
+    dr                     n= 3662  acc  73.5% [72.0,74.9]  floor  49.3%  QWK  0.897  F1 0.530  BEATS
+                          recall 97%  6%  64%  64%  52%   support [1805, 370, 999, 193, 295]
+                          referable-DR sens 99.5%  spec 84.3%
+
+  internal (pooled OOF): acc 74.2%  QWK 0.860
+  external - internal  : acc -0.7 pts  QWK +0.037
+  Part of any drop is APTOS's single-grader label noise rather than generalisation failure; report it that way.
+
+wrote /kaggle/working/E08X/external_aptos.json

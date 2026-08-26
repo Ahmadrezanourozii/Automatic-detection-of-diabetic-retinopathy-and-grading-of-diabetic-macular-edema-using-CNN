@@ -36,6 +36,12 @@ EyePACS pretraining. Pooled out-of-fold over all 2 260 development images:
 | Referable DME, binary | 2 260 | 82.6 % | 94.8 % | 0.819 |
 | Referable DR (the screening decision) | 2 260 | — | sens **88.3 %** / spec 94.9 % | — |
 
+**External validation (E08X):** on 3 662 APTOS images never seen in training, DR accuracy
+**73.5 %** and QWK **0.897** — no drop from internal, QWK actually higher. Referable-DR
+sensitivity **99.5 %** at 84.3 % specificity. The model over-grades APTOS by about one step,
+so the ranking transfers but the cut-points do not; deployment elsewhere would need local
+threshold recalibration. There is still no external number for 3-class DME.
+
 On IDRiD's official 103-image test split — the set the old thesis quoted 91.6 % on — the
 E05 pipeline scores **61.2 %**. Every number above is re-scored under the corrected DME
 definition (`ISSUES.md` §12) from archived logits.
