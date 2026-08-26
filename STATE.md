@@ -87,22 +87,35 @@ Kaggle datasets attached: `aaryapatel98/indian-diabetic-retinopathy-image-datase
   was published despite being cancelled).
 * An empty Output tab on a **running** kernel means "not published yet", never "nothing saved".
 
+## Provenance discipline (added after §20)
+
+`src/check_invariants.py` verifies that every `runs/<ID>/results.json` names `<ID>` and a
+commit reachable on the current branch, resolving documented rewrites through
+`data/commit_remap.json`. Currently: **6 outputs verified, 1 remap resolved**. Do not rewrite
+git history while archives reference it.
+
+`src/verify_external.py` re-derives an external claim from its archived artifact. The APTOS
+result passes **12 of 12** checks; its bootstrap intervals are the one thing that cannot be
+re-derived, because only the aggregate confusion matrix was archived. Fixed forward:
+`eval_external.py` now also saves per-image predictions and group ids.
+
 ## What is running right now
 
-Two runs in parallel (Kaggle allows two concurrent GPU sessions):
-
-| run | what it tests | data |
+| run | what it tests | status |
 |---|---|---|
-| **E05** | multi-output DenseNet121, ordinal threshold heads, Messidor-2 partial-label DME supervision | IDRiD + Messidor-2 (2 260) |
-| **E06** | the same, **plus EyePACS pretraining** | + 35 126 EyePACS images |
+| **E10** | native-resolution Messidor-2 at 640 px | running — **CONFOUNDED, see below** |
+| **E11** | EfficientNet-B3 **+** EyePACS pretraining, 3 folds, 30 ep | running, ~10.8 h estimated |
 
-Both: 5-fold grouped CV, 448 px, EMA, balanced sampling, TTA. E06's pretraining is done once
-and reused by every fold.
+**E10's numbers must not be read as a resolution result.** `build_cache()` caps images at
+560 px and E10 trains at 640, so every image is upsampled and the native 2240 × 1488 mirror is
+discarded before training sees it (`ISSUES.md` §18). It is a 560 px run paying 640 px compute.
+Flagged in `EXPERIMENTS.md` ahead of its numbers landing.
 
-**Note before reading their numbers:** both were launched before `ISSUES.md` §12 was fixed,
-so their 3-class DME metric is computed on a biased 667-image set (59 % floor) instead of the
-correct 516-image one (47 % floor). Re-score them with `src/recompute.py` from the archived
-out-of-fold logits before believing any DME figure. No GPU needs to be re-spent.
+**I cannot stop a Kaggle session.** The CLI offers no `cancel` — only `delete`, which destroys
+the kernel and its history rather than stopping it cleanly. The watch alerts at 10 h and 11 h
+elapsed on E11; stopping has to be done from the Kaggle UI. A stop is safe: per-epoch
+checkpoints and per-fold `results.json` are already written, and E07 proved a cancelled run
+still publishes its whole working directory (`ISSUES.md` §17).
 
 ## Blocking
 
