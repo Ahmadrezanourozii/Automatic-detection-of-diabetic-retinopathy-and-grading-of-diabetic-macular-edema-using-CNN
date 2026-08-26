@@ -111,6 +111,9 @@ def analyse(run_dir):
         print("no results.json yet")
         return None
     r = json.load(open(rj))
+    if "run_id" not in r:
+        print(f"  {rj} has no run_id — it is not one of our run outputs; ignoring")
+        return None
     check_log_matches(run_dir, r)
     print(f"\n{'='*78}")
     print(f"RUN {r['run_id']}   commit {r['commit'][:10]}   "

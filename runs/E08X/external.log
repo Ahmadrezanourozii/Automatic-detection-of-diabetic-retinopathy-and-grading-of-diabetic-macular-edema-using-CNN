@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/kaggle/working/repo/src/eval_external.py", line 118, in <module>
+    main()
+  File "/kaggle/working/repo/src/eval_external.py", line 49, in main
+    print(f"run {res['run_id']}  commit {res['commit'][:10]}  device={device}")
+                 ~~~^^^^^^^^^^
+KeyError: 'run_id'

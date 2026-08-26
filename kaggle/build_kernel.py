@@ -167,13 +167,16 @@ for root, _, files in os.walk("/kaggle/input"):
     for fn in files:
         if fn.startswith("best_") and fn.endswith(".pt"):
             found.append(os.path.join(root, fn))
-        elif fn == "results.json" and SRC.split("/")[-1].lower() in root.lower():
+        elif fn == "results.json" and "best_0.pt" in files:
+            # only the results.json sitting next to the weights, never one that merely
+            # happens to live under a path containing the run name (ISSUES.md §16)
             shutil.copy2(os.path.join(root, fn), f"{{OUT}}/results.json")
 print(f"found {{len(found)}} fold weights from {{SRC}}")
 for p_ in sorted(found):
     shutil.copy2(p_, os.path.join(OUT, os.path.basename(p_)))
-if not os.path.exists(f"{{OUT}}/results.json"):
-    raise SystemExit("results.json from the source run was not found under /kaggle/input")
+if not found:
+    raise SystemExit(f"no best_*.pt found under /kaggle/input -- is {{SRC}} attached "
+                     f"as a kernel source?")
 
 cmd = [sys.executable, "-u", "/kaggle/working/repo/src/eval_external.py",
        "--run", OUT, "--datasets", "/kaggle/input", "--corpus", "APTOS",

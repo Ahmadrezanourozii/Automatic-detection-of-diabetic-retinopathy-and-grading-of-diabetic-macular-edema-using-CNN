@@ -42,11 +42,31 @@ def main():
     ap.add_argument("--tta", action="store_true")
     a = ap.parse_args()
 
-    res = json.load(open(os.path.join(a.run, "results.json")))
-    cfg = res["config"]
+    # Config comes from the checkpoints themselves. Locating a results.json by path
+    # matching found an unrelated one inside an input dataset and crashed on a missing
+    # run_id (ISSUES.md §16). Every best_<fold>.pt already carries the exact config it was
+    # trained under, so the weights and their configuration cannot drift apart.
+    ckpts = sorted(glob.glob(os.path.join(a.run, "best_*.pt")))
+    if not ckpts:
+        raise SystemExit(f"no best_*.pt in {a.run} — the run kept no weights")
+    _first = torch.load(ckpts[0], map_location="cpu", weights_only=False)
+    cfg = _first.get("config")
+    if not cfg:
+        raise SystemExit(f"{ckpts[0]} carries no config; cannot rebuild the model")
+    res = {}
+    rj = os.path.join(a.run, "results.json")
+    if os.path.exists(rj):
+        try:
+            cand = json.load(open(rj))
+            if cand.get("run_id"):
+                res = cand
+        except Exception:
+            pass
     device = "cuda" if torch.cuda.is_available() else "cpu"
     amp = torch.float16 if device == "cuda" else None
-    print(f"run {res['run_id']}  commit {res['commit'][:10]}  device={device}")
+    print(f"run {res.get('run_id', '?')}  commit {res.get('commit', '?')[:10]}  "
+          f"device={device}  backbone={cfg['backbone']} head={cfg['head']} "
+          f"size={cfg['size']}")
 
     rows = corpora.build(a.datasets, (a.corpus,))
     if not rows:
@@ -68,9 +88,6 @@ def main():
     dl = DataLoader(ds, batch_size=a.batch, shuffle=False, num_workers=a.workers,
                     pin_memory=True)
 
-    ckpts = sorted(glob.glob(os.path.join(a.run, "best_*.pt")))
-    if not ckpts:
-        raise SystemExit(f"no best_*.pt in {a.run} — the run kept no weights")
     print(f"ensembling {len(ckpts)} folds: {[os.path.basename(c) for c in ckpts]}")
 
     dr_sum = dme_sum = None
