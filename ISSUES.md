@@ -458,6 +458,43 @@ A green result from a check that has never been seen to go red is not evidence.
 
 ---
 
+## §15. Three separate breaks between a finished run and its external number  — 2026-08-26, FIXED
+
+E08 finished as the best run so far (DR QWK 0.860) with five 30 MB fold-weight files sitting
+in its Kaggle output, and produced **no external evaluation at all**. Three independent
+faults, none of which raised an error.
+
+**1. A one-level directory scan.** The notebook guarded the external cell with
+`any("aptos" in d.lower() for d in os.listdir("/kaggle/input"))`. Kaggle mounted all five
+attached datasets under a *single* `/kaggle/input/datasets/` directory holding 77 136 files,
+so the scan saw one entry named `datasets` and reported APTOS missing. Training was
+unaffected because `corpora.build` walks recursively — only the shallow guard was fooled.
+Removed entirely: `eval_external.py` already exits loudly on an empty corpus, so it should
+be the judge rather than a guess made one level up.
+
+**2. `fetch.py` discarded every `.pt`.** That rule dates from when the only checkpoints were
+the 90 MB resumable ones. The 30 MB per-fold selected weights — the thing external
+validation, ensembling and Grad-CAM all need — were being deleted on arrival. Now only
+`ckpt_*.pt` is dropped, and `--weights` pulls the rest.
+
+**3. `fetch.py` called `kaggle` from `PATH`** and died with `FileNotFoundError` when it was
+not there. **I then read the empty output as "the run produced no weights"**, because the
+invocation was piped through `grep` and the traceback went with it. It now resolves the
+repo's own `.venv/bin/kaggle` first and reports a usable message.
+
+**The one that cost most was the third, and it was mine.** A command whose output I filter is
+a command whose failure I have hidden from myself. Check the exit status, or look at the
+unfiltered output, before concluding anything from an empty result.
+
+**And a fourth, immediately after:** adding the external-only kernel mode, I wrote a function
+referencing `a` — the argparse namespace — which it never received. That is precisely the bug
+class `src/lint.py` exists for, and I ran `ast.parse` instead, which passes on it. Then the
+flag itself failed to reach the call site and the first push shipped a full training
+notebook, burning a GPU slot. **A tool only helps on the runs you actually point it at**, and
+a flag is not in effect until something downstream of it has been observed to change.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.

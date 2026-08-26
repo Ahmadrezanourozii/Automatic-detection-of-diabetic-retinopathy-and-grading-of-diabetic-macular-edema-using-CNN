@@ -16,6 +16,7 @@ A number without a row here does not exist.
 
 | ID | Date | SHA | Hypothesis | Δ vs parent | DR acc | DR QWK | DME acc | DME QWK | macro-F1 | 95 % CI | Sig? | Log |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **E08** | 2026-08-26 | `98b5ece` | EyePACS pretraining + a longer schedule; first external validation | E06 + 40 epochs (from 25), weights persisted | **74.2 %** | **0.860** | 84.1 % | **0.884** | 0.646 / 0.715 | DR [72.5, 76.0] · DME [81.0, 87.2] | best DR so far | `runs/E08/` |
 | **E06** | 2026-08-26 | `52d5ef4` | EyePACS pretraining then fine-tune on the dev pool | E05 + 35 126-image EyePACS pretraining (4 ep), 25 ep fine-tune | **71.9 %** | **0.847** | **86.0 %** | **0.879** | 0.631 / 0.758 | DR [70.1, 73.8] · DME [83.1, 88.8] | **QWK +0.064 vs E05, significant** | `runs/E06/` |
 | **E05** | 2026-08-26 | `219881c` | Ordinal heads + Messidor-2 partial labels beat the frozen probe | first real training run; 5-fold grouped CV, 448 px, 30 ep, EMA, TTA | **70.4 %** | **0.783** | **84.1 %** | **0.874** | 0.547 / 0.736 | DR [68.6, 72.3] · DME [81.0, 87.0] | **yes vs floor** | `runs/E05/` |
 | **E01·rgb** | 2026-08-25 | `075d83c` | Frozen ImageNet features beat the majority floor on both heads | baseline (plain RGB, 224 px, linear probe) | 47.6 % | 0.584 | **71.8 %** | **0.678** | 0.427 / 0.582 | DR [37.9, 57.3] · DME [63.1, 80.6] | **yes vs floor** | `runs/E01/` |
@@ -28,6 +29,21 @@ gated floor**. All pairwise variant comparisons: `runs/E01/comparisons.json`.
 
 
 
+
+### E08 — best run so far
+
+DR QWK **0.860** [0.845, 0.874] and accuracy **74.2 %** against a 52.4 % floor, over all
+2 260 development images out of fold. Per-class recall 85 / 45 / 73 / 67 / 45 — every grade
+above the E05 baseline, and macro-F1 up from 0.547 to 0.646. Referable-DR sensitivity 87.2 %
+at 95.5 % specificity, straight from the decode with no threshold tuning.
+
+Relative to E06 the only changes are 40 epochs instead of 25 and persisted fold weights, so
+DR QWK 0.847 → 0.860 is attributable to the longer schedule. That difference has **not** yet
+been tested by paired bootstrap and is not claimed as significant until it has been.
+
+**The external number is still missing**, for infrastructure reasons rather than scientific
+ones — see `ISSUES.md` §15. The weights exist; a follow-up kernel scores them on APTOS
+without retraining.
 
 ### Threshold tuning: a fix that mattered on the weak model and vanished on the strong one
 
