@@ -128,7 +128,19 @@ def main():
     out = os.path.join(a.run, f"external_{a.corpus.lower()}.json")
     json.dump({"corpus": a.corpus, "n_folds_ensembled": len(ckpts), "tta": a.tta,
                "metrics": {"dr": rep}}, open(out, "w"), indent=1, default=str)
-    print(f"\nwrote {out}")
+
+    # Per-image predictions, so the reported INTERVALS can be re-derived and not merely
+    # trusted. The first external run archived only the aggregate confusion matrix, which
+    # left its bootstrap intervals unverifiable (EXPERIMENTS.md, E08X verification).
+    preds = os.path.join(a.run, f"external_{a.corpus.lower()}_predictions.npz")
+    np.savez_compressed(
+        preds,
+        uids=np.array([r["uid"] for r in rows]),
+        groups=np.array([r["group"] for r in rows]),
+        y_dr=y,
+        dr_logits=dr_l.numpy(),
+        dme_logits=dme_l.numpy())
+    print(f"\nwrote {out}\nwrote {preds}")
 
 
 if __name__ == "__main__":

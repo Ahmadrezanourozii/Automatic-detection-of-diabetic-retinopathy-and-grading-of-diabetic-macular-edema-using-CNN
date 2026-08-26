@@ -191,6 +191,56 @@ def check_uids_unique(idrid_root):
            f"(bare names collide {len(rows) - len(names)} times -- do not key on name)")
 
 
+# ── 7c. every archived result declares who made it, and that commit still exists ──
+def check_run_provenance(runs_dir="runs"):
+    """Each runs/<ID>/results.json must name <ID> and a commit on the current branch.
+
+    Three ways this has broken, all silent (ISSUES.md §20):
+      * another run's results.json copied in under the generic name (E08X);
+      * schema drift -- E01 writes `experiment` where later runs write `run_id`, so a
+        checker keyed on one of them skips the other rather than flagging it;
+      * a rebase rewriting history, which orphans every SHA already written into an
+        archive.
+    """
+    import glob as _glob
+    import subprocess as _sp
+    reachable = set(_sp.run(["git", "log", "--format=%H"], capture_output=True,
+                            text=True).stdout.split())
+    remap = {}
+    if os.path.exists("data/commit_remap.json"):
+        remap = json.load(open("data/commit_remap.json")).get("remap", {})
+    problems, checked, remapped = [], 0, []
+    for p in sorted(_glob.glob(os.path.join(runs_dir, "*", "results.json"))):
+        run = os.path.basename(os.path.dirname(p))
+        try:
+            j = json.load(open(p))
+        except Exception as e:
+            problems.append(f"{p}: unreadable ({e})"); continue
+        rid = j.get("run_id") or j.get("experiment")
+        if rid is None:
+            problems.append(f"{p}: declares no run_id/experiment"); continue
+        checked += 1
+        if rid != run:
+            problems.append(f"{p}: says it is run {rid}, not {run}")
+        com = (j.get("commit") or "").split("-")[0]
+        if not com:
+            problems.append(f"{p}: records no commit")
+        elif com not in reachable:
+            if com in remap and remap[com]["now"] in reachable:
+                remapped.append(f"{run}:{com[:7]}->{remap[com]['now'][:7]}")
+            else:
+                problems.append(f"{p}: commit {com[:10]} is not on the current branch "
+                                f"and has no entry in data/commit_remap.json")
+    if problems:
+        return record("FAIL", "archived results declare their own run and a live commit",
+                      "; ".join(problems[:4]) + (" ..." if len(problems) > 4 else ""))
+    note = f"{checked} run output(s) verified"
+    if remapped:
+        note += f"; {len(remapped)} SHA(s) resolved through data/commit_remap.json " \
+                f"({', '.join(remapped)})"
+    record("PASS", "archived results declare their own run and a live commit", note)
+
+
 # ── 8. the metrics module agrees with itself ──────────────────────────────────
 def check_metrics_sanity():
     import metrics as M
@@ -233,6 +283,7 @@ def main():
     check_metrics_sanity()
     check_gate_assumption(a.idrid)
     check_uids_unique(a.idrid)
+    check_run_provenance()
     check_labels_match_source(a.idrid, a.run)
     check_preprocess_determinism(a.idrid, a.run, a.cache, a.size)
     check_scaler_fit_on_train_only(a.run, a.size)

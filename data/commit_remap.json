@@ -1,0 +1,10 @@
+{
+ "_why": "Early in the project the local branch was rebased onto the GitHub repo's initial commit. That rewrote every SHA already recorded in an archived results.json, orphaning them. The commits still exist as dangling objects but are not on any branch and will eventually be garbage-collected. This file maps the orphaned SHAs to their rewritten equivalents so archived provenance stays resolvable. Do not rewrite history again while archives reference it (ISSUES.md \u00a720).",
+ "remap": {
+  "075d83c18dcb6088690bb72608a3108b04efb5ae": {
+   "now": "473606d3f25fd173489e53642044462c669b6fdd",
+   "subject": "Key every row on a unique id -- IDRiD filenames collide across its splits",
+   "reason": "rebase onto origin/main"
+  }
+ }
+}

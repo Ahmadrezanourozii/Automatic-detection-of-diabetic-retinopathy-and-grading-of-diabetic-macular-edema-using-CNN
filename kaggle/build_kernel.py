@@ -172,15 +172,19 @@ for root, _, files in os.walk("/kaggle/input"):
         if fn.startswith("best_") and fn.endswith(".pt"):
             found.append(os.path.join(root, fn))
         elif fn == "results.json" and "best_0.pt" in files:
-            # only the results.json sitting next to the weights, never one that merely
-            # happens to live under a path containing the run name (ISSUES.md §16)
-            shutil.copy2(os.path.join(root, fn), f"{{OUT}}/results.json")
+            # The SOURCE run's results.json, kept for reference. It must NOT be written as
+            # "results.json" -- that is this run's own reserved name, and copying another
+            # run's file there is what made E08X look like it had produced E08's metrics
+            # (ISSUES.md §20). Name it after where it came from.
+            shutil.copy2(os.path.join(root, fn), f"{{OUT}}/source_run_results.json")
 print(f"found {{len(found)}} fold weights from {{SRC}}")
 for p_ in sorted(found):
     shutil.copy2(p_, os.path.join(OUT, os.path.basename(p_)))
 if not found:
     raise SystemExit(f"no best_*.pt found under /kaggle/input -- is {{SRC}} attached "
                      f"as a kernel source?")
+assert not os.path.exists(f"{{OUT}}/results.json"), \
+    "results.json already exists in this run's output before the run produced one"
 
 cmd = [sys.executable, "-u", "/kaggle/working/repo/src/eval_external.py",
        "--run", OUT, "--datasets", "/kaggle/input", "--corpus", "APTOS",

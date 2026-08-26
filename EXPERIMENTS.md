@@ -120,6 +120,19 @@ in isolation. The open question is whether EfficientNet-B3 **plus** EyePACS pret
 DenseNet121 plus the same pretraining, and because pretraining converges faster it can be run
 at ~30 epochs and fit the window.
 
+
+### E10 — CONFOUNDED, do not read its resolution result
+
+E10 is still running and its numbers **must not be entered as a resolution result when they
+land**. `build_cache()` caps every image at 560 px on the long side; E10 trains at 640 px, so
+every image is *upsampled* 560 → 640 and the native 2240 × 1488 Messidor-2 mirror it was
+launched to exploit is discarded at 560 before training sees it (`ISSUES.md` §18).
+
+E10 is therefore a 560 px run paying 640 px compute — roughly twice E08 for the same
+information. Against E08 it measures only "does upsampling help?", whose answer is already
+known. Whatever it returns, it is **not** evidence about resolution above 448 px, and the
+native-mirror question remains open until a run is made with `cache_size >= size`.
+
 ### E09 — resolution binds for DR and not for DME, and the gain scales with lesion size
 
 A single-factor test: E08's exact configuration at **224 px instead of 448**. Paired
@@ -158,6 +171,31 @@ a prediction — "the errors concentrate in the grade defined by the smallest le
 resolution should bind there and nowhere else" — was tested and held, with the effect sizes
 ordered exactly as the clinical definitions predict. That is an explanation, not a tuning
 result.
+
+
+### E08X — the external claim, verified rather than asserted
+
+The APTOS figure is the most load-bearing number in this project, and it came from a run
+whose output directory was simultaneously carrying E08's `results.json` (`ISSUES.md` §20).
+That is reason enough not to take it on trust. `src/verify_external.py` re-derives it from
+the archived artifact; **12 checks, 0 failures**:
+
+| check | result |
+|---|---|
+| cohort size equals the APTOS corpus | 3 662 = 3 662 |
+| per-class supports match the corpus labels exactly | [1805, 370, 999, 193, 295] both |
+| no development image appears in the external cohort | 0 shared of 2 260 dev / 3 662 external |
+| accuracy regenerates from the confusion matrix | 0.735117 = 0.735117 |
+| QWK regenerates | 0.896837 = 0.896837 |
+| macro-F1, majority floor, per-class recall, support | all regenerate |
+| referable-DR sensitivity / specificity regenerate | 99.53 % / 84.28 % both |
+
+**What could not be verified, stated rather than glossed:** the bootstrap intervals
+(accuracy [72.0, 74.9]) cannot be re-derived from this artifact, because
+`eval_external.py` archived only the aggregate confusion matrix and intervals need per-image
+predictions and group ids. The point estimates are verified; the intervals are taken on trust
+from the run that produced them. That is a gap in the artifact, and it is closed for future
+external evaluations.
 
 ### E08X — external validation on APTOS: the ranking transfers, the calibration does not
 

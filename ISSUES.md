@@ -632,6 +632,50 @@ Silence usually means a complexity bug, not I/O.
 
 ---
 
+## §20. Provenance breaks in three silent ways, not one  — 2026-08-26, FIXED
+
+Renaming E08X's stray `results.json` fixed one file. The cause was a *class* of problem, and
+auditing every archived result found two more instances of it.
+
+**(a) The external-only kernel wrote another run's results.json under this run's reserved
+name.** Not a stale republish — a deliberate copy in the notebook template:
+
+    elif fn == "results.json" and "best_0.pt" in files:
+        shutil.copy2(..., f"{OUT}/results.json")     # the SOURCE run's file
+
+E08X needed E08's configuration, so the template copied E08's `results.json` next to E08X's
+own outputs, under the one filename that means "this run's results". Every future
+external-only run would have done the same. **Fixed:** it is copied as
+`source_run_results.json`, and the cell now asserts that no `results.json` exists in the
+output directory before the run has produced one.
+
+**(b) Schema drift makes a provenance check skip files instead of flagging them.** E01 writes
+its identity under `experiment`; every later run writes `run_id`. A checker keyed on one of
+them classifies the other as "not one of our outputs" and moves on — so the file least likely
+to be checked is the one with the oldest, least-remembered provenance. **Fixed:** the check
+accepts either key and *fails* on a file that declares neither.
+
+**(c) Rewriting history orphans every SHA already written into an archive.** Early on the
+local branch was rebased onto the GitHub repo's initial commit. `runs/E01/results.json`
+records commit `075d83c…`, which still exists as a dangling object but is on no branch and
+will eventually be garbage-collected. The archive's provenance line pointed into nothing, and
+nothing noticed for thirty commits.
+
+**Fixed:** `data/commit_remap.json` maps orphaned SHAs to their rewritten equivalents with the
+reason, and the invariant check resolves through it and reports the remap rather than
+accepting the SHA silently. **And the standing rule: do not rewrite history while archives
+reference it.**
+
+**Now a standing invariant.** `check_run_provenance()` in `src/check_invariants.py` verifies
+that every `runs/<ID>/results.json` names `<ID>` and a commit reachable on the current branch
+(or documented in the remap). It currently passes on 6 run outputs with 1 resolved remap.
+
+**The general shape.** An archive is only worth what its provenance is worth, and provenance
+fails quietly by construction: a wrong name, a missing key, a rewritten hash. None of them
+raise. Each needs a check that can go red.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.
