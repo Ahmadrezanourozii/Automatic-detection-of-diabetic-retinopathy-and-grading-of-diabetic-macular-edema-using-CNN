@@ -28,7 +28,7 @@ EYEPACS = "tanlikesmath/diabetic-retinopathy-resized"
 APTOS = "mariaherrerot/aptos2019"
 
 
-def cells(run_id, train_args, commit):
+def cells(run_id, train_args, commit, external_only=False, from_run=""):
     setup = f'''# {run_id} — pulls the code from GitHub so a run is reproducible from a commit SHA
 import os, subprocess, sys, shutil, time
 REPO = "{REPO}"
@@ -155,11 +155,11 @@ else:
         p.wait()
     print("external exit=", p.returncode)
 '''
-    if a.external_only:
+    if external_only:
         # No training. The finished run's output is attached as a kernel source, so its
         # per-fold weights arrive under /kaggle/input rather than being retrained.
         ext_only = f'''import subprocess, sys, os, glob, shutil
-SRC = "{a.from_run}"
+SRC = "{from_run}"
 OUT = f"/kaggle/working/{run_id}"
 os.makedirs(OUT, exist_ok=True)
 found = []
