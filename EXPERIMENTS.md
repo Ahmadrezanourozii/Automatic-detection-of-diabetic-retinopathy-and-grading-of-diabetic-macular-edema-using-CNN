@@ -16,6 +16,7 @@ A number without a row here does not exist.
 
 | ID | Date | SHA | Hypothesis | Δ vs parent | DR acc | DR QWK | DME acc | DME QWK | macro-F1 | 95 % CI | Sig? | Log |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **E06** | 2026-08-26 | `52d5ef4` | EyePACS pretraining then fine-tune on the dev pool | E05 + 35 126-image EyePACS pretraining (4 ep), 25 ep fine-tune | **71.9 %** | **0.847** | **86.0 %** | **0.879** | 0.631 / 0.758 | DR [70.1, 73.8] · DME [83.1, 88.8] | **QWK +0.064 vs E05, significant** | `runs/E06/` |
 | **E05** | 2026-08-26 | `219881c` | Ordinal heads + Messidor-2 partial labels beat the frozen probe | first real training run; 5-fold grouped CV, 448 px, 30 ep, EMA, TTA | **70.4 %** | **0.783** | **84.1 %** | **0.874** | 0.547 / 0.736 | DR [68.6, 72.3] · DME [81.0, 87.0] | **yes vs floor** | `runs/E05/` |
 | **E01·rgb** | 2026-08-25 | `075d83c` | Frozen ImageNet features beat the majority floor on both heads | baseline (plain RGB, 224 px, linear probe) | 47.6 % | 0.584 | **71.8 %** | **0.678** | 0.427 / 0.582 | DR [37.9, 57.3] · DME [63.1, 80.6] | **yes vs floor** | `runs/E01/` |
 | **E01·green_clahe** | 2026-08-25 | `075d83c` | *(same)* | + thesis chain (green→CLAHE→blur), ImageNet norm | **51.5 %** | **0.654** | 68.9 % | 0.602 | 0.391 / 0.536 | DR [41.7, 60.2] · DME [60.2, 77.7] | **yes vs floor**; **no vs rgb** | `runs/E01/` |
@@ -25,6 +26,44 @@ DME columns are the **ungated primary** definition (n=103, floor 46.6 %). Gated 
 are in `runs/E01/results.json` and are discussed in the note below — **no variant beats the
 gated floor**. All pairwise variant comparisons: `runs/E01/comparisons.json`.
 
+
+
+### E06 — verdict: EyePACS pretraining works, and only on the head it can reach
+
+**Confirmed for DR, not measurable for DME.** Paired bootstrap over the same 2 260 groups,
+E06 minus E05:
+
+| quantity | difference | 95 % interval | verdict |
+|---|---|---|---|
+| DR QWK | **+0.064** | [+0.042, +0.087] | **significant** |
+| DR accuracy | +1.4 pts | [−0.7, +3.5] | indistinguishable |
+| DME QWK | +0.005 | [−0.022, +0.030] | indistinguishable |
+| DME accuracy | +1.9 pts | [−0.8, +4.7] | indistinguishable |
+
+The DME result is what it should be: EyePACS carries no DME labels at all, so it could only
+have helped that head through better shared features, and it did not do so measurably.
+Reporting it as a win would have been reading the pooled improvement as if both heads earned
+it.
+
+**The per-class table is the interesting part, and it is why QWK leads.**
+
+| class | n | E05 | E06 | change |
+|---|---|---|---|---|
+| No DR | 1 185 | 92.9 % | 80.1 % | **−12.8** |
+| Mild | 295 | 25.8 % | 51.5 % | **+25.8** |
+| Moderate | 515 | 60.2 % | 70.5 % | +10.3 |
+| Severe | 168 | 44.6 % | 69.0 % | **+24.4** |
+| Proliferative | 97 | 30.9 % | 46.4 % | +15.5 |
+
+The model gave up some majority-class recall and bought a large improvement on every one of
+the four minority grades. **Accuracy cannot see this trade** — it moved +1.4 points with an
+interval spanning zero — while QWK charges for exactly the two-grade errors that got fixed
+and moved by a clearly significant margin. If accuracy had been the primary metric, as it is
+in the existing thesis, this experiment would have been recorded as a null result and the
+single largest lever found so far would have been discarded.
+
+Referable-DR sensitivity at the default decode also rose from 73.7 % to **88.3 %**, before
+any threshold tuning.
 
 ### E05 — verdict
 
