@@ -15,8 +15,24 @@ import argparse, glob, json, os, shutil, subprocess, sys, tempfile, time
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
 
 
+def _kaggle_bin():
+    """Prefer the CLI in this repo's venv over whatever PATH happens to hold.
+
+    Relying on PATH meant a plain invocation died with FileNotFoundError, and because the
+    caller was filtering the output with grep, the traceback was swallowed and the empty
+    result read as "the run produced no weights" (ISSUES.md §15).
+    """
+    here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    local = os.path.join(here, ".venv", "bin", "kaggle")
+    return local if os.path.exists(local) else (shutil.which("kaggle") or "kaggle")
+
+
 def kaggle(*args, check=False):
-    r = subprocess.run(["kaggle", *args], capture_output=True, text=True)
+    try:
+        r = subprocess.run([_kaggle_bin(), *args], capture_output=True, text=True)
+    except FileNotFoundError as e:
+        raise SystemExit(f"kaggle CLI not found: {e}. Install it, or run from the repo "
+                         f"venv (.venv/bin/kaggle).")
     if check and r.returncode != 0:
         raise SystemExit(r.stderr or r.stdout)
     return (r.stdout or "") + (r.stderr or "")
@@ -30,7 +46,7 @@ def status(slug):
     return "UNKNOWN", out.strip()
 
 
-def fetch(slug, dest):
+def fetch(slug, dest, keep_weights=False):
     tmp = tempfile.mkdtemp()
     out = kaggle("kernels", "output", f"ah22reza/{slug}", "-p", tmp)
     os.makedirs(dest, exist_ok=True)
@@ -49,8 +65,10 @@ def fetch(slug, dest):
         if not (is_run_file or is_kernel_log):
             continue
         name = parts[-1] if is_run_file else "kernel.log"
-        if name.endswith((".pt", ".pth")):
-            continue                        # checkpoints are not archived; they are huge
+        if name.startswith("ckpt_") and name.endswith(".pt"):
+            continue        # resumable checkpoints carry optimiser state and are ~90 MB
+        if name.endswith((".pt", ".pth")) and not keep_weights:
+            continue        # pass --weights to pull the ~30 MB per-fold selected weights
         dst = os.path.join(dest, name)
         shutil.copy2(src, dst)
         moved.append((name, os.path.getsize(dst)))
@@ -152,6 +170,9 @@ def main():
     ap.add_argument("--slug", default=None)
     ap.add_argument("--wait", action="store_true")
     ap.add_argument("--poll", type=int, default=120)
+    ap.add_argument("--weights", action="store_true",
+                    help="also archive best_<fold>.pt (~30 MB each); needed for external "
+                         "evaluation, ensembling and Grad-CAM")
     a = ap.parse_args()
     slug = a.slug or f"dr-dme-{a.run_id.lower()}"
     run_dir = os.path.join("runs", a.run_id)
@@ -163,7 +184,7 @@ def main():
         st, raw = status(slug)
         print(f"[{slug}] {st}  {time.strftime('%H:%M:%S')}", flush=True)
 
-    moved, out = fetch(slug, run_dir)
+    moved, out = fetch(slug, run_dir, a.weights)
     if moved:
         print(f"\narchived into {run_dir}/:")
         for n, sz in sorted(moved):

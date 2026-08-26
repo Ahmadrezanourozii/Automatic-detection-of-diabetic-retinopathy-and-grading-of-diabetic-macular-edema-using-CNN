@@ -138,9 +138,11 @@ RUN_ID = "{run_id}"
 OUT = f"/kaggle/working/{{RUN_ID}}"
 if not glob.glob(f"{{OUT}}/best_*.pt"):
     print("no fold weights were saved -- skipping external evaluation")
-elif not any("aptos" in d.lower() for d in os.listdir("/kaggle/input")):
-    print("APTOS is not attached -- skipping external evaluation")
 else:
+    # No shallow os.listdir check here. Kaggle mounted all five datasets under a single
+    # /kaggle/input/datasets/ directory in E08, so a one-level scan reported APTOS missing
+    # when it was present and skipped the evaluation (ISSUES.md §15). eval_external.py
+    # already exits loudly if the corpus matches zero images -- let it be the judge.
     cmd = [sys.executable, "-u", "/kaggle/working/repo/src/eval_external.py",
            "--run", OUT, "--datasets", "/kaggle/input", "--corpus", "APTOS",
            "--cache", "/kaggle/temp/cache_ext", "--tta"]
@@ -153,6 +155,41 @@ else:
         p.wait()
     print("external exit=", p.returncode)
 '''
+    if a.external_only:
+        # No training. The finished run's output is attached as a kernel source, so its
+        # per-fold weights arrive under /kaggle/input rather than being retrained.
+        ext_only = f'''import subprocess, sys, os, glob, shutil
+SRC = "{a.from_run}"
+OUT = f"/kaggle/working/{run_id}"
+os.makedirs(OUT, exist_ok=True)
+found = []
+for root, _, files in os.walk("/kaggle/input"):
+    for fn in files:
+        if fn.startswith("best_") and fn.endswith(".pt"):
+            found.append(os.path.join(root, fn))
+        elif fn == "results.json" and SRC.split("/")[-1].lower() in root.lower():
+            shutil.copy2(os.path.join(root, fn), f"{{OUT}}/results.json")
+print(f"found {{len(found)}} fold weights from {{SRC}}")
+for p_ in sorted(found):
+    shutil.copy2(p_, os.path.join(OUT, os.path.basename(p_)))
+if not os.path.exists(f"{{OUT}}/results.json"):
+    raise SystemExit("results.json from the source run was not found under /kaggle/input")
+
+cmd = [sys.executable, "-u", "/kaggle/working/repo/src/eval_external.py",
+       "--run", OUT, "--datasets", "/kaggle/input", "--corpus", "APTOS",
+       "--cache", "/kaggle/temp/cache_ext", "--tta"]
+print(" ".join(cmd), flush=True)
+with open(f"{{OUT}}/external.log", "w") as f:
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                         text=True, bufsize=1, cwd="/kaggle/working/repo")
+    for line in p.stdout:
+        print(line, end="", flush=True); f.write(line); f.flush()
+    p.wait()
+print("exit=", p.returncode)
+for p_ in glob.glob(f"{{OUT}}/best_*.pt"):
+    os.remove(p_)          # they came from the source run; no need to duplicate them
+'''
+        return [setup, inputs, guard, ext_only]
     return [setup, inputs, guard, train, external, collect]
 
 
@@ -164,6 +201,12 @@ def main():
     ap.add_argument("--slug", default=None)
     ap.add_argument("--gpu", default="GPU T4 x2")
     ap.add_argument("--out", default=None)
+    ap.add_argument("--external-only", action="store_true",
+                    help="no training: load a finished run's weights and evaluate "
+                         "externally")
+    ap.add_argument("--from-run", default="",
+                    help="kernel slug whose output supplies the weights, "
+                         "e.g. ah22reza/dr-dme-e08")
     ap.add_argument("--aptos", action="store_true",
                     help="attach APTOS and run the external evaluation after training")
     ap.add_argument("--eyepacs", action="store_true",
@@ -208,7 +251,7 @@ def main():
         "dataset_sources": (DATASETS + ([EYEPACS] if a.eyepacs else [])
                             + ([APTOS] if a.aptos else [])),
         "competition_sources": [],
-        "kernel_sources": [],
+        "kernel_sources": [a.from_run] if a.from_run else [],
     }
     with open(f"{out}/kernel-metadata.json", "w") as f:
         json.dump(meta, f, indent=1)
