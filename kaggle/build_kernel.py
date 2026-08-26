@@ -23,6 +23,9 @@ DATASETS = [
 # are single-grader and noisy. Attached only for runs that ask for it, because it adds
 # 7.8 GB and ~10 minutes of cache building.
 EYEPACS = "tanlikesmath/diabetic-retinopathy-resized"
+# APTOS 2019, held out entirely since the protocol was frozen. Attached ONLY for runs that
+# do the final external evaluation, so it cannot drift into a development run by accident.
+APTOS = "mariaherrerot/aptos2019"
 
 
 def cells(run_id, train_args, commit):
@@ -128,7 +131,29 @@ if os.path.exists(rj):
             print(f"  {{k:22s}} n={{v['n']:5d}} acc {{v['accuracy']*100:5.1f}}% "
                   f"floor {{v['majority_floor']*100:5.1f}}% QWK {{v['qwk']:6.3f}}")
 '''
-    return [setup, inputs, guard, train, collect]
+    external = f'''# External validation on a corpus held out since the protocol was frozen.
+# Runs only if the corpus is attached; it is the number that survives a defence.
+import subprocess, sys, os, glob
+RUN_ID = "{run_id}"
+OUT = f"/kaggle/working/{{RUN_ID}}"
+if not glob.glob(f"{{OUT}}/best_*.pt"):
+    print("no fold weights were saved -- skipping external evaluation")
+elif not any("aptos" in d.lower() for d in os.listdir("/kaggle/input")):
+    print("APTOS is not attached -- skipping external evaluation")
+else:
+    cmd = [sys.executable, "-u", "/kaggle/working/repo/src/eval_external.py",
+           "--run", OUT, "--datasets", "/kaggle/input", "--corpus", "APTOS",
+           "--cache", "/kaggle/temp/cache_ext", "--tta"]
+    print(" ".join(cmd), flush=True)
+    with open(f"{{OUT}}/external.log", "w") as f:
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                             text=True, bufsize=1, cwd="/kaggle/working/repo")
+        for line in p.stdout:
+            print(line, end="", flush=True); f.write(line); f.flush()
+        p.wait()
+    print("external exit=", p.returncode)
+'''
+    return [setup, inputs, guard, train, external, collect]
 
 
 def main():
@@ -139,6 +164,8 @@ def main():
     ap.add_argument("--slug", default=None)
     ap.add_argument("--gpu", default="GPU T4 x2")
     ap.add_argument("--out", default=None)
+    ap.add_argument("--aptos", action="store_true",
+                    help="attach APTOS and run the external evaluation after training")
     ap.add_argument("--eyepacs", action="store_true",
                     help="attach the EyePACS 2015 corpus for pretraining")
     ap.add_argument("--push", action="store_true")
@@ -178,7 +205,8 @@ def main():
         # pin is not honoured.
         "machine_shape": a.gpu,
         "enable_internet": True,
-        "dataset_sources": DATASETS + ([EYEPACS] if a.eyepacs else []),
+        "dataset_sources": (DATASETS + ([EYEPACS] if a.eyepacs else [])
+                            + ([APTOS] if a.aptos else [])),
         "competition_sources": [],
         "kernel_sources": [],
     }
