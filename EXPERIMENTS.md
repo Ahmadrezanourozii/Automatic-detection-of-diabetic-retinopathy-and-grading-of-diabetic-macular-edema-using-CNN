@@ -16,6 +16,9 @@ A number without a row here does not exist.
 
 | ID | Date | SHA | Hypothesis | Δ vs parent | DR acc | DR QWK | DME acc | DME QWK | macro-F1 | 95 % CI | Sig? | Log |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **E07** | 2026-08-26 | `c79dac6` | EfficientNet-B3 and a 60-epoch schedule beat DenseNet121 at 30 | E05 + efficientnet_b3, 60 epochs, no pretraining | 73.8 %¹ | 0.837¹ | — | — | — | folds 0–3 only | **killed at the 12 h wall clock after 4/5 folds** | `runs/E07/` |
+
+¹ folds 0–3 only (n = 1 811); the run was cancelled during fold 4.
 | **E09** | 2026-08-26 | `cebfc20` | Halving the resolution tests whether Mild recall is resolution-bound | E08 at 224 px instead of 448 | 69.0 % | 0.820 | 84.3 % | 0.866 | — | DR [67.2, 70.9] | resolution test | `runs/E09/` |
 | **E08** | 2026-08-26 | `98b5ece` | EyePACS pretraining + a longer schedule; first external validation | E06 + 40 epochs (from 25), weights persisted | **74.2 %** | **0.860** | 84.1 % | **0.884** | 0.646 / 0.715 | DR [72.5, 76.0] · DME [81.0, 87.2] | best DR so far | `runs/E08/` |
 | **E06** | 2026-08-26 | `52d5ef4` | EyePACS pretraining then fine-tune on the dev pool | E05 + 35 126-image EyePACS pretraining (4 ep), 25 ep fine-tune | **71.9 %** | **0.847** | **86.0 %** | **0.879** | 0.631 / 0.758 | DR [70.1, 73.8] · DME [83.1, 88.8] | **QWK +0.064 vs E05, significant** | `runs/E06/` |
@@ -32,6 +35,43 @@ gated floor**. All pairwise variant comparisons: `runs/E01/comparisons.json`.
 
 
 
+
+
+### E07 — data beats architecture, and the run did not fit the budget
+
+E07 was cancelled at Kaggle's 12-hour wall clock having finished 4 folds of 5. Comparing it
+on those four folds only (n = 1 811), against runs restricted to the same folds:
+
+| run | configuration | DR accuracy | DR QWK |
+|---|---|---|---|
+| E05 | DenseNet121, 30 ep, no pretraining | 70.3 % | 0.782 |
+| **E07** | **EfficientNet-B3, 60 ep, no pretraining** | 73.8 % | 0.837 |
+| **E08** | DenseNet121, 40 ep, **+ EyePACS pretraining** | 73.7 % | **0.857** |
+
+| paired comparison | DR accuracy | DR QWK | verdict |
+|---|---|---|---|
+| E07 − E05 (backbone + schedule) | +3.5 [+1.5, +5.4] | +0.055 [+0.033, +0.076] | **both significant** |
+| E07 − E08 (vs pretrained DenseNet) | +0.1 [−2.0, +2.3] n.s. | **−0.020 [−0.041, −0.001]** | **significant, against E07** |
+
+**A bigger backbone helps — and 35 000 extra pretraining images on a smaller one helps more.**
+EfficientNet-B3 with ImageNet initialisation is significantly *worse* than DenseNet121 with
+EyePACS pretraining, on the metric that leads. The two are indistinguishable on accuracy,
+which is again the pattern from E06: extra data buys ordinal quality that accuracy cannot see.
+
+**And the cost was lopsided.** E07 consumed the full 12-hour session and returned four folds;
+E08 finished five in about four hours. Pretraining also converges faster — E08's best epochs
+were 16–22 of 40, while E07's were 32–58 of 60 — so the cheaper configuration is also the one
+that needs fewer epochs.
+
+**Budget lesson, recorded because it cost a session.** A run must be *sized to fit the
+window*, not merely made resumable. Resumability saved the four completed folds, but a
+12-hour job in a 12-hour box will be cut off in the middle of something. Long
+configurations should be split across sessions by fold from the start.
+
+**What this makes the next experiment.** Not "try a bigger backbone" — that has been answered
+in isolation. The open question is whether EfficientNet-B3 **plus** EyePACS pretraining beats
+DenseNet121 plus the same pretraining, and because pretraining converges faster it can be run
+at ~30 epochs and fit the window.
 
 ### E09 — resolution binds for DR and not for DME, and the gain scales with lesion size
 
