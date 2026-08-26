@@ -531,6 +531,74 @@ resolves from its own label file — rather than from whatever happens to sit ne
 
 ---
 
+## §17. Kaggle DOES persist output from a run it cancels — verified, not assumed  — 2026-08-26
+
+**The worry.** "Kaggle only persists `/kaggle/working` when a session completes normally, so a
+run killed at the 12-hour wall dies with nothing saved." If true, every long run risks losing
+a whole week of quota.
+
+**It is not true for our case, and we have direct evidence.** E07 ran **38 842 s (10.8 h)**,
+ended in status `CANCEL_ACKNOWLEDGED`, and `kaggle kernels output` returned its complete
+working directory:
+
+| artifact | count | what it proves |
+|---|---|---|
+| `results.json` | 1 | folds 0–3 complete, with metrics |
+| `ckpt_<fold>.pt` | **5** | including fold 4, the one still in progress when it died |
+| `oof_<fold>.npz` | **5** | including fold 4's best-so-far predictions |
+| `best_<fold>.pt` | 4 | written at fold end, so fold 4 correctly has none |
+| `train.log` | 1 | full |
+
+So a cancelled run's output *is* published. What is **not** published is the output of a
+version that is still **RUNNING** — that is why a live run's Output tab reads 0 B. Those are
+two different things, and confusing them would have led us to kill a healthy run.
+
+**Write cadence in `src/train.py`, for the record:**
+
+| artifact | written | worst-case loss on a kill |
+|---|---|---|
+| `ckpt_<fold>.pt` | **every epoch** (line 448) | one epoch |
+| `oof_<fold>.npz` | every time validation improves (line 437) | back to last best |
+| `results.json` | **after every fold** (line 611) | the in-progress fold's metrics |
+| `best_<fold>.pt` | at fold end (line 456) | the in-progress fold's weights |
+| `pretrained.pt` | once, after pretraining (line 325) | nothing |
+
+A kill therefore costs one epoch of one fold, and `--resume` picks up from `ckpt_<fold>.pt`.
+
+**Recognise the trap:** an empty Output tab on a *running* kernel means "not published yet",
+never "nothing was saved".
+
+---
+
+## §18. The image cache caps resolution below the training size  — 2026-08-26, OPEN, invalidates E10
+
+**Found by checking E10's code path, not by a failure.** `build_cache()` downscales every
+image so its long side is at most **560 px** (`cache_size=560`, line 57), and `FundusDataset`
+then resizes that cached file to `args.size`.
+
+E10 trains at **640 px**. So every image is *upsampled* 560 → 640, and the
+native-resolution Messidor-2 mirror that E10 was built to exploit — 2240 × 1488 — is thrown
+away at 560 before training ever sees it.
+
+**E10 cannot answer the question it was launched to answer.** It is not a 640 px run; it is a
+560 px run paying 640 px compute, roughly **2× the cost of E08 for the same information**.
+Compared against E08 it measures only "does upsampling help?", whose answer is already known.
+
+**E11 is unaffected** — it trains at 448 ≤ 560, so its cache is a genuine downsample. But its
+native-resolution benefit is also nearly nil: 560 versus the 512 it would have had anyway.
+
+**Fix (for the next run, not retrofittable to E10):** `cache_size` must be a parameter tied to
+the training size — at least `size`, and higher when the source supports it — with an
+assertion that `cache_size >= size`. A silent upsample is exactly the kind of thing that
+produces a null result and an incorrect conclusion ("resolution above 448 does not help").
+
+**The general rule, third instance.** E09 established that resolution binds for DR. Acting on
+that finding required checking *every* stage of the pipeline that touches resolution, not just
+the flag named `--size`. A parameter is not in effect until something downstream of it has
+been observed to change — the same lesson as §15.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.
