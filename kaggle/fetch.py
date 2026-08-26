@@ -105,6 +105,53 @@ def check_log_matches(run_dir, results):
                   f"belongs to this run")
 
 
+def report_code_commit(run_dir, expected=None):
+    """Print which commit the kernel actually checked out, and compare it to the pin.
+
+    Kaggle serves the most recent *completed* version's output, which is not necessarily
+    the version just pushed. Twice now a result has been read as belonging to a fix that
+    the running kernel did not contain (ISSUES.md §13, §16). The training script prints
+    `CODE COMMIT <sha>` as its first line precisely so this can be checked mechanically.
+    """
+    import json as _json
+    kl = os.path.join(run_dir, "kernel.log")
+    if not os.path.exists(kl):
+        return None
+    try:
+        events = _json.load(open(kl))
+        texts = [e.get("data", "") for e in events]
+    except Exception:
+        texts = [open(kl, errors="replace").read()]
+    got = None
+    for t in texts:
+        for line in t.splitlines():
+            if line.startswith("CODE COMMIT "):
+                got = line.split()[2].strip()
+                break
+        if got:
+            break
+    if not got:
+        print("  !! kernel log has no CODE COMMIT line — cannot tell which code ran")
+        return None
+    if expected and not got.startswith(expected.rstrip("*")):
+        print(f"  !! the kernel ran commit {got[:10]}, but {expected[:10]} was pinned — "
+              f"this output is from an EARLIER version; do not read it as the new one")
+    else:
+        print(f"  kernel ran commit {got[:10]}")
+    return got
+
+
+def pinned_commit(slug):
+    """The commit the local notebook for this kernel pins, if it is on disk."""
+    import re as _re
+    nb = os.path.join("kaggle", slug, f"{slug}.ipynb")
+    if not os.path.exists(nb):
+        return None
+    src = open(nb).read()
+    m = _re.search(r'COMMIT = \\"(\w+)\\"', src) or _re.search(r'COMMIT = "(\w+)"', src)
+    return m.group(1) if m else None
+
+
 def analyse(run_dir):
     rj = os.path.join(run_dir, "results.json")
     if not os.path.exists(rj):
@@ -188,6 +235,7 @@ def main():
         print(f"[{slug}] {st}  {time.strftime('%H:%M:%S')}", flush=True)
 
     moved, out = fetch(slug, run_dir, a.weights)
+    report_code_commit(run_dir, pinned_commit(slug))
     if moved:
         print(f"\narchived into {run_dir}/:")
         for n, sz in sorted(moved):

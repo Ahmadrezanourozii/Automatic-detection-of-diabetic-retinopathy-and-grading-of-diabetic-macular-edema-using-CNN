@@ -495,6 +495,42 @@ a flag is not in effect until something downstream of it has been observed to ch
 
 ---
 
+## §16. Reading one kernel version's output as another's  — 2026-08-26, FIXED
+
+**Symptom.** E08X was fixed, committed, pushed and relaunched. The fetched log showed the
+*same* `KeyError: 'run_id'` at the *same* line number as before the fix — while the file in
+the pinned commit demonstrably contained the fix.
+
+**Root cause.** `kaggle kernels output` serves the most recent **completed** version, which
+is not the version just pushed. Version 2 finished while version 3 was still queued, so the
+fetch returned version 2's failure. The pinned commit was `5489f48`; the kernel that
+produced that output had checked out `8dc6bb5`.
+
+**Why it kept happening.** This is §13 again in a different costume. Twice now a result has
+been attributed to code that did not run: first a stale log carried across versions in
+`/kaggle/working`, now a stale *version* served by the output endpoint. In both cases nothing
+errored and the numbers looked like an answer.
+
+**Fix.** `kaggle/fetch.py` now reads the `CODE COMMIT` line the notebook prints as its very
+first output, compares it against the commit pinned in the local notebook, and says plainly
+when they disagree:
+
+    !! the kernel ran commit 8dc6bb5673, but 5489f48198 was pinned
+       — this output is from an EARLIER version; do not read it as the new one
+
+**The general rule.** *Every artifact must carry the identity of the code that produced it,
+and something must check it mechanically.* Printing the SHA was never the point; comparing it
+is. An unchecked provenance line is decoration.
+
+**Related pattern, three occurrences now.** Every time something was located by *guessing
+from a path* it was located wrongly: `find_dir(roots, "train")` reaching into IDRiD (§—),
+the one-level `/kaggle/input` scan for APTOS (§15), and a `results.json` matched by run name
+appearing in its directory (§15). The fix each time was the same: take the thing from a
+source intrinsically bound to it — the checkpoint carries its own config, the loader
+resolves from its own label file — rather than from whatever happens to sit nearby.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.
