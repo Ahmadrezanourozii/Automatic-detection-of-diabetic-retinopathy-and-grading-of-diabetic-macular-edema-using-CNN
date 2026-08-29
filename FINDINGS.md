@@ -70,13 +70,21 @@ have *different* Mild problems: at home the model genuinely struggles to see mic
 (consistent with E09, where resolution was worth +18.6 points on exactly this class); abroad it
 sees them and mislabels them. Conflating the two would have led to the wrong fix in both.
 
-### An independent confirmation
+### A claim I made here and then had to withdraw
 
-E11's larger backbone is significantly better than E08 on APTOS overall (+0.0063 QWK, paired,
-interval excluding zero) and significantly better on Proliferative (+8.1 points). On **Mild**
-it differs by **−0.6 points [−3.5, +2.2] — indistinguishable**. A backbone with demonstrable
-extra capacity, measured on the same images, moves this class by nothing. That is what
-capacity-limited failure does not look like.
+I originally wrote this section as "an independent confirmation": E11's larger backbone moves
+Mild by −0.6 points, indistinguishable, so capacity cannot be the problem. **That was wrong,
+and the test in F3 is what showed it.**
+
+The −0.6 holds only *at the shipped operating point*. Once both models are recalibrated for
+macro-recall, E11 is **+7.0 points on Mild [+2.7, +11.4], significant**. So the larger
+backbone does help this class — the help is simply invisible until the cut-points are fixed.
+
+What survives, and it is still the main claim: **calibration is the dominant term and capacity
+is a real but second-order one.** Recalibration alone moves Mild from 5.4 % to 77.8 %, a
+fourteen-fold change; the backbone adds 7 points on top of that. Reporting the second without
+the first would have been the same error in a different class — which is exactly what this
+file was written to prevent.
 
 ### What follows for the thesis
 
@@ -90,6 +98,81 @@ capacity-limited failure does not look like.
   external validation and appear in no results table.
 
 Reproduce with `python src/analyse_mild.py --run runs/E11X`.
+
+
+---
+
+## F3 — Per-class comparisons between models are dominated by cut-point placement, not representation
+
+### Why this test was run
+
+E11 (EfficientNet-B3) beat E08 (DenseNet121) on APTOS by +8.1 points on Proliferative while
+being **worse** by −2.4 on Moderate, a well-populated class. A better representation should
+not make a well-populated class worse. The alternative explanation is that neither number is
+about representation: E11 simply places its Moderate/Proliferative boundary further toward
+Proliferative, and the two effects are one effect seen from both sides.
+
+Distinguishable at zero GPU cost with machinery already built: apply the same cross-fitted
+cut-point tuning to **both** models on APTOS, then compare per-class recall again.
+
+### The result
+
+| E11 − E08, per class | as shipped | both tuned for QWK | both tuned for macro-recall |
+|---|---|---|---|
+| No DR | +1.2 **SIG** | −1.3 **SIG** | +1.3 **SIG** |
+| Mild | −0.5 n.s. | +1.4 n.s. | **+7.0 SIG** |
+| **Moderate** | **−2.4 SIG** | **+6.0 SIG** | −8.8 **SIG** |
+| Severe | +1.0 n.s. | **−10.0 SIG** | −0.6 n.s. |
+| **Proliferative** | **+8.1 SIG** | **+11.2 SIG** | +3.7 n.s. |
+
+**The Moderate regression reverses sign under tuning** — from −2.4 significantly against E11 to
++6.0 significantly for it. It was a boundary placement, not a representational deficit, exactly
+as suspected. Severe swings by 11 points across operating points. Proliferative ranges from
++3.7 (n.s.) to +11.2 (significant) depending only on where the cuts sit.
+
+**Not one per-class difference is stable across operating points.** Three of the five change
+significance, and one changes sign.
+
+### And the headline difference does not survive either
+
+| E11 − E08, aggregate | QWK difference | verdict |
+|---|---|---|
+| as shipped | +0.0063 [+0.0009, +0.0116] | **significant** |
+| both tuned for QWK | +0.0042 [−0.0013, +0.0096] | indistinguishable |
+| both tuned for macro-recall | +0.0016 [−0.0054, +0.0088] | indistinguishable |
+
+The one significant external advantage E11 had **disappears once both models are compared at
+matched operating points**. It was largely a calibration difference between two models that
+happened to ship with the same arbitrary 0.5 cut-points.
+
+### The magnitude comparison that settles the priority
+
+| intervention | effect on macro-recall (APTOS) |
+|---|---|
+| recalibrating E08's cut-points | **+7.27 pts [+5.53, +8.99]** |
+| recalibrating E11's cut-points | **+6.34 pts [+4.63, +8.10]** |
+| replacing DenseNet121 with EfficientNet-B3 | +1.48 pts [−0.06, +2.96], n.s. |
+
+**Moving the decision boundaries is worth roughly five times as much as changing the backbone,
+and costs nothing.** Nine and a half GPU-hours bought E11; the recalibration is a coordinate
+ascent over four numbers.
+
+### What this changes
+
+1. **Do not report per-class recall differences between models without fixing the operating
+   point first.** They are not measuring what they appear to measure.
+2. **The E11-vs-E08 backbone conclusion is weakened.** The internal +0.029 QWK advantage stands
+   — it was measured out-of-fold on matched folds — but externally, at matched operating
+   points, the two models are indistinguishable. Finishing E11's folds 3 and 4 is now clearly
+   not worth 3.2 h.
+3. **This is the same error as F1, one class over, and it was nearly written into the thesis
+   as a capacity finding.** F1 caught it for Mild by asking whether calibration explained the
+   collapse. F3 caught it for Proliferative and Moderate by asking the same question of a
+   comparison rather than of a single model. The general rule: **before attributing a
+   difference to representation, check that it survives matched calibration.**
+
+Reproduce: the analysis is in the commit that added this section; predictions are in
+`runs/E08X2/` and `runs/E11X/`.
 
 ---
 

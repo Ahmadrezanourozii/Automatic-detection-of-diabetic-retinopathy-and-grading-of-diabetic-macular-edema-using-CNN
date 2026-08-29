@@ -75,6 +75,12 @@ Results that are about the problem rather than about a run. Currently two:
   prices against the fix. Per-class recall must be reported beside every headline.
 * **F2 — Messidor-1 cannot be the external DME test set**, with the overlap, site-bias and
   power numbers that show why.
+* **F3 — per-class comparisons between models are dominated by cut-point placement.** Every
+  per-class E11-vs-E08 difference on APTOS changes under recalibration; one reverses sign. The
+  aggregate external advantage (+0.0063 QWK) becomes indistinguishable once both models sit at
+  matched operating points. Recalibration is worth **+7.3 macro-recall points**; the whole
+  backbone change is worth **+1.5, n.s.** Before attributing any difference to representation,
+  check it survives matched calibration.
 
 ## The standing negative result
 

@@ -203,9 +203,15 @@ confirmation of `FINDINGS.md` F1: a significantly better backbone moves that cla
 *nothing*, because the problem there is not capacity.
 
 **Consequence for the queue.** A +0.006 QWK external gain concentrated in one rare class is a
-thin justification for the ~3.2 h needed to finish E11's folds 3 and 4. That work makes the
-internal headline comparable across runs; it does not move the number that matters at a
-defence. Deprioritised.
+thin justification for the ~3.2 h needed to finish E11's folds 3 and 4. Deprioritised.
+
+**And then it got thinner.** `FINDINGS.md` F3 re-ran the comparison with both models at
+*matched* operating points. The +0.0063 becomes **+0.0042 (n.s.)** when both are tuned for
+QWK and **+0.0016 (n.s.)** when both are tuned for macro-recall. The Moderate regression
+*reverses sign*. Externally, at comparable cut-points, **the two backbones are
+indistinguishable** — the shipped difference was largely a calibration accident of two models
+sharing the same arbitrary 0.5 thresholds. The internal +0.029 stands; the external claim
+does not.
 
 **The consequence for priorities** is already clear enough to act on: finishing E11's folds 3
 and 4 (~3.2 h) makes the internal headline comparable across runs but is unlikely to move the
