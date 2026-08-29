@@ -755,6 +755,34 @@ re-checked. The failure mode is silent and the artifact looks correct.
 
 ---
 
+## §23. A kernel pinned a commit that existed only on my laptop  — 2026-08-29, FIXED
+
+**Symptom.** E11X died two minutes in with
+
+    CalledProcessError: git checkout --quiet 53d0deb31d... returned non-zero
+
+**Root cause.** `build_kernel.py` pins `git rev-parse HEAD` at build time. I had committed a
+`.gitignore` change locally and then built the kernel **without pushing**. The notebook clones
+from GitHub, so the SHA it was told to check out did not exist there.
+
+**Why it is worth an entry.** The failure is loud but the *message* is not: a raw
+`CalledProcessError` on a git command says nothing about the cause, and the obvious reading —
+"something wrong with the repo" — sends you looking in the wrong place. It also wastes a
+launch slot and a couple of minutes of quota every time.
+
+**Fix.** `build_kernel.py` now fetches and checks that the pinned commit is an ancestor of
+`origin/main` **before** writing the notebook, and refuses with the actual remedy:
+
+    commit 53d0deb31d is not on origin/main. The kernel clones from GitHub, so it could
+    not check this out. Push first: git push origin main
+
+**Same family as §16 and §20.** Three times now the thing that broke was the link between an
+artifact and the code that made it — a stale version served, a wrong file copied in, and now
+a pin to code the runner cannot see. Each was silent or misleadingly reported, and each is
+now checked mechanically rather than assumed.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.

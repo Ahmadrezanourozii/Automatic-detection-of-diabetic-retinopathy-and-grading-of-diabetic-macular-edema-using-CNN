@@ -229,6 +229,20 @@ def main():
 
     if a.commit == "HEAD":
         a.commit = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode().strip()
+
+    # The notebook clones from GitHub and checks out this SHA. A commit that exists only
+    # locally cannot be checked out there, and the kernel dies two minutes in on a git
+    # error that says nothing about the cause (ISSUES.md §23). Verify it is on the remote
+    # BEFORE writing a notebook that depends on it.
+    subprocess.run(["git", "fetch", "--quiet", "origin"], check=False)
+    on_remote = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", a.commit, "origin/main"]).returncode == 0
+    if not on_remote:
+        raise SystemExit(
+            f"commit {a.commit[:10]} is not on origin/main. The kernel clones from GitHub, "
+            f"so it could not check this out. Push first:\n"
+            f"    git push origin main\n"
+            f"(If you meant to pin an older commit, pass --commit <sha> explicitly.)")
     # Kaggle derives the slug from the TITLE, so they must agree or every
     # status/output call afterwards addresses a kernel that does not exist
     slug = a.slug or f"dr-dme-{a.run_id.lower()}"
