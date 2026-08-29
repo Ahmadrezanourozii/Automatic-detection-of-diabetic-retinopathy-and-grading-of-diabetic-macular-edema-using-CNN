@@ -75,6 +75,12 @@ Results that are about the problem rather than about a run. Currently two:
   prices against the fix. Per-class recall must be reported beside every headline.
 * **F2 — Messidor-1 cannot be the external DME test set**, with the overlap, site-bias and
   power numbers that show why.
+* **F5 — macro-recall must not be the primary metric.** Tuning for it costs **19.2 points of
+  referable-DR sensitivity** (99.53 % → 80.36 %; 7 missed referable patients → 292), because
+  Mild is not a referable grade and macro-recall prices a Mild error like a Proliferative one.
+  Recommended: referable sens/spec as the operationally primary *pair*, QWK as the primary
+  grading metric, macro-recall as a diagnostic only. **Awaiting the supervisor's decision.**
+* **F6 — a deployment recommendation evaluated at its mean can be harmful.** Generalises F4.
 * **F4 — recalibration needs about 200 labelled local images.** At n = 200 it recovers ~70 %
   of the achievable gain with a 1.5 % risk of harm; below 100 images roughly one attempt in
   four makes the model *worse*, so the advice there is not to recalibrate at all.

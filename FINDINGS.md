@@ -247,6 +247,92 @@ present both operating points rather than pick one silently.
 Reproduce with `python src/recalibration_curve.py --draws 200`.
 
 
+
+---
+
+## F5 — Which metric leads, and why macro-recall must not
+
+*Recommendation pending the supervisor's decision; the evidence below is settled either way.*
+
+### The question
+
+F1 and F4 showed that recalibrating for macro-recall recovers Mild recall from 5.4 % to
+77.8 %. That invites making macro-recall the primary metric, on the reasoning that in a
+screening application a missed Mild case is the clinically costly error.
+
+### The measurement that answers it
+
+The decision this system supports is binary: **refer if grade ≥ 2**. Measured on the same
+3 662 external images:
+
+| operating point | referable sensitivity | specificity | **missed referable** | false referrals |
+|---|---|---|---|---|
+| shipped (0.5 cuts) | **99.53 %** | 84.28 % | **7 of 1 487** | 342 of 2 175 |
+| tuned for QWK | 96.64 % | 87.03 % | 50 of 1 487 | 282 of 2 175 |
+| **tuned for macro-recall** | **80.36 %** | 95.36 % | **292 of 1 487** | 101 of 2 175 |
+
+Paired against the shipped thresholds, macro-recall tuning moves referable sensitivity by
+**−19.20 points [−21.22, −17.24]**, significant.
+
+### Why this settles it
+
+**Mild NPDR is not referable.** Under standard screening protocols grade 0 and grade 1 both
+receive routine rescreen; referral begins at grade 2. So a Mild → No-DR error does not change
+management, while a Moderate → Mild error does.
+
+Macro-recall weights those two errors **equally**. That is the assumption that fails, and its
+price here is **285 additional patients with referable disease told they do not need
+referral** — bought by recovering recall on a class that does not trigger referral at all.
+
+### The recommended position
+
+1. **Operationally primary: referable-DR sensitivity and specificity, as a pair.** This is the
+   decision the system supports. Neither may be quoted alone, since either is trivially
+   maximised by ignoring the other.
+2. **Primary grading metric: QWK**, unchanged. It encodes that a two-grade error costs more
+   than a one-grade error, matching the clinical ordering. Macro-recall asserts they cost the
+   same, which no screening protocol agrees with.
+3. **Macro-recall: a diagnostic, never an objective.** It is what exposed the Mild collapse
+   and earns its place for that. It is a lens, not a target.
+
+### Two things that survive the disagreement
+
+**The Mild collapse still matters — just not for referral.** It matters for progression
+monitoring and for any use whose output is "this patient has early disease". The referral
+numbers being excellent must not be allowed to imply the model is fine at grading.
+
+**Our best referral operating point is an accident and should stop being one.** The 99.53 %
+sensitivity comes from `sigmoid > 0.5` — a default nobody chose, which tuning for QWK actively
+*degrades* to 96.64 %. The threshold should be selected deliberately on validation data
+against a stated sensitivity target, and reported as having been selected. At present we are
+benefiting from luck and calling it a result, which is the same category of error as §20's
+provenance failures: a number whose origin nobody checked.
+
+---
+
+## F6 — A deployment recommendation evaluated only by its mean can be harmful
+
+The methodological point behind F4, stated generally because it outlives this task.
+
+At n = 25 labelled images, recalibration's mean effect is **+1.58 macro-recall points** — a
+number that reads as an endorsement and would, on its own, justify the recommendation
+"recalibrate on whatever you can label". The distribution says otherwise: **29.5 % of adopters
+end up worse than shipping the defaults.**
+
+**A mean effect is silent about the variance across adopters, and at small samples that
+variance is the entire story.** The quantity a clinic needs is not "how much does this help on
+average" but "how likely is this to hurt me" — and those two questions have opposite answers
+here at every size below 100.
+
+The general rule: **any recommendation about what a deployer should do must be evaluated over
+the distribution of deployers, not at its mean, and must report the probability of harm.** A
+study reporting only the average would have published advice that is actively damaging to
+roughly a third of the clinics following it.
+
+This is the same shape as the project's other recurring failure — reporting a point estimate
+without the interval that governs whether it means anything — applied to a decision rather
+than to a measurement.
+
 ---
 
 ## F2 — Messidor-1 cannot serve as the external DME test set, and the reason is measurable
