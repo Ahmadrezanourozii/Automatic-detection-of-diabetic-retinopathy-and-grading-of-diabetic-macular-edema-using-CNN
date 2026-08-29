@@ -160,8 +160,22 @@ def load_idrid(roots):
 
 
 # ── Messidor-2 ────────────────────────────────────────────────────────────────
+MESSIDOR_SOURCE = os.environ.get("MESSIDOR_SOURCE", "prefer-native")
+
+
 def load_messidor2(roots):
-    """1 744 gradable images, DR 0-4 adjudicated, DME as a PARTIAL label."""
+    """1 744 gradable images, DR 0-4 adjudicated, DME as a PARTIAL label.
+
+    MESSIDOR_SOURCE selects which image files back these labels:
+      prefer-native  native-resolution mirror where it has coverage, else the 512 px one
+      native-only    ONLY images the native mirror provides (1 057 of 1 744)
+      default-only   ONLY the 512 px mirror, restricted to the same 1 057 for comparability
+
+    The last two exist for the source control (IDEAS.md I19): the same labels, the same
+    images, the same 512 px training resolution, differing *only* in which file the pixels
+    came from. Without that control a resolution experiment changes pixel count and file
+    source together and nothing it produces can be attributed.
+    """
     csv_path = find_file(roots, "messidor_data", must_end=".csv")
     if not csv_path:
         return []
@@ -172,13 +186,23 @@ def load_messidor2(roots):
     # ends up at mixed resolution and that is recorded rather than hidden.
     idx = {}
     hi_dir = find_dir(roots, "messidor-diabetic-retinopathy-dataset-jpg-format")
-    if hi_dir:
-        idx.update(index_images(hi_dir))
-        print(f"[corpora] Messidor-2: native-resolution mirror found, "
-              f"{len(idx)//2} files", flush=True)
     lo_dir = find_dir(roots, "messidor-2", "preprocess") or find_dir(roots, "messidor")
-    for k, v in index_images(lo_dir).items():
-        idx.setdefault(k, v)      # only fills gaps; never overrides the native mirror
+    hi_idx = index_images(hi_dir) if hi_dir else {}
+    lo_idx = index_images(lo_dir)
+    if hi_dir:
+        print(f"[corpora] native-resolution mirror: {len(hi_idx)//2} files "
+              f"(MESSIDOR_SOURCE={MESSIDOR_SOURCE})", flush=True)
+    if MESSIDOR_SOURCE == "native-only":
+        idx = dict(hi_idx)
+    elif MESSIDOR_SOURCE == "default-only":
+        # restrict to exactly the images the native mirror also has, so the two arms of the
+        # control cover an identical set of eyes
+        keep = set(hi_idx) if hi_idx else set(lo_idx)
+        idx = {k: v for k, v in lo_idx.items() if k in keep}
+    else:
+        idx = dict(hi_idx)
+        for k, v in lo_idx.items():
+            idx.setdefault(k, v)
     rows = _rows(csv_path)
     if not rows:
         return []

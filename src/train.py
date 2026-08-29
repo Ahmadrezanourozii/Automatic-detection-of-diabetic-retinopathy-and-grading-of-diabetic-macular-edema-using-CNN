@@ -517,11 +517,19 @@ def main():
     p.add_argument("--lr-pretrain", type=float, default=3e-4)
     p.add_argument("--tta", action="store_true",
                    help="average logits over the four dihedral flips at final evaluation")
+    p.add_argument("--messidor-source", default="prefer-native",
+                   choices=["prefer-native", "native-only", "default-only"],
+                   help="which files back the Messidor-2 labels; the two -only modes are "
+                        "the source control of IDEAS.md I19")
     p.add_argument("--corpora", default="IDRiD,Messidor-2",
                    help="comma-separated; used for fast local smoke tests")
     p.add_argument("--limit", type=int, default=0, help="debug: keep only N images")
     p.add_argument("--hypothesis", default="")
     args = p.parse_args()
+
+    os.environ["MESSIDOR_SOURCE"] = args.messidor_source
+    import importlib
+    importlib.reload(corpora)
 
     sha = git_sha()
     print(f"COMMIT {sha}")                 # first line, always
