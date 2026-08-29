@@ -252,7 +252,11 @@ Reproduce with `python src/recalibration_curve.py --draws 200`.
 
 ## F5 — Which metric leads, and why macro-recall must not
 
-*Recommendation pending the supervisor's decision; the evidence below is settled either way.*
+**Settled 2026-08-29.** The supervisor initially argued for macro-recall as primary, on the
+reasoning that in screening a missed Mild case is the clinically costly error, and withdrew
+that position on the referral-sensitivity measurement below. Both the original position and
+the number that overturned it are recorded here so the reasoning is visible rather than only
+its conclusion — the argument is a better guide for future metric choices than the verdict.
 
 ### The question
 
@@ -284,7 +288,7 @@ Macro-recall weights those two errors **equally**. That is the assumption that f
 price here is **285 additional patients with referable disease told they do not need
 referral** — bought by recovering recall on a class that does not trigger referral at all.
 
-### The recommended position
+### The adopted position
 
 1. **Operationally primary: referable-DR sensitivity and specificity, as a pair.** This is the
    decision the system supports. Neither may be quoted alone, since either is trivially
@@ -303,10 +307,46 @@ numbers being excellent must not be allowed to imply the model is fine at gradin
 
 **Our best referral operating point is an accident and should stop being one.** The 99.53 %
 sensitivity comes from `sigmoid > 0.5` — a default nobody chose, which tuning for QWK actively
-*degrades* to 96.64 %. The threshold should be selected deliberately on validation data
-against a stated sensitivity target, and reported as having been selected. At present we are
-benefiting from luck and calling it a result, which is the same category of error as §20's
-provenance failures: a number whose origin nobody checked.
+*degrades* to 96.64 %. We cannot currently answer "why 0.5?" with anything but silence, and
+this is the third appearance of the pattern behind F1 and F3 — an unchosen default silently
+determining a result — this time on **the number the entire clinical claim rests on**.
+
+**This is now a task, not a remark: T1 below.**
+
+---
+
+## T1 — Select the referral threshold deliberately *(queued, zero GPU)*
+
+**Why.** The headline clinical number — 99.53 % referable sensitivity at 84.28 % specificity —
+was produced by an arbitrary default. An operating point we chose and can defend beats a
+better one we got by luck, because the second cannot survive the question "why that
+threshold?"
+
+**Method.** Choose the sensitivity target **first**, justified against screening practice, and
+only then report the threshold achieving it and what it costs in specificity. Choosing the
+target after seeing the curve is selecting on the test set in a different costume.
+
+**Design.**
+1. State the target and its justification. Candidate anchors, each of which **must be checked
+   against its source document before being cited** — the same discipline as `ISSUES.md` §22,
+   because a standard quoted from memory is exactly the kind of unverified provenance this
+   project keeps finding:
+   * UK NSC / NHS Diabetic Eye Screening programme standards for referable retinopathy;
+   * the FDA-cleared autonomous screening devices' pivotal-trial operating points;
+   * whatever the supervising clinician regards as the acceptable miss rate.
+2. Fit the threshold **cross-fitted on the development pool**, never on APTOS — APTOS is the
+   external set and fitting on it would forfeit that status (`PROTOCOL.md` §2).
+3. Report on APTOS: the achieved sensitivity, the specificity cost, and the number of missed
+   referable patients and unnecessary referrals per thousand screened.
+4. Report the **transfer gap** explicitly: a threshold fitted on the development pool will not
+   land at the same sensitivity on APTOS, because F3 established that calibration does not
+   transfer. That gap is itself a result, and it is the honest version of the deployment
+   recommendation in F4.
+
+**Falsifying outcome.** If no threshold on the development pool transfers to APTOS within a
+useful sensitivity band, then the referral operating point is not transportable either, and
+the deployment recommendation becomes "recalibrate the referral threshold locally before
+use" — with F4's 200-image figure attached.
 
 ---
 

@@ -75,11 +75,17 @@ Results that are about the problem rather than about a run. Currently two:
   prices against the fix. Per-class recall must be reported beside every headline.
 * **F2 — Messidor-1 cannot be the external DME test set**, with the overlap, site-bias and
   power numbers that show why.
-* **F5 — macro-recall must not be the primary metric.** Tuning for it costs **19.2 points of
+* **T1 (queued, zero GPU) — select the referral threshold deliberately.** The 99.53 %
+  sensitivity came from an unchosen `sigmoid > 0.5`. Pick the target first, justify it against
+  screening practice, fit cross-fitted on the development pool (never APTOS), and report the
+  transfer gap. Third appearance of the unchosen-default pattern, this time on the number the
+  clinical claim rests on.
+* **F5 — macro-recall must not be the primary metric (settled).** Tuning for it costs **19.2 points of
   referable-DR sensitivity** (99.53 % → 80.36 %; 7 missed referable patients → 292), because
   Mild is not a referable grade and macro-recall prices a Mild error like a Proliferative one.
   Recommended: referable sens/spec as the operationally primary *pair*, QWK as the primary
-  grading metric, macro-recall as a diagnostic only. **Awaiting the supervisor's decision.**
+  grading metric, macro-recall as a diagnostic only. Adopted; the original counter-position
+  and the number that overturned it are recorded in F5.
 * **F6 — a deployment recommendation evaluated at its mean can be harmful.** Generalises F4.
 * **F4 — recalibration needs about 200 labelled local images.** At n = 200 it recovers ~70 %
   of the achievable gain with a 1.5 % risk of harm; below 100 images roughly one attempt in
