@@ -75,6 +75,9 @@ Results that are about the problem rather than about a run. Currently two:
   prices against the fix. Per-class recall must be reported beside every headline.
 * **F2 — Messidor-1 cannot be the external DME test set**, with the overlap, site-bias and
   power numbers that show why.
+* **F4 — recalibration needs about 200 labelled local images.** At n = 200 it recovers ~70 %
+  of the achievable gain with a 1.5 % risk of harm; below 100 images roughly one attempt in
+  four makes the model *worse*, so the advice there is not to recalibrate at all.
 * **F3 — per-class comparisons between models are dominated by cut-point placement.** Every
   per-class E11-vs-E08 difference on APTOS changes under recalibration; one reverses sign. The
   aggregate external advantage (+0.0063 QWK) becomes indistinguishable once both models sit at

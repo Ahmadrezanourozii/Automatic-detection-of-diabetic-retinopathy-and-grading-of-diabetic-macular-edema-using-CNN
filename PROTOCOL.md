@@ -101,6 +101,32 @@ To compare two models: **paired bootstrap over the same groups**, report the int
 the difference. If it contains zero, the models are indistinguishable and are reported as
 such. They are not ranked anyway.
 
+### 4.1 No difference is attributed to representation until it survives matched calibration
+
+**A difference between two models measured at their shipped decision thresholds is not
+evidence about their representations.** Before any such difference is described as one model
+learning better features than another, both must be recalibrated the same way — cut-points
+cross-fitted under an identical objective — and the comparison repeated. Only what survives
+that is a statement about representation; what does not survive is a statement about where
+two arbitrary thresholds happened to fall.
+
+This rule exists because it has already overturned two claims this project was about to make,
+both at zero compute cost (`FINDINGS.md` F1 and F3):
+
+* A Mild-recall collapse read as a capacity limit was calibration: recalibration moved it
+  5.4 % → 77.8 %.
+* An entire backbone comparison — including a "significant" external QWK advantage and a
+  per-class pattern that looked like a real representational trade — dissolved at matched
+  operating points. One per-class difference **reversed sign**; three changed significance;
+  the aggregate advantage became indistinguishable.
+
+**The corollary, which is the more general trap.** Both models shipped with the default
+threshold of 0.5 on every ordinal cut. That default is arbitrary — it is what you get from
+`sigmoid > 0.5`, not from anything about the grading scale — and it was silently determining
+our per-class results and very nearly our architecture conclusion. **An untuned default is a
+hyper-parameter that has been chosen, not one that has been avoided**, and any comparison that
+holds it fixed across models is confounded by it.
+
 ---
 
 ## §5. The two decisions that must not be quietly revisited

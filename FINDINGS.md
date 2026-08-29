@@ -157,6 +157,18 @@ happened to ship with the same arbitrary 0.5 cut-points.
 and costs nothing.** Nine and a half GPU-hours bought E11; the recalibration is a coordinate
 ascent over four numbers.
 
+### The default threshold is itself a finding
+
+Both models shipped with **0.5** on every ordinal cut — the number you get from `sigmoid > 0.5`,
+not from anything about the grading scale. That arbitrary default was silently determining our
+per-class results and very nearly our architecture conclusion.
+
+It deserves stating explicitly because of how invisible it was: no configuration file named it,
+no experiment varied it, and it never appeared in a results table. **An untuned default is a
+hyper-parameter that has been chosen, not one that has been avoided.** Holding it fixed across
+two models does not control for it — it confounds them jointly, which is why the E11-vs-E08
+comparison looked like a representational result until both were moved off it.
+
 ### What this changes
 
 1. **Do not report per-class recall differences between models without fixing the operating
@@ -173,6 +185,67 @@ ascent over four numbers.
 
 Reproduce: the analysis is in the commit that added this section; predictions are in
 `runs/E08X2/` and `runs/E11X/`.
+
+
+---
+
+## F4 — How much local labelled data recalibration needs: about 200 images
+
+### Why this was measured
+
+F3 established that moving the decision cut-points is worth several times more than changing
+the backbone and costs nothing. That is only a recommendation if we can say **how much
+labelled local data it takes**. "Recalibrate before deployment" is advice; "label 200 images
+and you recover most of it, below 100 you are as likely to make it worse" is something a
+clinic can act on.
+
+### Design
+
+For each sample size *n*, draw *n* images at random as the local labelled sample, fit ordinal
+cut-points on those *n* alone (maximising macro-recall), and evaluate on the images **not
+drawn** — so every number is out of sample with respect to the cut-points, as a deployment
+would be. Repeat over 200 random draws, because *which* images a clinic happens to label is
+itself a source of variation and at small *n* it dominates. Compare against the shipped 0.5
+thresholds on the same held-out images.
+
+### The curve (E08, DenseNet121; E11 is within a point at every size)
+
+| labelled images | macro-recall gain | Mild recall gain | ΔQWK | **P(recalibration harms)** |
+|---|---|---|---|---|
+| 25 | +1.58 [−7.84, +6.99] | +51.7 [+3.8, +85.0] | −0.026 | **29.5 %** |
+| 50 | +1.96 [−5.92, +6.76] | +54.8 [+6.5, +85.0] | −0.028 | **29.0 %** |
+| 100 | +3.49 [−3.09, +7.43] | +67.0 [+15.1, +84.8] | −0.029 | **16.0 %** |
+| **200** | **+5.09 [+0.32, +7.28]** | +64.9 [+30.9, +83.7] | −0.021 | **1.5 %** |
+| 400 | +6.17 [+3.49, +7.74] | +67.9 [+49.8, +82.6] | −0.018 | **0.0 %** |
+
+Ceiling, from cut-points fitted on half the corpus (~1 800 images): +7.27.
+
+### The sentence a clinician can act on
+
+> **Label about 200 local images.** At that size recalibration recovers roughly **70 % of the
+> achievable gain** (+5.1 of +7.3 macro-recall points), the interval clears zero, and the risk
+> of making performance worse falls to **1.5 %**. Four hundred images gets ~85 % of the ceiling
+> and the risk to zero. **Below 100 images, do not recalibrate**: the expected gain is small
+> and roughly **one attempt in four makes the model worse**.
+
+### Three things worth noting alongside it
+
+**The risk column is the operative one at small n, not the mean.** At 25 images the average
+gain is positive (+1.58) and would look like an endorsement — while 29.5 % of clinics doing it
+would end up worse off than shipping the defaults. A recommendation built on the mean alone
+would have been actively harmful.
+
+**Mild recall improves enormously at every size** (+50 to +68 points) but with intervals so
+wide at small *n* that the size of the gain is unknowable from a small sample. The direction
+is reliable long before the magnitude is.
+
+**Recalibrating for macro-recall costs QWK**, consistently, by 0.017–0.029. This is F1's
+trade-off again: the two objectives genuinely disagree, and which one to deploy against is a
+clinical decision about the cost of a missed mild case, not a modelling one. The thesis should
+present both operating points rather than pick one silently.
+
+Reproduce with `python src/recalibration_curve.py --draws 200`.
+
 
 ---
 
