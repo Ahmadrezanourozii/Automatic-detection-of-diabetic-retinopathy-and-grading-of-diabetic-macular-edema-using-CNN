@@ -1,0 +1,32 @@
+run ?  commit ?  device=cuda  backbone=tf_efficientnet_b3 head=ordinal size=448
+[corpora] APTOS         3662 images
+  APTOS       n=  3662  DR0=1805 DR1=370 DR2=999 DR3=193 DR4=295   dme_supervised=    0 (exact=0)
+[corpora] IDRiD          516 images
+[corpora] Messidor-2    1744 images
+[cache] decoding 3662 images -> /kaggle/temp/cache_ext
+[cache]   250/3662  33s, ~446s left
+[cache]   500/3662  62s, ~394s left
+[cache]   750/3662  93s, ~361s left
+[cache]   1000/3662  121s, ~323s left
+[cache]   1250/3662  151s, ~292s left
+[cache]   1500/3662  180s, ~259s left
+[cache]   1750/3662  209s, ~229s left
+[cache]   2000/3662  239s, ~198s left
+[cache]   2250/3662  267s, ~168s left
+[cache]   2500/3662  298s, ~139s left
+[cache]   2750/3662  327s, ~108s left
+[cache]   3000/3662  357s, ~79s left
+[cache]   3250/3662  388s, ~49s left
+[cache]   3500/3662  418s, ~19s left
+[cache]   3662/3662  439s, ~0s left
+ensembling 3 folds: ['best_0.pt', 'best_1.pt', 'best_2.pt']
+
+==============================================================================
+EXTERNAL — APTOS, never seen in training
+==============================================================================
+    dr                     n= 3662  acc  74.1% [72.7,75.6]  floor  49.3%  QWK  0.903  F1 0.541  BEATS
+                          recall 98%  5%  62%  65%  60%   support [1805, 370, 999, 193, 295]
+                          referable-DR sens 99.3%  spec 84.6%
+
+wrote /kaggle/working/E11X/external_aptos.json
+wrote /kaggle/working/E11X/external_aptos_predictions.npz

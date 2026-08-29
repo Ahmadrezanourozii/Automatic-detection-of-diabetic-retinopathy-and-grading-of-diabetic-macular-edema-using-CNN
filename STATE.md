@@ -64,6 +64,18 @@ belonging in a table rather than a sentence.
 The chapter reports what was actually found, including the negative result below, and states
 the three caveats attached to the external number.
 
+## Read also: FINDINGS.md
+
+Results that are about the problem rather than about a run. Currently two:
+
+* **F1 — the external Mild collapse is calibration, not capacity, and QWK conceals it.**
+  Mild recall is 5–6 % on APTOS against 36–45 % internally, while every other class transfers
+  within ~25 %. Moving cut-points alone recovers it to **77.8 %**. But recalibrating for QWK
+  reaches only 19.5 %, and recovering Mild *costs* QWK (0.903 → 0.887) — so the primary metric
+  prices against the fix. Per-class recall must be reported beside every headline.
+* **F2 — Messidor-1 cannot be the external DME test set**, with the overlap, site-bias and
+  power numbers that show why.
+
 ## The standing negative result
 
 **No intervention has significantly improved 3-class DME on QWK, the primary metric.** That

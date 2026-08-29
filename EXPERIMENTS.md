@@ -158,6 +158,35 @@ Messidor-2 copies, paired over the same folds.
 ~1.5 h to protect a ~4 h run, and more importantly to protect a result from being
 unattributable after the fact. Recorded as `IDEAS.md` I19, gating I20.
 
+
+### E11X — the external number, and what it does not settle
+
+E11's three folds ensembled with TTA on the same 3 662 held-out APTOS images:
+
+| | E08X (DenseNet, 5 folds) | E11X (EfficientNet-B3, 3 folds) |
+|---|---|---|
+| accuracy | 73.51 % [72.04, 74.93] | 74.11 % [72.67, 75.59] |
+| QWK | 0.8968 [0.8886, 0.9048] | 0.9031 [0.8949, 0.9108] |
+| referable-DR sensitivity / specificity | 99.53 % / 84.28 % | 99.26 % / 84.60 % |
+
+**The internal advantage largely does not transfer.** E11 beat E08 internally by **+0.029**
+QWK, fold-matched and significant. Externally the gap is **+0.006**, about a fifth the size,
+with heavily overlapping intervals.
+
+**Stated as evidence, not as a conclusion:** those two intervals were computed *independently*,
+not paired, and overlapping intervals neither establish nor refute a difference — the same
+caution `src/compare_runs.py` exists to enforce. A paired test needs per-image predictions on
+the same images, and E08X predates the change that archives them. E08X2 re-runs it for 0.3 h
+to settle this properly.
+
+**The consequence for priorities** is already clear enough to act on: finishing E11's folds 3
+and 4 (~3.2 h) makes the internal headline comparable across runs but is unlikely to move the
+number that matters at a defence. It is therefore deprioritised behind the source control and
+the macula-crop experiment.
+
+**And the more important thing this run surfaced** is not the E11-vs-E08 comparison at all —
+it is that Mild recall is 5.4 % on APTOS for *both* models. See `FINDINGS.md` F1.
+
 ### E11 — architecture and data are complementary, and my E07 conclusion was too broad
 
 E11 is EfficientNet-B3 **with** EyePACS pretraining — the combination E07 and E08 each had
