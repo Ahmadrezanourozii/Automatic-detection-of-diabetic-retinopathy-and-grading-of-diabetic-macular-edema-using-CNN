@@ -70,6 +70,14 @@ have *different* Mild problems: at home the model genuinely struggles to see mic
 (consistent with E09, where resolution was worth +18.6 points on exactly this class); abroad it
 sees them and mislabels them. Conflating the two would have led to the wrong fix in both.
 
+### An independent confirmation
+
+E11's larger backbone is significantly better than E08 on APTOS overall (+0.0063 QWK, paired,
+interval excluding zero) and significantly better on Proliferative (+8.1 points). On **Mild**
+it differs by **−0.6 points [−3.5, +2.2] — indistinguishable**. A backbone with demonstrable
+extra capacity, measured on the same images, moves this class by nothing. That is what
+capacity-limited failure does not look like.
+
 ### What follows for the thesis
 
 * **Report per-class recall beside every headline.** "What fraction of Mild cases does it

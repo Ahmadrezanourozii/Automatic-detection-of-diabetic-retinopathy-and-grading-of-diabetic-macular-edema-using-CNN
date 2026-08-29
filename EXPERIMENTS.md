@@ -173,11 +173,39 @@ E11's three folds ensembled with TTA on the same 3 662 held-out APTOS images:
 QWK, fold-matched and significant. Externally the gap is **+0.006**, about a fifth the size,
 with heavily overlapping intervals.
 
-**Stated as evidence, not as a conclusion:** those two intervals were computed *independently*,
-not paired, and overlapping intervals neither establish nor refute a difference — the same
-caution `src/compare_runs.py` exists to enforce. A paired test needs per-image predictions on
-the same images, and E08X predates the change that archives them. E08X2 re-runs it for 0.3 h
-to settle this properly.
+**Settled by E08X2, which re-ran E08's weights with per-image predictions archived.** It
+reproduced E08X's confusion matrix **exactly** — a clean reproducibility check on the whole
+inference path — and enabled the paired test:
+
+| E11 − E08, paired over the same 3 662 images | difference | 95 % interval | verdict |
+|---|---|---|---|
+| accuracy | +0.60 pts | [−0.33, +1.48] | indistinguishable |
+| **QWK** | **+0.0063** | **[+0.0009, +0.0116]** | **significant** |
+| macro-recall | +1.48 pts | [−0.06, +2.96] | indistinguishable |
+
+So the external advantage is **real but about one fifth of the internal one** (+0.0063 against
++0.029). The interval barely clears zero, and at n = 3 662 — larger than the whole development
+pool — this is a well-powered "small but real", not an underpowered "maybe nothing".
+
+**Where the gain comes from, paired per class:**
+
+| class | n | E08 | E11 | difference | |
+|---|---|---|---|---|---|
+| No DR | 1 805 | 97.0 % | 98.2 % | +1.2 [+0.5, +1.9] | significant |
+| **Mild** | 370 | 5.9 % | 5.4 % | −0.6 [−3.5, +2.2] | **indistinguishable** |
+| Moderate | 999 | 64.2 % | 61.8 % | −2.4 [−4.8, −0.1] | significant, **against** E11 |
+| Severe | 193 | 64.2 % | 65.3 % | +1.0 [−4.1, +6.2] | indistinguishable |
+| **Proliferative** | 295 | 52.2 % | **60.3 %** | **+8.1 [+4.4, +12.2]** | significant |
+
+The entire external benefit of the larger backbone is **Proliferative**, plus a little No DR,
+partly given back on Moderate. And **Mild is identical and collapsed in both** — an independent
+confirmation of `FINDINGS.md` F1: a significantly better backbone moves that class by
+*nothing*, because the problem there is not capacity.
+
+**Consequence for the queue.** A +0.006 QWK external gain concentrated in one rare class is a
+thin justification for the ~3.2 h needed to finish E11's folds 3 and 4. That work makes the
+internal headline comparable across runs; it does not move the number that matters at a
+defence. Deprioritised.
 
 **The consequence for priorities** is already clear enough to act on: finishing E11's folds 3
 and 4 (~3.2 h) makes the internal headline comparable across runs but is unlikely to move the
