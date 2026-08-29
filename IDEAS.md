@@ -58,6 +58,9 @@ that improve a working model are worth nothing until one exists.
 
 | I18 | Re-run the external APTOS evaluation on GPU to get verified intervals | **not needed — resolved analytically** | Every APTOS group is one image, so the confusion matrix determines the bootstrap interval; recomputed and matched to Monte-Carlo error. Zero GPU spent. Removed from the queue. |
 
+| I19 | **Source control for the resolution test** | **queued — must run BEFORE the resolution test** | The full-resolution images come from Messidor-1 TIFFs, so a naive resolution run changes resolution *and* file source, codec and compression history at once. Control: take the 1 057 overlapping images, downsample the Messidor-1 originals to exactly the 512 px our pipeline already uses, and train a model on those. If it matches the model trained on our existing Messidor-2 512 px copies (paired bootstrap, same folds), the source is not a confound and the resolution result is interpretable. If it differs, the resolution result is uninterpretable and the difference itself becomes the finding. ~1.5 h, and it protects a ~4 h run. |
+| I20 | Native-resolution test, gated on I19 | queued | Only meaningful once I19 shows the source is not a confound. Requires `cache_size >= size`, now enforced. |
+
 ## Rejected
 
 | ID | Idea | Verdict | Evidence |

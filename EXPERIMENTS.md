@@ -135,6 +135,29 @@ at ~30 epochs and fit the window.
 
 
 
+
+### Planned: the resolution test needs a source control first
+
+The native-resolution images available to this project come from **Messidor-1 TIFFs**, while
+our current 512 px copies come from a **Messidor-2 mirror**. A run that simply raises the
+resolution therefore changes three things at once: the pixel count, the file source, and the
+codec and compression history (uncompressed TIFF from ADCIS versus a re-encoded PNG mirror).
+Any difference it produced could not be attributed.
+
+**The control, which runs first.** Take the 1 057 images present in both, downsample the
+Messidor-1 originals to **exactly the 512 px our pipeline already uses**, and train under the
+existing configuration. Compare against the same configuration trained on our existing
+Messidor-2 copies, paired over the same folds.
+
+* **If they match** — the source is not a confound, and a subsequent native-resolution run
+  measures resolution alone.
+* **If they differ** — the resolution experiment is uninterpretable as designed, and the
+  difference between two supposedly identical images of the same eye becomes the finding in
+  its own right. That would also cast doubt on the Messidor-2 mirror as a data source.
+
+~1.5 h to protect a ~4 h run, and more importantly to protect a result from being
+unattributable after the fact. Recorded as `IDEAS.md` I19, gating I20.
+
 ### E11 — architecture and data are complementary, and my E07 conclusion was too broad
 
 E11 is EfficientNet-B3 **with** EyePACS pretraining — the combination E07 and E08 each had
