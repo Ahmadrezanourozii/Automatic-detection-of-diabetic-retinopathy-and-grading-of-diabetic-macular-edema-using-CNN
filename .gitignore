@@ -37,3 +37,10 @@ runs/**/*.npy
 runs/**/manifest_*.json
 runs/**/*.pt
 runs/**/*.npz
+
+# ── Messidor-1 (ADCIS) — 3.4 GB of zips, never in git ────────────────────────
+Messidor-1/
+data/messidor1/
+*.xls
+*.tif
+*.tiff
