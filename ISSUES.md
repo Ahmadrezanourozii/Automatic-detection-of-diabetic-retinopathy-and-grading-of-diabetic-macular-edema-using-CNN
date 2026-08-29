@@ -726,6 +726,35 @@ an expiry date.
 
 ---
 
+## §22. The Messidor-1 errata table is still unverified against ADCIS  — 2026-08-29, OPEN
+
+**Status: open, and it stays open until someone checks it.**
+
+`src/messidor1.py` applies a published errata table — 13 duplicate pairs in Base33 (2 of them
+with inconsistent grades between the copies) and 4 label corrections in Base11/Base13. Those
+corrections are real and necessary: ADCIS does not apply them to the archives, so every
+consumer has to.
+
+**But the download that arrived contains no erratum document.** The folder holds exactly 12
+`Base*.zip` files and 12 `Annotation_Base*.xls` files — no readme, no licence, no corrections
+sheet. Verified by listing the directory.
+
+**So our table's provenance is a public web page, not the shipped distribution.** If ADCIS has
+revised the errata since — added a pair, corrected a different image, withdrawn one — **our
+file is what is wrong**, and nothing in the pipeline would notice: the corrections are applied
+silently and produce a manifest that looks perfectly well-formed either way.
+
+**What would close this.** Fetch the current erratum page from the ADCIS site and diff it
+against the table in `src/messidor1.py`. Until then, any result computed on Messidor-1 carries
+this caveat, and the table must not be described as "the published errata" without the
+qualifier "as recorded at the time we looked".
+
+**Why it is filed as an issue rather than a note.** This is the same shape as §20(c): a fact
+recorded in our code that points at an external source we do not control and have not
+re-checked. The failure mode is silent and the artifact looks correct.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.

@@ -58,10 +58,19 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 BASES = [f"Base{i}{j}" for i in (1, 2, 3) for j in (1, 2, 3, 4)]
 
 # ── published errata ─────────────────────────────────────────────────────────
-# Source: the corrections ADCIS publishes alongside the download. They are NOT applied to
-# the archives; every consumer has to apply them. Verify these against the erratum document
-# that ships with the copy actually downloaded before trusting this table -- if ADCIS has
-# revised it, this file is the thing that is wrong.
+# UNVERIFIED AGAINST THE SHIPPED DISTRIBUTION -- see ISSUES.md §22.
+#
+# Source: the corrections ADCIS publishes on its web page. They are NOT applied to the
+# archives; every consumer has to apply them.
+#
+# The download we received (2026-08-29) contains ONLY the 12 Base*.zip and 12
+# Annotation_Base*.xls files -- no erratum document, no readme. So this table's provenance
+# is a web page read at one point in time, not the distribution itself. If ADCIS has revised
+# the errata since, THIS FILE is what is wrong, and nothing downstream would notice: the
+# corrections apply silently and the manifest looks well-formed either way.
+#
+# Do not describe this as "the published errata" without the qualifier "as recorded when we
+# looked". Closing it means diffing against the current ADCIS erratum page.
 ERRATA_DUPLICATE_PAIRS_BASE33 = [
     ("20051202_55642_0400_PP.tif", "20051202_55654_0400_PP.tif"),
     ("20051202_54744_0400_PP.tif", "20051202_54756_0400_PP.tif"),

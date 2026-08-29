@@ -90,11 +90,65 @@ No images are committed to this repository; only the download and manifest scrip
 
 ---
 
+### Messidor-1 (ADCIS) — acquired 2026-08-29, and it does **not** work as an external test set
+
+1 200 images, TIFF at 2240×1488, twelve bases from three sites, with a "risk of macular
+edema" label graded by the same criterion IDRiD uses. It was acquired specifically to be the
+external test set for the 3-class DME task, and the measurement says it cannot be.
+
+**88 % of it is already in our development pool.** Messidor-1 and our Messidor-2 mirror share
+a filename convention, so the overlap is exact rather than estimated — and filename identity
+was confirmed to mean image identity by content: two sampled pairs gave 256-bit dHash
+distances of 5 and 6 and NCC 1.0000, well inside the ≤8 true-duplicate band calibrated in
+`ISSUES.md` §7.
+
+| | images |
+|---|---|
+| Messidor-1 total | 1 200 |
+| already in the development pool | **1 057** |
+| genuinely held out | **143** |
+
+**And the 143 survivors are not representative.** The overlap is wildly uneven by site, and
+site strongly predicts class:
+
+| site | dilation | total | overlap | survives |
+|---|---|---|---|---|
+| Lariboisière | dilated | 400 | 372 | 28 |
+| St Etienne | dilated | 400 | 397 | **3** |
+| Brest | undilated | 400 | 288 | **112** |
+
+78 % of what survives is Brest — the site with the *lowest* rate of referable DME (5 %,
+against Lariboisière's 21 %). A χ² test of DME grade against site over the full corpus gives
+**p = 1.5 × 10⁻¹⁴**, so "which site" is a shortcut feature here exactly as "which dataset" is
+in the pooled corpus. An external number computed on a set skewed toward the easiest site
+would be misleading even if it were precise.
+
+**Recorded as a per-image covariate** (`site`, `dilation`) rather than only as provenance, so
+this can be tested rather than assumed in any future use.
+
+**The unexpected value.** Those 1 057 overlapping images are the **native-resolution originals
+of images we currently hold only at 512 × 512**. Messidor-1 is therefore the full-resolution
+mirror the resolution question needs — better sourced than the Kaggle copy below.
+
+### A mislabelled public mirror, and why it matters to someone else
+
+`borhan2003/messidor-diabetic-retinopathy-dataset-jpg-format` is published on Kaggle as a
+Messidor-2 dataset. It holds **1 200** images at 2240 × 1488 that match **1 057** of our
+Messidor-2 labels — the same 1 200 and the same 1 057 as Messidor-1. **It is Messidor-1,
+mislabelled as Messidor-2.**
+
+This is worth stating because of what it does to anyone who uses both: attach that mirror as
+"Messidor-2" alongside a genuine Messidor-2 copy and you have silently duplicated 1 057
+images across what you believe are two independent corpora. If they land on opposite sides of
+a split, that is direct leakage, and nothing about it looks wrong. We found it only because
+the filename conventions were checked against the label CSV rather than trusted.
+
 ## To acquire (verify availability and licence before relying on any of these)
 
 | Corpus | Why | Priority |
 |---|---|---|
-| **Messidor-1** (1 200) | Carries "risk of macular edema" 0–2 with **the same clinical definition as IDRiD**. The only realistic external validation set for the 3-class DME contribution, and it would more than triple the 3-class DME training data if used for development instead. Check overlap with our Messidor-2 mirror first (`ISSUES.md` §3). | **highest** |
+| ~~Messidor-1~~ | **Acquired, and ruled out as an external DME test set** — see above. 88 % overlaps the development pool; the 143 survivors are 78 % one site and too few to resolve anything. Retained as a native-resolution image source. | done |
+| **A DME corpus with no Messidor lineage** | Still the open gap. Any external 3-class DME number needs a corpus graded by the IDRiD criterion that was not built from Messidor examinations. None identified yet; until one is, "no external DME validation" is a declared limitation of the thesis, with a measured reason. | **highest** |
 | DDR (13 673) | External DR test; includes an "ungradable" class. | high |
 | DeepDRiD (2 000) | External DR test; dual-field per eye, with explicit patient IDs. | medium |
 | FGADR / e-ophtha / DIARETDB1 | Hard-exudate masks — auxiliary segmentation head (`IDEAS.md` I15). | medium |
