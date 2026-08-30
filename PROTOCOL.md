@@ -103,6 +103,25 @@ such. They are not ranked anyway.
 
 ### 4.1 No difference is attributed to representation until it survives matched calibration
 
+### 4.2 Every per-class claim carries the same two qualifications
+
+Per-class recall is reported beside every headline (§4.1 and `FINDINGS.md` F1 exist because it
+was not). Two qualifications travel with **every** such claim in this project, not only the
+ones where they happen to be inconvenient:
+
+1. **No correction for multiple comparisons is applied.** Five classes times the conditions
+   compared means roughly one significant cell is expected by chance in a typical table.
+   **Credibility therefore comes from a difference replicating across conditions, not from its
+   p-value in isolation.** The Moderate source effect is credible because it held at −6.8
+   before recalibration and −6.5 after; a cell significant in one condition only is a lead,
+   not a finding.
+2. **Where the comparison varies more than one thing, the per-class claim inherits every
+   confound the aggregate does.** The source control established that two image sources give
+   models that are equal in aggregate but distribute per-class errors differently by several
+   points. So a per-class result from any experiment that also changes the image source —
+   the native-resolution test above all — is **not cleanly attributable**, even where the
+   aggregate is.
+
 **A difference between two models measured at their shipped decision thresholds is not
 evidence about their representations.** Before any such difference is described as one model
 learning better features than another, both must be recalibrated the same way — cut-points
@@ -110,8 +129,23 @@ cross-fitted under an identical objective — and the comparison repeated. Only 
 that is a statement about representation; what does not survive is a statement about where
 two arbitrary thresholds happened to fall.
 
-This rule exists because it has already overturned two claims this project was about to make,
-both at zero compute cost (`FINDINGS.md` F1 and F3):
+**The rule has now overturned claims in both directions, and that is what makes it evidence
+rather than a filter.** A test that only ever dissolved inconvenient differences would be a
+way of explaining away results, and a reader would be right to distrust every use of it. Its
+record so far:
+
+| claim | initial reading | what matched calibration showed |
+|---|---|---|
+| Mild recall collapse (F1) | a capacity limit | **calibration** — 5.4 % → 77.8 % by moving cut-points |
+| EfficientNet beats DenseNet (F3) | a better representation | **boundary placement** — the advantage vanished, one cell reversed sign |
+| Moderate differs by source (E12) | another boundary artefact | **a real difference** — −6.8 → −6.5, essentially unchanged |
+
+Three predictions, three overturned, in **two different directions**. The third is the one
+that licenses the other two: without a case where the check came back positive, the rule would
+be indistinguishable from motivated reasoning.
+
+This rule exists because it has already overturned claims this project was about to make,
+at zero compute cost (`FINDINGS.md` F1 and F3, and the E12 source control):
 
 * A Mild-recall collapse read as a capacity limit was calibration: recalibration moved it
   5.4 % → 77.8 %.
