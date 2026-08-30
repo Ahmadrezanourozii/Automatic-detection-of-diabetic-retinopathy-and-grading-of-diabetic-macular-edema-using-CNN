@@ -19,6 +19,7 @@ A number without a row here does not exist.
 | **E07** | 2026-08-26 | `c79dac6` | EfficientNet-B3 and a 60-epoch schedule beat DenseNet121 at 30 | E05 + efficientnet_b3, 60 epochs, no pretraining | 73.8 %¹ | 0.837¹ | — | — | — | folds 0–3 only | **killed at the 12 h wall clock after 4/5 folds** | `runs/E07/` |
 
 ¹ folds 0–3 only (n = 1 811); the run was cancelled during fold 4.
+| **E12def / E12nat** | 2026-08-29 | `e3cb4d1` | Source control: the same eyes at the same size from two different files should give the same model | identical config, `--messidor-source default-only` vs `native-only`, folds 0–2 | 72.2 / 69.6 % | 0.858 / 0.856 | 87.3 / 87.3 % | 0.891 / 0.901 | — | see below | **all four differences indistinguishable** | `runs/E12def/`, `runs/E12nat/` |
 | **E11** | 2026-08-26 | `ebe8a61` | EfficientNet-B3 **plus** EyePACS pretraining beats DenseNet121 plus the same | E08 + efficientnet_b3, 30 ep, **folds 0–2 only** | **78.1 %**¹ | **0.894**¹ | **87.6 %**¹ | **0.902**¹ | — | DR [75.8, 80.3] · DME [83.8, 91.1] | **best DR; +0.029 QWK vs E08, significant** | `runs/E11/` |
 
 ¹ folds 0–2 only (DR n = 1 362, DME n = 314). Sized to fit the 12 h window after E07 was
@@ -135,6 +136,45 @@ at ~30 epochs and fit the window.
 
 
 
+
+
+### E12def / E12nat — the source control passes, and I20 is interpretable
+
+The native-resolution images available to this project come from Messidor-1 TIFFs while our
+512 px copies come from a Messidor-2 mirror, so a resolution experiment would otherwise change
+pixel count, file source and compression history together. The control holds everything fixed
+except the source: the same 1 057 eyes, the same labels, the same frozen folds, the same
+512 px training resolution — only the file the pixels came from differs.
+
+Both arms loaded exactly 1 057 Messidor-2 images and evaluated on the same 953 (DR) and 314
+(DME), verified by uid set equality before the comparison ran.
+
+| native − default, paired over the same eyes | difference | 95 % interval | verdict |
+|---|---|---|---|
+| DR accuracy | −2.64 pts | [−5.56, +0.31] | indistinguishable |
+| DR QWK | −0.0016 | [−0.0201, +0.0173] | indistinguishable |
+| DME accuracy | −0.01 pts | [−3.18, +3.18] | indistinguishable |
+| DME QWK | +0.0103 | [−0.0205, +0.0421] | indistinguishable |
+
+**The source is not a confound. I20 may proceed**, and a difference it finds can be attributed
+to resolution rather than to the mirror.
+
+**Two caveats kept on the record rather than buried.**
+
+**1. One per-class cell is significant.** DR accuracy's point estimate is −2.64 with the
+interval only just containing zero, and per class it resolves to a single cell: **Moderate,
+−6.8 [−11.6, −2.2], significant**, with the other four indistinguishable. QWK is flat
+(−0.0016), so this is not a ranking difference. The likely reading is F3's phenomenon again —
+a small shift in where the Moderate boundary falls, not a source effect on the representation.
+**But F3's own rule says a per-class difference is not interpretable until it survives matched
+calibration, and that check has not been run here.** Flagged, not dismissed.
+
+**2. The control validates the mirror only at 512 px.** It shows the two sources are equivalent
+*after both are reduced to 512*. It does not show they are equivalent at native resolution —
+which is exactly what I20 varies. If I20 finds a difference, we will not be able to separate
+"resolution helps" from "a source effect that only appears above 512 px" without a third arm
+at native resolution from a *second* native source, which we do not have. That limitation
+belongs with any I20 result.
 
 ### Planned: the resolution test needs a source control first
 
