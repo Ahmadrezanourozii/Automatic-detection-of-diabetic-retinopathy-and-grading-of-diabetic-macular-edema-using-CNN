@@ -1,0 +1,23 @@
+{
+ "_why": "The methods chapter's spine. Generated from this file so the table cannot drift from the findings it summarises. Add a row whenever matched calibration is applied to a new claim -- including when it changes nothing, since a rule that only ever fires is not evidence.",
+ "rows": [
+  {
+   "claim": "فروپاشی بازخوانی \\lr{Mild} (\\lr{F1})",
+   "initial": "محدودیت ظرفیت",
+   "outcome": "\\textbf{کالیبراسیون} — ۵٫۴٪ به ۷۷٫۸٪ تنها با جابه‌جایی نقاط برش",
+   "direction": "رد شد"
+  },
+  {
+   "claim": "برتری \\lr{EfficientNet} بر \\lr{DenseNet} (\\lr{F3})",
+   "initial": "بازنمایی بهتر",
+   "outcome": "\\textbf{جای‌گذاری مرز} — برتری از میان رفت و یک خانه تغییر علامت داد",
+   "direction": "رد شد"
+  },
+  {
+   "claim": "تفاوت \\lr{Moderate} میان دو منبع تصویر (\\lr{E12})",
+   "initial": "یک اثر مرزی دیگر",
+   "outcome": "\\textbf{تفاوت واقعی} — از ۶٫۸− به ۶٫۵− ، عملاً بدون تغییر",
+   "direction": "\\textbf{تأیید شد}"
+  }
+ ]
+}

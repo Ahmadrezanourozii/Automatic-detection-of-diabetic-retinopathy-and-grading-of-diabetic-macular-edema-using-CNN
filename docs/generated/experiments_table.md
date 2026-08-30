@@ -9,3 +9,5 @@
 | `E09` | `cebfc20` | halving-resolution-tests-whether-mild-recall-is-resolution-bound | densenet121 / ordinal @224px | 2260 | 69.0% | 0.820 | 84.3% | 0.866 | DR yes, DME yes |
 | `E10` | `4413fc7` | native-resolution-messidor-plus-640px-lifts-the-mild-class | densenet121 / ordinal @640px | 2260 | 74.4% | 0.868 | 87.2% | 0.899 | DR yes, DME yes |
 | `E11` | `ebe8a61` | efficientnet-b3-plus-eyepacs-pretraining-beats-densenet121-plus-the-same | tf_efficientnet_b3 / ordinal @448px | 1362 | 78.1% | 0.894 | 87.6% | 0.902 | DR yes, DME yes |
+| `E12def` | `23d765e` | source-control-default-only | densenet121 / ordinal @448px | 953 | 72.2% | 0.858 | 87.3% | 0.891 | DR yes, DME yes |
+| `E12nat` | `23d765e` | source-control-native-only | densenet121 / ordinal @448px | 953 | 69.6% | 0.856 | 87.3% | 0.901 | DR yes, DME yes |
