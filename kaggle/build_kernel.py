@@ -32,7 +32,7 @@ APTOS = "mariaherrerot/aptos2019"
 MESSIDOR_HI = "borhan2003/messidor-diabetic-retinopathy-dataset-jpg-format"
 
 
-def cells(run_id, train_args, commit, external_only=False, from_run=""):
+def cells(run_id, train_args, commit, external_only=False, from_run="", script=""):
     setup = f'''# {run_id} — pulls the code from GitHub so a run is reproducible from a commit SHA
 import os, subprocess, sys, shutil, time
 REPO = "{REPO}"
@@ -159,6 +159,27 @@ else:
         p.wait()
     print("external exit=", p.returncode)
 '''
+    if script:
+        # a standalone analysis script, not the training loop
+        only = f'''import subprocess, sys, os, time
+RUN_ID = "{run_id}"
+OUT = f"/kaggle/working/{{RUN_ID}}"
+os.makedirs(OUT, exist_ok=True)
+cmd = [sys.executable, "-u", "/kaggle/working/repo/{script}",
+       "--datasets", "/kaggle/input",
+       "--splits", "/kaggle/working/repo/data/splits/dev_v1.json",
+       "--out", OUT, {train_args}]
+print(" ".join(cmd), flush=True)
+with open(f"{{OUT}}/run.log", "w") as f:
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                         text=True, bufsize=1, cwd="/kaggle/working/repo")
+    for line in p.stdout:
+        print(line, end="", flush=True); f.write(line); f.flush()
+    p.wait()
+print("exit=", p.returncode)
+'''
+        return [setup, inputs, guard, only]
+
     if external_only:
         # No training. The finished run's output is attached as a kernel source, so its
         # per-fold weights arrive under /kaggle/input rather than being retrained.
@@ -212,6 +233,8 @@ def main():
     ap.add_argument("--slug", default=None)
     ap.add_argument("--gpu", default="GPU T4 x2")
     ap.add_argument("--out", default=None)
+    ap.add_argument("--script", default="",
+                    help="run a standalone analysis script instead of src/train.py")
     ap.add_argument("--external-only", action="store_true",
                     help="no training: load a finished run's weights and evaluate "
                          "externally")
