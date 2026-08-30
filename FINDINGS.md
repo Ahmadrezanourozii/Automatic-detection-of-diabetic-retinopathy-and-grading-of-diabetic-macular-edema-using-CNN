@@ -169,6 +169,17 @@ hyper-parameter that has been chosen, not one that has been avoided.** Holding i
 two models does not control for it — it confounds them jointly, which is why the E11-vs-E08
 comparison looked like a representational result until both were moved off it.
 
+### The rule cuts both ways
+
+Applied to the E12 source control, matched calibration **confirmed** a difference instead of
+dissolving one: the Moderate cell held at −6.5 after recalibration, against −6.8 before. I had
+predicted it would dissolve, as it did in F3. It did not.
+
+That is worth recording because it shows the rule is a test and not a way of explaining
+inconvenient results away. Its value is that it *distinguishes* — in F3 the equivalent cell
+reversed sign, and here it did not move. A check that only ever produced one answer would not
+be evidence of anything.
+
 ### What this changes
 
 1. **Do not report per-class recall differences between models without fixing the operating

@@ -156,18 +156,46 @@ Both arms loaded exactly 1 057 Messidor-2 images and evaluated on the same 953 (
 | DME accuracy | −0.01 pts | [−3.18, +3.18] | indistinguishable |
 | DME QWK | +0.0103 | [−0.0205, +0.0421] | indistinguishable |
 
-**The source is not a confound. I20 may proceed**, and a difference it finds can be attributed
-to resolution rather than to the mirror.
+**In aggregate the source is not a confound.** QWK is flat on both heads and accuracy's
+interval contains zero, so **I20 may proceed for aggregate metrics** — a QWK difference it
+finds can be attributed to resolution.
 
-**Two caveats kept on the record rather than buried.**
+**But the per-class picture is not clean, and I first reported this too favourably.**
 
-**1. One per-class cell is significant.** DR accuracy's point estimate is −2.64 with the
-interval only just containing zero, and per class it resolves to a single cell: **Moderate,
-−6.8 [−11.6, −2.2], significant**, with the other four indistinguishable. QWK is flat
-(−0.0016), so this is not a ranking difference. The likely reading is F3's phenomenon again —
-a small shift in where the Moderate boundary falls, not a source effect on the representation.
-**But F3's own rule says a per-class difference is not interpretable until it survives matched
-calibration, and that check has not been run here.** Flagged, not dismissed.
+**1. The Moderate cell survives matched calibration — I predicted it would not.** I originally
+wrote that the single significant cell (Moderate, −6.8 [−11.6, −2.2]) was "the likely reading
+is F3's phenomenon again — a boundary shift, not a source effect", and flagged that the check
+had not been run. **It has now been run, and the prediction was wrong.**
+
+| Moderate recall, native − default | difference | verdict |
+|---|---|---|
+| at shipped cut-points | −6.8 [−11.6, −2.2] | significant |
+| with both arms recalibrated for QWK | **−6.5 [−11.9, −0.7]** | **still significant** |
+
+The effect is essentially unchanged by recalibration, which is what a genuine representational
+difference looks like and what a boundary artefact does not — contrast F3, where the same test
+made the equivalent cell *reverse sign*.
+
+**2. Recalibration introduced two further significant cells** rather than removing any: No DR
+−8.6 [−12.4, −4.7] and Mild +14.2 [+5.0, +23.4]. Aggregate QWK remained indistinguishable in
+both conditions (−0.0016 shipped, −0.0035 tuned).
+
+**3. Multiple comparisons apply and are not corrected for.** Ten per-class tests were run
+across the two conditions; at α = 0.05 roughly one false positive is expected by chance. Three
+were significant under tuning, which is more than chance, and the Moderate effect is the one
+that replicates *across* conditions — that consistency, not its p-value in isolation, is what
+makes it credible.
+
+**The honest conclusion, replacing my first one.** The two sources give models that are
+**equally good in aggregate but distribute their errors differently across classes**. So:
+
+* **Aggregate claims from I20 (QWK, overall accuracy) are attributable to resolution.**
+* **Per-class claims from I20 carry a source caveat** and cannot be cleanly attributed, because
+  we now know the source alone shifts the per-class error distribution by several points on at
+  least one class.
+
+That is a weaker licence than "the source is not a confound", which is what I said before
+running the check I had myself flagged as outstanding.
 
 **2. The control validates the mirror only at 512 px.** It shows the two sources are equivalent
 *after both are reduced to 512*. It does not show they are equivalent at native resolution —
