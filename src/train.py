@@ -429,7 +429,32 @@ def run_fold(rows, fold, args, device, out_dir, amp_dtype, init_state=None):
         p = (step - warm) / max(1, steps - warm)
         return 0.5 * (1 + math.cos(math.pi * p)) * (1 - args.min_lr_frac) + args.min_lr_frac
 
-    sched = torch.optim.lr_scheduler.LambdaLR(opt, lr_at)
+    # ── I21: LP-FT. Train the heads on a frozen backbone first, then unfreeze at a much
+    # lower LR with its own warmup. The point is to stop fine-tuning from distorting a
+    # representation that E01 showed is already linearly separable. Note what this does NOT
+    # claim: D01 exonerated the fine-tuning mechanism as the cause of the archived collapse,
+    # so the floor-lift argument is withdrawn and this is an open question, not a favourite.
+    if args.lpft:
+        probe_steps = max(1, len(dl_tr)) * args.lpft_epochs
+        ft_warm = max(1, len(dl_tr) * args.lpft_warmup_epochs)
+        bb_scale = args.lpft_lr_backbone / max(1e-12, args.lr_backbone)
+
+        def lr_bb(step):
+            if step < probe_steps:
+                return 0.0                     # probe phase: backbone frozen
+            w = step - probe_steps
+            if w < ft_warm:
+                return (w / ft_warm) * bb_scale
+            q = (step - probe_steps - ft_warm) / max(1, steps - probe_steps - ft_warm)
+            cos = 0.5 * (1 + math.cos(math.pi * q)) * (1 - args.min_lr_frac) + args.min_lr_frac
+            return cos * bb_scale
+
+        sched = torch.optim.lr_scheduler.LambdaLR(opt, [lr_bb, lr_at])
+        print(f"  [LP-FT] probe {args.lpft_epochs} epochs (backbone frozen), then unfreeze "
+              f"at {args.lpft_lr_backbone:g} with {args.lpft_warmup_epochs}-epoch warmup",
+              flush=True)
+    else:
+        sched = torch.optim.lr_scheduler.LambdaLR(opt, lr_at)
     scaler = torch.amp.GradScaler(device.split(":")[0], enabled=amp_dtype == torch.float16)
     ema = EMA(model, args.ema) if args.ema > 0 else None
 
@@ -454,6 +479,16 @@ def run_fold(rows, fold, args, device, out_dir, amp_dtype, init_state=None):
     best_state, history = None, []
     for epoch in range(start_epoch, args.epochs):
         model.train()
+        if args.lpft:
+            # zeroing the backbone LR alone would still backprop through it every step;
+            # detaching saves that compute and makes the probe phase genuinely a probe
+            probing = epoch < args.lpft_epochs
+            for prm in bb_params:
+                prm.requires_grad_(not probing)
+            if epoch in (0, args.lpft_epochs):
+                print(f"  [LP-FT] epoch {epoch}: backbone "
+                      f"{'FROZEN (probe)' if probing else 'UNFROZEN (fine-tune)'}",
+                      flush=True)
         t0, tot, ndr, ndme = time.time(), 0.0, 0.0, 0.0
         for b in dl_tr:
             b = {k: v.to(device, non_blocking=True) for k, v in b.items()}
@@ -574,6 +609,16 @@ def main():
                    help="e.g. EyePACS -- trained on once, before the folds, then reused")
     p.add_argument("--pretrain-epochs", type=int, default=6)
     p.add_argument("--lr-pretrain", type=float, default=3e-4)
+    p.add_argument("--lpft", action="store_true",
+                   help="I21: linear-probe-then-fine-tune. Heads first on a frozen "
+                        "backbone, then unfreeze at --lpft-lr-backbone with warmup.")
+    p.add_argument("--lpft-epochs", type=int, default=5,
+                   help="probe epochs with the backbone frozen")
+    p.add_argument("--lpft-lr-backbone", type=float, default=1e-5,
+                   help="backbone LR after unfreezing (the point is that it is far below "
+                        "--lr-backbone)")
+    p.add_argument("--lpft-warmup-epochs", type=int, default=2,
+                   help="warmup epochs for the backbone after unfreezing")
     p.add_argument("--macula", action="store_true",
                    help="I07: give the DME head a macula-centred crop instead of the whole "
                         "fundus. The backbone is shared, so the only change is what the DME "
