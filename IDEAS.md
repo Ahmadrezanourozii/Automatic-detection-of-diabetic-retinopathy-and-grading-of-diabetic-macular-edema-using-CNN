@@ -265,6 +265,16 @@ single-fold / no-TTA option in `eval_external.py`) and recompute the table. **Fa
 the gap is materially unchanged, which would establish it as distribution shift outright.
 Cheap, and it converts a stated caveat into a measured one.
 
+### I23 — external validation of the OOF ensemble  **queued, ~1 h GPU total**
+
+The archived-prediction ensemble reaches **DR QWK 0.8933** on the development pool, +0.0186
+[+0.0089, +0.0283] over the best single run — significant, at zero GPU cost
+(`docs/generated/ensemble_oof.md`). But every member was selected on that pool, so the number
+is not held-out. **Score APTOS with each member (external-only, no retraining) and average the
+logits the same way.** Only that number can be a headline. **Falsified if** the ensemble's
+APTOS QWK does not exceed the best single member's by more than its interval — which would
+mean the gain is dev-pool optimism, not a better predictor.
+
 ## Rejected
 
 | ID | Idea | Verdict | Evidence |
