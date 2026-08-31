@@ -38,6 +38,19 @@ that improve a working model are worth nothing until one exists.
 | I03 | Augmentation: rotation, flips, scale, brightness/contrast jitter, mixup/CutMix. | untested | Cheapest known lever given the DME data volume. Note the prior notebook explicitly turned augmentation **off** to help memorisation. |
 | I06 | **The green-channel question.** green×3 vs [green, CLAHE(green), grey] vs full RGB vs RGB with CLAHE on LAB's L channel. | untested | The thesis' 10-point ablation claim for the green channel has no run behind it (`ISSUES.md` §1). This tests a load-bearing assumption. Feeding one replicated channel into a 3-channel ImageNet-pretrained network discards two thirds of the pretrained first-layer filters. |
 
+### I07 — **RUN AS E14MAC, 2026-08-31. FALSIFIED. See `FINDINGS.md` F7.**
+
+DME QWK at matched calibration 0.8764 (E08) vs 0.8538 (E14MAC), difference +0.0237
+[−0.0094, +0.0566] — indistinguishable, crop nominally worse, inside the ±0.03 band named in
+advance. **The DME ceiling is data, not architecture.** The null is not a localiser artefact:
+the window is 3 DD wide and the localiser's 99th-percentile error is 0.857 DD, so the fovea is
+inside the crop in over 99 % of images. Condition 2 discharged — the 3-class DME evaluation set
+*is* IDRiD's 516, so the headline carries no unvalidated fovea transfer at evaluation time.
+
+**Consequence for the queue: further architectural work on the DME head is not the lever.**
+I15 (auxiliary hard-exudate segmentation from IDRiD's 81 masks) is promoted — it is the one
+remaining DME idea that adds information rather than rearranging what is already there.
+
 ### I07 design — fixed before the run (2026-08-31)
 
 **Why it is first.** Re-ranked ahead of LP-FT on evidence, not preference. Both items changed

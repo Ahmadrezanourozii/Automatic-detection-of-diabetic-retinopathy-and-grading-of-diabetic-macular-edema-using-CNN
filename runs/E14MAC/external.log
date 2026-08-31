@@ -1,0 +1,3 @@
+run E14MAC  commit 68563efe97  device=cuda  backbone=densenet121 head=ordinal size=448
+[corpora] APTOS            0 images
+APTOS matched 0 images — is it attached to this kernel?

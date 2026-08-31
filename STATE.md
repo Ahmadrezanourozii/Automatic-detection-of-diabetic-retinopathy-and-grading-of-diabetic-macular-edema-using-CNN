@@ -136,12 +136,24 @@ and has been corrected.
   χ² p = 1.5 × 10⁻¹⁴, and the interval on 143 images would be ±0.073 QWK. **"No external DME
   validation" is a declared limitation with a measured reason.**
 
-## The standing negative result
+## The standing negative result — now upgraded to a positive finding (F7)
 
 **No intervention has significantly improved 3-class DME on QWK, the primary metric** — across
 pretraining, schedule, backbone, and architecture-plus-data combined. The one exception is
 effective resolution (E10), which moved DME **accuracy** +3.04 pts while leaving QWK
 indistinguishable. Every other gain in this project is on the DR head.
+
+**E14MAC closed this out on 2026-08-31.** The macula-centred crop — an architecture taken
+directly from the DME label's own clinical definition, using a localiser validated at median
+0.196 DD against a threshold fixed before the numbers, with the fovea inside the crop window
+in over 99 % of images — **did not move DME QWK**: 0.8764 vs 0.8538 at matched calibration,
++0.0237 [−0.0094, +0.0566], inside the ±0.03 band declared in advance.
+
+**So the DME limit is supervision, not modelling (`FINDINGS.md` F7).** 516 images carry a
+3-class label and **51 of them are the middle grade**; Messidor-2's 1 744 supply only a binary
+label and cannot populate it. Further architectural work on this head is not the lever — I15
+(auxiliary hard-exudate segmentation from IDRiD's 81 masks) is promoted as the one remaining
+idea that adds information rather than rearranging it.
 
 ## The two protocol rules added this session
 

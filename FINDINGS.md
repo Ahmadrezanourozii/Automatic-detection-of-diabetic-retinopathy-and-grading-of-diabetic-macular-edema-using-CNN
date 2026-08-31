@@ -397,3 +397,52 @@ wider than the entire range of differences this project has been trying to resol
 **"No external DME validation" is therefore a declared limitation with a measured reason**,
 which is worth more at a defence than silence. The gap is a DME corpus graded by the IDRiD
 criterion with no Messidor lineage; none has been identified.
+
+---
+
+## F7 — The 3-class DME ceiling is data, not architecture
+
+**The claim.** The DME head's limit is not a failure to look in the right place. An
+architecture derived directly from the label's own clinical definition, using a fovea
+localiser validated against a threshold fixed before the numbers, does not move DME QWK.
+
+**How it was tested.** The IDRiD DME grade *is* defined by the distance from the nearest hard
+exudate to the macula centre, in disc diameters. Global average pooling over a 448 px feature
+map dilutes that region by roughly 16× — one disc diameter is ~55 px, so the decision region
+is a ~110 px disc in a 448 px image. The obvious architectural fix is to stop pooling over the
+whole fundus and pool at the fovea instead.
+
+Two preconditions were established first, both with acceptance criteria fixed in advance:
+
+* **E13gate** — the fovea localiser reaches median **0.196 DD** out-of-fold error over all 516
+  IDRiD images, 90th percentile **0.433 DD**, against a pre-declared threshold of < 0.5 / < 1.0.
+* **E14MAC** — the crop window is 3 DD wide. The localiser's **99th percentile error, 0.857 DD,
+  is inside the window's 1.5 DD half-width**, so in over 99 % of images the true fovea is
+  inside the crop.
+
+The DME head was therefore genuinely shown the macula, in a run identical to E08 in every
+other respect, with a shared backbone so that no extra capacity was added.
+
+**The result.** DME QWK at matched calibration: **0.8764 (E08) vs 0.8538 (E14MAC), difference
++0.0237 [−0.0094, +0.0566] — indistinguishable, with the crop nominally worse.** Inside the
+±0.03 band named in advance as the falsifying outcome.
+
+**Why this is stronger than the standing negative result it joins.** Pretraining, schedule,
+backbone, and architecture-plus-data had already failed to move DME QWK, but each of those is
+a generic lever — failing tells you little about *why*. This one was designed from the
+label's definition and given a validated localiser, and the obvious confound (a mis-centred
+window) is measured and excluded. When the intervention that most directly encodes the
+clinical criterion changes nothing, the constraint is much more likely to be the supervision
+than the model.
+
+**What the constraint probably is.** 516 images with a 3-class label, 51 of them in the middle
+grade. `PROTOCOL.md` §7 puts a ±3.0 pt interval on a single fold of 452 and ±1.3 pt on the
+full pool; the middle DME grade has 51 examples in the entire corpus. Messidor-2's 1 744
+images supply only a binary (referable / not) DME label, so they cannot populate that grade.
+
+**What follows.** Further architectural work on the DME head is not the lever. The reachable
+improvements are in supervision: more 3-class DME labels, or IDRiD's 81 hard-exudate masks as
+an auxiliary segmentation target (`IDEAS.md` I15), which is the one remaining idea that adds
+information rather than rearranging what is already there. And **`FINDINGS.md` F2 already
+established there is no external 3-class DME corpus available to us**, which is the same
+scarcity seen from the validation side.

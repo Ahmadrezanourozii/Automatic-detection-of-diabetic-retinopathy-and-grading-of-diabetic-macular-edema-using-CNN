@@ -778,6 +778,57 @@ Messidor-2 rows that carry only a binary DME label.
 
 ---
 
+### E14MAC — macula-centred crop for the DME head (I07) — 2026-08-31, 4.4 h, **FALSIFIED**
+
+**Pre-registered before the run** (`IDEAS.md` I07, commit `68563ef`): *global average pooling
+dilutes the decisive region ~16× — 1 DD is ~55 px in a 448 px image — so pooling the DME
+head's features at the fovea should move DME QWK.* **Falsifying outcome, also fixed in
+advance: if DME QWK moves less than its ±0.03 interval, the DME ceiling is data, not
+architecture.**
+
+**Config.** E08 with **one change**: `--macula --macula-size 224 --macula-dd 3.0`. Shared
+backbone, two forward passes — the DME head reads a 3 DD macula crop, the DR head keeps the
+whole fundus. Backbone weights are shared, so any DME change is attributable to what the head
+looks at rather than to added capacity. Fovea coordinates from the E13gate localiser, trained
+in-process and archived as `runs/E14MAC/fovea_coords.json`.
+
+**Result — paired bootstrap over groups, both runs recalibrated identically
+(`docs/generated/matched_e08_e14mac.md`):**
+
+| head | cut-points | metric | E08 | E14MAC | E08 − MAC | 95 % interval | verdict |
+|---|---|---|---|---|---|---|---|
+| DR | shipped | QWK | 0.8599 | 0.8507 | +0.0090 | [−0.0050, +0.0227] | indistinguishable |
+| DR | matched | QWK | 0.8646 | 0.8595 | +0.0049 | [−0.0078, +0.0171] | indistinguishable |
+| DR | matched | accuracy | 72.12 % | 73.27 % | −1.16 pts | [−2.92, +0.62] | indistinguishable |
+| **DME (n=516)** | shipped | QWK | 0.8845 | 0.8693 | +0.0163 | [−0.0132, +0.0456] | indistinguishable |
+| **DME (n=516)** | **matched** | **QWK** | **0.8764** | **0.8538** | **+0.0237** | **[−0.0094, +0.0566]** | **indistinguishable** |
+| DME (n=516) | matched | accuracy | 83.33 % | 81.20 % | +2.26 pts | [−1.36, +5.81] | indistinguishable |
+
+**Verdict: falsified, and cleanly.** DME QWK did not move — the matched difference is
+**−0.0237 in the crop's favour-minus direction** (i.e. the crop is nominally *worse*), the
+interval contains zero, and the magnitude is inside the ±0.03 band named in advance. By the
+criterion fixed before the run, **the DME ceiling is data, not architecture.**
+
+**The null is not an artefact of the localiser.** The window is 3 DD wide, half-width 1.5 DD.
+E13gate's out-of-fold error is median 0.196 DD, 90th 0.433 DD, **99th 0.857 DD** — so in over
+99 % of images the true fovea lies inside the crop, with room to spare. The DME head was
+genuinely shown the macula; it did not help.
+
+**Condition 2 discharged.** The binding requirement was to report the IDRiD-only result
+alongside the pooled one. It is the same number: the 3-class DME evaluation set **is** IDRiD's
+516 images, and Messidor-2 enters only as binary (referable / not) training supervision plus
+the n=2 260 referable-binary metric. So the headline DME result carries **no** unvalidated
+fovea transfer at evaluation time. The transfer assumption touches training supervision only —
+and since the result is null, it cannot be a gain resting on an unchecked assumption.
+
+**Why this run was worth 4.4 h despite the null.** It is the strongest architectural test
+available for this head: an intervention derived directly from the label's own clinical
+definition (exudate distance to the macula centre), using a localiser validated against a
+threshold fixed before the numbers. It failing moves "DME is stuck" from an open architecture
+question to evidence about where the ceiling actually is. See `FINDINGS.md` F7.
+
+---
+
 ## Reference floors — every row above must be read against these
 
 | Quantity | Set | n | Value |
