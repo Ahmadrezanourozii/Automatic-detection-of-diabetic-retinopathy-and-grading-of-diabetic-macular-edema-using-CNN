@@ -192,6 +192,35 @@ about to act on.
 | I19 | **Source control for the resolution test** | **queued — must run BEFORE the resolution test** | The full-resolution images come from Messidor-1 TIFFs, so a naive resolution run changes resolution *and* file source, codec and compression history at once. Control: take the 1 057 overlapping images, downsample the Messidor-1 originals to exactly the 512 px our pipeline already uses, and train a model on those. If it matches the model trained on our existing Messidor-2 512 px copies (paired bootstrap, same folds), the source is not a confound and the resolution result is interpretable. If it differs, the resolution result is uninterpretable and the difference itself becomes the finding. ~1.5 h, and it protects a ~4 h run. |
 | I20 | Native-resolution test, gated on I19 | **queued, with a licence attached** | I19 passed **in aggregate only**. So I20 must report: **aggregate QWK/accuracy attributable to resolution**; **per-class results explicitly under the source caveat**, since the source alone shifts per-class error by several points (E12, Moderate −6.5 surviving recalibration); and the PROTOCOL §4.2 note that no multiple-comparison correction is applied and credibility comes from replication across conditions. A per-class resolution gain must not be allowed to read as clean. Requires `cache_size >= size`, now enforced. |
 
+### I20 design — fixed before the run, launched as E17NAT 2026-08-31
+
+**Hypothesis.** ISSUES §18 established that E10 was a **560 px run wearing a 640 px label**:
+`build_cache` capped every image at 560 and `FundusDataset` then *upsampled* to 640, throwing
+away the native-resolution Messidor-2 mirror before training saw it. E09 showed resolution
+binds for DR (224 → 448 was worth +0.040 QWK and +18.6 points of Mild recall). **If
+resolution still binds above 448, giving the pipeline genuinely more pixels — cache 768,
+train 640, native mirror attached — should move DR QWK above E10's.**
+
+**Control: E10.** Same `--size 640`, same `--batch 8`, same 40 epochs, EyePACS pretraining,
+TTA, folds 0–4. The differences are `--cache-size 768` (so 640 is real rather than upsampled
+from 560) and `--messidor-hi` (the 2240×1488 mirror, covering 1 057 of 1 744 Messidor-2
+images). Batch is held at 8 deliberately: it is E10's, so it is not a second thing changing.
+
+**Falsifying outcome, stated before the numbers.** *If DR QWK moves less than its interval
+(≈ ±0.015 on 2 260 images), effective resolution above ~560 does not bind for DR, and §18's
+correction — while still a real bug — costs us nothing in accuracy.* That is a publishable
+result: it bounds how much of the literature's resolution advantage is reachable here, and it
+closes I10/I10b/I10c as a line of work.
+
+**Reporting licence, carried from I19 — this is binding, not commentary.** I19 (E12def vs
+E12nat) passed **in aggregate only**. So E17NAT must report:
+1. **aggregate QWK/accuracy as attributable to resolution**;
+2. **per-class results explicitly under the source caveat** — the file source alone shifts
+   per-class error by several points (E12: Moderate −6.8 before recalibration, −6.5 after),
+   so a per-class resolution gain is **not cleanly attributable** and must not read as clean;
+3. the §4.2 note that no multiple-comparison correction is applied, and that credibility comes
+   from replication across conditions rather than a p-value in isolation.
+
 ## Rejected
 
 | ID | Idea | Verdict | Evidence |
