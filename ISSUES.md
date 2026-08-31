@@ -67,7 +67,7 @@ a decision the owner must make explicitly, not one to be made by default.
 
 ---
 
-## §2. The DME class names in the code are clinically wrong  — 2026-08-25, OPEN
+## §2. The DME class names in the code are clinically wrong  — 2026-08-25, OPEN for the thesis text; **current pipeline audited clean 2026-08-30**
 
 **Symptom.** `config.py` defines `DME_CLASSES = ['Mild_DME','Moderate_DME','Severe_DME']`,
 and chapter 4 describes the three levels as خفیف / متوسط / شدید (mild / moderate / severe).
@@ -87,6 +87,33 @@ analysis is labelled with the wrong clinical concept.
 
 **Fix.** Rename throughout: `['No_DME','Non_referable_DME','Referable_DME']`. Correct the
 thesis text. This also fixes the reasoning about the DR≥1 gate — see `PROTOCOL.md` §5.1.
+
+### Scope audit, 2026-08-30 — how far the misnaming actually reaches
+
+The question that matters is not whether the *void* code was wrong, but whether anything we
+currently quote inherited the off-by-one. A per-class DME number labelled one grade off would
+mislabel every DME per-class claim in the project. Traced end to end:
+
+| stage | file | state |
+|---|---|---|
+| label ingestion | `corpora.py:144` — `dme = int(r[dme_key].strip())`, IDRiD's *"Risk of macular edema"* column read raw | index 0 = grade 0 = no exudates ✔ |
+| class list (data) | `corpora.py:38`, `data_idrid.py:24` — `["No_DME","Non_referable_DME","Referable_DME"]` | ✔ |
+| class list (report, en) | `report.py:27` — `["No DME","Non-referable","Referable"]` | ✔ |
+| class list (report, **fa**) | `report.py:33` — `FA_DME = ["بدون ورم ماکولا","غیرقابل‌ارجاع","قابل‌ارجاع"]` | ✔ |
+| table generation | `report.py:153` — `enumerate(classes[:len(support)])` pairs `classes[i]` with `per_class_recall[i]` and `support[i]` | aligned by index ✔ |
+| generated LaTeX | `docs/generated/results_dme.tex` caption states *"درجه‌ی صفر یعنی نبود ورم ماکولا"* (grade zero means absence of macular edema) | ✔ |
+
+**Verdict. The current pipeline does not have the off-by-one, in either language.** No DME
+per-class number that this project has computed or discussed is mislabelled. The Persian
+path was checked specifically, because the thesis is Persian and that is where the void
+chapter's خفیف / متوسط / شدید ("mild / moderate / severe") wording lived; `FA_DME` does not
+use it. The only `خفیف` remaining in generated output is in `results_dr.tex`, where it is
+DR grade 1 and correct.
+
+**What stays OPEN.** The *thesis prose* in `thesis-chegeni/tex/chapter4.tex` and both Persian
+progress reports still describe the three DME levels as mild/moderate/severe. That text is
+being rewritten from computed numbers anyway (§1), so the fix lands with that rewrite. This
+entry stays open until the prose is replaced, not because any code is wrong.
 
 ---
 
@@ -780,6 +807,117 @@ launch slot and a couple of minutes of quota every time.
 artifact and the code that made it — a stale version served, a wrong file copied in, and now
 a pin to code the runner cannot see. Each was silent or misleadingly reported, and each is
 now checked mechanically rather than assumed.
+
+---
+
+## §24. `--script` was a dead flag, so a gate ran the training loop under the gate's name  — 2026-08-30, FIXED
+
+**Symptom.** None. That is the entry.
+
+E13gate was launched as the fovea-localiser gate and ran to completion in 643 s, exiting 0.
+It archived `results.json`, `best_0.pt`, `oof_0.npz` and a training log under
+`run_id: "E13gate"`, commit `e6b3853`. Every one of those files is well-formed. The
+`results.json` carries a full 25-epoch history, per-class recalls, bootstrap intervals,
+confusion matrices and floors, and reports DR QWK 0.741 / DME-ungated QWK 0.844 on fold 0.
+
+It is a DenseNet121 DR/DME training run at 224 px. The fovea localiser never executed. The
+string `fovea` does not appear anywhere in the notebook that was pushed.
+
+**Root cause.** `build_kernel.py` parsed `--script` into `a.script` and then never passed it
+to `cells()`:
+
+    def cells(run_id, train_args, commit, external_only=False, from_run="", script=""):
+    ...
+    for c in cells(a.run_id, train_args, a.commit, a.external_only, a.from_run)],
+
+`script` therefore always took its default of `""`, and the builder emitted the `src/train.py`
+notebook for **every** launch. The `if script:` branch that generates a standalone-analysis
+notebook was unreachable from the command line. `--script src/fovea.py` was accepted, echoed
+in no output, and discarded.
+
+**Why it is the worst class of failure in this project.** §23 was loud and merely
+uninformative. This one produced no error, no warning, a zero exit code, and a plausible
+artifact. `src/lint.py` cannot see it — `a.script` is bound, just unused. `fetch.py` verifies
+the log's `CODE COMMIT` against the pinned commit, and that check **passed**, because the
+wrong script was run from exactly the right commit. Nothing in the pipeline was in a position
+to notice, and the number would have entered the record as a real run had the notebook not
+been read by hand.
+
+This is the fourth time the broken link was between an artifact and the code that made it
+(§16, §20, §23), and the first time the artifact was *scientifically well-formed while
+answering a different question than the one asked*. A commit SHA establishes which code was
+available to a run. It does not establish which code the run executed.
+
+**Fix — three checks, because the flag being silent is the whole problem.**
+
+1. `a.script` is now passed to `cells()`. That is the one-line defect.
+2. A run-id that names a piece of work must launch that work. `RUN_ID_REQUIRES_SCRIPT` maps
+   run-id substrings to the script they promise (`gate`/`fovea` → `src/fovea.py`, and so on),
+   and the builder refuses before writing anything:
+
+       run-id 'E13gate' contains 'gate', which names src/fovea.py, but this launch would
+       run src/train.py. Either pass --script src/fovea.py, or rename the run so its ID
+       does not claim work it does not do.
+
+3. The registry encodes intent; the third check reads the **artifact**. After the notebook is
+   generated and before it is written, the emitted cell sources must contain an invocation of
+   the intended script, and must not also invoke `src/train.py`. This is the check that would
+   have caught the original: the flags were arguable, but the generated cells simply never
+   mentioned `src/fovea.py`, and nothing looked.
+
+**Consequences that outlived the fix.**
+
+* The contaminated output is still on Kaggle under `ah22reza/dr-dme-e13gate`, version 1,
+  COMPLETE. It was **never fetched into `runs/`** and must not be. `runs/E13gate/` does not
+  exist and is reserved for the localiser.
+* Kaggle serves the most recent *completed* version's output (§16), and `fetch.py`'s commit
+  check could not have discriminated the two, because a corrected version pinned at
+  `e6b3853` would carry the same SHA as the contaminated one. The corrected run therefore
+  went out on a **fresh slug** (`dr-dme-e13gate-fovea`) with **no version 1 to fall back to**,
+  pinned at `89f8918` — deliberately a *different* SHA from the contaminated run, which
+  restores `fetch.py`'s ability to tell them apart. `src/fovea.py` and `src/corpora.py` are
+  byte-identical between the two commits, so nothing scientific turns on the choice.
+* Kaggle carries `/kaggle/working` across versions (§13), so the standalone-script cell now
+  empties its run directory before executing and asserts it is empty. Otherwise the
+  localiser's `fovea_gate.json` would have appeared beside the training run's
+  `results.json` and `best_0.pt` in the same output.
+
+**What this does not fix.** The guard keys on run-ids that happen to name their script. A run
+called `E14` that should have run `src/fovea.py` and did not would still pass check 2; only
+check 3 constrains it, and only to "invokes the script the flags asked for". There is no
+mechanism that knows what a run was *meant* to do beyond what was typed. The durable
+protection is that the acceptance criterion was written down before the run
+(`src/fovea.py` prints it and stores it in `fovea_gate.json`), so a run that produces no
+`fovea_gate.json` cannot be mistaken for one that passed.
+
+---
+
+## §25. Credentials in chat transcripts  — 2026-08-30, DEFERRED BY DECISION, not blocking
+
+**Status.** Closed as a decision, not as a fix. Recorded here so a future session does not
+re-open it as work that blocks a run.
+
+**What is true.** Two GitHub PATs and two Kaggle keys appear in chat transcripts from earlier
+sessions. They are live and working. Re-verified 2026-08-30:
+
+* `.env` is gitignored (`.gitignore:2`);
+* `.env` appears in **0 commits** across all refs;
+* neither secret value occurs in **any blob** in history (checked by value, over
+  `git rev-list --all`).
+
+So the exposure is the transcripts alone, not the repository.
+
+**Decision (owner, 2026-08-30).** Proceed on the existing tokens; the risk is accepted.
+**Do not stall a session waiting for fresh keys.** If they are ever rotated, the only file
+to touch is `.env`.
+
+**Unrelated fix that stays regardless.** `.env` now carries `KAGGLE_API_TOKEN`. Kaggle CLI
+2.2.4 no longer honours the `KAGGLE_USERNAME` + `KAGGLE_KEY` pair or `~/.kaggle/kaggle.json`;
+it fails with a bare `Authentication required to call the Kaggle API` that never names the
+cause, and — worse — an authenticated-looking call against a valid kernel slug returned
+`Permission 'kernels.get' was denied. The most likely cause is a wrong kernel slug`, which
+sends you to debug the slug when the actual problem is the credential format. `source .env`
+alone now authenticates.
 
 ---
 

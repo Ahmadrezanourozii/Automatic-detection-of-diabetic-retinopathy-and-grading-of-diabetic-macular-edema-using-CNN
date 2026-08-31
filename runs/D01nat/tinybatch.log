@@ -1,0 +1,11 @@
+tensorflow 2.21.0  devices=['CPU']
+loaded 20 IDRiD images at (512, 512, 3)  DR grades [7, 0, 6, 5, 2]  DME grades [8, 2, 10]
+ACCEPTANCE, fixed before the numbers: a correctly wired network memorises 20 images with regularisation and augmentation off. Pass = 100% on BOTH heads.
+
+==========================================================================
+VARIANT two_phase
+==========================================================================
+  phase 1: backbone FROZEN, Adam(lr=0.0001), 60 epochs
+/private/tmp/claude-501/-Users-ahmadrezanourozi-Desktop-Alireza-Thesis-25/d723300a-9312-4dea-9dad-9fc189869c3f/scratchpad/tfvenv/lib/python3.12/site-packages/keras/src/trainers/epoch_iterator.py:74: UserWarning: `shuffle=True` was passed, but will be ignored since the data `x` was provided as a tf.data.Dataset. The Dataset is expected to already be shuffled (via `.shuffle(buffer_size)`).
+  self.data_adapter = data_adapters.get_data_adapter(
+  after phase 1: DR 100%  DME 100%  loss 0.2171  (369s)

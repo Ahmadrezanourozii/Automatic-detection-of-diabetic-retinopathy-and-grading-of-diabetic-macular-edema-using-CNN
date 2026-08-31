@@ -125,11 +125,25 @@ class MultiOutputNet(nn.Module):
         self.dr_head = H(dim, N_DR, hidden, p_drop)
         self.dme_head = H(dim, N_DME, hidden, p_drop)
 
-    def forward(self, x):
+    def _feat(self, x):
         f = self.backbone(x)
         if f.ndim > 2:                       # some timm models return a feature map
             f = F.adaptive_avg_pool2d(f, 1).flatten(1)
-        return self.dr_head(f), self.dme_head(f)
+        return f
+
+    def forward(self, x, xm=None):
+        """xm is an optional macula-centred crop of the same eye (I07).
+
+        When it is supplied the DME head reads features from the macula crop while the DR
+        head keeps the whole fundus. The backbone is SHARED -- one set of weights, two
+        forward passes -- so any DME change is attributable to what the head is looking at
+        rather than to extra capacity. The DME grade is defined by exudate distance to the
+        macula centre, and global average pooling over the whole fundus dilutes that region
+        by roughly 16x at 448 px.
+        """
+        f = self._feat(x)
+        fm = f if xm is None else self._feat(xm)
+        return self.dr_head(f), self.dme_head(fm)
 
 
 # ── ordinal target construction ───────────────────────────────────────────────

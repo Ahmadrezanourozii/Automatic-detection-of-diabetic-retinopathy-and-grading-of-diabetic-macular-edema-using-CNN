@@ -34,9 +34,97 @@ that improve a working model are worth nothing until one exists.
 
 | ID | Idea | Status | Notes |
 |---|---|---|---|
-| I07 | **Macula-centred crop for the DME branch**, using IDRiD's fovea coordinates. | untested | The DME grade *is* defined by exudate distance to the macula centre, and we have that centre for all 516 IDRiD images. GAP over a 512×512 whole-fundus feature map discards exactly the positional information the label depends on. Strongest architectural idea available, and it is clinically motivated rather than a hyper-parameter. |
+| I07 | **Macula-centred crop / macula-pooled DME head** | **PRIORITY 1 — unblocked at 2 260 images by E13gate, 2026-08-30** | The DME grade *is* defined by exudate distance to the macula centre, and we have that centre for all 516 IDRiD images. GAP over a 512×512 whole-fundus feature map discards exactly the positional information the label depends on. Strongest architectural idea available, and it is clinically motivated rather than a hyper-parameter. **See the design block below — it carries three conditions that are part of the experiment, not commentary.** |
 | I03 | Augmentation: rotation, flips, scale, brightness/contrast jitter, mixup/CutMix. | untested | Cheapest known lever given the DME data volume. Note the prior notebook explicitly turned augmentation **off** to help memorisation. |
 | I06 | **The green-channel question.** green×3 vs [green, CLAHE(green), grey] vs full RGB vs RGB with CLAHE on LAB's L channel. | untested | The thesis' 10-point ablation claim for the green channel has no run behind it (`ISSUES.md` §1). This tests a load-bearing assumption. Feeding one replicated channel into a 3-channel ImageNet-pretrained network discards two thirds of the pretrained first-layer filters. |
+
+### I07 design — fixed before the run (2026-08-31)
+
+**Why it is first.** Re-ranked ahead of LP-FT on evidence, not preference. Both items changed
+status on the same day and in opposite directions: E13gate widened I07 from 516 to 2 260
+images, while D01 withdrew LP-FT's floor-lift argument (see I21). I07 is also the only queued
+idea that addresses the DME head, which carries **the project's standing negative result** —
+no intervention has ever significantly improved 3-class DME on QWK.
+
+**Hypothesis.** Global average pooling over a 448 px feature map dilutes the decisive region
+by roughly 16×: one disc diameter is ~55 px, so the decision region is a ~110 px disc in a
+448 px image. Pooling the DME head's features at the fovea should move DME QWK.
+
+**Falsifying outcome, stated before the run.** *If DME QWK moves less than its ±0.03
+interval, the DME ceiling is data, not architecture.* Given the standing negative result on
+this head — pretraining, schedule, backbone, and architecture-plus-data have all failed to
+move DME QWK, with effective resolution moving only accuracy — **this is a real possibility
+and is named here in advance rather than discovered afterwards.** A null result is a
+publishable finding about where the ceiling lives, not a failed experiment.
+
+**Condition 1 — the transfer caveat travels with every number.** The localiser was validated
+on IDRiD only (median 0.196 DD, 90th 0.433 DD, out-of-fold on 516). Messidor-2 has **no fovea
+ground truth**, so applying it there is an assumption that cannot be checked by any experiment
+available to this project. A gain measured at 2 260 images therefore rests partly on an
+unvalidated assumption and **must not be reported as though it did not**.
+
+**Condition 2 — report the IDRiD-only result alongside the pooled one.** Every I07 headline
+carries two numbers: the 2 260-image result, and the result on IDRiD's 516 where every fovea
+coordinate is ground truth. The second is what survives if the transfer assumption fails, and
+a reader must be able to see it without asking. If the two disagree, that disagreement is
+itself evidence about the transfer and is reported as such.
+
+**Condition 3 — §4.1 still binds.** Any per-class DME difference must survive matched
+calibration before it is described as the crop learning better features. This head is exactly
+where cut-point placement has been most misleading (F1, F3).
+
+### T1 — the reported result is the TRANSFER GAP, not a threshold (fixed 2026-08-31)
+
+`sigmoid > 0.5` gives **86.28 % sensitivity / 96.42 % specificity** on the development pool
+and **99.53 % / 84.28 %** on APTOS — same model, same cut-point, opposite ends of the curve.
+So a single achieved sensitivity is not a reportable result.
+
+**T1's deliverable is therefore: fit a cut-point cross-fitted on the development pool to hit
+the chosen target sensitivity, then report how far it lands from that target on APTOS.** That
+distance, with its interval and its sign, is the finding. **Falsified if** no threshold
+transfers within a useful band — in which case the recommendation becomes "recalibrate
+locally", with F4's 200-image figure attached.
+
+Candidate targets with verified provenance and specificity costs are in
+`docs/T1_referral_threshold_candidates.md`. **The target itself is still unchosen — an open
+question for the owner, not a blocker**, since T1 sits behind I07 and I21 in the queue.
+
+### I21 — LP-FT (linear-probe-then-fine-tune) — **priority 2, hypothesis narrowed by D01**
+
+**Status.** Queued, after I07. Independent question.
+
+**What it still claims (part one — stands).** `src/train.py` has **no linear-probe phase**:
+the backbone trains from step 0 at `lr_backbone=1e-4` with 5 % warmup and cosine decay
+(`src/train.py:360-363`). E01 established that frozen ImageNet features already beat the
+majority floor (47.6 %). LP-FT is the standard method for keeping fine-tuning from distorting
+a representation that is already linearly separable, and distortion would show up as exactly
+the calibration shift F3 documented twice. That is a coherent reason to try it.
+
+**What it no longer claims (part two — WITHDRAWN on evidence, 2026-08-31).** The original
+argument was that the void baseline's 27.2 % collapse, against E01's 47.6 % on the same
+features, proved fine-tuning was destroying the representation — so **every** current model,
+including the ones giving 74 % and 86 %, was trained through the same distortion and sits
+below its real ceiling. LP-FT would then lift the floor under every downstream number.
+
+**D01 killed this.** The archived recipe, run on the original Keras code with regularisation
+and augmentation off, **memorises 20 images: DR 100 %, DME 100 %, final loss 0.0005.**
+Fine-tuning at 1e-5 did not destroy the frozen-phase representation, it completed it
+(95 % → 100 %). The archived collapse showed the opposite signature — validation loss rising
+1.86 → 3.40. The fine-tuning mechanism is therefore **exonerated, and it is the only one of
+the three suspects shared with the PyTorch pipeline**; the other two (a flat `sample_weight`
+array broadcast across two Keras outputs, and unmasked DME loss) are Keras-specific and do
+not exist in our code.
+
+**Revised expected value: uncertain, not likely.** "LP-FT beats current full fine-tuning at
+matched calibration" is now a genuinely open question rather than a favoured prediction. The
+falsifying outcome is unchanged and still binds: **if it does not beat current at matched
+calibration, it is not the ceiling and we stop pursuing it.**
+
+**Why this is worth recording as a pattern.** A hypothesis was narrowed by a free CPU
+diagnostic before it burned a GPU run. The floor-lift argument was the reason LP-FT was
+priority 1; it was withdrawn on evidence that cost nothing, and the queue was reordered as a
+result. This is the same shape as §4.1 — a cheap check overturning a claim the project was
+about to act on.
 
 ## Tier 2
 

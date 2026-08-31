@@ -128,10 +128,34 @@ def augment(img, rng):
     return np.clip(f, 0, 255).astype(np.uint8)
 
 
+DD_FRACTION_OF_WIDTH = 0.122      # one disc diameter, measured from IDRiD fovea-to-disc spans
+
+
+def macula_crop(img, fovea, dd=3.0):
+    """Square crop of side `dd` disc diameters centred on the fovea (I07).
+
+    `fovea` is (fx, fy) in [0,1] of this image. The window is clamped to stay inside the
+    frame rather than zero-padded, so the crop always contains real retina -- a padded
+    border would be a constant the DME head could key on, and it would differ
+    systematically between central and peripheral foveae.
+    """
+    h, w = img.shape[:2]
+    half = 0.5 * dd * DD_FRACTION_OF_WIDTH * w
+    cx, cy = fovea[0] * w, fovea[1] * h
+    x0 = int(round(min(max(cx - half, 0), max(0, w - 2 * half))))
+    y0 = int(round(min(max(cy - half, 0), max(0, h - 2 * half))))
+    x1 = min(w, x0 + int(round(2 * half)))
+    y1 = min(h, y0 + int(round(2 * half)))
+    crop = img[y0:y1, x0:x1]
+    return crop if crop.size else img
+
+
 class FundusDataset(Dataset):
-    def __init__(self, rows, cache_dir, size, train, seed=0):
+    def __init__(self, rows, cache_dir, size, train, seed=0,
+                 fovea=None, macula_size=224, macula_dd=3.0):
         self.rows, self.cache_dir, self.size, self.train = rows, cache_dir, size, train
         self.seed = seed
+        self.fovea, self.macula_size, self.macula_dd = fovea, macula_size, macula_dd
 
     def __len__(self):
         return len(self.rows)
@@ -141,6 +165,22 @@ class FundusDataset(Dataset):
         img = cv2.imread(os.path.join(self.cache_dir, r["uid"] + CACHE_EXT), cv2.IMREAD_COLOR)
         if img is None:
             img = np.zeros((self.size, self.size, 3), np.uint8)
+        # The macula window is cut from the UNAUGMENTED cache, then augmented on its own.
+        # Cutting after a random rotation would move the fovea out of the window, which is
+        # the one thing this experiment must not do.
+        xm = None
+        if self.fovea is not None:
+            f = self.fovea.get(r["uid"])
+            crop = macula_crop(img, f, self.macula_dd) if f else img
+            if self.train:
+                rng_m = random.Random((self.seed * 7_654_321 + i * 104_729 +
+                                       torch.initial_seed()) % (2 ** 31))
+                crop = augment(crop, rng_m)
+            crop = cv2.resize(crop, (self.macula_size, self.macula_size),
+                              interpolation=cv2.INTER_AREA)
+            xm = cv2.cvtColor(crop, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.0
+            xm = (xm - IMAGENET_MEAN) / IMAGENET_STD
+
         if self.train:
             rng = random.Random((self.seed * 1_000_003 + i * 7919 +
                                  torch.initial_seed()) % (2 ** 31))
@@ -151,7 +191,7 @@ class FundusDataset(Dataset):
 
         cands = r["dme_candidates"]
         lo, hi = (min(cands), max(cands)) if cands else (-1, -1)
-        return {
+        out = {
             "x": torch.from_numpy(np.ascontiguousarray(x.transpose(2, 0, 1))),
             "dr": torch.tensor(r["dr"] if r["dr"] is not None else -1, dtype=torch.long),
             "dr_mask": torch.tensor(1.0 if r["dr"] is not None else 0.0),
@@ -159,6 +199,9 @@ class FundusDataset(Dataset):
             "dme_hi": torch.tensor(hi, dtype=torch.long),
             "idx": torch.tensor(i, dtype=torch.long),
         }
+        if xm is not None:
+            out["xm"] = torch.from_numpy(np.ascontiguousarray(xm.transpose(2, 0, 1)))
+        return out
 
 
 def make_sampler(rows, seed=0):
@@ -210,14 +253,21 @@ def predict(model, loader, device, head, amp_dtype, tta=False):
     dr_logits, dme_logits, order = [], [], []
     for b in loader:
         x = b["x"].to(device, non_blocking=True)
+        xm = b["xm"].to(device, non_blocking=True) if "xm" in b else None
         views = [x]
         if tta:
             views += [torch.flip(x, [3]), torch.flip(x, [2]), torch.flip(x, [2, 3])]
+        # the macula crop is flipped the same way, so both branches see the same view
+        views_m = ([xm] if xm is not None else [None])
+        if tta and xm is not None:
+            views_m += [torch.flip(xm, [3]), torch.flip(xm, [2]), torch.flip(xm, [2, 3])]
+        elif tta:
+            views_m = [None] * len(views)
         dl_sum = ml_sum = None
-        for v in views:
+        for v, vm in zip(views, views_m):
             with torch.autocast(device_type=device.split(":")[0], dtype=amp_dtype,
                                 enabled=amp_dtype is not None):
-                dl, ml = model(v)
+                dl, ml = model(v, vm)
             dl, ml = dl.float(), ml.float()
             dl_sum = dl if dl_sum is None else dl_sum + dl
             ml_sum = ml if ml_sum is None else ml_sum + ml
@@ -315,9 +365,11 @@ def pretrain(rows, args, device, out_dir, amp_dtype):
             b = {k: v.to(device, non_blocking=True) for k, v in b.items()}
             if args.channels_last:
                 b["x"] = b["x"].to(memory_format=torch.channels_last)
+                if "xm" in b:
+                    b["xm"] = b["xm"].to(memory_format=torch.channels_last)
             with torch.autocast(device_type=device.split(":")[0], dtype=amp_dtype,
                                 enabled=amp_dtype is not None):
-                dl_, ml_ = model(b["x"])
+                dl_, ml_ = model(b["x"], b.get("xm"))
                 loss, _, _ = multitask_loss(dl_, ml_, b, 1.0, 0.0,
                                             smoothing=args.smoothing, head=args.head)
             opt.zero_grad(set_to_none=True)
@@ -340,8 +392,13 @@ def run_fold(rows, fold, args, device, out_dir, amp_dtype, init_state=None):
     va = [r for r in rows if r["fold"] == fold]
     print(f"\n{'='*78}\nFOLD {fold}   train={len(tr)}  val={len(va)}\n{'='*78}", flush=True)
 
-    ds_tr = FundusDataset(tr, args.cache, args.size, True, args.seed)
-    ds_va = FundusDataset(va, args.cache, args.size, False, args.seed)
+    fov = getattr(args, "fovea_map", None)
+    ds_tr = FundusDataset(tr, args.cache, args.size, True, args.seed,
+                          fovea=fov, macula_size=args.macula_size,
+                          macula_dd=args.macula_dd)
+    ds_va = FundusDataset(va, args.cache, args.size, False, args.seed,
+                          fovea=fov, macula_size=args.macula_size,
+                          macula_dd=args.macula_dd)
     dl_tr = DataLoader(ds_tr, batch_size=args.batch, sampler=make_sampler(tr, args.seed),
                        num_workers=args.workers, pin_memory=True, drop_last=True,
                        persistent_workers=args.workers > 0)
@@ -402,9 +459,11 @@ def run_fold(rows, fold, args, device, out_dir, amp_dtype, init_state=None):
             b = {k: v.to(device, non_blocking=True) for k, v in b.items()}
             if args.channels_last:
                 b["x"] = b["x"].to(memory_format=torch.channels_last)
+                if "xm" in b:
+                    b["xm"] = b["xm"].to(memory_format=torch.channels_last)
             with torch.autocast(device_type=device.split(":")[0], dtype=amp_dtype,
                                 enabled=amp_dtype is not None):
-                dl_, ml_ = model(b["x"])
+                dl_, ml_ = model(b["x"], b.get("xm"))
                 loss, l_dr, l_dme = multitask_loss(
                     dl_, ml_, b, args.alpha, args.beta,
                     smoothing=args.smoothing, head=args.head)
@@ -515,6 +574,17 @@ def main():
                    help="e.g. EyePACS -- trained on once, before the folds, then reused")
     p.add_argument("--pretrain-epochs", type=int, default=6)
     p.add_argument("--lr-pretrain", type=float, default=3e-4)
+    p.add_argument("--macula", action="store_true",
+                   help="I07: give the DME head a macula-centred crop instead of the whole "
+                        "fundus. The backbone is shared, so the only change is what the DME "
+                        "head looks at.")
+    p.add_argument("--macula-size", type=int, default=224,
+                   help="pixel size of the macula crop fed to the DME head")
+    p.add_argument("--macula-dd", type=float, default=3.0,
+                   help="side of the macula window in disc diameters (the DME grade is "
+                        "defined within 1 DD of the macula centre, so 3 DD gives context)")
+    p.add_argument("--fovea-epochs", type=int, default=25,
+                   help="epochs for the fovea localiser trained inside a --macula run")
     p.add_argument("--tta", action="store_true",
                    help="average logits over the four dihedral flips at final evaluation")
     p.add_argument("--messidor-source", default="prefer-native",
@@ -610,9 +680,35 @@ def main():
 
     build_cache(rows + pre_rows, args.cache, args.cache_size, args.size)
 
+    # ── I07: fovea coordinates for every row, so the DME head can be given a
+    # macula-centred crop. Trained here rather than fetched, so the run is reproducible
+    # from one commit. Cached to the run directory: a killed Kaggle session does not
+    # repeat it, and the coordinates the run actually used are archived beside its results.
+    args.fovea_map = None
+    if args.macula:
+        import fovea as fovea_mod
+        fj = os.path.join(out_dir, "fovea_coords.json")
+        if os.path.exists(fj):
+            args.fovea_map = json.load(open(fj))
+            print(f"[fovea] reusing {fj} ({len(args.fovea_map)} rows)", flush=True)
+        else:
+            args.fovea_map = fovea_mod.fit_predict(
+                rows, size=224, epochs=args.fovea_epochs, workers=args.workers,
+                device=device)
+            json.dump(args.fovea_map, open(fj, "w"))
+            print(f"[fovea] wrote {fj} ({len(args.fovea_map)} rows)", flush=True)
+        n_gt = sum(1 for r in rows if r.get("fovea"))
+        print(f"[fovea] {n_gt} of {len(rows)} rows have GROUND-TRUTH coordinates "
+              f"(IDRiD); the remaining {len(rows)-n_gt} use PREDICTED coordinates, "
+              f"which is unvalidated transfer -- report the IDRiD-only result too.",
+              flush=True)
+
     results = {
         "run_id": args.run_id, "commit": sha, "hypothesis": args.hypothesis,
-        "config": vars(args), "split_fingerprint": split_meta["fingerprint"],
+        # fovea_map holds 2 260 coordinate pairs; it is archived as fovea_coords.json
+        # beside the results, not inlined into every config block
+        "config": {k: v for k, v in vars(args).items() if k != "fovea_map"},
+        "split_fingerprint": split_meta["fingerprint"],
         "env": {"python": platform.python_version(), "torch": torch.__version__,
                 "cuda": torch.version.cuda, "platform": platform.platform(),
                 "gpu": torch.cuda.get_device_name(0) if device == "cuda" else None},

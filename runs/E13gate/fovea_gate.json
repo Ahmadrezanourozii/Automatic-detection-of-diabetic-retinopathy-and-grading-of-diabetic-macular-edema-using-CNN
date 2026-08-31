@@ -1,0 +1,10 @@
+{
+ "n": 516,
+ "median_dd": 0.1956774890422821,
+ "p90_dd": 0.4331369400024414,
+ "p99_dd": 0.8572889566421509,
+ "frac_within_0.5dd": 0.9282945736434108,
+ "gate_pass": true,
+ "acceptance": "median < 0.5 DD and 90th percentile < 1.0 DD, fixed in advance",
+ "caveat": "trained and evaluated on IDRiD only; Messidor-2 has no fovea ground truth, so applying it there is an unvalidated assumption"
+}

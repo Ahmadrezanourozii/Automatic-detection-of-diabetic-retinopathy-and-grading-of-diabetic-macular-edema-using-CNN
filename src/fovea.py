@@ -65,9 +65,12 @@ class FoveaSet(Dataset):
         rr, cc = np.flatnonzero(mask.any(1)), np.flatnonzero(mask.any(0))
         y0, y1, x0, x1 = rr[0], rr[-1] + 1, cc[0], cc[-1] + 1
         img = img[y0:y1, x0:x1]
-        fx, fy = r["fovea"]
-        tx = (fx - x0) / max(1, x1 - x0)
-        ty = (fy - y0) / max(1, y1 - y0)
+        if r.get("fovea"):
+            fx, fy = r["fovea"]
+            tx = (fx - x0) / max(1, x1 - x0)
+            ty = (fy - y0) / max(1, y1 - y0)
+        else:
+            tx = ty = -1.0          # prediction mode: no target, never used for a loss
 
         img = cv2.resize(img, (self.size, self.size), interpolation=cv2.INTER_AREA)
         if self.train and np.random.rand() < 0.5:
@@ -88,6 +91,59 @@ def build(size=224):
     m.fc = nn.Sequential(nn.Linear(m.fc.in_features, 128), nn.ReLU(inplace=True),
                          nn.Linear(128, 2), nn.Sigmoid())
     return m
+
+
+def fit_predict(rows_all, size=224, epochs=25, batch=32, workers=2, device=None,
+                verbose=True):
+    """Train the localiser on every IDRiD row that HAS ground truth, then predict (fx, fy)
+    for every row in `rows_all`.
+
+    Returns {uid: [fx, fy]} in [0,1] coordinates of the retina-cropped image -- the same
+    space `preprocess.crop_retina` produces, so the coordinates apply unchanged to the
+    training cache (both use the identical threshold-12 bounding box, and normalised
+    coordinates are invariant to the cache's downscale).
+
+    THE ASSUMPTION THIS CARRIES, stated because no experiment available to this project can
+    check it: the localiser is trained and validated on IDRiD only. Messidor-2 has no fovea
+    ground truth. Applying these predictions there is unvalidated transfer. E13gate measured
+    the IDRiD accuracy (median 0.196 DD, 90th 0.433 DD out of fold); it says nothing about
+    Messidor-2. Any result built on this must report the IDRiD-only number beside it.
+    """
+    dev = device or ("cuda" if torch.cuda.is_available() else "cpu")
+    labelled = [r for r in rows_all if r.get("fovea")]
+    if verbose:
+        print(f"[fovea] training localiser on {len(labelled)} labelled rows, "
+              f"predicting for {len(rows_all)}", flush=True)
+    dl_tr = DataLoader(FoveaSet(labelled, size, True), batch_size=batch, shuffle=True,
+                       num_workers=workers, drop_last=True)
+    m = build(size).to(dev)
+    opt = torch.optim.AdamW(m.parameters(), lr=3e-4, weight_decay=1e-4)
+    sched = torch.optim.lr_scheduler.OneCycleLR(opt, 3e-4,
+                                                total_steps=max(1, len(dl_tr)) * epochs)
+    t0 = time.time()
+    for ep in range(epochs):
+        m.train()
+        for x, t, _ in dl_tr:
+            loss = nn.functional.smooth_l1_loss(m(x.to(dev)), t.to(dev))
+            opt.zero_grad(set_to_none=True); loss.backward(); opt.step(); sched.step()
+    if verbose:
+        print(f"[fovea] localiser trained in {time.time()-t0:.0f}s", flush=True)
+
+    # predict for everything, including the labelled rows -- using the SAME predicted
+    # coordinates everywhere keeps IDRiD and Messidor-2 on one footing, so a difference
+    # between them cannot be an artefact of one corpus getting better coordinates.
+    out = {}
+    m.eval()
+    dl_all = DataLoader(FoveaSet(rows_all, size, False), batch_size=batch,
+                        num_workers=workers)
+    i = 0
+    with torch.no_grad():
+        for x, _, _ in dl_all:
+            p = m(x.to(dev)).cpu().numpy()
+            for row in p:
+                out[rows_all[i]["uid"]] = [float(row[0]), float(row[1])]
+                i += 1
+    return out
 
 
 def main():

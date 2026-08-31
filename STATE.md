@@ -37,7 +37,24 @@ On **3 662 APTOS images never seen in training**, verified end-to-end by
 `src/verify_external.py` (14 checks, 0 failures, intervals included):
 
 > DR accuracy **73.5 %** (95 % CI 72.0–74.9), **QWK 0.897** (95 % CI 0.889–0.905), against a
-> 49.3 % majority floor. Referable-DR sensitivity **99.53 %** at 84.28 % specificity.
+> 49.3 % majority floor.
+
+⚠️ **The referable-DR operating point is NOT a model property — corrected 2026-08-31.** It was
+previously quoted here as "sensitivity 99.53 % at 84.28 % specificity" without qualification.
+That pair is what an **arbitrary, unchosen `sigmoid > 0.5`** happens to do *on APTOS*. The
+same model at the same cut-point sits at the opposite end of its own curve on the development
+pool:
+
+| corpus | referable-DR sensitivity | specificity |
+|---|---|---|
+| development pool (n = 2 260) | **86.28 %** | **96.42 %** |
+| APTOS external (n = 3 662) | **99.53 %** | **84.28 %** |
+
+On dev that default lands near the IDx-DR regulatory floor; on APTOS it lands past EyeArt's
+reported operating point. **Neither number may be quoted as the model's sensitivity.** Quote
+the operating curve, or a threshold that was deliberately chosen — which is what T1 exists to
+produce. See `docs/T1_referral_threshold_candidates.md`, and `PROTOCOL.md` §4.1: an untuned
+default is a hyper-parameter that has been chosen, not one that has been avoided.
 
 E11's weights give QWK 0.903; the paired difference is +0.0063 [+0.0009, +0.0116] as shipped
 and **indistinguishable once both models sit at matched operating points** (F3).
@@ -49,25 +66,40 @@ pipeline scores **61.2 %**.
 
 ## What is running right now
 
-**E13gate** — the fovea-localiser gate (`src/fovea.py`), on Kaggle. Acceptance was **fixed
-before the numbers**: median out-of-fold error < 0.5 disc diameters, 90th percentile < 1.0 DD.
-Stated in DD because that is the unit the DME grade uses, and 1 DD is the size of the whole
-decision region.
+**E13gate — PASSED, 2026-08-31.** The fovea localiser (`src/fovea.py`), out-of-fold over all
+516 IDRiD images, against a threshold fixed before any number was seen:
 
-**Its outcome decides the next experiment's scope**, not whether it happens:
-* **Pass** → the macula-pooled DME head extends to Messidor-2 (2 260 images of DME
-  supervision with position information), carrying the stated, unvalidatable assumption that
-  the localiser transfers to a corpus with no fovea ground truth.
-* **Fail** → confined to IDRiD's 516 — still the entire 3-class DME evaluation set, so the
-  experiment is still worth running, with a narrower claim and no unvalidated transfer.
+| metric | result | threshold |
+|---|---|---|
+| median error | **0.196 DD** | < 0.5 DD ✅ |
+| 90th percentile | **0.433 DD** | < 1.0 DD ✅ |
+| 99th percentile | 0.857 DD | — |
+| within 0.5 DD / 1 DD | 92.8 % / 99.0 % | — |
 
-Report the number either way.
+Per-fold medians 0.191 / 0.188 / 0.260 / 0.189 / 0.180 — stable, no fold carrying it.
+Archived at `runs/E13gate/fovea_gate.json`, commit `89f8918`, **no `results.json`** (see
+`ISSUES.md` §24 for why that absence is the point).
+
+**Consequence: the macula-pooled DME head extends to Messidor-2** — 2 260 images of DME
+supervision with position information rather than IDRiD's 516. The caveat travels with every
+number it produces: the localiser is validated on IDRiD only, and Messidor-2 has no fovea
+ground truth, so the transfer is an assumption **no experiment available to this project can
+check**. `IDEAS.md` I07 carries this as a binding condition, along with the requirement to
+report the IDRiD-only result alongside the pooled one.
+
+**D01 — the tiny-batch diagnostic (CPU, no quota).** Partially reported; suspects 2 and 3
+still running. See "the LP-FT re-ranking" below.
 
 ## Next three planned experiments, and why
 
+**Re-ranked 2026-08-31 on evidence.** LP-FT was priority 1 because it promised to lift the
+floor under every number; D01 withdrew that promise. I07 moved the other way — the gate
+widened it from 516 to 2 260 images. Ordering follows current expected value, not yesterday's.
+
 | # | experiment | est. | hypothesis / falsifying outcome |
 |---|---|---|---|
-| 1 | **Macula-pooled DME head** (scope set by E13gate) | ~2 h | DME is stuck because global average pooling dilutes the decisive region ~16× — 1 DD is ~55 px in a 448 px image. Pooling the DME head's features at the fovea should move DME QWK. **Falsified if** DME QWK moves less than its ±0.03 interval, which would mean the DME ceiling is data, not architecture. |
+| 1 | **I07 — macula-pooled DME head**, at 2 260 images | ~2 h | GAP dilutes the decisive region ~16× — 1 DD is ~55 px in a 448 px image. Pooling the DME head's features at the fovea should move DME QWK. **Falsified if** DME QWK moves less than its ±0.03 interval, meaning the DME ceiling is data, not architecture — **a real possibility given the standing negative result, named in advance.** Three binding conditions in `IDEAS.md` I07: the transfer caveat travels with every number; the IDRiD-only 516 result is reported alongside the 2 260 one; §4.1 matched calibration before any per-class attribution. |
+| 1b | **I21 — LP-FT**, as an independent question | ~3 h | Part one only: `src/train.py` has no linear-probe phase and trains the backbone from step 0 at 1e-4. **Part two withdrawn on D01 evidence** — the floor-lift argument is dead. Expected value **uncertain, not likely**. **Falsified if** it does not beat current at matched calibration. |
 | 2 | **T1 — deliberate referral threshold** | 0 h GPU | The 99.53 % sensitivity came from an unchosen `sigmoid > 0.5`. Choose the target **first**, justify it against screening practice, fit cross-fitted on the development pool (**never** APTOS), report the achieved sensitivity, the specificity cost, and the **transfer gap** — which F3 predicts will be non-zero and is itself a result. **Falsified if** no threshold transfers within a useful band, in which case the recommendation becomes "recalibrate locally" with F4's 200-image figure attached. |
 | 3 | **I20 — native-resolution test** | ~4 h | Gated on I19, which **passed in aggregate only**. Must report aggregate QWK as attributable to resolution and **per-class results explicitly under the source caveat** (see `IDEAS.md` I20). |
 
@@ -144,9 +176,16 @@ isolation; and a per-class claim inherits every confound the aggregate does.
 
 ## Blocking / needed from the owner
 
-1. **Rotate the credentials.** Two GitHub PATs and two Kaggle keys are in chat transcripts.
-   They work and are in `.env` (gitignored, verified absent from git history).
-2. **Defence date** — still unknown; it determines how much of the backlog is reachable.
+1. ~~**Rotate the credentials.**~~ **Deferred by owner decision on 2026-08-30 — not
+   blocking, do not stall a session on it.** The tokens are live and working, and the
+   exposure was re-verified this session: `.env` is gitignored, appears in **0 commits**,
+   and neither value occurs in any blob across all refs. The only exposure is the chat
+   transcripts, accepted as a risk. Separately, `.env` now uses **`KAGGLE_API_TOKEN`**:
+   CLI 2.2.4 ignores the old `KAGGLE_USERNAME`/`KAGGLE_KEY` pair and fails with a bare
+   "Authentication required" that never names the cause. That fix stays regardless.
+2. ~~**Defence date**~~ — **answered 2026-08-30: horizon ~3 months, ~360 GPU-hours.**
+   Quota is explicitly *not* the constraint. More quota is permission to stop deferring
+   experiments that settle something — it is not permission to search blindly.
 3. **Messidor-1 errata are unverified** (`ISSUES.md` §22) — the download shipped no erratum
    document, so our table's provenance is a web page. Closing it means diffing against the
    current ADCIS page.

@@ -31,6 +31,22 @@ APTOS = "mariaherrerot/aptos2019"
 # mixed resolution. Worth it because E09 showed Mild recall is resolution-bound.
 MESSIDOR_HI = "borhan2003/messidor-diabetic-retinopathy-dataset-jpg-format"
 
+# A run whose ID names a piece of work must actually launch that work. E13gate was pushed
+# as the fovea-localiser gate and silently ran src/train.py for 643 s instead, producing a
+# complete, well-formed DR/DME results.json under the gate's run-id -- indistinguishable
+# from a real run without reading it (ISSUES.md §24). The cause was that --script was
+# parsed into `a.script` and never passed to cells(), so the flag was dead: passing it
+# correctly produced no error and no warning. A silent no-op is the failure mode this
+# project keeps paying for, so the intent is now declared here and checked twice --
+# once against the run-id, and once against the notebook that actually got generated.
+RUN_ID_REQUIRES_SCRIPT = {
+    "gate": "src/fovea.py",
+    "fovea": "src/fovea.py",
+    "recal": "src/recalibration_curve.py",
+    "thresh": "src/tune_thresholds.py",
+    "probe": "src/e01_linear_probe.py",
+}
+
 
 def cells(run_id, train_args, commit, external_only=False, from_run="", script=""):
     setup = f'''# {run_id} — pulls the code from GitHub so a run is reproducible from a commit SHA
@@ -161,10 +177,22 @@ else:
 '''
     if script:
         # a standalone analysis script, not the training loop
-        only = f'''import subprocess, sys, os, time
+        only = f'''import subprocess, sys, os, time, shutil
 RUN_ID = "{run_id}"
 OUT = f"/kaggle/working/{{RUN_ID}}"
+# Kaggle carries /kaggle/working across notebook versions (ISSUES.md §13), and this
+# run-id already holds the output of a previous version that ran the WRONG script
+# (ISSUES.md §24): a results.json, best_*.pt and oof_*.npz from src/train.py. If a later
+# version of this notebook fails, Kaggle serves the last COMPLETED version's output, and
+# fetch.py's commit check cannot tell the two apart because both pin the same SHA. So the
+# directory is emptied before this script runs: whatever ends up here came from this run.
+if os.path.isdir(OUT):
+    for _stale in sorted(os.listdir(OUT)):
+        _p = os.path.join(OUT, _stale)
+        print("purging stale artefact from a previous version:", _stale)
+        shutil.rmtree(_p) if os.path.isdir(_p) else os.remove(_p)
 os.makedirs(OUT, exist_ok=True)
+assert not os.listdir(OUT), f"{{OUT}} is not empty after the purge"
 cmd = [sys.executable, "-u", "/kaggle/working/repo/{script}",
        "--datasets", "/kaggle/input",
        "--splits", "/kaggle/working/repo/data/splits/dev_v1.json",
@@ -266,6 +294,20 @@ def main():
             f"so it could not check this out. Push first:\n"
             f"    git push origin main\n"
             f"(If you meant to pin an older commit, pass --commit <sha> explicitly.)")
+    # A run-id that names a piece of work must launch that work (ISSUES.md §24). This is
+    # checked before anything is written, so the failure is a refusal to build rather than
+    # a notebook that runs the wrong thing under the right name.
+    rid = a.run_id.lower()
+    for token, required in RUN_ID_REQUIRES_SCRIPT.items():
+        if token in rid and a.script != required:
+            raise SystemExit(
+                f"run-id {a.run_id!r} contains {token!r}, which names {required}, but this "
+                f"launch would run {a.script or 'src/train.py'}.\n"
+                f"Either pass --script {required}, or rename the run so its ID does not "
+                f"claim work it does not do.\n"
+                f"(E13gate ran src/train.py under a fovea-gate name and archived a "
+                f"DR/DME results.json that looked entirely legitimate -- ISSUES.md §24.)")
+
     # Kaggle derives the slug from the TITLE, so they must agree or every
     # status/output call afterwards addresses a kernel that does not exist
     slug = a.slug or f"dr-dme-{a.run_id.lower()}"
@@ -276,10 +318,28 @@ def main():
     train_args = ", ".join(f'"{t}"' for t in a.args.split())
     nb = {"cells": [{"cell_type": "code", "source": c, "metadata": {},
                      "execution_count": None, "outputs": []}
-                    for c in cells(a.run_id, train_args, a.commit, a.external_only, a.from_run)],
+                    for c in cells(a.run_id, train_args, a.commit, a.external_only,
+                                   a.from_run, a.script)],
           "metadata": {"kernelspec": {"language": "python", "display_name": "Python 3",
                                       "name": "python3"}},
           "nbformat": 4, "nbformat_minor": 4}
+    # The registry above encodes intent; this checks the artefact. Whatever the flags
+    # said, the notebook about to be pushed must invoke the script we think it does, and
+    # must not also invoke the training loop. This is what would have caught §24: the
+    # generated cells never mentioned src/fovea.py, and nothing looked.
+    emitted = "\n".join(c["source"] for c in nb["cells"])
+    intended = a.script or "src/train.py"
+    invoked = [s_ for s_ in ("src/train.py", a.script) if s_ and f"repo/{s_}" in emitted]
+    if f"repo/{intended}" not in emitted:
+        raise SystemExit(
+            f"generated notebook does not invoke {intended} -- refusing to push. "
+            f"It invokes: {invoked or 'nothing recognisable'}")
+    if a.script and "repo/src/train.py" in emitted:
+        raise SystemExit(
+            f"generated notebook invokes BOTH {a.script} and src/train.py -- refusing to "
+            f"push an ambiguous run.")
+    print(f"notebook invokes {intended}  (checked against run-id {a.run_id!r})")
+
     with open(f"{out}/{slug}.ipynb", "w") as f:
         json.dump(nb, f, indent=1)
 
