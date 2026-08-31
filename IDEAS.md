@@ -106,14 +106,21 @@ features, proved fine-tuning was destroying the representation — so **every** 
 including the ones giving 74 % and 86 %, was trained through the same distortion and sits
 below its real ceiling. LP-FT would then lift the floor under every downstream number.
 
-**D01 killed this.** The archived recipe, run on the original Keras code with regularisation
-and augmentation off, **memorises 20 images: DR 100 %, DME 100 %, final loss 0.0005.**
-Fine-tuning at 1e-5 did not destroy the frozen-phase representation, it completed it
-(95 % → 100 %). The archived collapse showed the opposite signature — validation loss rising
-1.86 → 3.40. The fine-tuning mechanism is therefore **exonerated, and it is the only one of
-the three suspects shared with the PyTorch pipeline**; the other two (a flat `sample_weight`
-array broadcast across two Keras outputs, and unmasked DME loss) are Keras-specific and do
-not exist in our code.
+**D01 killed this, and then went further.** The archived recipe, run on the original Keras
+code with regularisation and augmentation off, **memorises 20 images: DR 100 %, DME 100 %,
+final loss 0.0005.** Fine-tuning at 1e-5 did not destroy the frozen-phase representation, it
+completed it (95 % → 100 %). The archived collapse showed the opposite signature — validation
+loss rising 1.86 → 3.40.
+
+**All three named suspects are now eliminated** (`ISSUES.md` §1, D01): fine-tuning distortion;
+the class-weight broadcast (reproduced through the archived `tf.data` path with genuinely
+non-uniform weights — still memorises); and the unmasked DME loss, which is **vacuous** —
+`_zero_dme_for_healthy` changes 0 of 516 IDRiD labels, because all 168 DR=0 images already
+have DME 0.
+
+So the collapse tells us **nothing** about fine-tuning, in either direction. It is not
+evidence for LP-FT and not evidence against it. LP-FT has to stand or fall on its own
+measurement.
 
 **Revised expected value: uncertain, not likely.** "LP-FT beats current full fine-tuning at
 matched calibration" is now a genuinely open question rather than a favoured prediction. The

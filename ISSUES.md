@@ -2,7 +2,7 @@
 
 ---
 
-## §1. The reported thesis results are not reproducible  — 2026-08-25, OPEN, critical
+## §1. The reported thesis results are not reproducible  — 2026-08-25, OPEN, critical; **root cause narrowed by D01, 2026-08-31 — all three named suspects eliminated**
 
 **Symptom.** Thesis chapter 4 (`thesis-chegeni/tex/chapter4.tex`) reports 91.6 % accuracy
 on 5-class DR over a 262-image test set, and 87.6 % on 3-class DME over an 89-image test
@@ -46,6 +46,69 @@ masked. Any of these can produce exactly this collapse.
 **Root cause (of the reported numbers).** The numbers do not correspond to any computation
 that happened in this project. The most likely explanation is that they were written into
 the progress report as targets and then carried into the thesis as results.
+
+### D01 — the tiny-batch diagnostic, 2026-08-31. CPU only, no GPU quota spent.
+
+**The question.** The archived runs collapsed to 27.2 % DR / 15.9 % DME, both below floor,
+while E01's frozen linear probe reached 47.6 % on the same backbone's features. Either
+fine-tuning destroyed a representation that was already good enough, or the training loop
+was miswired. Both explanations predict the same thing: **a network that cannot memorise
+20 images with regularisation and augmentation off.** That is a pure optimisation task on
+which capacity and dataset size are irrelevant.
+
+Run on the **original Keras code** (`config.py` / `model.py` / `train.py` as archived on the
+Drive), TensorFlow 2.21.0 — the same version as the Drive venv — because two of the three
+suspects are Keras-specific and a PyTorch reimplementation would quietly not have them.
+`src/diagnose_thesis_config.py`, archived at `runs/D01/` and `runs/D01nat/`.
+
+| variant | sample | DR | DME | final loss | memorised |
+|---|---|---|---|---|---|
+| `head_only` (frozen backbone, 1e-4, 60 ep) | balanced | 95 % | 100 % | 0.0453 | no — by one image of twenty |
+| `two_phase` (**the original recipe**) | balanced | **100 %** | **100 %** | **0.0005** | **YES** |
+| `two_phase` | natural imbalance | **100 %** | **100 %** | **0.0005** | **YES** |
+| `two_phase_cw` (+ archived class-weight path) | natural imbalance | **100 %** | **100 %** | **0.0005** | **YES** |
+
+**Verdict on each named suspect.**
+
+1. **Fine-tuning LR / representation distortion — ELIMINATED.** Unfreezing at 1e-5 with
+   clipnorm 1.0 and BN frozen did not destroy the frozen-phase representation, it *completed*
+   it: 95 % → 100 %, loss falling three orders of magnitude. The archived runs showed the
+   opposite signature — validation loss rising 1.86 → 3.40, accuracy falling to 0.055.
+   Note the original premise was that the LR was set "too high"; it is 1e-5 with gradient
+   clipping and all 123 BN layers frozen, which is conservative, not aggressive.
+
+2. **Class-weight broadcast — ELIMINATED as a cause of optimisation failure.** Reproduced
+   through the archived API path (a flat weight array as the third element of a `tf.data`
+   tuple beside a dict of two outputs) with genuinely non-uniform weights drawn from a
+   naturally imbalanced sample — `{0: 0.714, 1: 1.0, 2: 0.833, 3: 1.0, 4: 2.5}`. The model
+   still memorises perfectly. **A first attempt at this variant was invalid twice over and is
+   recorded so the correction is auditable:** a *stratified* 4-per-grade sample makes
+   `compute_class_weight('balanced')` return exactly 1.0 for every class, turning the suspect
+   into a no-op; and passing the weights via `model.fit(sample_weight=...)` is a different
+   code path that raises `KeyError: 0` under Keras 3. Both were mine, both are fixed.
+
+3. **Unmasked DME loss — VACUOUS AS STATED, for IDRiD-only training.**
+   `_zero_dme_for_healthy()` sets DME to 0 wherever DR is 0. Measured directly: IDRiD has
+   **168 DR=0 images, of which 0 have DME ≠ 0**, so the call changes **0 labels**. It cannot
+   be a cause. (This is the same fact `PROTOCOL.md` §5.1 rests on.) **Not tested** is the
+   separate `train_combined()` path, where IDRiD DR=0 rows get `dme_sample_weight = 0` and the
+   DME head therefore never sees a negative example at all — a real design flaw, but one that
+   would bias DME *away* from class 0, while the archived model predicted class 0 for 67 of
+   69 images. Wrong direction.
+
+**What this establishes, and what it does not.** The archived training loop **optimises
+correctly**. The collapse is not a gross wiring or optimisation defect, and none of the three
+suspects this file named for six days survives contact with the test. What remains possible:
+something that manifests only at scale, the `train_combined()` DME masking above, a
+label/data-pipeline fault at full size, or an interaction of `EarlyStopping`
+(`restore_best_weights=True`, patience 8) with `ReduceLROnPlateau` on runs that never
+exceeded 9 epochs. **§1 stays OPEN**, but with three fewer candidates and a positive result:
+the code can learn.
+
+**The consequence that mattered most.** The floor-lift argument for LP-FT rested on the
+collapse being fine-tuning damage shared with the PyTorch pipeline. It was not. That argument
+is withdrawn (`IDEAS.md` I21), LP-FT dropped from priority 1 to 2, and the queue was
+re-ranked — **on evidence from a free CPU test, before any GPU run was spent on it.**
 
 **Fix.**
 1. Treat every number in chapter 4, `CLAUDE.md`, and both Persian progress reports as

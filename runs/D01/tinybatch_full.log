@@ -1,0 +1,43 @@
+tensorflow 2.21.0  devices=['CPU']
+loaded 20 IDRiD images at (512, 512, 3)  DR grades [4, 4, 4, 4, 4]  DME grades [10, 0, 10]
+ACCEPTANCE, fixed before the numbers: a correctly wired network memorises 20 images with regularisation and augmentation off. Pass = 100% on BOTH heads.
+
+==========================================================================
+VARIANT head_only
+==========================================================================
+  phase 1: backbone FROZEN, Adam(lr=0.0001), 60 epochs
+  after phase 1: DR 95%  DME 100%  loss 0.0453  (364s)
+  MEMORISED: NO
+
+==========================================================================
+VARIANT two_phase
+==========================================================================
+  phase 1: backbone FROZEN, Adam(lr=0.0001), 60 epochs
+  after phase 1: DR 95%  DME 100%  loss 0.0453  (427s)
+  phase 2: backbone UNFROZEN, Adam(lr=1e-05, clipnorm=1.0), 123 BN layers frozen, 60 epochs
+  after phase 2: DR 100%  DME 100%  loss 0.0005  (2028s)
+  MEMORISED: YES
+
+==========================================================================
+VARIANT two_phase_cw
+==========================================================================
+  DR class weights: {0: 1.0, 1: 1.0, 2: 1.0, 3: 1.0, 4: 1.0}
+  sample_weight shape (20,) -> broadcast across both outputs
+  phase 1: backbone FROZEN, Adam(lr=0.0001), 60 epochs
+Traceback (most recent call last):
+  File "/Users/ahmadrezanourozi/Desktop/Alireza Thesis-25/dr-dme/src/diagnose_thesis_config.py", line 316, in <module>
+    main()
+  File "/Users/ahmadrezanourozi/Desktop/Alireza Thesis-25/dr-dme/src/diagnose_thesis_config.py", line 289, in main
+    results.append(run_variant(name, X, y_dr, y_dme, **specs[name]))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ahmadrezanourozi/Desktop/Alireza Thesis-25/dr-dme/src/diagnose_thesis_config.py", line 221, in run_variant
+    h = model.fit(X, {"dr_output": y_dr, "dme_output": y_dme},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/claude-501/-Users-ahmadrezanourozi-Desktop-Alireza-Thesis-25/d723300a-9312-4dea-9dad-9fc189869c3f/scratchpad/tfvenv/lib/python3.12/site-packages/keras/src/utils/traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/private/tmp/claude-501/-Users-ahmadrezanourozi-Desktop-Alireza-Thesis-25/d723300a-9312-4dea-9dad-9fc189869c3f/scratchpad/tfvenv/lib/python3.12/site-packages/keras/src/trainers/compile_utils.py", line 712, in resolve_path
+    object = object[_path]
+             ~~~~~~^^^^^^^
+KeyError: 0
+
+[exited with code 0]
