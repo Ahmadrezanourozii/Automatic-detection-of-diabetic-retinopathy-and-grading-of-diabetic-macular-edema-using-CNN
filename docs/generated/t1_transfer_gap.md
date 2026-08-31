@@ -37,7 +37,27 @@ upward. That is the same mechanism as `FINDINGS.md` F1 — APTOS Mild cases bein
 Moderate — observed here from the operating-point side rather than the per-class side, which
 is the kind of replication `PROTOCOL.md` §4.2 asks for.
 
-**⚠️ The confound, stated because it is not fully separable from the archives.** The dev
+### ✅ The confound is now MEASURED and closed (I22 / E18RECIPE, 2026-08-31)
+
+The caveat below was written before it could be tested. It has now been tested. E18RECIPE
+re-scored APTOS with **E08 fold 0 only and no TTA** — matching the development pool's
+inference recipe exactly — and the gap is essentially unchanged:
+
+| target | gap, 5-fold + TTA | gap, single fold + no TTA | difference |
+|---|---|---|---|
+| 80.0 % | +18.12 pts | **+17.58 pts** | 0.54 |
+| 85.0 % | +14.33 pts | **+14.26 pts** | 0.07 |
+| 87.2 % | +12.33 pts | **+12.19 pts** | 0.14 |
+| 95.5 % | +4.43 pts | **+4.37 pts** | 0.06 |
+
+Aggregate APTOS performance barely moves either: single-fold no-TTA gives QWK 0.8872,
+referable sens 99.26 % / spec 84.55 %, against the ensemble's 0.8968 and 99.53 % / 84.28 %.
+**The inference recipe accounts for essentially none of the transfer gap. It is distribution
+shift.** The original caveat is retained below for the record, and the reasoning that
+predicted this outcome — that ensembling shrinks toward the mean and could not produce an
+upward polarisation of both classes — is now confirmed rather than merely argued.
+
+**⚠️ The original confound, retained for the record — now closed by the measurement above.** The dev
 predictions are **single-model** (each image scored by the one fold that held it out) with
 **no TTA**. The APTOS predictions are a **5-fold logit ensemble with TTA**. Both ensembling and
 TTA change calibration, so this gap mixes distribution shift with the inference recipe.

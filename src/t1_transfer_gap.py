@@ -71,8 +71,8 @@ def load_dev(run, datasets):
     return score, (y >= REFERABLE_FROM), np.array(folds), groups
 
 
-def load_external(run):
-    z = np.load(os.path.join(run, "external_aptos_predictions.npz"), allow_pickle=True)
+def load_external(run, fname="external_aptos_predictions.npz"):
+    z = np.load(os.path.join(run, fname), allow_pickle=True)
     score = 1 / (1 + np.exp(-z["dr_logits"][:, CUT_INDEX]))
     y = np.asarray(z["y_dr"])
     groups = np.asarray([str(g) for g in z["groups"]])
@@ -83,13 +83,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dev", required=True)
     ap.add_argument("--external", required=True)
+    ap.add_argument("--ext-file", default="external_aptos_predictions.npz",
+                    help="prediction file inside --external. I22 writes recipe-named "
+                         "files, e.g. external_aptos_f0_notta_predictions.npz")
     ap.add_argument("--datasets", nargs="+", required=True)
     ap.add_argument("--n-boot", type=int, default=2000)
     ap.add_argument("--out", default="docs/generated/t1_transfer_gap.md")
     a = ap.parse_args()
 
     ds, dy, dfold, dgrp = load_dev(a.dev, a.datasets)
-    xs, xy, xgrp = load_external(a.external)
+    xs, xy, xgrp = load_external(a.external, a.ext_file)
     print(f"dev  n={len(ds)}  referable prevalence {dy.mean()*100:.1f}%")
     print(f"ext  n={len(xs)}  referable prevalence {xy.mean()*100:.1f}%")
 

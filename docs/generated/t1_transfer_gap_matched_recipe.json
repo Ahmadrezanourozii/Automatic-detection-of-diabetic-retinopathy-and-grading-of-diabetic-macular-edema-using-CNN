@@ -1,0 +1,62 @@
+[
+ {
+  "target": 0.8,
+  "tag": "A",
+  "provenance": "British Diabetic Association 1997 \u2014 minimum standard, referable DR (PROVENANCE UNVERIFIED at primary source)",
+  "threshold": 0.8297680616378784,
+  "dev_crossfit_sens": 0.8023893827691296,
+  "dev_crossfit_spec": 0.979072115258556,
+  "dev_sens": 0.7987179487179488,
+  "dev_spec": 0.9797297297297297,
+  "ext_sens": 0.9757901815736382,
+  "ext_spec": 0.8652873563218391,
+  "ext_sens_lo": 0.9673545525205418,
+  "ext_sens_hi": 0.9838176763235975,
+  "gap": 0.17579018157363813
+ },
+ {
+  "target": 0.85,
+  "tag": "B",
+  "provenance": "IDx-DR pivotal trial \u2014 FDA pre-specified superiority endpoint (> 85 %), mtmDR",
+  "threshold": 0.5927255153656006,
+  "dev_crossfit_sens": 0.8496505604100542,
+  "dev_crossfit_spec": 0.9635314667518056,
+  "dev_sens": 0.8487179487179487,
+  "dev_spec": 0.9635135135135136,
+  "ext_sens": 0.9926025554808339,
+  "ext_spec": 0.8491954022988506,
+  "ext_sens_lo": 0.9877047079322748,
+  "ext_sens_hi": 0.9966420979802669,
+  "gap": 0.1426025554808339
+ },
+ {
+  "target": 0.872,
+  "tag": "B*",
+  "provenance": "IDx-DR pivotal trial \u2014 achieved sensitivity, mtmDR",
+  "threshold": 0.5103744864463806,
+  "dev_crossfit_sens": 0.8689824942989499,
+  "dev_crossfit_spec": 0.9513691811996898,
+  "dev_sens": 0.8717948717948718,
+  "dev_spec": 0.952027027027027,
+  "ext_sens": 0.9939475453934096,
+  "ext_spec": 0.8459770114942529,
+  "ext_sens_lo": 0.9897675518636601,
+  "ext_sens_hi": 0.9973136783842135,
+  "gap": 0.12194754539340957
+ },
+ {
+  "target": 0.955,
+  "tag": "C",
+  "provenance": "EyeArt pivotal trial \u2014 reported performance, mtmDR (not a standard)",
+  "threshold": 0.1108555942773819,
+  "dev_crossfit_sens": 0.952376315667455,
+  "dev_crossfit_spec": 0.8122494991139059,
+  "dev_sens": 0.9538461538461539,
+  "dev_spec": 0.8189189189189189,
+  "ext_sens": 0.9986550100874243,
+  "ext_spec": 0.7935632183908046,
+  "ext_sens_lo": 0.9966078697421981,
+  "ext_sens_hi": 1.0,
+  "gap": 0.04365501008742434
+ }
+]

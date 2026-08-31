@@ -234,7 +234,18 @@ E12nat) passed **in aggregate only**. So E17NAT must report:
 3. the §4.2 note that no multiple-comparison correction is applied, and that credibility comes
    from replication across conditions rather than a p-value in isolation.
 
-### I22 — isolate the inference recipe from the transfer gap  **queued, ~20 min GPU**
+### I22 — **RUN AS E18RECIPE, 2026-08-31. CLOSED — the gap is distribution shift.**
+
+Re-scored APTOS with E08 **fold 0 only, no TTA**, matching the development pool's inference
+recipe. The transfer gap is unchanged to within 0.5 points at every target (+17.58 / +14.26 /
++12.19 / +4.37 versus +18.12 / +14.33 / +12.33 / +4.43). Aggregate barely moves: QWK 0.8872
+vs 0.8968, referable sens 99.26 % / spec 84.55 % vs 99.53 % / 84.28 %.
+
+**The inference recipe explains essentially none of the gap.** T1's transfer gap is
+distribution shift, and the caveat is now measured rather than argued. 20 minutes of GPU
+converted a stated limitation into a closed one.
+
+### I22 — original design, kept for the record
 
 T1's transfer gap (`docs/generated/t1_transfer_gap.md`) compares **single-fold, no-TTA**
 development predictions against a **5-fold logit ensemble with TTA** on APTOS. Both ensembling
