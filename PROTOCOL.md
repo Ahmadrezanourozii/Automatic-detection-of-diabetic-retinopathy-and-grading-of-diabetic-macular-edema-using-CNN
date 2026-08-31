@@ -139,10 +139,17 @@ record so far:
 | Mild recall collapse (F1) | a capacity limit | **calibration** — 5.4 % → 77.8 % by moving cut-points |
 | EfficientNet beats DenseNet (F3) | a better representation | **boundary placement** — the advantage vanished, one cell reversed sign |
 | Moderate differs by source (E12) | another boundary artefact | **a real difference** — −6.8 → −6.5, essentially unchanged |
+| E08 beats LP-FT on DR accuracy (E15) | LP-FT costs accuracy | **boundary placement, and it REVERSES** — +5.57 pts [+3.54, +7.52] for E08 at shipped cuts becomes **−1.92 pts [−3.67, −0.13] for LP-FT** at matched cuts |
 
-Three predictions, three overturned, in **two different directions**. The third is the one
-that licenses the other two: without a case where the check came back positive, the rule would
-be indistinguishable from motivated reasoning.
+Four predictions, four overturned, in **two different directions**, with **two outright sign
+reversals**. The Moderate row is the one that licenses the others: without a case where the
+check came back positive, the rule would be indistinguishable from motivated reasoning.
+
+The E15 row is the starkest instance yet of the corollary below. LP-FT's *representation* was
+never worse — its default cut-points were simply badly placed, costing it 5.4 points of
+accuracy that recalibration handed straight back. Reported at shipped thresholds, the same
+experiment would have produced a confident and completely wrong conclusion about what LP-FT
+does to a network.
 
 This rule exists because it has already overturned claims this project was about to make,
 at zero compute cost (`FINDINGS.md` F1 and F3, and the E12 source control):

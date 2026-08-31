@@ -89,7 +89,43 @@ Candidate targets with verified provenance and specificity costs are in
 `docs/T1_referral_threshold_candidates.md`. **The target itself is still unchosen — an open
 question for the owner, not a blocker**, since T1 sits behind I07 and I21 in the queue.
 
-### I21 — LP-FT (linear-probe-then-fine-tune) — **priority 2, hypothesis narrowed by D01**
+### I21 — LP-FT — **RUN AS E15LPFT, 2026-08-31. FALSIFIED on its own pre-registered criterion.**
+
+**Verdict.** The falsifying outcome was fixed before the run: *if it does not beat current at
+matched calibration, it is not the ceiling and we stop pursuing it.* It does not.
+**E15LPFT vs E08, paired bootstrap over groups, both recalibrated identically
+(cut-points cross-fitted on the other folds), `docs/generated/matched_comparison.md`:**
+
+| head | cut-points | metric | E08 | E15LPFT | E08 − LPFT | 95 % interval | verdict |
+|---|---|---|---|---|---|---|---|
+| DR | shipped | QWK | 0.8599 | 0.8466 | +0.0136 | [−0.0004, +0.0275] | indistinguishable |
+| DR | shipped | accuracy | 74.20 % | 68.67 % | +5.57 pts | [+3.54, +7.52] | **significant** |
+| **DR** | **matched** | **QWK** | **0.8646** | **0.8655** | **−0.0008** | **[−0.0126, +0.0105]** | **indistinguishable** |
+| DR | matched | accuracy | 72.12 % | 74.07 % | −1.92 pts | [−3.67, −0.13] | **significant, for LP-FT** |
+| DME | shipped | QWK | 0.8845 | 0.8551 | +0.0303 | [−0.0017, +0.0618] | indistinguishable |
+| DME | matched | QWK | 0.8764 | 0.8577 | +0.0193 | [−0.0099, +0.0481] | indistinguishable |
+
+**On the primary metric it is a dead heat** — DR QWK differs by 0.0008, an interval tight
+around zero. DME is indistinguishable at both operating points. **LP-FT does not beat current
+full fine-tuning, so by the stated criterion we stop pursuing it.** Cost: 3.4 h.
+
+**But the run earned its keep as a §4.1 case, and this is the part worth keeping.** At shipped
+cut-points E08 looked **significantly better on DR accuracy, +5.57 points**. At matched
+cut-points that **reverses**: −1.92 points, significant, *in LP-FT's favour*. LP-FT's
+representation was never worse. Its default `sigmoid > 0.5` cut-points were simply badly
+placed, costing it 5.4 points of accuracy that recalibration handed straight back
+(68.67 % → 74.07 %, the largest recalibration gain any run in this project has shown, versus
+E08's 74.20 % → 72.12 % *loss*). Reported at shipped thresholds — as almost every paper does —
+this experiment would have concluded confidently and wrongly that LP-FT damages a network.
+
+**Recorded as the fourth row of `PROTOCOL.md` §4.1** and its second outright sign reversal.
+
+**Status.** Closed. Do not revisit without a new reason that is not "maybe with different
+hyper-parameters".
+
+---
+
+### I21 — original design, kept for the record — hypothesis narrowed by D01
 
 **Status.** Queued, after I07. Independent question.
 

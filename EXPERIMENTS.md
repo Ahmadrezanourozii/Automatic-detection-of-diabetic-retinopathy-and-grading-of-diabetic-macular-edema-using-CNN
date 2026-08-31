@@ -731,6 +731,53 @@ existing thesis' gated 87.6 % claim in context: on that framing, nothing here cl
 
 ---
 
+### E15LPFT — LP-FT (linear probe, then fine-tune) — 2026-08-31, 3.4 h, **FALSIFIED**
+
+**Pre-registered before the run** (`IDEAS.md` I21, commit `68563ef`): *LP-FT beats current
+full fine-tuning on internal QWK at matched calibration. Falsified if it does not.*
+
+**Config.** E08 with **one change**: `--lpft --lpft-epochs 5 --lpft-lr-backbone 1e-5
+--lpft-warmup-epochs 2`. Everything else identical — densenet121, 448 px, batch 16, 40
+epochs, EyePACS pretraining, TTA, folds 0–4, split `0cfbbfeb081999af`. Backbone parameters
+are detached during the probe phase rather than merely given `lr = 0`, so the probe does not
+backprop through what it is not training.
+
+**Result — paired bootstrap over groups, both runs recalibrated identically with cut-points
+cross-fitted on the other folds (`src/compare_matched.py`,
+`docs/generated/matched_comparison.md`):**
+
+| head | cut-points | metric | E08 | E15LPFT | E08 − LPFT | 95 % interval | verdict |
+|---|---|---|---|---|---|---|---|
+| DR | shipped | QWK | 0.8599 | 0.8466 | +0.0136 | [−0.0004, +0.0275] | indistinguishable |
+| DR | shipped | accuracy | 74.20 % | 68.67 % | +5.57 pts | [+3.54, +7.52] | **significant** |
+| **DR** | **matched** | **QWK** | **0.8646** | **0.8655** | **−0.0008** | **[−0.0126, +0.0105]** | **indistinguishable** |
+| DR | matched | accuracy | 72.12 % | 74.07 % | −1.92 pts | [−3.67, −0.13] | **significant, for LP-FT** |
+| DME (n=516) | shipped | QWK | 0.8845 | 0.8551 | +0.0303 | [−0.0017, +0.0618] | indistinguishable |
+| DME (n=516) | matched | QWK | 0.8764 | 0.8577 | +0.0193 | [−0.0099, +0.0481] | indistinguishable |
+
+**Verdict.** A dead heat on the primary metric — DR QWK differs by 0.0008 with an interval
+tight around zero — and DME indistinguishable at both operating points. By the criterion
+fixed in advance, **LP-FT does not beat current full fine-tuning and is closed.**
+
+**What the run bought anyway, and why it was not wasted.** It is the fourth and starkest case
+in the `PROTOCOL.md` §4.1 record, and its second outright sign reversal. At shipped
+cut-points E08 looks **significantly better on DR accuracy by 5.57 points**; at matched
+cut-points that reverses to **1.92 points in LP-FT's favour, also significant**. LP-FT's
+representation was never worse — its `sigmoid > 0.5` cut-points were badly placed, costing
+5.4 points of accuracy that recalibration returned in full (68.67 % → 74.07 %, the largest
+recalibration gain any run in this project has produced, against E08's 74.20 % → 72.12 %
+*loss*). Reported at shipped thresholds, this experiment would have concluded confidently
+and wrongly that LP-FT damages a network.
+
+**Provenance note on the analysis tooling.** `src/compare_matched.py` was written for this
+comparison and verified against the archived numbers before being trusted: its `shipped`
+column reproduces `results.json` exactly on both heads (DR QWK 0.8599, DME QWK 0.8845). Two
+bugs were found and fixed by that check — a reimplemented decode that did not match
+`model.decode`, and a DME evaluation set of 667 rows rather than 516, caused by including
+Messidor-2 rows that carry only a binary DME label.
+
+---
+
 ## Reference floors — every row above must be read against these
 
 | Quantity | Set | n | Value |
