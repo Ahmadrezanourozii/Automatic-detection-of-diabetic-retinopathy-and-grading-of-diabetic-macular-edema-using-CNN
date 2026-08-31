@@ -48,7 +48,8 @@ RUN_ID_REQUIRES_SCRIPT = {
 }
 
 
-def cells(run_id, train_args, commit, external_only=False, from_run="", script=""):
+def cells(run_id, train_args, commit, external_only=False, from_run="", script="",
+          ext_args=None):
     setup = f'''# {run_id} — pulls the code from GitHub so a run is reproducible from a commit SHA
 import os, subprocess, sys, shutil, time
 REPO = "{REPO}"
@@ -211,6 +212,8 @@ print("exit=", p.returncode)
     if external_only:
         # No training. The finished run's output is attached as a kernel source, so its
         # per-fold weights arrive under /kaggle/input rather than being retrained.
+        # Default recipe is the 5-fold TTA ensemble; ext_args overrides it (I22).
+        ext_args = ", ".join(f'"{t}"' for t in (ext_args or "--tta").split())
         ext_only = f'''import subprocess, sys, os, glob, shutil
 SRC = "{from_run}"
 OUT = f"/kaggle/working/{run_id}"
@@ -237,7 +240,7 @@ assert not os.path.exists(f"{{OUT}}/results.json"), \
 
 cmd = [sys.executable, "-u", "/kaggle/working/repo/src/eval_external.py",
        "--run", OUT, "--datasets", "/kaggle/input", "--corpus", "APTOS",
-       "--cache", "/kaggle/temp/cache_ext", "--tta"]
+       "--cache", "/kaggle/temp/cache_ext", {ext_args}]
 print(" ".join(cmd), flush=True)
 with open(f"{{OUT}}/external.log", "w") as f:
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
@@ -266,6 +269,10 @@ def main():
     ap.add_argument("--external-only", action="store_true",
                     help="no training: load a finished run's weights and evaluate "
                          "externally")
+    ap.add_argument("--ext-args", default="",
+                    help="arguments for src/eval_external.py in an --external-only run. "
+                         "Defaults to '--tta' (the 5-fold TTA ensemble). Use e.g. "
+                         "'--folds 0' to isolate the inference recipe (IDEAS.md I22).")
     ap.add_argument("--from-run", default="",
                     help="kernel slug whose output supplies the weights, "
                          "e.g. ah22reza/dr-dme-e08")
@@ -319,7 +326,7 @@ def main():
     nb = {"cells": [{"cell_type": "code", "source": c, "metadata": {},
                      "execution_count": None, "outputs": []}
                     for c in cells(a.run_id, train_args, a.commit, a.external_only,
-                                   a.from_run, a.script)],
+                                   a.from_run, a.script, a.ext_args)],
           "metadata": {"kernelspec": {"language": "python", "display_name": "Python 3",
                                       "name": "python3"}},
           "nbformat": 4, "nbformat_minor": 4}
@@ -328,13 +335,17 @@ def main():
     # must not also invoke the training loop. This is what would have caught §24: the
     # generated cells never mentioned src/fovea.py, and nothing looked.
     emitted = "\n".join(c["source"] for c in nb["cells"])
-    intended = a.script or "src/train.py"
+    # An --external-only run legitimately never touches src/train.py: it loads a finished
+    # run's weights and evaluates them. Defaulting `intended` to src/train.py made this
+    # check refuse every such run -- a false positive in the §24 guard, found the first
+    # time an external-only kernel was built after the guard landed.
+    intended = a.script or ("src/eval_external.py" if a.external_only else "src/train.py")
     invoked = [s_ for s_ in ("src/train.py", a.script) if s_ and f"repo/{s_}" in emitted]
     if f"repo/{intended}" not in emitted:
         raise SystemExit(
             f"generated notebook does not invoke {intended} -- refusing to push. "
             f"It invokes: {invoked or 'nothing recognisable'}")
-    if a.script and "repo/src/train.py" in emitted:
+    if (a.script or a.external_only) and "repo/src/train.py" in emitted:
         raise SystemExit(
             f"generated notebook invokes BOTH {a.script} and src/train.py -- refusing to "
             f"push an ambiguous run.")

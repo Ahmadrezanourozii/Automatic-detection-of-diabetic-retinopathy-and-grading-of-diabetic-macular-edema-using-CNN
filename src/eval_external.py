@@ -40,6 +40,13 @@ def main():
     ap.add_argument("--batch", type=int, default=32)
     ap.add_argument("--workers", type=int, default=2)
     ap.add_argument("--tta", action="store_true")
+    ap.add_argument("--folds", default="",
+                    help="I22: restrict the ensemble to these fold indices, e.g. '0'. "
+                         "Default (empty) ensembles every best_*.pt found. Exists because "
+                         "T1's transfer gap compares single-fold no-TTA development "
+                         "predictions against a 5-fold TTA ensemble on APTOS, and both "
+                         "ensembling and TTA change calibration -- so the gap mixes "
+                         "distribution shift with the inference recipe until this is run.")
     a = ap.parse_args()
 
     # Config comes from the checkpoints themselves. Locating a results.json by path
@@ -49,6 +56,15 @@ def main():
     ckpts = sorted(glob.glob(os.path.join(a.run, "best_*.pt")))
     if not ckpts:
         raise SystemExit(f"no best_*.pt in {a.run} — the run kept no weights")
+    if a.folds:
+        want = {f"best_{i.strip()}.pt" for i in a.folds.split(",") if i.strip() != ""}
+        kept = [c for c in ckpts if os.path.basename(c) in want]
+        if not kept:
+            raise SystemExit(f"--folds {a.folds} matched none of "
+                             f"{[os.path.basename(c) for c in ckpts]}")
+        print(f"[I22] restricting the ensemble to {sorted(os.path.basename(c) for c in kept)} "
+              f"of {len(ckpts)} available", flush=True)
+        ckpts = kept
     _first = torch.load(ckpts[0], map_location="cpu", weights_only=False)
     cfg = _first.get("config")
     if not cfg:
@@ -125,14 +141,18 @@ def main():
         print("  Part of any drop is APTOS's single-grader label noise rather than "
               "generalisation failure; report it that way.")
 
-    out = os.path.join(a.run, f"external_{a.corpus.lower()}.json")
+    suffix = ""
+    if a.folds or not a.tta:
+        suffix = f"_f{a.folds.replace(',', '')}" if a.folds else "_all"
+        suffix += "_tta" if a.tta else "_notta"
+    out = os.path.join(a.run, f"external_{a.corpus.lower()}{suffix}.json")
     json.dump({"corpus": a.corpus, "n_folds_ensembled": len(ckpts), "tta": a.tta,
                "metrics": {"dr": rep}}, open(out, "w"), indent=1, default=str)
 
     # Per-image predictions, so the reported INTERVALS can be re-derived and not merely
     # trusted. The first external run archived only the aggregate confusion matrix, which
     # left its bootstrap intervals unverifiable (EXPERIMENTS.md, E08X verification).
-    preds = os.path.join(a.run, f"external_{a.corpus.lower()}_predictions.npz")
+    preds = os.path.join(a.run, f"external_{a.corpus.lower()}{suffix}_predictions.npz")
     np.savez_compressed(
         preds,
         uids=np.array([r["uid"] for r in rows]),
