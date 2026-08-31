@@ -627,10 +627,11 @@ QWK 0.728). The corpora are not interchangeable — Messidor-2 scores higher on 
 scoring *lower* on QWK, purely because 58 % of it is grade 0. This is exactly why accuracy
 alone is not allowed to lead (`PROTOCOL.md` §4).
 
-**On the exact set the old thesis quoted:** IDRiD's official 103-image test split gives
-**DR 61.2 %** (claimed: 91.6 %) and **DME 79.6 %** ungated (claimed: 87.6 % gated). The claim
-was 30 points above what this pipeline achieves on that set — and that pipeline is a working
-one, where the archived original scored 27.2 %.
+**On IDRiD's official 103-image test split:** **DR 61.2 %** and **DME 79.6 %** ungated.
+Reported for completeness only — `PROTOCOL.md` §7 puts a ±6.3 pt interval on that split, so
+it is not headline material. (This paragraph previously compared these against 91.6 / 87.6 as
+though those were claims; they were template placeholders, corrected 2026-08-31 — see
+`ISSUES.md` §1.)
 
 
 ### E05 — what the confusion matrix says about *where* to spend the next GPU-hour
@@ -726,8 +727,9 @@ the thesis identifies as its main weakness, so it is worth watching in the repea
 A model that genuinely carries DME signal — it beats the ungated floor by 25 points — still
 scores *below* the gated floor, because gating throws away the easy negatives and leaves a
 set that is 70 % one class. This is the concrete demonstration that the gated number is a
-different quantity, and it is why `PROTOCOL.md` §5.1 makes ungated primary. It also puts the
-existing thesis' gated 87.6 % claim in context: on that framing, nothing here clears 69.6 %.
+different quantity, and it is why `PROTOCOL.md` §5.1 makes ungated primary. **This is also
+why a gated DME number must never be quoted without its floor:** on the gated framing nothing
+here clears 69.6 %, while the same models beat the ungated floor by 25 points.
 
 ---
 
@@ -895,7 +897,14 @@ Mild drop as a lead, not a finding.
 
 ## Prior work — NOT rows in this ledger
 
-The figures in thesis chapter 4 (DR 91.6 %, DME 87.6 %) and in `CLAUDE.md` (91.7 / 87.4)
-have no run behind them and are not reproducible; see `ISSUES.md` §1. They are recorded
-there as a finding, not here as a baseline. The only evaluation ever archived by this
-project scored **27.2 % DR** and **15.9 % DME**, both below the floors above.
+The figures in thesis chapter 4 (DR 91.6 %, DME 87.6 %) and in `CLAUDE.md` (91.7 / 87.4) are
+**template placeholders** — never presented, never claimed, never produced by a run (owner,
+2026-08-31). They are **not a baseline**, not a target, and not a result, and nothing in this
+ledger should be compared against them.
+
+**This project has no internal baseline at all.** The only evaluation ever archived before
+this ledger began scored **27.2 % DR** and **15.9 % DME**, both below the floors above, from
+a run that collapsed (`ISSUES.md` §1). So every row here is a first measurement rather than an
+improvement over anything. **The consequence is that re-implementing the two literature
+baselines on our exact split (`IDEAS.md` I16) is the only route to knowing whether these
+numbers are good**, and it is prioritised accordingly.

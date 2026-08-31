@@ -13,10 +13,15 @@ edema (DME) from a single retinal fundus photograph.
 
 ## Where the project stands
 
-The thesis this restarted from reported 91.6 % DR / 87.6 % DME with **no run behind either
-figure**; the only archived evaluation scored 27.2 % and 15.9 %, both below the majority-class
-floor (`ISSUES.md` §1). Everything below was computed, with intervals, from runs that are
-archived and reproducible from a commit SHA.
+**The project had no established baseline.** The 91.6 % / 87.6 % figures in the earlier draft
+were **placeholder numbers in a template** — never presented anywhere, never claimed as a
+result, and never produced by any run (owner, 2026-08-31). There was nothing to reproduce and
+nothing to beat. What did exist was one archived evaluation that **collapsed**: 27.2 % DR and
+15.9 % DME, both below the majority-class floor, from a training run whose validation loss
+rose 1.86 → 3.40. That collapse is real and still unexplained (`ISSUES.md` §1).
+
+Everything below is therefore **the first real measurement this project has produced**,
+computed with intervals from runs archived and reproducible from a commit SHA.
 
 ## Current best result
 
@@ -59,8 +64,9 @@ default is a hyper-parameter that has been chosen, not one that has been avoided
 E11's weights give QWK 0.903; the paired difference is +0.0063 [+0.0009, +0.0116] as shipped
 and **indistinguishable once both models sit at matched operating points** (F3).
 
-On IDRiD's official 103-image test split — the set the old thesis quoted 91.6 % on — the E05
-pipeline scores **61.2 %**.
+On IDRiD's official 103-image test split the E05 pipeline scores **61.2 %** — reported for
+completeness and read against `PROTOCOL.md` §7: that split carries a ±6.3 pt interval and is
+**not headline material**.
 
 ---
 
@@ -103,9 +109,11 @@ widened it from 516 to 2 260 images. Ordering follows current expected value, no
 | 2 | **T1 — deliberate referral threshold** | 0 h GPU | The 99.53 % sensitivity came from an unchosen `sigmoid > 0.5`. Choose the target **first**, justify it against screening practice, fit cross-fitted on the development pool (**never** APTOS), report the achieved sensitivity, the specificity cost, and the **transfer gap** — which F3 predicts will be non-zero and is itself a result. **Falsified if** no threshold transfers within a useful band, in which case the recommendation becomes "recalibrate locally" with F4's 200-image figure attached. |
 | 3 | **I20 — native-resolution test** | ~4 h | Gated on I19, which **passed in aggregate only**. Must report aggregate QWK as attributable to resolution and **per-class results explicitly under the source caveat** (see `IDEAS.md` I20). |
 
-Then, in order: E11 folds 3–4 (3.2 h), multi-seed ensemble (~6 h), re-implementing the two
-comparison baselines on our split (~4 h — closes the oldest gap in the thesis, since the
-comparison table has been indirect since the 91.6 % failed to reproduce).
+Then: E11 folds 3–4 (running as E19E11B), multi-seed ensemble (~6 h), and **re-implementing
+the two literature baselines on our split (~4 h)**. That last item is now **the single most
+important thing in the queue for interpreting our own numbers**: with no internal baseline of
+any kind, a fair like-for-like comparison on our exact split is the *only* thing that will
+say whether DR QWK 0.865 is good.
 
 **Budget:** 30 h/week, not rolling over — about 360 h over three months. No single run over
 ~10 h. Checkpoint every epoch. Deferring work on cost grounds was a mistake made three times

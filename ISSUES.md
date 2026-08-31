@@ -2,7 +2,29 @@
 
 ---
 
-## §1. The reported thesis results are not reproducible  — 2026-08-25, OPEN, critical; **root cause narrowed by D01, 2026-08-31 — all three named suspects eliminated**
+## §1. An archived training run collapsed below the majority-class floor  — 2026-08-25, OPEN; **root cause narrowed by D01, 2026-08-31 — three named suspects eliminated**
+
+> ### ⚠️ PREMISE CORRECTED 2026-08-31 — read this before the rest of the entry
+>
+> This entry was originally titled *"The reported thesis results are not reproducible"* and
+> framed around the 91.6 % / 87.6 % figures. **That framing was wrong, and the owner corrected
+> it on 2026-08-31: those figures were placeholder numbers in a template.** They were never
+> presented anywhere, never claimed as a result, and no run ever produced them. There was
+> nothing to reproduce and no baseline to beat — so the diagnostic work below that treats
+> them as a claim is answering a question that did not exist.
+>
+> **What remains, and is entirely real, is the collapse.** An archived run scored 27.2 % DR
+> and 15.9 % DME, both below the majority-class floor, with validation loss rising 1.86 → 3.40
+> and validation accuracy falling to 0.055 over 9 epochs. Those came from TensorBoard event
+> files and saved confusion matrices, not from a template. **The open question is therefore
+> "why did that training run collapse", not "why does the claimed number not reproduce".**
+> D01's findings below are unaffected: they eliminate three candidate mechanisms for the
+> collapse, and the remaining candidates are scale-dependent.
+>
+> The evidence about the *figures* (checks 1 and 4 below, and the "Root cause (of the reported
+> numbers)" paragraph) is retained as a record of how the confusion arose, but it is no longer
+> a finding about anyone's conduct — it is a record of placeholders being mistaken for claims.
+
 
 **Symptom.** Thesis chapter 4 (`thesis-chegeni/tex/chapter4.tex`) reports 91.6 % accuracy
 on 5-class DR over a 262-image test set, and 87.6 % on 3-class DME over an 89-image test
@@ -43,9 +65,14 @@ are applied to a two-head model where Keras broadcasts them across both outputs;
 DME head is trained on labels that include DR=0 images whose DME loss is supposed to be
 masked. Any of these can produce exactly this collapse.
 
-**Root cause (of the reported numbers).** The numbers do not correspond to any computation
-that happened in this project. The most likely explanation is that they were written into
-the progress report as targets and then carried into the thesis as results.
+**Root cause (of the reported numbers) — SETTLED 2026-08-31, and not by inference.** The
+numbers do not correspond to any computation in this project because **they were template
+placeholders**, confirmed directly by the owner. The guess recorded here originally — that
+they were "written into the progress report as targets and then carried into the thesis as
+results" — was wrong in its implication and is superseded. The correct lesson is narrower and
+more useful: **an unrun number sitting in a draft is indistinguishable from a claimed result
+to anyone reading the draft later, including the author's own tooling.** That is an argument
+for generating every number by script (§1 fix 2, already done), not an argument about intent.
 
 ### D01 — the tiny-batch diagnostic, 2026-08-31. CPU only, no GPU quota spent.
 
@@ -112,8 +139,8 @@ re-ranked — **on evidence from a free CPU test, before any GPU run was spent o
 
 **Fix.**
 1. Treat every number in chapter 4, `CLAUDE.md`, and both Persian progress reports as
-   **unverified** until recomputed. They must not be cited, compared against, or used as a
-   baseline to beat.
+   **placeholders** until recomputed. They must not be cited or compared against. There is
+   no baseline to beat, because there was never a baseline — see the premise correction above.
 2. Rewrite chapter 4 from `results.json` files produced by actual runs, via the
    figure-generation script (`DELIVERABLES` in the project prompt). No hand-typed numbers.
 3. Rewrite the comparison table (§ tab:comparison) and the ablation table

@@ -193,10 +193,11 @@ Three reasons:
    | Gated, DR ≥ 1, all IDRiD | 348 | **69.8 %** |
    | Ungated, all IDRiD | 516 | **47.1 %** |
 
-   The existing thesis reports 87.6 % on the gated set. Against a 69.6 % floor, that claim
-   is worth about 18 points, not 87. Reported ungated against a 47 % floor it would mean
-   something quite different. **Any DME number in this project must be quoted next to its
-   floor.**
+   A gated number of 87.6 % against a 69.6 % floor is worth about 18 points, not 87; the same
+   number reported ungated against a 47 % floor would mean something quite different. **Any
+   DME number in this project must be quoted next to its floor.** (This paragraph originally
+   cited 87.6 % as a claim from the earlier draft. It was a template placeholder, not a claim
+   — corrected 2026-08-31, `ISSUES.md` §1. The arithmetic and the rule are unaffected.)
 
 ### 5.2 Which test set the headline number comes from
 
