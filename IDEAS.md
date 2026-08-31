@@ -221,6 +221,16 @@ E12nat) passed **in aggregate only**. So E17NAT must report:
 3. the §4.2 note that no multiple-comparison correction is applied, and that credibility comes
    from replication across conditions rather than a p-value in isolation.
 
+### I22 — isolate the inference recipe from the transfer gap  **queued, ~20 min GPU**
+
+T1's transfer gap (`docs/generated/t1_transfer_gap.md`) compares **single-fold, no-TTA**
+development predictions against a **5-fold logit ensemble with TTA** on APTOS. Both ensembling
+and TTA change calibration, so the measured gap mixes distribution shift with the inference
+recipe. Score APTOS with one fold's weights and no TTA (`--external-only --from-run`, plus a
+single-fold / no-TTA option in `eval_external.py`) and recompute the table. **Falsified if**
+the gap is materially unchanged, which would establish it as distribution shift outright.
+Cheap, and it converts a stated caveat into a measured one.
+
 ## Rejected
 
 | ID | Idea | Verdict | Evidence |

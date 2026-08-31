@@ -1,0 +1,62 @@
+[
+ {
+  "target": 0.8,
+  "tag": "A",
+  "provenance": "British Diabetic Association 1997 \u2014 minimum standard, referable DR (PROVENANCE UNVERIFIED at primary source)",
+  "threshold": 0.8297680616378784,
+  "dev_crossfit_sens": 0.8023893827691296,
+  "dev_crossfit_spec": 0.979072115258556,
+  "dev_sens": 0.7987179487179488,
+  "dev_spec": 0.9797297297297297,
+  "ext_sens": 0.9811701412239409,
+  "ext_spec": 0.8629885057471265,
+  "ext_sens_lo": 0.9738628317586308,
+  "ext_sens_hi": 0.9877306873669713,
+  "gap": 0.18117014122394082
+ },
+ {
+  "target": 0.85,
+  "tag": "B",
+  "provenance": "IDx-DR pivotal trial \u2014 FDA pre-specified superiority endpoint (> 85 %), mtmDR",
+  "threshold": 0.5927255153656006,
+  "dev_crossfit_sens": 0.8496505604100542,
+  "dev_crossfit_spec": 0.9635314667518056,
+  "dev_sens": 0.8487179487179487,
+  "dev_spec": 0.9635135135135136,
+  "ext_sens": 0.9932750504371217,
+  "ext_spec": 0.8473563218390805,
+  "ext_sens_lo": 0.9887634868665823,
+  "ext_sens_hi": 0.9972528414658044,
+  "gap": 0.14327505043712174
+ },
+ {
+  "target": 0.872,
+  "tag": "B*",
+  "provenance": "IDx-DR pivotal trial \u2014 achieved sensitivity, mtmDR",
+  "threshold": 0.5103744864463806,
+  "dev_crossfit_sens": 0.8689824942989499,
+  "dev_crossfit_spec": 0.9513691811996898,
+  "dev_sens": 0.8717948717948718,
+  "dev_spec": 0.952027027027027,
+  "ext_sens": 0.9952925353059852,
+  "ext_spec": 0.8422988505747127,
+  "ext_sens_lo": 0.9916608756080612,
+  "ext_sens_hi": 0.9986283048649868,
+  "gap": 0.12329253530598516
+ },
+ {
+  "target": 0.955,
+  "tag": "C",
+  "provenance": "EyeArt pivotal trial \u2014 reported performance, mtmDR (not a standard)",
+  "threshold": 0.1108555942773819,
+  "dev_crossfit_sens": 0.952376315667455,
+  "dev_crossfit_spec": 0.8122494991139059,
+  "dev_sens": 0.9538461538461539,
+  "dev_spec": 0.8189189189189189,
+  "ext_sens": 0.9993275050437121,
+  "ext_spec": 0.7986206896551724,
+  "ext_sens_lo": 0.9979394895853803,
+  "ext_sens_hi": 1.0,
+  "gap": 0.04432750504371219
+ }
+]
