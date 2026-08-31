@@ -829,6 +829,61 @@ question to evidence about where the ceiling actually is. See `FINDINGS.md` F7.
 
 ---
 
+### E17NAT — native-resolution test (I20) — 2026-08-31, 7.2 h, **FALSIFIED**
+
+**Pre-registered before the run** (`IDEAS.md` I20, commit `2b643eb`): *ISSUES §18 showed E10
+was a 560 px run wearing a 640 px label — cached at 560, then upsampled to 640, discarding
+the native mirror. E09 established resolution binds for DR. If it still binds above 448,
+genuinely more pixels should move DR QWK above E10's.* **Falsifying outcome, fixed in
+advance: if DR QWK moves less than its interval (≈ ±0.015 on 2 260 images), effective
+resolution above ~560 does not bind for DR.**
+
+**Config.** E10's, with `--cache-size 768` (so 640 px is real, not upsampled from 560) and
+`--messidor-hi` (the 2240×1488 mirror, 1 057 of 1 744 Messidor-2 images). Batch held at E10's
+8 deliberately, so batch is not a second variable. `results.json` confirms `size: 640,
+cache_size: 768, messidor_source: prefer-native`.
+
+**Result — paired bootstrap over groups, both recalibrated identically
+(`docs/generated/matched_e10_e17nat.md`):**
+
+| head | cut-points | metric | E10 | E17NAT | E10 − NAT | 95 % interval | verdict |
+|---|---|---|---|---|---|---|---|
+| **DR** | shipped | **QWK** | 0.8683 | 0.8691 | −0.0010 | [−0.0140, +0.0121] | indistinguishable |
+| **DR** | **matched** | **QWK** | **0.8749** | **0.8662** | **+0.0086** | **[−0.0025, +0.0199]** | **indistinguishable** |
+| DR | matched | accuracy | 74.78 % | 72.35 % | +2.45 pts | [+0.58, +4.29] | **significant, for E10** |
+| DME | matched | QWK | 0.8948 | 0.8748 | +0.0195 | [−0.0052, +0.0452] | indistinguishable |
+
+**Verdict: falsified.** DR QWK moved by +0.0086 at matched calibration — inside the ±0.015
+band named in advance, with an interval containing zero, and **nominally in E10's favour**.
+Genuinely more pixels did not help. **Effective resolution above ~560 does not bind for DR**,
+and I10 / I10b / I10c are closed as a line of work.
+
+**What this does and does not say about ISSUES §18.** §18 was a real bug — E10's resolution
+label *was* inflated, and the native mirror *was* being discarded at 560. That diagnosis
+stands. What E17NAT adds is that **the bug cost nothing measurable**: fixing it and paying
+7.2 h for genuinely-640 px training bought no QWK. A correct diagnosis and a null consequence
+are not in tension, and both belong in the record.
+
+**Per-class — under the I19 source caveat, which is binding here.**
+
+| | No DR | Mild | Moderate | Severe | Proliferative |
+|---|---|---|---|---|---|
+| E10 | 85.3 | 51.9 | 67.8 | 75.6 | 42.3 |
+| E17NAT | 88.3 | 45.8 | 67.4 | 73.8 | 40.2 |
+| Δ | **+3.0** | **−6.1** | −0.4 | −1.8 | −2.1 |
+
+**These per-class numbers are NOT cleanly attributable to resolution.** E17NAT changes the
+image *source* for 1 057 Messidor-2 images (native TIFF-derived mirror rather than our 512 px
+copy) at the same time as it changes resolution. I19 (E12def vs E12nat) established that
+source alone shifts per-class error by several points while leaving the aggregate unchanged —
+the Moderate cell moved −6.8 before recalibration and −6.5 after. The −6.1 Mild change here
+is the same order of magnitude as that known source effect and **cannot be separated from it
+by this experiment**. Per `PROTOCOL.md` §4.2: no multiple-comparison correction is applied, so
+credibility would come from replication across conditions, and there is none here. Treat the
+Mild drop as a lead, not a finding.
+
+---
+
 ## Reference floors — every row above must be read against these
 
 | Quantity | Set | n | Value |

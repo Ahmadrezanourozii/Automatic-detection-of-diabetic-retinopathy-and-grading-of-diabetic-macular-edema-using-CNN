@@ -205,6 +205,16 @@ about to act on.
 | I19 | **Source control for the resolution test** | **queued — must run BEFORE the resolution test** | The full-resolution images come from Messidor-1 TIFFs, so a naive resolution run changes resolution *and* file source, codec and compression history at once. Control: take the 1 057 overlapping images, downsample the Messidor-1 originals to exactly the 512 px our pipeline already uses, and train a model on those. If it matches the model trained on our existing Messidor-2 512 px copies (paired bootstrap, same folds), the source is not a confound and the resolution result is interpretable. If it differs, the resolution result is uninterpretable and the difference itself becomes the finding. ~1.5 h, and it protects a ~4 h run. |
 | I20 | Native-resolution test, gated on I19 | **queued, with a licence attached** | I19 passed **in aggregate only**. So I20 must report: **aggregate QWK/accuracy attributable to resolution**; **per-class results explicitly under the source caveat**, since the source alone shifts per-class error by several points (E12, Moderate −6.5 surviving recalibration); and the PROTOCOL §4.2 note that no multiple-comparison correction is applied and credibility comes from replication across conditions. A per-class resolution gain must not be allowed to read as clean. Requires `cache_size >= size`, now enforced. |
 
+### I20 — **RUN AS E17NAT, 2026-08-31. FALSIFIED. I10 / I10b / I10c closed.**
+
+DR QWK at matched calibration 0.8749 (E10) vs 0.8662 (E17NAT), difference +0.0086
+[−0.0025, +0.0199] — inside the ±0.015 band named in advance, interval containing zero,
+nominally favouring E10. **Effective resolution above ~560 does not bind for DR.** ISSUES §18
+remains a correct diagnosis with a null consequence: the bug was real, fixing it cost 7.2 h
+and bought no QWK. Per-class results are reported in `EXPERIMENTS.md` under the I19 source
+caveat and are **not** cleanly attributable — the −6.1 Mild change is the same order as the
+known source effect and cannot be separated from it here.
+
 ### I20 design — fixed before the run, launched as E17NAT 2026-08-31
 
 **Hypothesis.** ISSUES §18 established that E10 was a **560 px run wearing a 640 px label**:

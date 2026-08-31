@@ -660,7 +660,7 @@ never "nothing was saved".
 
 ---
 
-## §18. The image cache caps resolution below the training size  — 2026-08-26, OPEN, invalidates E10
+## §18. The image cache caps resolution below the training size  — 2026-08-26, **FIXED and its consequence MEASURED (E17NAT, 2026-08-31): the bug was real and cost nothing**
 
 **Found by checking E10's code path, not by a failure.** `build_cache()` downscales every
 image so its long side is at most **560 px** (`cache_size=560`, line 57), and `FundusDataset`
@@ -693,6 +693,25 @@ produces a null result and an incorrect conclusion ("resolution above 448 does n
 that finding required checking *every* stage of the pipeline that touches resolution, not just
 the flag named `--size`. A parameter is not in effect until something downstream of it has
 been observed to change — the same lesson as §15.
+
+### What it actually cost — measured 2026-08-31, E17NAT
+
+The fix landed (`cache_size >= size` is asserted, and the assertion has since refused to
+reproduce E10's path at all). E17NAT then paid for the corrected experiment: `--cache-size
+768`, `--size 640`, native mirror attached, batch held at E10's 8, 7.2 h.
+
+**DR QWK at matched calibration: 0.8749 (E10) vs 0.8662 (E17NAT), +0.0086
+[−0.0025, +0.0199] — indistinguishable, nominally favouring the *buggy* run.**
+
+So the diagnosis in this entry was correct and its consequence was nil. E10's resolution label
+*was* inflated and the native mirror *was* being thrown away at 560 — and none of that cost
+any measurable accuracy, because effective resolution above ~560 does not bind for DR
+(`IDEAS.md` I20; I10/I10b/I10c closed).
+
+**Both halves belong in the record.** A correct bug report with a null consequence is not a
+false alarm — it is what "we checked" looks like when the answer is no. The alternative,
+leaving §18 open and untested, would have left an unquantified doubt attached to every
+resolution claim in the thesis.
 
 ---
 
