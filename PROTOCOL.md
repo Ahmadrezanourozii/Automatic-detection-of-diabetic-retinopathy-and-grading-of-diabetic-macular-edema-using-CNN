@@ -246,6 +246,55 @@ otherwise. This is the constraint that should decide the experiment queue.
 
 ---
 
+## §9. Configuration is not consumption — provenance must record what a run READ
+
+**Added 2026-09-01 after `ISSUES.md` §26. This is a new dated section; nothing above is
+changed by it.**
+
+**The rule.** Every run must record, at runtime and from inside the process that walked the
+disk, a **consumption manifest**: for each corpus, how many images were resolved and a hash
+over the resolved paths relative to the dataset mount. It is written to `results.json` as
+`consumption`. **Two runs may not be combined, ensembled, or compared unless their
+consumption manifests agree.** `src/manifest.py` enforces it; `compare_matched.py` and
+`ensemble_oof.py` refuse without it.
+
+**Why a new rule was needed, rather than a fix to an old one.** Two runs launched to complete
+each other's folds passed **four** independent provenance mechanisms while having trained on
+different images:
+
+| mechanism | why it passed |
+|---|---|
+| identical `config` blocks | the image source is not a training argument — it is which datasets the kernel mounted |
+| matching `split_fingerprint` | the split is over uids and does not know which file backs a uid |
+| the §24 generated-notebook guard | the correct script did run |
+| `messidor_source: prefer-native` in both | **literally true of both, and meaning different things** — one kernel had the native mirror mounted, the other did not |
+
+Every one of those records what a run was **configured** to do. None records what it
+**consumed**. A field that is true of two runs while meaning different things is not
+provenance.
+
+**The deliberate-difference case.** Some comparisons are meant to cross sources — I20
+compared two runs precisely to measure a change of inputs. That is legitimate, so an override
+exists (`--acknowledge-consumption-diff`), but it **does not silence the difference: it stamps
+it into the output document**. A caveat the reader cannot see is not a caveat.
+
+**Retrofit, and its declared limit.** Runs predating this rule get a manifest reconstructed
+from their kernel's `dataset_sources`. That is **coarse**: it catches a difference in which
+datasets were mounted — exactly the §26 axis — and would miss a difference in which files
+were read from the same mounted dataset. Retrofitted comparisons say so in their output.
+Datasets that cannot supply a development-pool image (APTOS, held out entirely under §2 and
+§6.1) are excluded from the retrofit comparison, because mounting one cannot change what a
+run trained on.
+
+**It has already worked in both directions.** It refuses the §26 pairing that would have
+corrupted the project's best DR result. It also **overturned a caveat that was too
+conservative**: I20's per-class results were reported as confounded by a source change, and
+the manifests showed E10 and E17NAT read the same 1 744 files with identical per-grade counts,
+differing only in `cache_size`. A provenance check that only ever added doubt would be no more
+trustworthy than one that only ever removed it.
+
+---
+
 ## §8. Invariants — asserted by script before every reported result
 
 `src/check_invariants.py` (to be written) must pass:

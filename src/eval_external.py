@@ -26,6 +26,7 @@ from torch.utils.data import DataLoader
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import corpora
+import manifest
 import metrics as M
 from model import MultiOutputNet, decode, N_DR, N_DME
 from train import FundusDataset, build_cache, predict, fmt
@@ -147,6 +148,8 @@ def main():
         suffix += "_tta" if a.tta else "_notta"
     out = os.path.join(a.run, f"external_{a.corpus.lower()}{suffix}.json")
     json.dump({"corpus": a.corpus, "n_folds_ensembled": len(ckpts), "tta": a.tta,
+               "folds": a.folds or "all",
+               "consumption": manifest.build(rows, a.datasets, cache_dir=a.cache),
                "metrics": {"dr": rep}}, open(out, "w"), indent=1, default=str)
 
     # Per-image predictions, so the reported INTERVALS can be re-derived and not merely

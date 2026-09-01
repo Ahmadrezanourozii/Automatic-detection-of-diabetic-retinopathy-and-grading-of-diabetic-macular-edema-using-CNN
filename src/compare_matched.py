@@ -21,6 +21,7 @@ import torch
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import metrics
+import manifest
 from tune_thresholds import load, fit_cuts, cuts_to_grades
 
 N_DR, N_DME = 5, 3
@@ -70,7 +71,29 @@ def head_arrays(rows, logits, head):
     return score[keep], y[keep], keep
 
 
-def compare(a_run, b_run, datasets, n_boot=2000, seed=0):
+def compare(a_run, b_run, datasets, n_boot=2000, seed=0, allow_unmanifested=True,
+            acknowledge_consumption_diff=False):
+    """Returns (results, consumption_note).
+
+    Configuration is not consumption (PROTOCOL.md §9). Two runs may only be compared when
+    they read the same files; identical config blocks do not establish that (ISSUES.md §26).
+
+    Some comparisons are *deliberately* across sources — I20 compared E10 against E17NAT
+    precisely to measure a resolution change that also changed the image source. Those are
+    legitimate, so the override exists; but it does not silence the difference, it *forces it
+    into the report*. A caveat the reader cannot see is not a caveat.
+    """
+    names = {os.path.basename(a_run.rstrip("/")): a_run,
+             os.path.basename(b_run.rstrip("/")): b_run}
+    note = None
+    try:
+        manifest.require_same(names, allow_unmanifested=allow_unmanifested)
+    except SystemExit as e:
+        if not acknowledge_consumption_diff:
+            raise
+        note = str(e)
+        print("[manifest] consumption differs; proceeding under explicit acknowledgement.\n"
+              "           The difference will be stamped into the output.", flush=True)
     rows_a, folds_a, dr_a, dme_a = load(a_run, datasets)
     rows_b, folds_b, dr_b, dme_b = load(b_run, datasets)
 
@@ -110,7 +133,7 @@ def compare(a_run, b_run, datasets, n_boot=2000, seed=0):
                     "diff": float(d), "lo": float(lo), "hi": float(hi),
                     "significant": bool(sig), "n": int(len(y)),
                 })
-    return out
+    return out, note
 
 
 def main():
@@ -119,12 +142,24 @@ def main():
     ap.add_argument("--b", required=True)
     ap.add_argument("--datasets", nargs="+", required=True)
     ap.add_argument("--out", default="docs/generated/matched_comparison.md")
+    ap.add_argument("--acknowledge-consumption-diff", action="store_true",
+                    help="compare two runs that read DIFFERENT files. Legitimate when the "
+                         "difference is the experiment (I20), but the difference is then "
+                         "printed in the output document -- it cannot be hidden.")
     a = ap.parse_args()
 
-    res = compare(a.a, a.b, a.datasets)
+    res, note = compare(a.a, a.b, a.datasets,
+                        acknowledge_consumption_diff=a.acknowledge_consumption_diff)
     na, nb = os.path.basename(a.a.rstrip("/")), os.path.basename(a.b.rstrip("/"))
 
-    lines = [f"# {na} vs {nb} — shipped cut-points and matched cut-points", "",
+    warn = []
+    if note:
+        warn = ["", "> ## ⚠️ THESE TWO RUNS DID NOT READ THE SAME FILES", ">",
+                "> This comparison was run with `--acknowledge-consumption-diff`. Any "
+                "difference below confounds the intended change with a change of input "
+                "data (`ISSUES.md` §26, `PROTOCOL.md` §9). Details:", ">",
+                "> ```", *[f"> {l}" for l in note.strip().splitlines()], "> ```", ""]
+    lines = [f"# {na} vs {nb} — shipped cut-points and matched cut-points", *warn, "",
              "`PROTOCOL.md` §4.1: a difference measured at two arbitrary thresholds is not "
              "evidence about representations. **matched** rows recalibrate both runs the "
              "same way — cut-points cross-fitted on the other folds under one objective — "

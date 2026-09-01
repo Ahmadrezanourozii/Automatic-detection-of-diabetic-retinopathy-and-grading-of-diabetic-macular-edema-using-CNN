@@ -24,6 +24,7 @@ from torch.utils.data import Dataset, DataLoader, WeightedRandomSampler
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import corpora
+import manifest
 import metrics as M
 from model import (MultiOutputNet, multitask_loss, decode, expected_grade,
                    N_DR, N_DME)
@@ -754,6 +755,11 @@ def main():
         # beside the results, not inlined into every config block
         "config": {k: v for k, v in vars(args).items() if k != "fovea_map"},
         "split_fingerprint": split_meta["fingerprint"],
+        # What this run actually READ, recorded from inside the kernel that read it.
+        # config says what was asked for; this says what was resolved (ISSUES.md §26,
+        # PROTOCOL.md §9). Two runs with identical configs and different mounted datasets
+        # produce different hashes here, which is the whole point.
+        "consumption": manifest.build(rows, args.datasets, cache_dir=args.cache),
         "env": {"python": platform.python_version(), "torch": torch.__version__,
                 "cuda": torch.version.cuda, "platform": platform.platform(),
                 "gpu": torch.cuda.get_device_name(0) if device == "cuda" else None},

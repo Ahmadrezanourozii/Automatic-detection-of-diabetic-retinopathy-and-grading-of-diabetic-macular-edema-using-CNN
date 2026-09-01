@@ -211,9 +211,10 @@ DR QWK at matched calibration 0.8749 (E10) vs 0.8662 (E17NAT), difference +0.008
 [−0.0025, +0.0199] — inside the ±0.015 band named in advance, interval containing zero,
 nominally favouring E10. **Effective resolution above ~560 does not bind for DR.** ISSUES §18
 remains a correct diagnosis with a null consequence: the bug was real, fixing it cost 7.2 h
-and bought no QWK. Per-class results are reported in `EXPERIMENTS.md` under the I19 source
-caveat and are **not** cleanly attributable — the −6.1 Mild change is the same order as the
-known source effect and cannot be separated from it here.
+and bought no QWK. **Correction 2026-09-01:** the I19 source caveat originally attached to
+I20's per-class results does not apply — the consumption manifests show E10 and E17NAT read
+the same files, differing only in `cache_size`. I20 changed one variable, not two. The −6.1
+Mild change is still only a lead, on §4.2 grounds (one condition, no correction applied).
 
 ### I20 design — fixed before the run, launched as E17NAT 2026-08-31
 

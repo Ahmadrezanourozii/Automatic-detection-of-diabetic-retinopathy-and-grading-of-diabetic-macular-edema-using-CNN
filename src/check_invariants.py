@@ -269,6 +269,46 @@ def check_metrics_sanity():
            "QWK ordering, floors, and group-aware bootstrap all behave")
 
 
+def check_consumption_manifests(run_dirs):
+    """PROTOCOL.md §9: runs may only be combined or compared when they read the same files.
+
+    Reports every pair, so the output says which combinations are permitted rather than
+    failing on the first problem. A run with no manifest at all is a SKIP, not a PASS —
+    unverifiable consumption is exactly what §26 was.
+    """
+    import manifest as _manifest
+    if len(run_dirs) < 2:
+        record("SKIP", "consumption manifests", "fewer than two runs given (--compare)")
+        return
+    mans = {os.path.basename(d.rstrip("/")): _manifest.load(d, os.path.basename(d.rstrip("/")))
+            for d in run_dirs}
+    names = sorted(mans)
+    unmanifested = [n for n in names if mans[n] is None]
+    if unmanifested:
+        record("SKIP", "consumption manifests",
+               f"no manifest for {unmanifested} — what they read is unverifiable "
+               f"(ISSUES.md §26); they may not be combined")
+    ok_pairs, bad_pairs, coarse = [], [], False
+    for i in range(len(names)):
+        for j in range(i + 1, len(names)):
+            a, b = names[i], names[j]
+            if mans[a] is None or mans[b] is None:
+                continue
+            good, why = _manifest.compare(mans[a], mans[b], a, b)
+            if (mans[a].get("manifest_version", 0) == 0
+                    or mans[b].get("manifest_version", 0) == 0):
+                coarse = True
+            (ok_pairs if good else bad_pairs).append((a, b, why))
+    for a, b, why in bad_pairs:
+        record("FAIL", f"consumption {a} vs {b}", "; ".join(why))
+    if ok_pairs and not bad_pairs:
+        note = f"{len(ok_pairs)} pair(s) read the same files"
+        if coarse:
+            note += " — COARSE: some manifests are retrofitted from kernel metadata, "
+            note += "so they prove the same datasets were mounted, not the same files read"
+        record("PASS", "consumption manifests", note)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--idrid", required=True)
@@ -277,9 +317,13 @@ def main():
     ap.add_argument("--run", default="runs/E01")
     ap.add_argument("--cache", default="data/cache/idrid_640")
     ap.add_argument("--size", type=int, default=224)
+    ap.add_argument("--compare", nargs="*", default=[],
+                    help="run directories that are about to be combined, ensembled or "
+                         "compared. Every pair must have agreeing consumption manifests "
+                         "(PROTOCOL.md §9).")
     a = ap.parse_args()
 
-    print("PROTOCOL.md §8 invariants\n" + "=" * 72)
+    print("PROTOCOL.md §8 and §9 invariants\n" + "=" * 72)
     check_metrics_sanity()
     check_gate_assumption(a.idrid)
     check_uids_unique(a.idrid)
@@ -289,6 +333,7 @@ def main():
     check_scaler_fit_on_train_only(a.run, a.size)
     check_no_cross_corpus_duplicates(a.groups)
     check_split_disjoint(a.splits)
+    check_consumption_manifests(a.compare)
 
     n_fail = sum(1 for s, _, _ in RESULTS if s == "FAIL")
     n_skip = sum(1 for s, _, _ in RESULTS if s == "SKIP")

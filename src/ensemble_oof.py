@@ -28,6 +28,7 @@ import torch
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import corpora
 import metrics
+import manifest
 from compare_matched import crossfit_grades, default_grades, expected_grade, N_DR, N_DME
 
 
@@ -98,11 +99,30 @@ def main():
     # like-for-like. Membership is decided by whether the weights survive -- a mechanical
     # fact, not a performance criterion.
     HAVE_WEIGHTS = {"E08", "E09", "E10", "E14MAC", "E15LPFT", "E17NAT"}
+
+    # Fourth rule, added 2026-09-01 (PROTOCOL.md §9). The three rules above mix runs that
+    # read DIFFERENT renderings of the same eyes: some mounted the native-resolution
+    # Messidor-2 mirror, some did not. Averaging their logits is averaging predictions about
+    # different pixels, so such an ensemble cannot be reproduced by feeding one image through
+    # every member. `same-consumption` is the largest group whose manifests agree — chosen by
+    # a mechanical property, never by score.
+    sigs = {}
+    for n in loaded:
+        m = manifest.load(os.path.join(a.runs_dir, n), n)
+        key = tuple(sorted((m or {}).get("dataset_sources")
+                           or (m or {}).get("mounted_dirs") or ["<unmanifested>"]))
+        sigs.setdefault(key, []).append(n)
+    biggest = max(sigs.values(), key=lambda v: (len(v), sorted(v)))
+
     SETS = {
         "all-5fold": sorted(loaded),
         "matched-448": sorted(n for n, r in loaded.items() if (r["size"] or 0) >= 448),
         "externally-checkable": sorted(n for n in loaded if n in HAVE_WEIGHTS),
+        "same-consumption": sorted(biggest),
     }
+    MIXED = {rule: sorted({tuple(k) for k, v in sigs.items()
+                           for n in names if n in v})
+             for rule, names in SETS.items()}
 
     def score(dr_logits, dme_logits):
         out = {}
@@ -146,7 +166,9 @@ def main():
         s = score(dr, dme)
         best = max(singles[n]["dr"]["qwk"] for n in names)
         results[rule] = dict(members=names, ens=s, best_single=best)
-        lines.append(f"| `{rule}` | {len(names)}: {', '.join(names)} | **{s['dr']['qwk']:.4f}** | "
+        mixed = len(MIXED.get(rule, [])) > 1
+        tag = " ⚠️MIXED-INPUTS" if mixed else ""
+        lines.append(f"| `{rule}`{tag} | {len(names)}: {', '.join(names)} | **{s['dr']['qwk']:.4f}** | "
                      f"{s['dr']['acc']*100:.2f} % | {s['dme_ungated']['qwk']:.4f} | "
                      f"{s['dme_ungated']['acc']*100:.2f} % | {best:.4f} | "
                      f"**{s['dr']['qwk']-best:+.4f}** |")

@@ -874,15 +874,24 @@ are not in tension, and both belong in the record.
 | E17NAT | 88.3 | 45.8 | 67.4 | 73.8 | 40.2 |
 | Δ | **+3.0** | **−6.1** | −0.4 | −1.8 | −2.1 |
 
-**These per-class numbers are NOT cleanly attributable to resolution.** E17NAT changes the
-image *source* for 1 057 Messidor-2 images (native TIFF-derived mirror rather than our 512 px
-copy) at the same time as it changes resolution. I19 (E12def vs E12nat) established that
-source alone shifts per-class error by several points while leaving the aggregate unchanged —
-the Moderate cell moved −6.8 before recalibration and −6.5 after. The −6.1 Mild change here
-is the same order of magnitude as that known source effect and **cannot be separated from it
-by this experiment**. Per `PROTOCOL.md` §4.2: no multiple-comparison correction is applied, so
-credibility would come from replication across conditions, and there is none here. Treat the
-Mild drop as a lead, not a finding.
+**CORRECTION, 2026-09-01 — the source caveat above was wrong, and over-cautious.** This
+paragraph originally said the per-class numbers were not cleanly attributable because E17NAT
+changed the image source as well as the resolution. **It did not.** The consumption manifests
+(`src/manifest.py`, added after `ISSUES.md` §26) show E10 and E17NAT read **the same files**:
+both mounted `borhan2003/messidor-...-jpg-format`, both logged the same 1 200-file native
+mirror, and both resolved 1 744 Messidor-2 images with identical per-grade counts
+(DR0=1017, DR1=270, DR2=347, DR3=75, DR4=35). E10's log says *"native-resolution mirror found,
+1200 files"*; E17NAT's says the same under the newer wording. **The only difference between
+them is `cache_size` — 560 versus 768 — which is exactly the effective-resolution change the
+experiment intended.**
+
+So I20 is a **cleaner** experiment than first reported: one variable, not two. The aggregate
+conclusion is unchanged and now rests on a stronger footing.
+
+**The per-class numbers are attributable to resolution**, but `PROTOCOL.md` §4.2 still binds
+for a different reason: no multiple-comparison correction is applied, and credibility comes
+from replication across conditions rather than a p-value in isolation. This is one condition.
+**Treat the −6.1 Mild change as a lead, not a finding** — on those grounds alone.
 
 ---
 
