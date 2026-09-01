@@ -25,16 +25,32 @@ computed with intervals from runs archived and reproducible from a commit SHA.
 
 ## Current best result
 
-| head | n | floor | accuracy | QWK | run |
-|---|---|---|---|---|---|
-| DR, 5-class (folds 0–2) | 1 362 | 52.3 % | **78.1 %** | **0.894** | E11 |
-| DR, 5-class (5 folds) | 2 260 | 52.4 % | 74.4 % | 0.868 | E10 |
-| DME, 3-class ungated (5 folds) | 516 | 47.1 % | **87.2 %** | **0.899** | E10 |
-| Referable DME, binary | 2 260 | 82.6 % | 94.9 % | 0.819 | E10 |
+**The selected model is E10.** Selection is by development-pool ranking at matched
+calibration, never by test score (`PROTOCOL.md` §3). Among the nine runs with a complete
+5-fold out-of-fold prediction, E10 has the highest DR QWK; every number below follows from
+that one choice.
 
-**E11 (EfficientNet-B3 + EyePACS pretraining) is the best DR configuration internally**
-(+0.029 QWK over E08, fold-matched, significant) but ran **3 folds only**, so its headline is
-not on the same basis as the others until folds 3–4 are added (~3.2 h, queued).
+| head | n | floor | accuracy | QWK (matched cuts) | QWK (shipped cuts) |
+|---|---|---|---|---|---|
+| DR, 5-class | 2 260 | 52.4 % | 74.8 % | **0.8749** | 0.868 |
+| DME, 3-class ungated | 516 | 47.1 % | 86.6 % | **0.8948** | 0.899 |
+| Referable DME, binary | 2 260 | 82.6 % | 94.9 % | — | 0.819 |
+
+**Externally, on 3 662 held-out APTOS images: DR QWK 0.8867.** That is the selected model's
+score on data it has never seen, and it is the defensible headline.
+
+*Why matched cuts lead here:* T1 showed the shipped `sigmoid > 0.5` operating point is an
+arbitrary default that means different things on different corpora, so a number decoded at it
+is not a property of the model (§4.1, `docs/generated/t1_transfer_gap.md`).
+
+**Two caveats on E10, both measured rather than assumed.** Its `--size 640` label is inflated:
+the cache capped images at 560, so it is a 560 px run (`ISSUES.md` §18). E17NAT paid 7.2 h to
+run a genuinely-640 px version and the difference was +0.0086 [−0.0025, +0.0199] — nothing. So
+the label is wrong and the number is not affected.
+
+**E11 (EfficientNet-B3) scored DR QWK 0.894 on folds 0–2 and may well be better**, but three
+folds is not the same basis as five, and completing it is **blocked on GPU quota**. Until then
+it is not the selected model and its figure is not quoted as a headline.
 
 ### Ensembling — investigated, gained on development, **falsified externally** (I23)
 
@@ -85,6 +101,17 @@ completeness and read against `PROTOCOL.md` §7: that split carries a ±6.3 pt i
 ---
 
 ## What is running right now
+
+## GPU quota — EXHAUSTED for the week
+
+**30.00 h weekly Kaggle quota reached 2026-09-01.** Blocked until it resets: EXTE17NAT (the
+sixth I23 member, cannot change a gain already measured at zero), **E19E11C** (E11 folds 3–4,
+which decides whether EfficientNet-B3 becomes the selected model), and **RETFound Stage 1**
+(staged and ready, `src/retfound_probe.py`, weights verified and uploaded).
+
+**~7.9 h of the 30 was E19E11B** — the run wasted by omitting `--messidor-hi`, which mounted
+a different image source and could not be combined with E11's folds (`ISSUES.md` §26). A
+quarter of the week's budget on one avoidable error.
 
 **E13gate — PASSED, 2026-08-31.** The fovea localiser (`src/fovea.py`), out-of-fold over all
 516 IDRiD images, against a threshold fixed before any number was seen:
