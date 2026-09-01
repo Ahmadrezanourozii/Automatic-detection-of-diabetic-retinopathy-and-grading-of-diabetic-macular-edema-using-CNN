@@ -36,6 +36,20 @@ computed with intervals from runs archived and reproducible from a commit SHA.
 (+0.029 QWK over E08, fold-matched, significant) but ran **3 folds only**, so its headline is
 not on the same basis as the others until folds 3–4 are added (~3.2 h, queued).
 
+### Ensembling — investigated, gained on development, **falsified externally** (I23)
+
+Recorded in full rather than tidied, because the sequence is the point.
+
+| stage | DR QWK | what changed |
+|---|---|---|
+| first reported | 0.8933 | logit-average of all 9 five-fold runs, dev pool |
+| corrected | **0.8828** | consumption manifests showed three of four ensembles averaged over **different renderings of the same eyes**; the homogeneous set is the honest one (`PROTOCOL.md` §9) |
+| **falsified** | **—** | on APTOS the gain is **+0.0011 [−0.0033, +0.0053]** against the validation-selected single model — indistinguishable. The development gain was optimism. |
+
+**Ensembling is closed as a route to a higher number.** What survives is the *asymmetry*:
+on the development pool it moved DR and not DME, which is the variance-versus-supervision
+distinction F7 rests on — now labelled as a development-pool statement.
+
 ### External validation — the number that matters at a defence
 
 On **3 662 APTOS images never seen in training**, verified end-to-end by

@@ -895,6 +895,47 @@ from replication across conditions rather than a p-value in isolation. This is o
 
 ---
 
+### I23 — external validation of the ensemble — 2026-09-01, ~1.5 h GPU, **FALSIFIED**
+
+**Pre-registered** (`IDEAS.md` I23, commit `8c790a9`): *the archived-prediction ensemble
+reaches DR QWK 0.8933 on the development pool, +0.0186 over the best single run. Every member
+was selected on that pool, so the number is not held out. Falsified if the ensemble's APTOS
+QWK does not exceed the best member's by more than its interval.*
+
+**Method.** Score APTOS with each member's weights (external-only, no retraining), average the
+logits identically to the development-pool ensemble. Members: E08, E09, E10, E14MAC, E15LPFT —
+whichever had archived APTOS predictions.
+
+| member | APTOS DR QWK |
+|---|---|
+| E08 | 0.8972 |
+| E09 | 0.8681 |
+| E10 | 0.8867 |
+| E14MAC | 0.8733 |
+| E15LPFT | 0.8586 |
+| **ensemble of 5** | **0.8878** |
+
+| | ensemble | validation-selected single (E10) | gain |
+|---|---|---|---|
+| development pool | 0.8903 | 0.8749 | +0.0154 |
+| **APTOS (held out)** | 0.8878 | 0.8867 | **+0.0011 [−0.0033, +0.0053]** |
+
+**Verdict: falsified.** The +0.0154 development-pool gain becomes +0.0011 externally, an
+interval straddling zero. Ensembling is closed as a route to a higher defensible number.
+
+**It also settled the mixed-input caveat by construction.** APTOS has a single source, so every
+member necessarily saw identical images — the objection that forced the development-pool figure
+from 0.8933 down to 0.8828 (`PROTOCOL.md` §9) cannot apply here. The external number is clean
+and it is still zero.
+
+**Selection error, caught before reporting.** The first version of the analysis compared
+against the member scoring highest *on APTOS* (E08), yielding −0.0094 [−0.0128, −0.0061],
+"significant" — the ensemble appearing actively harmful. That is selection on the test set
+(`PROTOCOL.md` §3). Corrected to compare against E10, selected on validation. Applying the
+rule correctly moved the result **towards** the maintainer's position, not away from it.
+
+---
+
 ## Reference floors — every row above must be read against these
 
 | Quantity | Set | n | Value |

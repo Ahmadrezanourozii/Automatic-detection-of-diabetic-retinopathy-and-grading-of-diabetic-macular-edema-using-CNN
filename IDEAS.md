@@ -266,7 +266,35 @@ single-fold / no-TTA option in `eval_external.py`) and recompute the table. **Fa
 the gap is materially unchanged, which would establish it as distribution shift outright.
 Cheap, and it converts a stated caveat into a measured one.
 
-### I23 — external validation of the OOF ensemble  **queued, ~1 h GPU total**
+### I23 — **RUN 2026-09-01. FALSIFIED. Ensembling is closed as a lever.**
+
+| | ensemble | validation-selected single (E10) | gain |
+|---|---|---|---|
+| development pool | 0.8903 | 0.8749 | **+0.0154** |
+| **APTOS (held out)** | 0.8878 | 0.8867 | **+0.0011 [−0.0033, +0.0053] — indistinguishable** |
+
+Members: E08, E09, E10, E14MAC, E15LPFT — whichever had archived APTOS predictions, a
+mechanical fact never a score. (E17NAT's external eval was blocked by the weekly GPU quota;
+adding it later cannot rescue a gain that is already zero.)
+
+**The development-pool gain was optimism.** By the criterion fixed before the run — *falsified
+if the ensemble's APTOS QWK does not exceed the best member's by more than its interval* —
+ensembling does not produce a better predictor on data no member has seen.
+
+**A selection error of mine, caught before reporting.** The first version of
+`src/ensemble_external.py` compared the ensemble against the member scoring highest **on
+APTOS** (E08, 0.8972), giving −0.0094 [−0.0128, −0.0061], "significant" — i.e. the ensemble
+looked actively harmful. That is model selection on the test set (`PROTOCOL.md` §3). The legal
+comparison is against **E10, selected on the development pool**, and against that the ensemble
+is merely indistinguishable. Both are printed in the output; only the validation-selected one
+is the result. Note the direction: applying §3 correctly made the result *better*, not worse.
+
+**What survives.** The dev-pool observation that ensembling helps DR and not DME still stands
+as a statement about *variance versus supervision* (F7), but it is a development-pool
+statement and is now labelled as one. **The three-cycle sequence 0.8933 → 0.8828 → not a
+headline is the honest record** and is kept in full rather than tidied.
+
+### I23 — original design, kept for the record
 
 The archived-prediction ensemble reaches **DR QWK 0.8933** on the development pool, +0.0186
 [+0.0089, +0.0283] over the best single run — significant, at zero GPU cost

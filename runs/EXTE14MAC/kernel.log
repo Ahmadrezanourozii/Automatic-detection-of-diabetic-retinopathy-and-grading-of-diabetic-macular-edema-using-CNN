@@ -1,0 +1,143 @@
+[{"stream_name":"stderr","time":6.078136933,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.078184603,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.078195182,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.078199109,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":6.655934189,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.655966361,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.655976402,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.655979223,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":8.544610033,"data":"CODE COMMIT 0a0902182ebed43dc38f1f13ab1e52e884866b93\n"}
+,{"stream_name":"stdout","time":8.544639243,"data":"I23: pre-specify the externally-checkable ensemble before any external number is computed\n"}
+,{"stream_name":"stdout","time":13.711180101,"data":"aptos2019                                                  3665 files\n"}
+,{"stream_name":"stdout","time":13.995147643,"data":"dr-dme-e14mac                                               190 files\n"}
+,{"stream_name":"stdout","time":16.835486539,"data":"indian-diabetic-retinopathy-image-dataset                  1488 files\n"}
+,{"stream_name":"stdout","time":16.835521682,"data":"messidor2-dr-grades                                           2 files\n"}
+,{"stream_name":"stdout","time":19.795444974,"data":"messidor2preprocess                                        1745 files\n"}
+,{"stream_name":"stdout","time":23.122566887,"data":"torch 2.10.0+cu128 | cuda True | Tesla P100-PCIE-16GB\n"}
+,{"stream_name":"stderr","time":23.12357425,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":23.123595146,"data":"    Found GPU0 Tesla P100-PCIE-16GB which is of cuda capability 6.0.\n"}
+,{"stream_name":"stderr","time":23.123601047,"data":"    Minimum and Maximum cuda capability supported by this version of PyTorch is\n"}
+,{"stream_name":"stderr","time":23.123605947,"data":"    (7.0) - (12.0)\n"}
+,{"stream_name":"stderr","time":23.123610439,"data":"    \n"}
+,{"stream_name":"stderr","time":23.123614727,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":23.123618982,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":23.123623432,"data":"    Please install PyTorch with a following CUDA\n"}
+,{"stream_name":"stderr","time":23.123627729,"data":"    configurations:  12.6 following instructions at\n"}
+,{"stream_name":"stderr","time":23.123632087,"data":"    https://pytorch.org/get-started/locally/\n"}
+,{"stream_name":"stderr","time":23.123636364,"data":"    \n"}
+,{"stream_name":"stderr","time":23.123640529,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":23.123644796,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":23.123649279,"data":"Tesla P100-PCIE-16GB with CUDA capability sm_60 is not compatible with the current PyTorch installation.\n"}
+,{"stream_name":"stderr","time":23.123653659,"data":"The current PyTorch install supports CUDA capabilities sm_70 sm_75 sm_80 sm_86 sm_90 sm_100 sm_120.\n"}
+,{"stream_name":"stderr","time":23.123676682,"data":"If you want to use the Tesla P100-PCIE-16GB GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/\n"}
+,{"stream_name":"stderr","time":23.123679904,"data":"\n"}
+,{"stream_name":"stderr","time":23.123682185,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":23.123684329,"data":"\n"}
+,{"stream_name":"stderr","time":23.123686439,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":23.123688854,"data":"    Found GPU0 Tesla P100-PCIE-16GB which is of cuda capability 6.0.\n"}
+,{"stream_name":"stderr","time":23.123691174,"data":"    Minimum and Maximum cuda capability supported by this version of PyTorch is\n"}
+,{"stream_name":"stderr","time":23.123693445,"data":"    (7.0) - (12.0)\n"}
+,{"stream_name":"stderr","time":23.123695595,"data":"    \n"}
+,{"stream_name":"stderr","time":23.123697709,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":23.123699939,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":23.123702239,"data":"    Please install PyTorch with a following CUDA\n"}
+,{"stream_name":"stderr","time":23.123704484,"data":"    configurations:  12.6 following instructions at\n"}
+,{"stream_name":"stderr","time":23.123706999,"data":"    https://pytorch.org/get-started/locally/\n"}
+,{"stream_name":"stderr","time":23.12371433,"data":"    \n"}
+,{"stream_name":"stderr","time":23.123716654,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":23.123718797,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":23.123721063,"data":"Tesla P100-PCIE-16GB with CUDA capability sm_60 is not compatible with the current PyTorch installation.\n"}
+,{"stream_name":"stderr","time":23.123723444,"data":"The current PyTorch install supports CUDA capabilities sm_70 sm_75 sm_80 sm_86 sm_90 sm_100 sm_120.\n"}
+,{"stream_name":"stderr","time":23.123725789,"data":"If you want to use the Tesla P100-PCIE-16GB GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/\n"}
+,{"stream_name":"stderr","time":23.123728164,"data":"\n"}
+,{"stream_name":"stderr","time":23.123730364,"data":"  queued_call()\n"}
+,{"stream_name":"stdout","time":23.323397867,"data":"GPU Tesla P100-PCIE-16GB  sm_60  torch 2.10.0+cu128\n"}
+,{"stream_name":"stdout","time":23.345211824,"data":"UNUSABLE: CUDA error: no kernel image is available for execution on the device\n"}
+,{"stream_name":"stdout","time":23.345237836,"data":"Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.\n"}
+,{"stream_name":"stdout","time":23.345242992,"data":"CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\n"}
+,{"stream_name":"stdout","time":23.345247335,"data":"For debugging consider passing CUDA_LAUNCH_BLOCKING=1\n"}
+,{"stream_name":"stdout","time":23.345251043,"data":"Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"}
+,{"stream_name":"stdout","time":23.345255387999998,"data":"\n"}
+,{"stream_name":"stdout","time":23.345259331,"data":"installing a torch build that supports this GPU ...\n"}
+,{"stream_name":"stdout","time":35.180637122,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 780.4/780.4 MB 2.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":35.382822486,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 780.4/780.4 MB 2.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":37.853305122,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.3/7.3 MB 118.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":38.055517181,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.3/7.3 MB 118.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":38.267215789,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 23.7/23.7 MB 102.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":38.404115176,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 823.6/823.6 kB 146.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":38.469318341,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 23.7/23.7 MB 102.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":38.469350848,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 823.6/823.6 kB 146.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":38.59528402,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.1/14.1 MB 137.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":38.797742458,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.1/14.1 MB 137.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":45.533212784,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 664.8/664.8 MB 2.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":45.735720091,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 664.8/664.8 MB 2.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":51.439138402,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 410.6/410.6 MB 54.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":51.641283205,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 410.6/410.6 MB 54.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":54.407558902,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 121.6/121.6 MB 109.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":54.61156336,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 121.6/121.6 MB 109.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":55.221228566,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.5/56.5 MB 116.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":55.423139378,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.5/56.5 MB 116.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":56.358558059,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 124.2/124.2 MB 94.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":56.56042251,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 124.2/124.2 MB 94.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":58.176429752,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 196.0/196.0 MB 99.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":58.378685607,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 196.0/196.0 MB 99.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":61.568776395,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.7/188.7 MB 105.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":61.771068322,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.7/188.7 MB 105.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":62.183794887,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 99.1/99.1 kB 99.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":62.385973009,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 99.1/99.1 kB 99.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":64.879974643,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 209.6/209.6 MB 6.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":65.081728915,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 209.6/209.6 MB 6.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":65.778882318,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.2/6.2 MB 68.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":65.980979392,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.2/6.2 MB 68.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stderr","time":178.465573754,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":178.465612486,"data":"torchaudio 2.10.0+cu128 requires torch==2.10.0, but you have torch 2.5.1+cu121 which is incompatible.\n"}
+,{"stream_name":"stderr","time":178.674042923,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":178.674072278,"data":"torchaudio 2.10.0+cu128 requires torch==2.10.0, but you have torch 2.5.1+cu121 which is incompatible.\n"}
+,{"stream_name":"stderr","time":178.674079819,"data":"\n"}
+,{"stream_name":"stderr","time":178.67408721,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":178.674090666,"data":"torchaudio 2.10.0+cu128 requires torch==2.10.0, but you have torch 2.5.1+cu121 which is incompatible.\n"}
+,{"stream_name":"stdout","time":179.060958309,"data":"installed -- src/train.py runs in a subprocess so it picks up the new build\n"}
+,{"stream_name":"stdout","time":181.765837004,"data":"found 5 fold weights from ah22reza/dr-dme-e14mac\n"}
+,{"stream_name":"stdout","time":183.582270313,"data":"/usr/bin/python3 -u /kaggle/working/repo/src/eval_external.py --run /kaggle/working/EXTE14MAC --datasets /kaggle/input --corpus APTOS --cache /kaggle/temp/cache_ext --tta\n"}
+,{"stream_name":"stdout","time":185.965364316,"data":"run ?  commit ?  device=cuda  backbone=densenet121 head=ordinal size=448\n"}
+,{"stream_name":"stdout","time":188.016084809,"data":"[corpora] APTOS         3662 images\n"}
+,{"stream_name":"stdout","time":188.019024444,"data":"  APTOS       n=  3662  DR0=1805 DR1=370 DR2=999 DR3=193 DR4=295   dme_supervised=    0 (exact=0)\n"}
+,{"stream_name":"stdout","time":189.044844767,"data":"[corpora] IDRiD          516 images\n"}
+,{"stream_name":"stdout","time":189.401083456,"data":"[corpora] Messidor-2    1744 images\n"}
+,{"stream_name":"stdout","time":189.425121126,"data":"[cache] decoding 3662 images -\u003e /kaggle/temp/cache_ext\n"}
+,{"stream_name":"stdout","time":221.325358855,"data":"[cache]   250/3662  32s, ~435s left\n"}
+,{"stream_name":"stdout","time":250.385738715,"data":"[cache]   500/3662  61s, ~386s left\n"}
+,{"stream_name":"stdout","time":280.620781851,"data":"[cache]   750/3662  91s, ~354s left\n"}
+,{"stream_name":"stdout","time":308.543227823,"data":"[cache]   1000/3662  119s, ~317s left\n"}
+,{"stream_name":"stdout","time":337.95840869,"data":"[cache]   1250/3662  149s, ~287s left\n"}
+,{"stream_name":"stdout","time":366.257929183,"data":"[cache]   1500/3662  177s, ~255s left\n"}
+,{"stream_name":"stdout","time":394.722468869,"data":"[cache]   1750/3662  205s, ~224s left\n"}
+,{"stream_name":"stdout","time":421.830383907,"data":"[cache]   2000/3662  232s, ~193s left\n"}
+,{"stream_name":"stdout","time":448.030628714,"data":"[cache]   2250/3662  259s, ~162s left\n"}
+,{"stream_name":"stdout","time":477.097471404,"data":"[cache]   2500/3662  288s, ~134s left\n"}
+,{"stream_name":"stdout","time":504.780391515,"data":"[cache]   2750/3662  315s, ~105s left\n"}
+,{"stream_name":"stdout","time":533.789018884,"data":"[cache]   3000/3662  344s, ~76s left\n"}
+,{"stream_name":"stdout","time":563.867990009,"data":"[cache]   3250/3662  374s, ~47s left\n"}
+,{"stream_name":"stdout","time":591.957312503,"data":"[cache]   3500/3662  403s, ~19s left\n"}
+,{"stream_name":"stdout","time":610.707331194,"data":"[cache]   3662/3662  421s, ~0s left\n"}
+,{"stream_name":"stdout","time":610.708165108,"data":"ensembling 5 folds: ['best_0.pt', 'best_1.pt', 'best_2.pt', 'best_3.pt', 'best_4.pt']\n"}
+,{"stream_name":"stdout","time":994.213030439,"data":"\n"}
+,{"stream_name":"stdout","time":994.213871372,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":994.214774247,"data":"EXTERNAL — APTOS, never seen in training\n"}
+,{"stream_name":"stdout","time":994.215561916,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":994.216287873,"data":"    dr                     n= 3662  acc  68.7% [67.2,70.2]  floor  49.3%  QWK  0.880  F1 0.473  BEATS\n"}
+,{"stream_name":"stdout","time":994.216985982,"data":"                          recall 96%  6%  54%  73%  32%   support [1805, 370, 999, 193, 295]\n"}
+,{"stream_name":"stdout","time":994.217661925,"data":"                          referable-DR sens 98.7%  spec 84.3%\n"}
+,{"stream_name":"stdout","time":994.244741429,"data":"\n"}
+,{"stream_name":"stdout","time":994.245552338,"data":"wrote /kaggle/working/EXTE14MAC/external_aptos.json\n"}
+,{"stream_name":"stdout","time":994.246302588,"data":"wrote /kaggle/working/EXTE14MAC/external_aptos_predictions.npz\n"}
+,{"stream_name":"stdout","time":995.445055312,"data":"exit= 0\n"}
+,{"stream_name":"stderr","time":999.802757769,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":999.802804671,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":999.951819227,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":999.951841912,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1000.540331021,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":1000.846709525,"data":"[NbConvertApp] Writing 15286 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":1003.296824315,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1004.129200312,"data":"[NbConvertApp] Writing 302803 bytes to __results__.html\n"}
+]
