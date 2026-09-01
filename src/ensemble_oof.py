@@ -91,9 +91,17 @@ def main():
                       for u in order])
     groups = np.array([split["groups"].get(u, u) for u in order])
 
+    # Third rule added 2026-09-01, BEFORE any external number was computed. E05, E06 and E07
+    # kept no best_*.pt in their Kaggle output, so they cannot be scored on APTOS without
+    # retraining. The externally-checkable ensemble is therefore a different set from the two
+    # above, and its dev-pool number is computed here so that dev and external are
+    # like-for-like. Membership is decided by whether the weights survive -- a mechanical
+    # fact, not a performance criterion.
+    HAVE_WEIGHTS = {"E08", "E09", "E10", "E14MAC", "E15LPFT", "E17NAT"}
     SETS = {
         "all-5fold": sorted(loaded),
         "matched-448": sorted(n for n, r in loaded.items() if (r["size"] or 0) >= 448),
+        "externally-checkable": sorted(n for n in loaded if n in HAVE_WEIGHTS),
     }
 
     def score(dr_logits, dme_logits):

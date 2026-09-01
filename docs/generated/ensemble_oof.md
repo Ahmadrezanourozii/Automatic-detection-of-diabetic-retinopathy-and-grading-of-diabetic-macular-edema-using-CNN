@@ -24,31 +24,5 @@ Logit-averaged across runs, decoded with cut-points **cross-fitted on the other 
 | | *vs best member `E10`, paired bootstrap* | | | | | | +0.0186 [+0.0089, +0.0283] **significant** |
 | `matched-448` | 8: E05, E06, E07, E08, E10, E14MAC, E15LPFT, E17NAT | **0.8917** | 77.39 % | 0.9047 | 88.18 % | 0.8749 | **+0.0168** |
 | | *vs best member `E10`, paired bootstrap* | | | | | | +0.0170 [+0.0077, +0.0264] **significant** |
-
-## DME, tested separately against F7
-
-| rule | DME ensemble QWK | best member | difference | verdict |
-|---|---|---|---|---|
-| `all-5fold` | 0.8939 | E07 0.8989 | −0.0049 [−0.0292, +0.0193] | indistinguishable |
-| `matched-448` | 0.9047 | E07 0.8989 | +0.0059 [−0.0186, +0.0293] | indistinguishable |
-
-**Ensembling moves DR significantly and DME not at all.** That is the asymmetry F7 predicts:
-logit averaging reduces *variance*, so it helps where the limit is variance (DR) and does
-nothing where the limit is supervision (DME). F7 is corroborated by a method that is not an
-architectural intervention at all, which is a different kind of evidence from the five
-falsified architecture experiments behind it.
-
-## What this number is, and what it is not
-
-**It is a development-pool estimate.** Every member was trained and selected on this pool, so
-the ensemble's OOF score is not a held-out result and **must not be quoted as a headline
-until it is reproduced on APTOS**. Doing that needs one external-only evaluation per member
-(cheap, no retraining) and is queued as I23.
-
-**It is not a subset search.** Both membership rules were written into `src/ensemble_oof.py`
-before any ensemble number was computed. Trying combinations and keeping the best would be
-selection on the evaluation set (`PROTOCOL.md` §3) and would inflate this figure.
-
-**Falsified experiments still contributed.** E14MAC and E15LPFT are both closed as failures on
-their own hypotheses, and both are in the winning ensemble. A run that does not beat the
-baseline can still carry complementary errors.
+| `externally-checkable` | 6: E08, E09, E10, E14MAC, E15LPFT, E17NAT | **0.8885** | 76.11 % | 0.8862 | 86.24 % | 0.8749 | **+0.0136** |
+| | *vs best member `E10`, paired bootstrap* | | | | | | +0.0137 [+0.0045, +0.0230] **significant** |
