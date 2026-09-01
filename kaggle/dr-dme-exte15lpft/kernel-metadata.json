@@ -1,0 +1,21 @@
+{
+ "id": "ah22reza/dr-dme-exte15lpft",
+ "title": "DR/DME EXTE15LPFT",
+ "code_file": "dr-dme-exte15lpft.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": true,
+ "enable_gpu": true,
+ "machine_shape": "GPU T4 x2",
+ "enable_internet": true,
+ "dataset_sources": [
+  "aaryapatel98/indian-diabetic-retinopathy-image-dataset",
+  "google-brain/messidor2-dr-grades",
+  "mariaherrerot/messidor2preprocess",
+  "mariaherrerot/aptos2019"
+ ],
+ "competition_sources": [],
+ "kernel_sources": [
+  "ah22reza/dr-dme-e15lpft"
+ ]
+}

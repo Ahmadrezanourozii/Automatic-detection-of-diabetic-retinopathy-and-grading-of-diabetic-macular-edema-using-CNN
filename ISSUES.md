@@ -1030,6 +1030,56 @@ alone now authenticates.
 
 ---
 
+## §26. Completing a run's missing folds silently changed the image source  — 2026-09-01, FIXED before any number was reported
+
+**What happened.** E11 (EfficientNet-B3) had run folds 0–2 only. To put its headline on the
+same 5-fold basis as the others, I launched folds 3–4 as **E19E11B** — same backbone, same
+epochs, same size, same batch, same pretraining, same split fingerprint. Every field in
+`config` matched. The plan was to assemble `runs/E11FULL/` from E11's `oof_0..2` and
+E19E11B's `oof_3..4`.
+
+**The defect.** E11's kernel attached
+`borhan2003/messidor-diabetic-retinopathy-dataset-jpg-format` — the native-resolution
+Messidor-2 mirror. **E19E11B's did not**, because the relaunch omitted `--messidor-hi`. Its
+log is missing the line E11's has:
+
+    [corpora] Messidor-2: native-resolution mirror found, 1200 files
+
+So folds 0–2 were trained and evaluated on **native-mirror pixels for 1 057 Messidor-2
+images**, and folds 3–4 on the 512 px mirror for all 1 744. Assembling them would have
+produced a single "5-fold E11" number **whose folds saw different images**.
+
+**Why nothing else would have caught it.** The two runs' `config` blocks are *identical* —
+the image source is not a training argument, it is a property of which datasets the kernel
+mounted. `split_fingerprint` matched (`0cfbbfeb081999af`), because the split is over uids and
+does not know which file backs a uid. The §24 script guard passed, because the right script
+ran. `results.json` records `messidor_source: prefer-native` for both, which is *true* of both
+and yet means different things depending on whether the mirror is mounted at all. **Every
+mechanical check this project has says these two runs are the same experiment.**
+
+**How it was caught.** By diffing `corpora.py` between the two commits before assembling —
+the change added a `MESSIDOR_SOURCE` selector, which prompted checking what each run actually
+loaded rather than what it was configured to load. The logs settled it in one grep.
+
+**Why it matters more than an ordinary slip.** E12/I19 measured exactly this effect: the file
+source alone shifts per-class error by several points (Moderate −6.8 before recalibration,
+−6.5 after) while leaving the aggregate roughly unchanged. So a mixed-source 5-fold number
+would have looked entirely normal in aggregate and been quietly wrong per class — and E11 is
+currently the **best single DR result in the project**, so the number it would have corrupted
+is the headline one.
+
+**Fix.** `runs/E11FULL/` deleted unassembled. Folds 3–4 relaunched as **E19E11C** with
+`--messidor-hi`, and the kernel metadata's `dataset_sources` verified **set-equal to E11's**
+before pushing. That verification is now the thing to do whenever a run's folds are completed
+by a later run.
+
+**The general rule, and it is a new one.** A run is defined by its code, its config, its
+split — **and the datasets its kernel mounted**. The first three are checked mechanically;
+the fourth was not. When completing or extending an earlier run, **diff
+`kernel-metadata.json`'s `dataset_sources` against the original**, not just the config.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.

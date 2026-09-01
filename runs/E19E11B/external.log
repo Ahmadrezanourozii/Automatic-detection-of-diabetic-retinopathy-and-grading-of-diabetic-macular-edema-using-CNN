@@ -1,0 +1,3 @@
+run E19E11B  commit deb98c143f  device=cuda  backbone=tf_efficientnet_b3 head=ordinal size=448
+[corpora] APTOS            0 images
+APTOS matched 0 images — is it attached to this kernel?
