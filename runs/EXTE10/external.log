@@ -1,0 +1,32 @@
+run ?  commit ?  device=cuda  backbone=densenet121 head=ordinal size=640
+[corpora] APTOS         3662 images
+  APTOS       n=  3662  DR0=1805 DR1=370 DR2=999 DR3=193 DR4=295   dme_supervised=    0 (exact=0)
+[corpora] IDRiD          516 images
+[corpora] Messidor-2    1744 images
+[cache] decoding 3662 images -> /kaggle/temp/cache_ext
+[cache]   250/3662  32s, ~443s left
+[cache]   500/3662  62s, ~391s left
+[cache]   750/3662  92s, ~358s left
+[cache]   1000/3662  120s, ~320s left
+[cache]   1250/3662  150s, ~290s left
+[cache]   1500/3662  179s, ~258s left
+[cache]   1750/3662  209s, ~228s left
+[cache]   2000/3662  238s, ~198s left
+[cache]   2250/3662  266s, ~167s left
+[cache]   2500/3662  297s, ~138s left
+[cache]   2750/3662  326s, ~108s left
+[cache]   3000/3662  356s, ~79s left
+[cache]   3250/3662  387s, ~49s left
+[cache]   3500/3662  417s, ~19s left
+[cache]   3662/3662  436s, ~0s left
+ensembling 5 folds: ['best_0.pt', 'best_1.pt', 'best_2.pt', 'best_3.pt', 'best_4.pt']
+
+==============================================================================
+EXTERNAL — APTOS, never seen in training
+==============================================================================
+    dr                     n= 3662  acc  70.8% [69.3,72.2]  floor  49.3%  QWK  0.887  F1 0.508  BEATS
+                          recall 94%  4%  60%  73%  46%   support [1805, 370, 999, 193, 295]
+                          referable-DR sens 99.0%  spec 84.2%
+
+wrote /kaggle/working/EXTE10/external_aptos.json
+wrote /kaggle/working/EXTE10/external_aptos_predictions.npz

@@ -246,6 +246,53 @@ otherwise. This is the constraint that should decide the experiment queue.
 
 ---
 
+## §10. A check that only ever fires one way is not a check
+
+**Added 2026-09-01. This is the criterion by which every other rule in this file earns its
+standing, and it belongs in the methods chapter as such.**
+
+**The rule.** A methodological check is only evidence if it is *capable of returning either
+answer*, and it is only *credible* once it has been observed to return both. A rule that has
+only ever dissolved inconvenient results is indistinguishable from a way of explaining them
+away; a rule that has only ever confirmed them is indistinguishable from a rubber stamp.
+Either way the reader is right to distrust every use of it, because nothing in the record
+separates the rule from the conclusion it happens to support.
+
+**So each check in this protocol carries its record, and the record must contain
+disconfirmations of the maintainer's own position in both directions.** Two rules currently
+meet that bar.
+
+**§4.1 — matched calibration before attribution.** Four claims overturned, in two directions,
+with two outright sign reversals:
+
+| claim | initial reading | what matched calibration showed |
+|---|---|---|
+| Mild recall collapse (F1) | a capacity limit | **calibration** — 5.4 % → 77.8 % |
+| EfficientNet beats DenseNet (F3) | a better representation | **boundary placement** — advantage vanished |
+| Moderate differs by source (E12) | another boundary artefact | **a real difference** — −6.8 → −6.5 |
+| E08 beats LP-FT on accuracy (E15) | LP-FT costs accuracy | **reversed** — +5.57 pts became −1.92 pts *for* LP-FT |
+
+**§9 — consumption manifests.** Three findings, in both directions, on the day the rule
+landed:
+
+| case | what the manifest did |
+|---|---|
+| E11 vs E19E11B (§26) | **refused** a combination that would have corrupted the best DR result |
+| I20 per-class caveat | **overturned a caveat in the optimistic direction** — E10 and E17NAT read the same 1 744 files, so I20 changed one variable, not two, and the caveat was withdrawn |
+| the OOF ensemble | **corrected the maintainer's own reported number downward**, 0.8933 → 0.8828, by finding that three of four ensembles averaged over different renderings of the same eyes |
+
+**What this licenses, and what it does not.** A check with a two-directional record may be
+cited as evidence about the thing it checks. A check without one may only be described as a
+filter that has not yet been tested. **No result in this project may lean on a check that has
+never been observed to contradict the maintainer.**
+
+**The failure mode this prevents.** Every rule here was written by someone with a stake in
+the outcome. The defence against that is not good intentions; it is a record showing the rule
+has cost its author something. §4.1 cost an architecture conclusion the project was about to
+publish. §9 cost a headline number, twenty-four hours after it was reported.
+
+---
+
 ## §9. Configuration is not consumption — provenance must record what a run READ
 
 **Added 2026-09-01 after `ISSUES.md` §26. This is a new dated section; nothing above is
