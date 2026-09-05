@@ -1,0 +1,83 @@
+{
+ "run_id": "E11FULL",
+ "commit": "ebe8a615c43588f29e142a818772bae5413832d8",
+ "hypothesis": "efficientnet-b3-plus-eyepacs-pretraining-beats-densenet121-plus-the-same",
+ "config": {
+  "datasets": [
+   "/kaggle/input"
+  ],
+  "splits": "/kaggle/working/repo/data/splits/dev_v1.json",
+  "run_id": "E11",
+  "out": "/kaggle/working/E11",
+  "cache": "/kaggle/temp/cache560",
+  "folds": "0,1,2",
+  "epochs": 30,
+  "size": 448,
+  "batch": 12,
+  "backbone": "tf_efficientnet_b3",
+  "head": "ordinal",
+  "hidden": 256,
+  "dropout": 0.4,
+  "alpha": 0.6,
+  "beta": 0.4,
+  "lr_head": 0.001,
+  "lr_backbone": 0.0001,
+  "min_lr_frac": 0.02,
+  "weight_decay": 0.0001,
+  "smoothing": 0.05,
+  "clip": 1.0,
+  "ema": 0.999,
+  "workers": 2,
+  "seed": 0,
+  "channels_last": true,
+  "resume": true,
+  "pretrain_corpora": "EyePACS",
+  "pretrain_epochs": 5,
+  "lr_pretrain": 0.0003,
+  "tta": true,
+  "corpora": "IDRiD,Messidor-2",
+  "limit": 0,
+  "hypothesis": "efficientnet-b3-plus-eyepacs-pretraining-beats-densenet121-plus-the-same"
+ },
+ "split_fingerprint": "0cfbbfeb081999af",
+ "env": {
+  "python": "3.12.13",
+  "torch": "2.5.1+cu121",
+  "cuda": "12.1",
+  "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+  "gpu": "Tesla P100-PCIE-16GB"
+ },
+ "pretrain": {
+  "corpora": "EyePACS",
+  "n_images": 35126,
+  "epochs": 5
+ },
+ "runtime_sec": 34176.1,
+ "assembled_from": {
+  "folds_0_2": {
+   "run": "E11",
+   "commit": "ebe8a615c43588f29e142a818772bae5413832d8"
+  },
+  "folds_3_4": {
+   "run": "E19E11C",
+   "commit": "568ee7e4135ece035ccb7fad0fd623f333bfb1a9"
+  }
+ },
+ "consumption": {
+  "manifest_version": 0,
+  "retrofitted": true,
+  "dataset_sources": [
+   "aaryapatel98/indian-diabetic-retinopathy-image-dataset",
+   "borhan2003/messidor-diabetic-retinopathy-dataset-jpg-format",
+   "google-brain/messidor2-dr-grades",
+   "mariaherrerot/messidor2preprocess",
+   "tanlikesmath/diabetic-retinopathy-resized"
+  ],
+  "excluded_eval_only": [],
+  "inherited_from": [
+   "E11",
+   "E19E11C"
+  ],
+  "note": "assembled run: both source runs were checked by manifest.compare and agree; this block is E11's, which E19E11C matches"
+ }
+}

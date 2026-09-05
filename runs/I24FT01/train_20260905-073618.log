@@ -1,0 +1,125 @@
+===== launched 2026-09-05 07:36:18 =====
+COMMIT c28d344d4c6656974fd8f7a39773c07ef5146bda
+RUN I24FT01
+device=cuda  torch=2.5.1+cu121  gpu=Tesla P100-PCIE-16GB
+[gpu] sm_60 usable
+[corpora] IDRiD          516 images
+[corpora] Messidor-2    1744 images
+  IDRiD       n=   516  DR0=168 DR1=25 DR2=168 DR3=93 DR4=62   dme_supervised=  516 (exact=516)
+  Messidor-2  n=  1744  DR0=1017 DR1=270 DR2=347 DR3=75 DR4=35   dme_supervised= 1744 (exact=151)
+[split] /kaggle/working/repo/data/splits/dev_v1.json fingerprint=0cfbbfeb081999af 5 folds
+[cache] decoding 2260 images -> /kaggle/temp/cache560
+[cache]   250/2260  35s, ~283s left
+[cache]   500/2260  70s, ~247s left
+[cache]   750/2260  76s, ~153s left
+[cache]   1000/2260  79s, ~100s left
+[cache]   1250/2260  83s, ~67s left
+[cache]   1500/2260  87s, ~44s left
+[cache]   1750/2260  89s, ~26s left
+[cache]   2000/2260  91s, ~12s left
+[cache]   2250/2260  93s, ~0s left
+[cache]   2260/2260  93s, ~0s left
+
+==============================================================================
+FOLD 0   train=1805  val=455
+==============================================================================
+[model] RETFound encoder /kaggle/input/datasets/ah22reza/retfound-cfp-encoder/retfound_cfp_encoder.pth sha256 verified
+[model] loaded 294 tensors, 0 unexpected
+  [LP-FT] probe 5 epochs (backbone frozen), then unfreeze at 1e-05 with 2-epoch warmup
+[model] RETFound encoder /kaggle/input/datasets/ah22reza/retfound-cfp-encoder/retfound_cfp_encoder.pth sha256 verified
+[model] loaded 294 tensors, 0 unexpected
+  [LP-FT] epoch 0: backbone FROZEN (probe)
+  ep   0/30  loss 0.5973 (dr 0.6146 dme 0.5713)  DR qwk 0.249 acc 36.3%  DME qwk 0.000 acc 9.5%  score 0.1496  49s  *best
+  ep   1/30  loss 0.5379 (dr 0.5508 dme 0.5185)  DR qwk 0.323 acc 14.9%  DME qwk 0.000 acc 9.5%  score 0.1935  47s  *best
+  ep   2/30  loss 0.5197 (dr 0.5337 dme 0.4987)  DR qwk 0.316 acc 15.4%  DME qwk 0.175 acc 25.7%  score 0.2596  47s  *best
+  ep   3/30  loss 0.5015 (dr 0.5098 dme 0.4891)  DR qwk 0.320 acc 17.6%  DME qwk 0.251 acc 43.8%  score 0.2925  47s  *best
+  ep   4/30  loss 0.4958 (dr 0.5020 dme 0.4866)  DR qwk 0.279 acc 16.5%  DME qwk 0.177 acc 48.6%  score 0.2379  46s
+  [LP-FT] epoch 5: backbone UNFROZEN (fine-tune)
+  ep   5/30  loss 0.4640 (dr 0.4754 dme 0.4469)  DR qwk 0.252 acc 17.4%  DME qwk 0.035 acc 48.6%  score 0.1654  122s
+  ep   6/30  loss 0.4154 (dr 0.4257 dme 0.4000)  DR qwk 0.262 acc 18.2%  DME qwk 0.047 acc 48.6%  score 0.1760  122s
+  ep   7/30  loss 0.3378 (dr 0.3555 dme 0.3113)  DR qwk 0.317 acc 18.7%  DME qwk 0.035 acc 48.6%  score 0.2039  121s
+  ep   8/30  loss 0.3022 (dr 0.3242 dme 0.2692)  DR qwk 0.363 acc 20.2%  DME qwk 0.049 acc 47.6%  score 0.2370  122s
+  ep   9/30  loss 0.2761 (dr 0.3006 dme 0.2394)  DR qwk 0.389 acc 21.1%  DME qwk 0.074 acc 47.6%  score 0.2629  122s
+  ep  10/30  loss 0.2537 (dr 0.2806 dme 0.2133)  DR qwk 0.428 acc 22.0%  DME qwk 0.151 acc 50.5%  score 0.3172  122s  *best
+  ep  11/30  loss 0.2383 (dr 0.2689 dme 0.1922)  DR qwk 0.514 acc 27.7%  DME qwk 0.246 acc 50.5%  score 0.4064  122s  *best
+  ep  12/30  loss 0.2226 (dr 0.2514 dme 0.1792)  DR qwk 0.560 acc 28.4%  DME qwk 0.304 acc 50.5%  score 0.4573  122s  *best
+  ep  13/30  loss 0.2065 (dr 0.2322 dme 0.1680)  DR qwk 0.592 acc 30.8%  DME qwk 0.334 acc 50.5%  score 0.4885  122s  *best
+  ep  14/30  loss 0.2015 (dr 0.2205 dme 0.1730)  DR qwk 0.611 acc 31.9%  DME qwk 0.404 acc 51.4%  score 0.5283  122s  *best
+  ep  15/30  loss 0.1907 (dr 0.2148 dme 0.1546)  DR qwk 0.631 acc 33.2%  DME qwk 0.389 acc 51.4%  score 0.5338  122s  *best
+  ep  16/30  loss 0.1851 (dr 0.2058 dme 0.1539)  DR qwk 0.648 acc 34.3%  DME qwk 0.414 acc 52.4%  score 0.5548  122s  *best
+  ep  17/30  loss 0.1778 (dr 0.1977 dme 0.1478)  DR qwk 0.657 acc 34.9%  DME qwk 0.469 acc 52.4%  score 0.5818  122s  *best
+  ep  18/30  loss 0.1737 (dr 0.1922 dme 0.1460)  DR qwk 0.678 acc 36.9%  DME qwk 0.501 acc 56.2%  score 0.6072  122s  *best
+  ep  19/30  loss 0.1670 (dr 0.1829 dme 0.1432)  DR qwk 0.681 acc 38.2%  DME qwk 0.545 acc 59.0%  score 0.6266  122s  *best
+  ep  20/30  loss 0.1566 (dr 0.1690 dme 0.1380)  DR qwk 0.692 acc 38.7%  DME qwk 0.571 acc 61.9%  score 0.6438  122s  *best
+  ep  21/30  loss 0.1557 (dr 0.1664 dme 0.1396)  DR qwk 0.702 acc 40.0%  DME qwk 0.637 acc 68.6%  score 0.6761  122s  *best
+  ep  22/30  loss 0.1535 (dr 0.1652 dme 0.1360)  DR qwk 0.702 acc 41.5%  DME qwk 0.683 acc 70.5%  score 0.6943  122s  *best
+  ep  23/30  loss 0.1488 (dr 0.1574 dme 0.1359)  DR qwk 0.707 acc 42.9%  DME qwk 0.683 acc 70.5%  score 0.6975  122s  *best
+  ep  24/30  loss 0.1473 (dr 0.1571 dme 0.1326)  DR qwk 0.714 acc 44.8%  DME qwk 0.691 acc 71.4%  score 0.7051  122s  *best
+  ep  25/30  loss 0.1473 (dr 0.1568 dme 0.1330)  DR qwk 0.717 acc 46.4%  DME qwk 0.714 acc 72.4%  score 0.7162  122s  *best
+  ep  26/30  loss 0.1441 (dr 0.1522 dme 0.1319)  DR qwk 0.726 acc 48.1%  DME qwk 0.734 acc 72.4%  score 0.7290  122s  *best
+  ep  27/30  loss 0.1426 (dr 0.1497 dme 0.1318)  DR qwk 0.727 acc 49.2%  DME qwk 0.737 acc 72.4%  score 0.7309  122s  *best
+  ep  28/30  loss 0.1420 (dr 0.1472 dme 0.1342)  DR qwk 0.729 acc 49.5%  DME qwk 0.782 acc 74.3%  score 0.7501  122s  *best
+  ep  29/30  loss 0.1429 (dr 0.1480 dme 0.1354)  DR qwk 0.740 acc 51.6%  DME qwk 0.789 acc 75.2%  score 0.7593  122s  *best
+
+  fold 0 best (selected on validation score, never on test):
+    dr                     n=  455  acc  49.7% [45.1,54.5]  floor  52.3%  QWK  0.724  F1 0.525  below-floor
+    dme_ungated            n=  105  acc  76.2% [67.6,83.8]  floor  48.6%  QWK  0.794  F1 0.623  BEATS
+    dme_gated              n=   71  acc  78.9% [69.0,88.7]  floor  71.8%  QWK  0.678  F1 0.542  below-floor
+    dme_referable_binary   n=  455  acc  92.3% [89.9,94.5]  floor  82.0%  QWK  0.748  F1 0.874  BEATS
+
+==============================================================================
+FOLD 1   train=1805  val=455
+==============================================================================
+[model] RETFound encoder /kaggle/input/datasets/ah22reza/retfound-cfp-encoder/retfound_cfp_encoder.pth sha256 verified
+[model] loaded 294 tensors, 0 unexpected
+  [LP-FT] probe 5 epochs (backbone frozen), then unfreeze at 1e-05 with 2-epoch warmup
+[model] RETFound encoder /kaggle/input/datasets/ah22reza/retfound-cfp-encoder/retfound_cfp_encoder.pth sha256 verified
+[model] loaded 294 tensors, 0 unexpected
+  [LP-FT] epoch 0: backbone FROZEN (probe)
+  ep   0/30  loss 0.6002 (dr 0.6126 dme 0.5815)  DR qwk 0.009 acc 52.5%  DME qwk -0.025 acc 38.1%  score -0.0044  48s  *best
+  ep   1/30  loss 0.5260 (dr 0.5431 dme 0.5005)  DR qwk 0.322 acc 51.0%  DME qwk 0.000 acc 46.7%  score 0.1934  48s  *best
+  ep   2/30  loss 0.5193 (dr 0.5252 dme 0.5103)  DR qwk 0.377 acc 46.8%  DME qwk 0.000 acc 46.7%  score 0.2262  48s  *best
+  ep   3/30  loss 0.5084 (dr 0.5168 dme 0.4958)  DR qwk 0.403 acc 38.2%  DME qwk 0.074 acc 48.6%  score 0.2718  47s  *best
+  ep   4/30  loss 0.4955 (dr 0.5058 dme 0.4799)  DR qwk 0.423 acc 35.8%  DME qwk 0.355 acc 58.1%  score 0.3957  47s  *best
+  [LP-FT] epoch 5: backbone UNFROZEN (fine-tune)
+  ep   5/30  loss 0.4704 (dr 0.4774 dme 0.4598)  DR qwk 0.418 acc 32.7%  DME qwk 0.339 acc 60.0%  score 0.3864  122s
+  ep   6/30  loss 0.4048 (dr 0.4076 dme 0.4006)  DR qwk 0.462 acc 34.7%  DME qwk 0.395 acc 62.9%  score 0.4351  122s  *best
+  ep   7/30  loss 0.3519 (dr 0.3650 dme 0.3321)  DR qwk 0.483 acc 36.3%  DME qwk 0.415 acc 63.8%  score 0.4559  123s  *best
+  ep   8/30  loss 0.3063 (dr 0.3275 dme 0.2744)  DR qwk 0.509 acc 36.7%  DME qwk 0.446 acc 62.9%  score 0.4840  122s  *best
+  ep   9/30  loss 0.2767 (dr 0.2996 dme 0.2422)  DR qwk 0.549 acc 39.6%  DME qwk 0.469 acc 62.9%  score 0.5168  122s  *best
+  ep  10/30  loss 0.2549 (dr 0.2802 dme 0.2170)  DR qwk 0.565 acc 40.0%  DME qwk 0.500 acc 63.8%  score 0.5388  122s  *best
+  ep  11/30  loss 0.2344 (dr 0.2561 dme 0.2019)  DR qwk 0.565 acc 38.0%  DME qwk 0.611 acc 66.7%  score 0.5831  122s  *best
+  ep  12/30  loss 0.2202 (dr 0.2461 dme 0.1814)  DR qwk 0.582 acc 36.7%  DME qwk 0.671 acc 68.6%  score 0.6179  122s  *best
+  ep  13/30  loss 0.2142 (dr 0.2368 dme 0.1802)  DR qwk 0.577 acc 35.4%  DME qwk 0.671 acc 64.8%  score 0.6146  122s
+  ep  14/30  loss 0.1977 (dr 0.2188 dme 0.1661)  DR qwk 0.589 acc 36.3%  DME qwk 0.718 acc 68.6%  score 0.6405  122s  *best
+  ep  15/30  loss 0.1933 (dr 0.2130 dme 0.1638)  DR qwk 0.598 acc 36.7%  DME qwk 0.714 acc 68.6%  score 0.6446  122s  *best
+  ep  16/30  loss 0.1877 (dr 0.2092 dme 0.1554)  DR qwk 0.609 acc 39.8%  DME qwk 0.780 acc 68.6%  score 0.6776  122s  *best
+  ep  17/30  loss 0.1765 (dr 0.1963 dme 0.1468)  DR qwk 0.622 acc 41.5%  DME qwk 0.780 acc 68.6%  score 0.6854  123s  *best
+  ep  18/30  loss 0.1747 (dr 0.1962 dme 0.1424)  DR qwk 0.632 acc 43.5%  DME qwk 0.819 acc 71.4%  score 0.7070  122s  *best
+  ep  19/30  loss 0.1666 (dr 0.1812 dme 0.1449)  DR qwk 0.637 acc 44.8%  DME qwk 0.842 acc 75.2%  score 0.7188  123s  *best
+  ep  20/30  loss 0.1617 (dr 0.1765 dme 0.1395)  DR qwk 0.639 acc 45.5%  DME qwk 0.836 acc 74.3%  score 0.7180  122s
+  ep  21/30  loss 0.1542 (dr 0.1666 dme 0.1354)  DR qwk 0.640 acc 46.2%  DME qwk 0.844 acc 75.2%  score 0.7217  123s  *best
+  ep  22/30  loss 0.1533 (dr 0.1646 dme 0.1365)  DR qwk 0.655 acc 47.5%  DME qwk 0.841 acc 77.1%  score 0.7291  122s  *best
+  ep  23/30  loss 0.1490 (dr 0.1585 dme 0.1348)  DR qwk 0.660 acc 49.2%  DME qwk 0.861 acc 80.0%  score 0.7402  122s  *best
+  ep  24/30  loss 0.1471 (dr 0.1555 dme 0.1346)  DR qwk 0.665 acc 51.0%  DME qwk 0.851 acc 81.0%  score 0.7392  122s
+  ep  25/30  loss 0.1449 (dr 0.1532 dme 0.1323)  DR qwk 0.674 acc 52.5%  DME qwk 0.845 acc 80.0%  score 0.7424  122s  *best
+  ep  26/30  loss 0.1475 (dr 0.1543 dme 0.1371)  DR qwk 0.689 acc 53.6%  DME qwk 0.845 acc 80.0%  score 0.7515  123s  *best
+  ep  27/30  loss 0.1425 (dr 0.1501 dme 0.1310)  DR qwk 0.700 acc 54.7%  DME qwk 0.847 acc 80.0%  score 0.7585  123s  *best
+  ep  28/30  loss 0.1429 (dr 0.1500 dme 0.1322)  DR qwk 0.708 acc 55.8%  DME qwk 0.853 acc 81.0%  score 0.7661  123s  *best
+  ep  29/30  loss 0.1418 (dr 0.1480 dme 0.1326)  DR qwk 0.715 acc 56.7%  DME qwk 0.853 acc 81.0%  score 0.7704  123s  *best
+
+  fold 1 best (selected on validation score, never on test):
+    dr                     n=  455  acc  55.4% [50.8,60.0]  floor  52.3%  QWK  0.701  F1 0.516  below-floor
+    dme_ungated            n=  105  acc  83.8% [76.2,90.5]  floor  46.7%  QWK  0.874  F1 0.745  BEATS
+    dme_gated              n=   71  acc  78.9% [69.0,87.3]  floor  69.0%  QWK  0.703  F1 0.648  below-floor
+    dme_referable_binary   n=  455  acc  95.4% [93.2,97.4]  floor  83.1%  QWK  0.833  F1 0.917  BEATS
+
+==============================================================================
+POOLED OUT-OF-FOLD (910 images, folds [0, 1])
+==============================================================================
+    dr                     n=  910  acc  54.2% [51.0,57.4]  floor  52.3%  QWK  0.728  F1 0.518  below-floor
+    dme_ungated            n=  210  acc  78.1% [72.4,83.3]  floor  47.6%  QWK  0.821  F1 0.670  BEATS
+    dme_gated              n=  142  acc  77.5% [71.1,83.8]  floor  70.4%  QWK  0.649  F1 0.596  BEATS
+    dme_referable_binary   n=  910  acc  92.9% [91.2,94.5]  floor  82.5%  QWK  0.755  F1 0.878  BEATS
+
+wrote /kaggle/working/I24FT01/results.json  (7242s)

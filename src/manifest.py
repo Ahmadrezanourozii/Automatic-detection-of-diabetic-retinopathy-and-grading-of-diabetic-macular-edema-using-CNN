@@ -110,18 +110,29 @@ def retrofit_from_kernel_metadata(run_id, kaggle_dir="kaggle"):
 
 
 def load(run_dir, run_id=None, kaggle_dir="kaggle"):
-    """Manifest for an archived run: the runtime one if present, else a retrofit."""
+    """Manifest for an archived run: the runtime one if present, else a retrofit.
+
+    The kernel's dataset_sources are attached to a runtime manifest as well, because a
+    version-1 manifest and a version-0 retrofit have no common axis otherwise: `mounted_dirs`
+    reads `['datasets']` whenever Kaggle flattens every dataset under one directory
+    (ISSUES.md §15), which is not a dataset list and must never be compared against one.
+    Without this, combining a new run with an older one is refused for a reason that is an
+    artefact of the mount layout rather than a difference in what was read.
+    """
     import json
+    rid = run_id or os.path.basename(run_dir.rstrip("/"))
+    retro = retrofit_from_kernel_metadata(rid, kaggle_dir)
     rj = os.path.join(run_dir, "results.json")
     if os.path.exists(rj):
         try:
             m = json.load(open(rj)).get("consumption")
             if m:
+                if retro and retro.get("dataset_sources"):
+                    m = dict(m, dataset_sources=retro["dataset_sources"])
                 return m
         except Exception:
             pass
-    return retrofit_from_kernel_metadata(run_id or os.path.basename(run_dir.rstrip("/")),
-                                         kaggle_dir)
+    return retro
 
 
 def compare(a, b, name_a="A", name_b="B"):
@@ -135,8 +146,13 @@ def compare(a, b, name_a="A", name_b="B"):
 
     # retrofitted manifests only carry the mounted dataset list; compare on that axis
     if a.get("manifest_version", 0) == 0 or b.get("manifest_version", 0) == 0:
-        sa = set(a.get("dataset_sources") or a.get("mounted_dirs") or [])
-        sb = set(b.get("dataset_sources") or b.get("mounted_dirs") or [])
+        # Compare on kernel dataset_sources — the only axis both versions share. Falling back
+        # to mounted_dirs here would compare a flattened ['datasets'] against a real list.
+        sa = set(a.get("dataset_sources") or [])
+        sb = set(b.get("dataset_sources") or [])
+        if not sa or not sb:
+            return False, [f"no comparable dataset list for "
+                           f"{name_a if not sa else name_b} — consumption unverifiable"]
         if sa and sb and sa != sb:
             reasons.append(f"mounted datasets differ: only in {name_a}: "
                            f"{sorted(sa - sb) or 'none'}; only in {name_b}: "
