@@ -43,12 +43,16 @@ RETFOUND = "ah22reza/retfound-cfp-encoder"
 # correctly produced no error and no warning. A silent no-op is the failure mode this
 # project keeps paying for, so the intent is now declared here and checked twice --
 # once against the run-id, and once against the notebook that actually got generated.
+# Each token maps to the SET of scripts that legitimately do that work. A token pinned to a
+# single script was too coarse: "probe" pointed only at e01_linear_probe.py and so refused
+# I24PROBE, which runs retfound_probe.py -- also a probe, just a different one. The guard's
+# intent is "a run-id claiming to be a probe must run a probe", not "must run THAT probe".
 RUN_ID_REQUIRES_SCRIPT = {
-    "gate": "src/fovea.py",
-    "fovea": "src/fovea.py",
-    "recal": "src/recalibration_curve.py",
-    "thresh": "src/tune_thresholds.py",
-    "probe": "src/e01_linear_probe.py",
+    "gate": {"src/fovea.py"},
+    "fovea": {"src/fovea.py"},
+    "recal": {"src/recalibration_curve.py"},
+    "thresh": {"src/tune_thresholds.py"},
+    "probe": {"src/e01_linear_probe.py", "src/retfound_probe.py"},
 }
 
 
@@ -311,13 +315,14 @@ def main():
     # checked before anything is written, so the failure is a refusal to build rather than
     # a notebook that runs the wrong thing under the right name.
     rid = a.run_id.lower()
-    for token, required in RUN_ID_REQUIRES_SCRIPT.items():
-        if token in rid and a.script != required:
+    for token, allowed in RUN_ID_REQUIRES_SCRIPT.items():
+        if token in rid and a.script not in allowed:
+            required = " or ".join(sorted(allowed))
             raise SystemExit(
                 f"run-id {a.run_id!r} contains {token!r}, which names {required}, but this "
                 f"launch would run {a.script or 'src/train.py'}.\n"
-                f"Either pass --script {required}, or rename the run so its ID does not "
-                f"claim work it does not do.\n"
+                f"Either pass --script with one of {sorted(allowed)}, or rename the run so "
+                f"its ID does not claim work it does not do.\n"
                 f"(E13gate ran src/train.py under a fovea-gate name and archived a "
                 f"DR/DME results.json that looked entirely legitimate -- ISSUES.md §24.)")
 

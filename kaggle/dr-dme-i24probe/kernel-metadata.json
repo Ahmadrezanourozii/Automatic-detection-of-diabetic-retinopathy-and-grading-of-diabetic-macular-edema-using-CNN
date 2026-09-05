@@ -1,0 +1,19 @@
+{
+ "id": "ah22reza/dr-dme-i24probe",
+ "title": "DR/DME I24PROBE",
+ "code_file": "dr-dme-i24probe.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": true,
+ "enable_gpu": true,
+ "machine_shape": "GPU T4 x2",
+ "enable_internet": true,
+ "dataset_sources": [
+  "aaryapatel98/indian-diabetic-retinopathy-image-dataset",
+  "google-brain/messidor2-dr-grades",
+  "mariaherrerot/messidor2preprocess",
+  "ah22reza/retfound-cfp-encoder"
+ ],
+ "competition_sources": [],
+ "kernel_sources": []
+}
