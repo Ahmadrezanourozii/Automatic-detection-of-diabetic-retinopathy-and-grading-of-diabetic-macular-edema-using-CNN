@@ -1,0 +1,142 @@
+{
+ "run_id": "I24_RETFOUND_PROBE",
+ "backbone": "RETFound CFP ViT-L/16 @224 (frozen), linear ordinal probe",
+ "encoder_sha256": "847f9dd0e33bf8d450cc6121295d2919fc4bba3c185757a17ce6427bfa14ed37",
+ "source_sha256": "e1e4f66a1b792eeb6e2efaf158f33be35c8255f36b3d17ed67cd5129da246485",
+ "split_fingerprint": "0cfbbfeb081999af",
+ "consumption": {
+  "corpora": {
+   "IDRiD": {
+    "n": 516,
+    "path_hash": "fe17d930ea4fe58d",
+    "source_dirs": [
+     "datasets"
+    ]
+   },
+   "Messidor-2": {
+    "n": 1744,
+    "path_hash": "c32cb70881a17edf",
+    "source_dirs": [
+     "datasets"
+    ]
+   }
+  },
+  "mounted_dirs": [
+   "datasets"
+  ],
+  "cache_dir": null,
+  "manifest_version": 1
+ },
+ "metrics": {
+  "dr": {
+   "n": 2260,
+   "accuracy": 0.2323008849557522,
+   "accuracy_ci95": [
+    0.215929203539823,
+    0.2504424778761062
+   ],
+   "qwk": 0.5140850589964251,
+   "qwk_ci95": [
+    0.4878600493518244,
+    0.5394576068608617
+   ],
+   "macro_f1": 0.2712135475922469,
+   "per_class_recall": [
+    0.005063291139240506,
+    0.4915254237288136,
+    0.4893203883495146,
+    0.49404761904761907,
+    0.4020618556701031
+   ],
+   "support": [
+    1185,
+    295,
+    515,
+    168,
+    97
+   ],
+   "majority_floor": 0.5243362831858407,
+   "beats_floor": false,
+   "confusion": [
+    [
+     6,
+     848,
+     301,
+     29,
+     1
+    ],
+    [
+     0,
+     145,
+     136,
+     14,
+     0
+    ],
+    [
+     0,
+     93,
+     252,
+     155,
+     15
+    ],
+    [
+     0,
+     5,
+     36,
+     83,
+     44
+    ],
+    [
+     0,
+     1,
+     13,
+     44,
+     39
+    ]
+   ]
+  },
+  "dme_ungated": {
+   "n": 516,
+   "accuracy": 0.6705426356589147,
+   "accuracy_ci95": [
+    0.627906976744186,
+    0.7093023255813954
+   ],
+   "qwk": 0.7097712510590228,
+   "qwk_ci95": [
+    0.656016326798014,
+    0.7596467418268716
+   ],
+   "macro_f1": 0.609233533578204,
+   "per_class_recall": [
+    0.6981981981981982,
+    0.6078431372549019,
+    0.6584362139917695
+   ],
+   "support": [
+    222,
+    51,
+    243
+   ],
+   "majority_floor": 0.47093023255813954,
+   "beats_floor": true,
+   "confusion": [
+    [
+     155,
+     61,
+     6
+    ],
+    [
+     10,
+     31,
+     10
+    ],
+    [
+     17,
+     66,
+     160
+    ]
+   ]
+  }
+ }
+}

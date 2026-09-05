@@ -80,6 +80,20 @@ def find_weights(path):
                      "\n  ".join(listing))
 
 
+def load_imagenet_baseline(device):
+    """The control the RETFound probe actually needs: the SAME probe on ImageNet features.
+
+    Comparing a frozen probe against a fully fine-tuned network (E09) measures probing versus
+    fine-tuning, not RETFound versus ImageNet. This isolates the representation: identical
+    images, identical cross-fitted ordinal head, identical calibration — only the frozen
+    backbone differs.
+    """
+    import timm
+    m = timm.create_model("densenet121", pretrained=True, num_classes=0)
+    print(f"[weights] ImageNet densenet121 baseline, {m.num_features} features", flush=True)
+    return m.to(device).eval()
+
+
 def load_encoder(path, device):
     """Load the RETFound encoder into a timm ViT-L/16, verifying the file by hash first."""
     import timm
@@ -179,7 +193,10 @@ def ordinal_probe(ftr, y, folds, k, epochs=300, lr=1e-3, wd=1e-4, seed=0):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--datasets", nargs="+", default=["/kaggle/input"])
-    ap.add_argument("--weights", required=True)
+    ap.add_argument("--weights", default="")
+    ap.add_argument("--imagenet-baseline", action="store_true",
+                    help="probe frozen ImageNet densenet121 features instead of RETFound — "
+                         "the like-for-like control for the representation claim")
     ap.add_argument("--splits", default="data/splits/dev_v1.json")
     ap.add_argument("--out", default="runs/I24")
     ap.add_argument("--batch", type=int, default=32)
@@ -190,7 +207,14 @@ def main():
 
     dev = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"device={dev}", flush=True)
-    model = load_encoder(find_weights(a.weights), dev)
+    if a.imagenet_baseline:
+        model = load_imagenet_baseline(dev)
+        tag = "ImageNet densenet121 @224 (frozen), linear ordinal probe"
+    else:
+        if not a.weights:
+            raise SystemExit("--weights is required unless --imagenet-baseline is given")
+        model = load_encoder(find_weights(a.weights), dev)
+        tag = "RETFound CFP ViT-L/16 @224 (frozen), linear ordinal probe"
 
     rows = corpora.build(a.datasets, ("IDRiD", "Messidor-2"))
     split = json.load(open(a.splits))
@@ -202,9 +226,10 @@ def main():
     np.savez_compressed(os.path.join(a.out, "features.npz"),
                         uids=np.array([r["uid"] for r in rows]), feats=feats, folds=folds)
 
-    res = {"run_id": "I24_RETFOUND_PROBE",
-           "backbone": "RETFound CFP ViT-L/16 @224 (frozen), linear ordinal probe",
-           "encoder_sha256": ENCODER_SHA256, "source_sha256": SOURCE_SHA256,
+    res = {"run_id": "I24_PROBE",
+           "backbone": tag,
+           "encoder_sha256": None if a.imagenet_baseline else ENCODER_SHA256,
+           "source_sha256": None if a.imagenet_baseline else SOURCE_SHA256,
            "split_fingerprint": split.get("fingerprint"),
            "consumption": manifest.build(rows, a.datasets),
            "metrics": {}}
