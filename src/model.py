@@ -37,6 +37,7 @@ See data/LABEL_MAPPING.md for the label justification and ISSUES.md §2 for why 
 names in the old code were clinically wrong.
 """
 from __future__ import annotations
+import os
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -45,6 +46,43 @@ N_DR, N_DME = 5, 3
 
 
 # ── backbone ──────────────────────────────────────────────────────────────────
+RETFOUND_ENCODER_SHA256 = "847f9dd0e33bf8d450cc6121295d2919fc4bba3c185757a17ce6427bfa14ed37"
+
+
+def _build_retfound(weights_root: str):
+    """RETFound CFP ViT-L/16, loaded from the stripped encoder and verified by hash.
+
+    The path is not trusted — PROTOCOL.md §9 — and a partial state-dict load raises rather
+    than silently yielding a randomly-initialised transformer, which would be indistinguishable
+    from a null result. Kaggle sometimes mounts every dataset under one directory
+    (ISSUES.md §15), so the search is recursive.
+    """
+    import glob, hashlib
+    import timm
+    if os.path.isfile(weights_root):
+        hits = [weights_root]
+    else:
+        hits = sorted(glob.glob(os.path.join(weights_root, "**",
+                                             "retfound_cfp_encoder.pth"), recursive=True))
+    if not hits:
+        raise SystemExit(f"retfound_cfp_encoder.pth not found under {weights_root}")
+    path = hits[0]
+    h = hashlib.sha256(open(path, "rb").read()).hexdigest()
+    if h != RETFOUND_ENCODER_SHA256:
+        raise SystemExit(f"RETFound encoder hash mismatch — refusing to run.\n"
+                         f"  expected {RETFOUND_ENCODER_SHA256}\n  got      {h}")
+    print(f"[model] RETFound encoder {path} sha256 verified", flush=True)
+    ck = torch.load(path, map_location="cpu", weights_only=False)
+    sd = ck["model"] if "model" in ck else ck
+    m = timm.create_model("vit_large_patch16_224", pretrained=False, num_classes=0)
+    missing, unexpected = m.load_state_dict(sd, strict=False)
+    real_missing = [k for k in missing if not k.startswith("head")]
+    if real_missing:
+        raise SystemExit(f"RETFound encoder did not fully load; missing {real_missing[:8]}")
+    print(f"[model] loaded {len(sd)} tensors, {len(unexpected)} unexpected", flush=True)
+    return m, m.num_features
+
+
 def build_backbone(name: str = "densenet121", pretrained: bool = True):
     """Returns (module, feature_dim).
 
@@ -53,6 +91,9 @@ def build_backbone(name: str = "densenet121", pretrained: bool = True):
     forbidden: it would turn a backbone experiment into a silent duplicate of the baseline
     and then report "the backbone makes no difference" (the failure mode of ISSUES.md §10).
     """
+    if name.startswith("retfound:"):
+        return _build_retfound(name.split(":", 1)[1])
+
     try:
         import timm
         m = timm.create_model(name, pretrained=pretrained, num_classes=0, global_pool="avg")

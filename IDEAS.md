@@ -444,6 +444,41 @@ beats ImageNet beyond the paired interval → Stage 2, launched without asking, 
 statement about what foundation-model pretraining buys at this data scale. ImageNet wins →
 same close, stated plainly.
 
+### I24 Stage 2 — RETFound fine-tuning — **pre-registered 2026-09-05, launched under the owner's pre-committed rule**
+
+**What triggered it.** Probe versus probe, same images, same cross-fitted head, same matched
+calibration, only the frozen backbone differing (`docs/generated/probe_vs_probe.md`):
+
+| head | n | RETFound CFP ViT-L/16 | ImageNet DenseNet121 | A − B | 95 % interval | verdict |
+|---|---|---|---|---|---|---|
+| DR, 5-class | 2 260 | **0.7008** | **0.6611** | **+0.0401** | [+0.0122, +0.0692] | **significant** |
+| DME, 3-class | 516 | 0.7074 | 0.6645 | +0.0434 | [−0.0173, +0.1018] | indistinguishable |
+
+**RETFound's representation carries significantly more DR signal than ImageNet's**, which is
+the condition the owner pre-committed to. Stage 2 launches without asking.
+
+**Design.** `--backbone retfound:/kaggle/input` (hash-verified at load, §9), 224 px, LP-FT
+staging: 5 probe epochs on a frozen backbone, then unfreeze at 1e-5 with 2 warmup epochs. The
+probe result *is* the empirical justification for that staging — the LP half has already been
+measured rather than argued for.
+
+**Split across three runs** to stay under the 10 h cap: ViT-L/16 @224 is ~5.3× E08's per-image
+compute, so 5 folds × 30 epochs is ~19 h. Folds 0–1, folds 2–3, fold 4.
+
+**Control: E09** (densenet121 @224, EyePACS-pretrained, 5 folds) at matched calibration,
+**DR QWK 0.8389**. **Falsifying outcome:** DR QWK at matched calibration does not exceed
+0.8389 by more than its interval (≈ ±0.015).
+
+**The confound, stated rather than hidden.** RETFound replaces *both* the backbone and the
+EyePACS pretraining stage — E09 is ImageNet→EyePACS→fine-tune, this is retinal-SSL→fine-tune.
+That is the treatment rather than an accident (the question is what retinal self-supervised
+pretraining buys), but a per-class difference inherits it and **must not be attributed to
+architecture alone** (§4.2).
+
+**The handicap still applies.** Our own 224 → 448 jump is worth ~+0.04 QWK, and RETFound is
+224-locked. Clearing E09 but not E08's 0.8646 would say a foundation backbone is worth about
+as much as doubling resolution — informative, and still not the best available pipeline.
+
 ## Rejected
 
 | ID | Idea | Verdict | Evidence |

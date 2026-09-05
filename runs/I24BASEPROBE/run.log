@@ -1,0 +1,13 @@
+device=cuda
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[weights] ImageNet densenet121 baseline, 1024 features
+[corpora] IDRiD          516 images
+[corpora] Messidor-2    1744 images
+2260 images, folds [0, 1, 2, 3, 4]
+[extract] 2260 images in 52s -> (2260, 1024)
+
+dr: n=2260  acc 33.27  QWK 0.5735 [0.544, 0.5992]  floor 52.4
+
+dme_ungated: n=516  acc 68.80  QWK 0.6866 [0.632, 0.7384]  floor 47.1
+
+wrote /kaggle/working/I24BASEPROBE/results.json
