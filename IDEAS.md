@@ -345,6 +345,59 @@ representation trained on 1.6 M retinal images is the cleanest available challen
 harder to argue with** — a foundation model failing where architecture failed points squarely
 at the 516 labels, 51 of them the middle grade.
 
+### Queue order 2026-09-05 — CORAL/CORN promoted above the backbone swaps
+
+**Agreed with the owner's instinct, but for a different reason than the one offered.** The
+proposed reason was that CORAL/CORN targets the adjacent-grade error mode F1 documented. That
+argument is weaker than it looks: F1's finding was that the Mild collapse is **calibration**,
+and §4.1 plus T1 established that cut-point placement dominates adjacent-grade behaviour —
+which cross-fitted threshold tuning already handles. A better ordinal *loss* would have to
+improve the underlying **ranking**, not the cut placement.
+
+**The reason to promote it anyway is the backbone evidence, which is bad.** At matched
+calibration on the 5-fold development pool:
+
+| run | backbone | size | DR QWK |
+|---|---|---|---|
+| E08 | densenet121 | 448 | **0.8646** |
+| E07 | tf_efficientnet_b3 | 448 | **0.8441** |
+
+**The one clean 5-fold backbone swap this project has run made things worse.** E11's apparent
+EfficientNet advantage was measured on 3 folds, and F3 showed its external advantage dissolved
+at matched operating points. So the prior on another backbone swap producing a durable gain is
+low, and backbone comparisons are precisely the class §4.1 keeps dissolving. CORAL/CORN
+changes the training objective instead of the feature extractor — a different, untried axis.
+
+**Expected effect, stated honestly: small.** Our head is *already* ordinal (thresholds on
+P(y > k)) with rank-consistent decoding via `cummin`. CORAL/CORN is an increment on an
+existing ordinal treatment, not a new capability. Order: **CORAL/CORN, then ConvNeXt, then
+Swin**, and if CORAL/CORN is null I would spend the remaining quota on I16 rather than on the
+second backbone.
+
+### I15 — auxiliary exudate segmentation head — **SKIPPED, and the reason is the point**
+
+The owner's condition was: run it only if a falsifying outcome exists that **81 masks could
+plausibly clear**. It does not, and saying so is more useful than running it for completeness.
+
+* The masks cover **81 of 2 260 images (3.6 %)**. As an auxiliary loss their gradient
+  contribution is small by construction.
+* The metric they would have to move is **3-class DME QWK, whose interval is ±0.03 on 516
+  images** with 51 in the middle grade.
+* **E14MAC is the decisive precedent.** It handed the DME head the exact region the label is
+  defined by — a macula crop, with the fovea inside the window in over 99 % of images — and
+  moved DME QWK by nothing (+0.0237 [−0.0094, +0.0566], the crop nominally worse). An
+  auxiliary signal on 3.6 % of the pool is a far weaker intervention than that.
+
+**So the honest pre-registration would be a hypothesis I do not believe**, and running it would
+consume ~4 h to produce a sixth null that F7 already predicts. Skipped.
+
+**What the 81 masks are still worth, and it is not performance.** Use them as a *diagnostic*
+(`IDEAS.md` I14): measure whether the model's saliency overlaps annotated exudate regions.
+That tests whether the network attends to the lesion the DME grade is defined by, which is an
+interpretability result the thesis can use and a genuine bug detector — if attention sits on
+the optic disc instead, something is wrong. Cheap, CPU-feasible on 81 images, and it does not
+pretend to raise a number.
+
 ## Rejected
 
 | ID | Idea | Verdict | Evidence |
