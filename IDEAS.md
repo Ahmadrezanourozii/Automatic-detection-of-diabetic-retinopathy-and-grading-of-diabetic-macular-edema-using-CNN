@@ -545,6 +545,44 @@ samples share one direction. Nothing constrains them to be. Report whether they 
 ordered; if not, CORAL's guarantee did not actually hold and the comparison measures
 something else.
 
+### I16 — redesigned 2026-09-05: what "is 0.8954 good?" actually requires
+
+The original entry — *"re-implement the two comparison baselines (SVM, single-output CNN)"* —
+was written when the project believed it had a 91.6 % figure to reproduce. That premise is
+gone (`ISSUES.md` §1), and with **no internal baseline of any kind**, this item is now the only
+thing that can say whether our numbers are good. It deserves a design rather than inheritance.
+
+**Three components, only one of which is a training run.**
+
+**(1) The trivial baseline — ALREADY DONE, at zero extra cost.** `I24BASEPROBE` is exactly it:
+frozen ImageNet features plus a linear ordinal model, on our exact split, 5 folds, cross-fitted
+cut-points, matched calibration. **DR QWK 0.6611.** So the full pipeline (E11FULL, 0.8954) is
+worth **+0.234 QWK over frozen features and a linear model** — a real, like-for-like statement
+about what the training pipeline adds, on identical images and identical folds. This was built
+as RETFound's control and turns out to answer I16's first question for free.
+
+**(2) Single-output CNN — one run, and it tests a live design choice.** E08 with the DME head
+removed, DR only. Every reported DR number comes from a two-head model whose DME loss shares a
+backbone, and **nothing in this project has ever measured whether that helps or hurts DR.**
+Falsifying outcome: DR QWK at matched calibration differs from E08's 0.8646 by more than its
+interval. Cheap, one change, and either answer is informative — a null retires a standing
+worry, a difference is a finding about multi-task interference.
+
+**(3) The literature anchor — cited, never re-run, and never presented as like-for-like.**
+Published DR grading results sit on different splits, different label definitions and often
+different corpora, which is the precise unfairness this item exists to avoid reproducing. So
+they are reported **with their protocol differences stated**, not as a leaderboard row. The
+closest honest anchor is APTOS: our external number is computed on the same *corpus* as the
+2019 competition, though on the full 3 662 public images rather than its private test split,
+so it is comparable in population and **not** in protocol. Any such number carries that
+sentence with it.
+
+**What this cannot do.** None of it makes our figure commensurable with a published one. It
+establishes (a) how far the pipeline is above a trivial model on our own data, (b) whether the
+multi-task design costs DR, and (c) where our number sits among published work with the
+incomparabilities named. That is the honest ceiling for a thesis with a frozen custom split,
+and it is worth more than a comparison table that quietly comes from four different protocols.
+
 ## Rejected
 
 | ID | Idea | Verdict | Evidence |
