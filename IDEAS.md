@@ -518,6 +518,27 @@ matched calibration does not exceed 0.8646 by more than its interval (≈ ±0.01
 with rank-consistent decoding, so CORAL removes a repair that was already being applied and
 replaces it with a constraint. A null would say the `cummin` repair was already sufficient.
 
+**⚠️ A NEGATIVE RESULT HERE IS AMBIGUOUS BY CONSTRUCTION, AND CORN IS THE CONTROL.** CORAL
+changes two things at once: it adopts a stricter ordinal training objective **and** it
+restricts the head from K−1 independent projections to one shared direction. So a negative
+result cannot distinguish *"the ordinal loss does not help"* from *"the shared-projection
+capacity constraint hurts"*.
+
+**Contingency, fixed before the numbers:**
+* **CORAL negative → run CORN before closing the ordinal-loss line.** CORN (Shi, Cao &
+  Raschka 2021) keeps the ordinal framing — conditional probabilities P(y > k | y > k−1) —
+  **without** the shared-projection restriction, so it isolates the objective from the
+  capacity constraint. Concluding "ordinal losses do not help" from CORAL alone would be
+  attributing to the objective something the parameterisation may have caused.
+* **CORAL positive → skip CORN.** The confound only matters for a null: if the constrained
+  version already wins, nothing is being wrongly blamed on the constraint.
+
+**Reporting requirement.** The learned bias ordering goes **with the headline, not in a
+footnote**. CORAL's rank-consistency holds for every sample only if b_0 > b_1 > … > b_{K−2},
+and nothing in the parameterisation enforces it. If they came out unordered the guarantee
+never held, and the experiment measured a differently-parameterised ordinal head rather than
+CORAL — which changes what the number means, so it is stated in the same breath.
+
 **A property to check on the fetched weights, not assumed.** CORAL's rank-consistency holds
 for every sample **iff the learned biases are ordered** b_0 > b_1 > … > b_{K−2}, since all
 samples share one direction. Nothing constrains them to be. Report whether they came out
