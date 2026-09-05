@@ -400,6 +400,50 @@ interpretability result the thesis can use and a genuine bug detector — if att
 the optic disc instead, something is wrong. Cheap, CPU-feasible on 81 images, and it does not
 pretend to raise a number.
 
+### CORAL/CORN — hypothesis restated 2026-09-05 (owner withdrew the original rationale)
+
+The original rationale — *it targets the adjacent-grade error mode F1 documented* — was
+withdrawn by the owner after the counter-argument: adjacent-grade behaviour is dominated by
+**cut-point placement**, which cross-fitted threshold tuning already handles (§4.1, T1).
+
+**So the hypothesis is now stated as the thing that actually has to be true for it to matter:**
+*an ordinal loss with a rank-monotonicity constraint improves the underlying **ranking** of
+images, not merely where the cuts fall.* Since QWK at matched calibration is computed with
+cut-points already optimised, any gain must come from a better ordering.
+
+**Falsifying outcome:** DR QWK at matched calibration does not exceed E08's 0.8646 by more
+than its interval (≈ ±0.015). **Expected effect: small** — our head is already ordinal
+(thresholds on P(y > k)) with rank-consistent `cummin` decoding, so CORAL/CORN is an increment
+on an existing ordinal treatment rather than a new capability.
+
+### I24 Stage 1 — result, and why the headline number is NOT a RETFound verdict
+
+**DR QWK 0.7008 [0.6758, 0.7240] at matched calibration, against E09's 0.8389.** The
+pre-registered criterion (beat 0.8389 by more than ≈±0.015) is not met, by 0.138.
+
+**That number must not be reported as a verdict on RETFound**, and the pre-registration said
+so in advance: it compares a **frozen linear probe** against a **fully fine-tuned network**,
+so it measures probing versus fine-tuning. The comparison that isolates the representation is
+`I24BASEPROBE` — the identical probe on frozen ImageNet DenseNet121 features
+(`src/compare_probes.py`, `docs/generated/probe_vs_probe.md`).
+
+**Two errors of mine on the way, recorded because both were mine and not the model's:**
+
+1. The run's own `results.json` reported DR QWK 0.5141 at **23.2 % accuracy against a 52.4 %
+   floor**, No-DR recall 0.005 — apparently catastrophic. It was a **decoding failure**: the
+   probe decoded with a fixed `floor(score + 0.5)` while being compared against E09's
+   *matched-calibration* figure. That is exactly the asymmetry §4.1 exists to prevent, built
+   into my own script. Recalibrated, 0.5141 → **0.7008**.
+2. The first launch died instantly on `ISSUES.md` §15 — Kaggle mounted every dataset under a
+   single `datasets/` directory, so `/kaggle/input/retfound-cfp-encoder` did not exist. The
+   same one-level-scan assumption that once cost E08 an external evaluation.
+
+**Decision rule, pre-committed by the owner before the control landed:** RETFound clearly
+beats ImageNet beyond the paired interval → Stage 2, launched without asking, split under the
+10 h cap. Indistinguishable → Stage 2 closed and the null goes in `FINDINGS.md` as a measured
+statement about what foundation-model pretraining buys at this data scale. ImageNet wins →
+same close, stated plainly.
+
 ## Rejected
 
 | ID | Idea | Verdict | Evidence |
