@@ -444,7 +444,21 @@ beats ImageNet beyond the paired interval → Stage 2, launched without asking, 
 statement about what foundation-model pretraining buys at this data scale. ImageNet wins →
 same close, stated plainly.
 
-### I24 Stage 2 — RETFound fine-tuning — **pre-registered 2026-09-05, launched under the owner's pre-committed rule**
+### I24 Stage 2 — **CLOSED 2026-09-05 after folds 0–1. See `FINDINGS.md` F8.**
+
+I24FT01, folds 0–1, fold-matched at matched calibration: **RETFound 0.7896 vs E09 0.8298,
+−0.0399 [−0.0669, −0.0124], significant** — the pre-registered criterion (exceed 0.8389 by
+more than ~0.015) is missed in the wrong direction. Folds 2–4 not run: ~14 h to complete a
+result already significantly negative on 40 % of the data. **Reported as a 2-of-5-fold
+result**, since the pre-registration specified five.
+
+Recorded as **F8**: frozen RETFound features beat frozen ImageNet features (+0.0401,
+significant) while fine-tuned RETFound loses to DenseNet+EyePACS (−0.0399, significant). Two
+candidate mechanisms — labelled in-domain data beating unlabelled at this scale, and 303 M
+parameters against 1 808 images per fold — are confounded by construction and stated as
+hypotheses.
+
+### I24 Stage 2 — original pre-registration, kept for the record
 
 **What triggered it.** Probe versus probe, same images, same cross-fitted head, same matched
 calibration, only the frozen backbone differing (`docs/generated/probe_vs_probe.md`):

@@ -446,3 +446,67 @@ an auxiliary segmentation target (`IDEAS.md` I15), which is the one remaining id
 information rather than rearranging what is already there. And **`FINDINGS.md` F2 already
 established there is no external 3-class DME corpus available to us**, which is the same
 scarcity seen from the validation side.
+
+---
+
+## F8 — A retinal foundation model has the better representation and the worse fine-tuned model
+
+**The claim.** On this corpus, RETFound's self-supervised retinal representation carries
+**significantly more** DR signal than ImageNet's when both are frozen — and produces a
+**significantly worse** model than ImageNet→EyePACS supervised pretraining once fine-tuned.
+Both differences are measured, both are significant, and they point in opposite directions.
+
+**The two measurements.**
+
+*Frozen, probe versus probe* — same 2 260 images, same cross-fitted linear ordinal head, same
+matched calibration, same folds, only the frozen backbone differing
+(`docs/generated/probe_vs_probe.md`):
+
+| head | n | RETFound CFP ViT-L/16 | ImageNet DenseNet121 | difference |
+|---|---|---|---|---|
+| DR, 5-class | 2 260 | **0.7008** | 0.6611 | **+0.0401 [+0.0122, +0.0692]** significant |
+| DME, 3-class | 516 | 0.7074 | 0.6645 | +0.0434 [−0.0173, +0.1018] indistinguishable |
+
+*Fine-tuned, against our own 224 px pipeline* — folds 0–1, fold-matched, matched calibration:
+
+| | DR QWK |
+|---|---|
+| I24FT01 — RETFound ViT-L/16, LP-FT | **0.7896** |
+| E09 — DenseNet121, ImageNet→EyePACS | **0.8298** |
+| difference | **−0.0399 [−0.0669, −0.0124]** significant |
+
+**Two candidate mechanisms, and the evidence cannot separate them.**
+
+1. **Supervised in-domain data beats self-supervised in-domain data at this scale.** EyePACS
+   supplies ~35 000 DR-*labelled* retinal images. RETFound's 1.6 M images are unlabelled. If
+   labels are the binding resource, EyePACS pretraining is simply the better use of a
+   pretraining budget for *this* task.
+2. **Capacity against sample size.** RETFound is ViT-L/16, ~303 M encoder parameters,
+   fine-tuned on 1 808 training images per fold. DenseNet121 is ~7 M. The larger model may
+   simply overfit, which a frozen probe cannot reveal because the probe never updates it.
+
+**These are confounded by construction and this experiment cannot distinguish them.** RETFound
+replaces *both* the backbone and the EyePACS stage — E09 is ImageNet→EyePACS→fine-tune, this is
+retinal-SSL→fine-tune — so architecture and pretraining corpus move together (`PROTOCOL.md`
+§4.2). Separating them would need RETFound fine-tuned *with* an EyePACS stage, or a
+ViT-L/ImageNet arm, and neither has been run. **Stated as two live hypotheses, not one
+conclusion.**
+
+**Why this is a result and not a failed experiment.** "Use a foundation model" is standard
+advice for small medical datasets, and the probe result is exactly why the advice sounds
+right: the representation *is* better. What this project measures is that the better
+representation did not survive contact with fine-tuning on 2 260 images against a pipeline
+that had already been given 35 000 labelled in-domain images. **The advice is not wrong about
+representations; it is incomplete about what happens next.** That is worth more to the thesis
+than a win would have been, because a win would have been unsurprising.
+
+**What was not spent.** Stage 2 was closed after folds 0–1 rather than completing folds 2–4.
+The pre-registered criterion was a 5-fold comparison, so **this is a 2-of-5-fold result and is
+labelled as one** — it is significant and in the wrong direction, and ~14 h of quota to
+complete a result already significantly negative on 40 % of the data was not justified. The
+decision was resource allocation, and the number is reported with its fold restriction rather
+than as the 5-fold verdict that was pre-registered.
+
+**Relation to F7.** The DME probe row is indistinguishable at n=516 despite a point estimate
+of +0.0434. That is F7 restated from the measurement side: 516 images with 51 in the middle
+grade cannot resolve an effect of that size, whatever the representation.
