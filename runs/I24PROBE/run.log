@@ -1,0 +1,2 @@
+device=cuda
+no .pth under /kaggle/input/retfound-cfp-encoder

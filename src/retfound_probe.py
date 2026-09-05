@@ -48,13 +48,36 @@ N_DR, N_DME = 5, 3
 SIZE = 224          # RETFound is 224-native; see the module docstring
 
 
+WEIGHT_BASENAME = "retfound_cfp_encoder.pth"
+
+
 def find_weights(path):
+    """Locate the encoder without assuming where Kaggle mounted it.
+
+    ISSUES.md §15: Kaggle sometimes mounts every attached dataset under a single
+    /kaggle/input/datasets/ directory rather than one top-level directory each, so a path
+    built as /kaggle/input/<dataset-slug> simply does not exist. A one-level assumption cost
+    E08 an entire external evaluation, and it cost this probe its first launch. Search
+    recursively, by filename, and say what was found.
+    """
     if os.path.isfile(path):
         return path
-    hits = sorted(glob.glob(os.path.join(path, "**", "*.pth"), recursive=True))
-    if not hits:
-        raise SystemExit(f"no .pth under {path}")
-    return hits[0]
+    exact = sorted(glob.glob(os.path.join(path, "**", WEIGHT_BASENAME), recursive=True))
+    if exact:
+        print(f"[weights] found {len(exact)} candidate(s) by name; using {exact[0]}", flush=True)
+        return exact[0]
+    any_pth = sorted(glob.glob(os.path.join(path, "**", "*.pth"), recursive=True))
+    if any_pth:
+        print(f"[weights] {WEIGHT_BASENAME} not found; {len(any_pth)} other .pth present: "
+              f"{[os.path.basename(h) for h in any_pth[:5]]}", flush=True)
+        return any_pth[0]
+    listing = []
+    for root, dirs, files in os.walk(path):
+        listing.append(root)
+        if len(listing) > 12:
+            break
+    raise SystemExit(f"no .pth anywhere under {path}. Directories seen:\n  " +
+                     "\n  ".join(listing))
 
 
 def load_encoder(path, device):
