@@ -356,19 +356,32 @@ and §4.1 plus T1 established that cut-point placement dominates adjacent-grade 
 which cross-fitted threshold tuning already handles. A better ordinal *loss* would have to
 improve the underlying **ranking**, not the cut placement.
 
-**The reason to promote it anyway is the backbone evidence, which is bad.** At matched
-calibration on the 5-fold development pool:
+**CORRECTION 2026-09-05 — the argument I originally gave for this was wrong.**
 
-| run | backbone | size | DR QWK |
+I justified promoting CORAL/CORN by claiming *"the one clean 5-fold backbone swap this project
+has run made things worse"*, citing E07 (tf_efficientnet_b3, 0.8441) against E08
+(densenet121, 0.8646). **That comparison was confounded and I should have checked it.** E07
+and E08 differ in three things at once:
+
+| | backbone | EyePACS pretraining | epochs |
 |---|---|---|---|
-| E08 | densenet121 | 448 | **0.8646** |
-| E07 | tf_efficientnet_b3 | 448 | **0.8441** |
+| E07 | tf_efficientnet_b3 | **none** | 60 |
+| E08 | densenet121 | **yes** | 40 |
 
-**The one clean 5-fold backbone swap this project has run made things worse.** E11's apparent
-EfficientNet advantage was measured on 3 folds, and F3 showed its external advantage dissolved
-at matched operating points. So the prior on another backbone swap producing a durable gain is
-low, and backbone comparisons are precisely the class §4.1 keeps dissolving. CORAL/CORN
-changes the training objective instead of the feature extractor — a different, untried axis.
+E07 had **no pretraining stage at all**, which alone plausibly explains the gap. Citing it as a
+backbone comparison was exactly the error §4.2 warns about — attributing to one variable a
+difference produced by three.
+
+**The clean backbone comparison points the other way.** E11FULL and E10 are both
+EyePACS-pretrained at 448, differing in backbone: **0.8954 vs 0.8749, +0.0207 [+0.0105,
++0.0320], significant.** Note also that E07 and E11 share the *same* backbone and differ by
+0.05 QWK, most of which is the pretraining stage — further evidence the earlier reading was
+about pretraining, not architecture.
+
+**So the backbone prior is good, not bad, and ConvNeXt/Swin are not deprioritised on this
+evidence.** CORAL/CORN remains worth running — it tests an untried axis and it is cheap — but
+the reason is no longer "backbones don't work here", because on the one uncontaminated
+comparison they do.
 
 **Expected effect, stated honestly: small.** Our head is *already* ordinal (thresholds on
 P(y > k)) with rank-consistent decoding via `cummin`. CORAL/CORN is an increment on an

@@ -1,0 +1,94 @@
+{
+ "corpus": "APTOS",
+ "n_folds_ensembled": 5,
+ "tta": true,
+ "folds": "all",
+ "consumption": {
+  "corpora": {
+   "APTOS": {
+    "n": 3662,
+    "path_hash": "0d047bfb6856ea0e",
+    "source_dirs": [
+     "datasets"
+    ]
+   }
+  },
+  "mounted_dirs": [
+   "datasets",
+   "notebooks"
+  ],
+  "cache_dir": "/kaggle/temp/cache_ext",
+  "manifest_version": 1
+ },
+ "metrics": {
+  "dr": {
+   "n": 3662,
+   "accuracy": 0.7493173129437466,
+   "accuracy_ci95": [
+    0.7351174221736756,
+    0.7629710540688148
+   ],
+   "qwk": 0.9026437411646644,
+   "qwk_ci95": [
+    0.8941415012133312,
+    0.910825118968087
+   ],
+   "macro_f1": 0.5447269150046886,
+   "per_class_recall": [
+    0.9811634349030471,
+    0.04864864864864865,
+    0.6556556556556556,
+    0.6321243523316062,
+    0.6033898305084746
+   ],
+   "support": [
+    1805,
+    370,
+    999,
+    193,
+    295
+   ],
+   "majority_floor": 0.4929000546149645,
+   "beats_floor": true,
+   "confusion": [
+    [
+     1771,
+     27,
+     7,
+     0,
+     0
+    ],
+    [
+     18,
+     18,
+     315,
+     16,
+     3
+    ],
+    [
+     8,
+     0,
+     655,
+     322,
+     14
+    ],
+    [
+     0,
+     0,
+     37,
+     122,
+     34
+    ],
+    [
+     3,
+     0,
+     48,
+     66,
+     178
+    ]
+   ],
+   "referable_sensitivity": 0.9926025554808339,
+   "referable_specificity": 0.8432183908045977
+  }
+ }
+}
