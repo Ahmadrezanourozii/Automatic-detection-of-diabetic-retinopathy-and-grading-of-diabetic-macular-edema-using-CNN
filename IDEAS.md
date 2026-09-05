@@ -273,9 +273,11 @@ Cheap, and it converts a stated caveat into a measured one.
 | development pool | 0.8903 | 0.8749 | **+0.0154** |
 | **APTOS (held out)** | 0.8878 | 0.8867 | **+0.0011 [−0.0033, +0.0053] — indistinguishable** |
 
-Members: E08, E09, E10, E14MAC, E15LPFT — whichever had archived APTOS predictions, a
-mechanical fact never a score. (E17NAT's external eval was blocked by the weekly GPU quota;
-adding it later cannot rescue a gain that is already zero.)
+**Completed with all six members, 2026-09-05.** E17NAT's external eval landed and the
+conclusion is unchanged: ensemble of 6 scores APTOS 0.8892 against E10's 0.8867, a difference
+of **+0.0025 [−0.0016, +0.0066] — indistinguishable**, versus +0.0136 on the development pool.
+The five-member figure was +0.0011; adding the sixth moved it to +0.0025 and it remains inside
+its interval.
 
 **The development-pool gain was optimism.** By the criterion fixed before the run — *falsified
 if the ensemble's APTOS QWK does not exceed the best member's by more than its interval* —
