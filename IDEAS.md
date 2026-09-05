@@ -304,6 +304,47 @@ logits the same way.** Only that number can be a headline. **Falsified if** the 
 APTOS QWK does not exceed the best single member's by more than its interval — which would
 mean the gain is dev-pool optimism, not a better predictor.
 
+### I24 Stage 1 — RETFound cached linear probe — **pre-registered 2026-09-05, before launch**
+
+**Backbone.** RETFound CFP ViT-L/16, MAE self-supervised on ~1.6 M retinal images, frozen.
+Checkpoint sha256 `847f9dd0…` (stripped encoder of source `e1e4f66a…`), pinned in
+`src/retfound_probe.py` and verified at load time; provenance in
+`docs/RETFound_provenance.md`. Licence CC-BY-NC 4.0.
+
+**Method.** One forward pass per image, features cached, then a cross-fitted linear ordinal
+head (fold *f*'s head trained on the other folds only). This is the LP half of LP-FT, so it
+answers the staging question by measurement rather than argument, and it costs ~15 min instead
+of the ~19 h a full ViT-L fine-tune would need.
+
+**Control: E09, not E08.** RETFound is 224-native. Interpolating its 197-token position
+embedding to 448 would quadruple the token count and the compute, so the clean one-change
+comparison is against **E09 (densenet121 @224, 5 folds, EyePACS-pretrained): DR QWK 0.8389 at
+matched calibration.** Comparing against E08 @448 would confound backbone with resolution.
+
+**The handicap, stated in advance.** Our own 224 → 448 jump is worth about **+0.04 QWK**
+(E09 0.8389 → E08 0.8646, matched). RETFound is locked to 224, so it must overcome that before
+it can beat our best. **Clearing E09 but not E08 is therefore informative about
+representations, not a loss** — it would say a foundation backbone is worth more than doubling
+resolution, while still not being the best available pipeline.
+
+**Falsifying outcome, fixed before the numbers.** *A frozen linear probe on RETFound features
+must beat E09's 0.8389 DR QWK by more than its interval (≈ ±0.015).* If it does not, a
+representation trained on 1.6 M retinal images does not carry more DR signal than our own
+224 px supervised backbone, and Stage 2 (fine-tuning) is not worth 19 h of quota.
+
+**Note on the comparison's fairness, in RETFound's favour.** A *frozen linear probe* is being
+compared against a *fully fine-tuned* network. That is deliberately hard on RETFound: if the
+probe clears E09 anyway, the representation claim is strong. If it lands below E09 but well
+above the floor, that is not decisive against fine-tuning it, and Stage 2 remains arguable —
+which is exactly the fork to bring back to the owner rather than resolve unilaterally.
+
+**The DME test, reported separately (F7).** F7 says the 3-class DME ceiling is supervision,
+not architecture, on the strength of five falsified architectural interventions. A
+representation trained on 1.6 M retinal images is the cleanest available challenge to it.
+**If DME QWK moves past its ±0.03 band, F7 needs revising. If it does not, F7 becomes much
+harder to argue with** — a foundation model failing where architecture failed points squarely
+at the 516 labels, 51 of them the middle grade.
+
 ## Rejected
 
 | ID | Idea | Verdict | Evidence |

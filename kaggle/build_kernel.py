@@ -30,6 +30,10 @@ APTOS = "mariaherrerot/aptos2019"
 # the 1744 labelled images -- the IM*-named ones are absent, so the corpus is left at
 # mixed resolution. Worth it because E09 showed Mild recall is resolution-bound.
 MESSIDOR_HI = "borhan2003/messidor-diabetic-retinopathy-dataset-jpg-format"
+# RETFound CFP ViT-L/16 encoder, stripped from the official gated checkpoint and re-uploaded
+# PRIVATELY (redistributing CC-BY-NC gated weights publicly is not ours to do). The probe
+# verifies its sha256 at load time, so the path is not trusted (docs/RETFound_provenance.md).
+RETFOUND = "ah22reza/retfound-cfp-encoder"
 
 # A run whose ID names a piece of work must actually launch that work. E13gate was pushed
 # as the fovea-localiser gate and silently ran src/train.py for 643 s instead, producing a
@@ -280,6 +284,8 @@ def main():
                     help="attach APTOS and run the external evaluation after training")
     ap.add_argument("--messidor-hi", action="store_true",
                     help="attach the native-resolution Messidor-2 mirror (1057 of 1744)")
+    ap.add_argument("--retfound", action="store_true",
+                    help="attach the private RETFound CFP encoder dataset")
     ap.add_argument("--eyepacs", action="store_true",
                     help="attach the EyePACS 2015 corpus for pretraining")
     ap.add_argument("--push", action="store_true")
@@ -371,7 +377,8 @@ def main():
         "enable_internet": True,
         "dataset_sources": (DATASETS + ([EYEPACS] if a.eyepacs else [])
                             + ([APTOS] if a.aptos else [])
-                            + ([MESSIDOR_HI] if a.messidor_hi else [])),
+                            + ([MESSIDOR_HI] if a.messidor_hi else [])
+                            + ([RETFOUND] if a.retfound else [])),
         "competition_sources": [],
         "kernel_sources": [a.from_run] if a.from_run else [],
     }
