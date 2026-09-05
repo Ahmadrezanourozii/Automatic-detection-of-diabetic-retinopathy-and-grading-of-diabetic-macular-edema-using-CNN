@@ -385,7 +385,9 @@ def main():
                             + ([MESSIDOR_HI] if a.messidor_hi else [])
                             + ([RETFOUND] if a.retfound else [])),
         "competition_sources": [],
-        "kernel_sources": [a.from_run] if a.from_run else [],
+        # comma-separated: an assembled run's fold weights can live across several kernels
+        # (E11FULL takes best_0..2 from E11 and best_3..4 from E19E11C, which do not collide)
+        "kernel_sources": [x.strip() for x in a.from_run.split(",") if x.strip()],
     }
     with open(f"{out}/kernel-metadata.json", "w") as f:
         json.dump(meta, f, indent=1)
