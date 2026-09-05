@@ -510,3 +510,45 @@ than as the 5-fold verdict that was pre-registered.
 **Relation to F7.** The DME probe row is indistinguishable at n=516 despite a point estimate
 of +0.0434. That is F7 restated from the measurement side: 516 images with 51 in the middle
 grade cannot resolve an effect of that size, whatever the representation.
+
+---
+
+## F9 — What the pipeline is worth: +0.234 QWK over frozen features and a linear model
+
+**This project has no internal baseline** — the figures it inherited were template
+placeholders, and the only archived evaluation collapsed below the majority-class floor
+(`ISSUES.md` §1). So until now nothing said what the training pipeline actually *adds*.
+
+**The measurement, on identical images and identical folds.** `I24BASEPROBE` was built as a
+control for RETFound and turns out to be exactly the missing baseline: frozen ImageNet
+DenseNet121 features, a linear ordinal head, our frozen 5-fold split, cut-points cross-fitted
+on the other folds, matched calibration — the same treatment every model in this project gets.
+
+| model | DR QWK (matched calibration) |
+|---|---|
+| Majority-class predictor | 0 by construction |
+| **Frozen ImageNet features + linear ordinal head** | **0.6611** |
+| Frozen RETFound features + linear ordinal head | 0.7008 |
+| **E11FULL — the full trained pipeline** | **0.8954** |
+
+**The full pipeline is worth +0.2343 QWK over frozen features and a linear model.** That is a
+like-for-like statement: same 2 260 images, same folds, same decoding, same calibration. It is
+the first number this project has that answers "compared to what?" without leaving the split.
+
+**Why this belongs at the front of the results chapter.** Every other comparison here is
+between models that already work — E11FULL against E10, matched calibration against shipped
+cut-points, ensemble against single. Those are informative but they all presuppose that the
+pipeline is worth building. **This is the number that establishes it**, and it should be read
+before any of them.
+
+**What it is not.** It is not a comparison against published work, and it cannot be made into
+one: a frozen custom split makes any published figure incommensurable. `IDEAS.md` I16 states
+what can and cannot be claimed there. It is also not a claim that 0.6611 is a *good* trivial
+baseline — frozen ImageNet features on retinal images are a low bar, and the point is the
+distance from it, measured rather than assumed.
+
+**A note on where it came from.** This number was not planned. It exists because RETFound
+needed a like-for-like control, and the control turned out to answer an older and more
+important question than the one it was built for. Recorded because the pattern is worth
+noticing: the comparison that isolates one claim is often the baseline another claim was
+missing.
