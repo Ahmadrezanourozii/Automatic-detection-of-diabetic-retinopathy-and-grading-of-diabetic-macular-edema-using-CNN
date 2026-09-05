@@ -135,6 +135,37 @@ class OrdinalHead(nn.Module):
         return self.thresholds(self.trunk(x))          # (B, K-1) logits for P(y>k)
 
 
+class CoralHead(nn.Module):
+    """CORAL: one shared weight vector, K-1 learned biases (Cao, Mirjalili & Raschka 2020).
+
+    The existing OrdinalHead learns an independent weight vector per threshold, so nothing in
+    *training* prevents P(y > 2) from exceeding P(y > 1); `model.decode` repairs that at
+    inference with `cummin`. CORAL makes the ordering structural instead: a single projection
+    w·h with per-threshold biases b_k, so the logits are w·h + b_k and monotonicity holds by
+    construction whenever the biases are ordered.
+
+    THE HYPOTHESIS THIS TESTS (IDEAS.md). Because cut-points are already optimised by
+    cross-fitted tuning, a better ordinal loss cannot help by moving the cuts — it must improve
+    the underlying RANKING of images. CORAL constrains the model to a single ranking direction,
+    which is either a useful inductive bias or an unnecessary restriction of capacity.
+    """
+
+    def __init__(self, in_dim: int, n_classes: int, hidden: int = 256, p_drop: float = 0.4):
+        super().__init__()
+        self.n_classes = n_classes
+        self.trunk = nn.Sequential(
+            nn.Linear(in_dim, hidden),
+            nn.BatchNorm1d(hidden),
+            nn.ReLU(inplace=True),
+            nn.Dropout(p_drop),
+        )
+        self.proj = nn.Linear(hidden, 1, bias=False)          # the shared direction
+        self.bias = nn.Parameter(torch.zeros(n_classes - 1))  # per-threshold offsets
+
+    def forward(self, x):
+        return self.proj(self.trunk(x)) + self.bias           # (B, K-1)
+
+
 class SoftmaxHead(nn.Module):
     """The old K-way head, kept so the ordinal change can be ablated against it."""
 
@@ -162,7 +193,7 @@ class MultiOutputNet(nn.Module):
         self.backbone, dim = build_backbone(backbone, pretrained)
         self.feature_dim = dim
         self.head_type = head
-        H = OrdinalHead if head == "ordinal" else SoftmaxHead
+        H = {"ordinal": OrdinalHead, "coral": CoralHead}.get(head, SoftmaxHead)
         self.dr_head = H(dim, N_DR, hidden, p_drop)
         self.dme_head = H(dim, N_DME, hidden, p_drop)
 
@@ -188,6 +219,16 @@ class MultiOutputNet(nn.Module):
 
 
 # ── ordinal target construction ───────────────────────────────────────────────
+# CORAL emits the same (B, K-1) threshold logits with the same P(y > k) semantics as the
+# plain ordinal head, so every ordinal code path -- targets, masked BCE, decode, expected
+# grade -- applies unchanged. Only the head's parameterisation differs.
+ORDINAL_HEADS = ("ordinal", "coral")
+
+
+def is_ordinal(head: str) -> bool:
+    return head in ORDINAL_HEADS
+
+
 def ordinal_targets(y: torch.Tensor, n_classes: int):
     """y (B,) -> targets (B, K-1) where t[:,k] = 1 if y > k."""
     ks = torch.arange(n_classes - 1, device=y.device).unsqueeze(0)
@@ -237,7 +278,7 @@ def multitask_loss(dr_logits, dme_logits, batch, alpha=0.6, beta=0.4,
                    dr_pos_weight=None, dme_pos_weight=None, smoothing=0.0,
                    head="ordinal"):
     """L = alpha * L_DR + beta * L_DME, with per-sample masking on both heads."""
-    if head == "ordinal":
+    if is_ordinal(head):
         dr_t = ordinal_targets(batch["dr"], N_DR)
         dr_m = batch["dr_mask"].unsqueeze(1).expand_as(dr_t)
         l_dr = masked_bce(dr_logits, dr_t, dr_m, dr_pos_weight, smoothing)
@@ -266,7 +307,7 @@ def decode(logits, n_classes, head="ordinal", threshold=0.5):
     `cummin` makes the decode rank-consistent even if the raw probabilities are not
     monotone, so the model can never claim "not > 0 but yes > 1".
     """
-    if head != "ordinal":
+    if not is_ordinal(head):
         return logits.argmax(dim=1)
     fired = (torch.sigmoid(logits) > threshold).float()
     return torch.cummin(fired, dim=1).values.sum(dim=1).long().clamp(0, n_classes - 1)
@@ -278,7 +319,7 @@ def expected_grade(logits, head="ordinal"):
 
     Ordinal: E[y] = sum_k P(y > k). Softmax: sum_c c * p_c.
     """
-    if head != "ordinal":
+    if not is_ordinal(head):
         return (torch.softmax(logits, 1) *
                 torch.arange(logits.shape[1], device=logits.device)).sum(1)
     return torch.sigmoid(logits).sum(dim=1)

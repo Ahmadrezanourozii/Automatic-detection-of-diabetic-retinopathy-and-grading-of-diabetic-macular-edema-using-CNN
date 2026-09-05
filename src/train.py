@@ -590,7 +590,7 @@ def main():
     p.add_argument("--size", type=int, default=448)
     p.add_argument("--batch", type=int, default=16)
     p.add_argument("--backbone", default="densenet121")
-    p.add_argument("--head", default="ordinal", choices=["ordinal", "softmax"])
+    p.add_argument("--head", default="ordinal", choices=["ordinal", "softmax", "coral"])
     p.add_argument("--hidden", type=int, default=256)
     p.add_argument("--dropout", type=float, default=0.4)
     p.add_argument("--alpha", type=float, default=0.6)

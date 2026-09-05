@@ -493,6 +493,37 @@ architecture alone** (§4.2).
 224-locked. Clearing E09 but not E08's 0.8646 would say a foundation backbone is worth about
 as much as doubling resolution — informative, and still not the best available pipeline.
 
+### E20CORAL — CORAL ordinal head — **pre-registered 2026-09-05, before launch**
+
+**Config.** E08 with **one change**: `--head coral`. densenet121, 448 px, batch 16, 40 epochs,
+EyePACS pretraining, TTA, folds 0–4. Tested on E08's configuration rather than E11's because
+it is 3.6 h against 15.8 h; if CORAL helps, it transfers to the better backbone afterwards.
+
+**What CORAL changes.** `OrdinalHead` learns an independent weight vector per threshold, so
+nothing in *training* stops P(y > 2) exceeding P(y > 1) — `model.decode` repairs that at
+inference with `cummin`. `CoralHead` learns **one shared direction** w·h with per-threshold
+biases b_k, so all K−1 logits differ only by a constant and the ranking is a single direction
+by construction.
+
+**Hypothesis, as restated after the owner withdrew the original rationale.** Because
+cut-points are already optimised by cross-fitted tuning, an ordinal loss cannot help by moving
+the cuts. **It must improve the underlying ranking of images.** CORAL constrains the model to
+one ranking direction: either a useful inductive bias, or an unnecessary restriction of
+capacity — the head goes from K−1 independent projections to one.
+
+**Control:** E08 at matched calibration, **DR QWK 0.8646**. **Falsifying outcome:** DR QWK at
+matched calibration does not exceed 0.8646 by more than its interval (≈ ±0.015).
+
+**Expected effect: small, and it could plausibly be negative.** Our head is already ordinal
+with rank-consistent decoding, so CORAL removes a repair that was already being applied and
+replaces it with a constraint. A null would say the `cummin` repair was already sufficient.
+
+**A property to check on the fetched weights, not assumed.** CORAL's rank-consistency holds
+for every sample **iff the learned biases are ordered** b_0 > b_1 > … > b_{K−2}, since all
+samples share one direction. Nothing constrains them to be. Report whether they came out
+ordered; if not, CORAL's guarantee did not actually hold and the comparison measures
+something else.
+
 ## Rejected
 
 | ID | Idea | Verdict | Evidence |
