@@ -193,7 +193,10 @@ class MultiOutputNet(nn.Module):
         self.backbone, dim = build_backbone(backbone, pretrained)
         self.feature_dim = dim
         self.head_type = head
-        H = {"ordinal": OrdinalHead, "coral": CoralHead}.get(head, SoftmaxHead)
+        # CORN keeps OrdinalHead's parameterisation -- K-1 independent projections. Only the
+        # loss and the decode differ, which is exactly what makes it CORAL's control.
+        H = {"ordinal": OrdinalHead, "corn": OrdinalHead,
+             "coral": CoralHead}.get(head, SoftmaxHead)
         self.dr_head = H(dim, N_DR, hidden, p_drop)
         self.dme_head = H(dim, N_DME, hidden, p_drop)
 
@@ -222,7 +225,7 @@ class MultiOutputNet(nn.Module):
 # CORAL emits the same (B, K-1) threshold logits with the same P(y > k) semantics as the
 # plain ordinal head, so every ordinal code path -- targets, masked BCE, decode, expected
 # grade -- applies unchanged. Only the head's parameterisation differs.
-ORDINAL_HEADS = ("ordinal", "coral")
+ORDINAL_HEADS = ("ordinal", "coral", "corn")
 
 
 def is_ordinal(head: str) -> bool:
@@ -274,6 +277,21 @@ def masked_bce(logits, targets, mask, pos_weight=None, smoothing=0.0):
     return (loss * mask).sum() / denom
 
 
+def corn_mask(targets):
+    """CORN's conditional training subsets (Shi, Cao & Raschka 2021).
+
+    Threshold k models P(y > k | y > k-1), so a sample trains threshold k only when it
+    satisfied the previous one. Threshold 0 sees everything; threshold k>0 sees only rows
+    whose target for k-1 was positive. `targets` is (B, K-1) with t[:,k] = 1[y > k].
+
+    This is the whole difference from the plain ordinal head — the parameterisation is
+    identical (K-1 independent projections), so CORN isolates the *objective* from the
+    shared-projection capacity constraint that CORAL also imposes (IDEAS.md, E20CORAL).
+    """
+    prev = torch.cat([torch.ones_like(targets[:, :1]), targets[:, :-1]], dim=1)
+    return prev
+
+
 def multitask_loss(dr_logits, dme_logits, batch, alpha=0.6, beta=0.4,
                    dr_pos_weight=None, dme_pos_weight=None, smoothing=0.0,
                    head="ordinal"):
@@ -281,9 +299,13 @@ def multitask_loss(dr_logits, dme_logits, batch, alpha=0.6, beta=0.4,
     if is_ordinal(head):
         dr_t = ordinal_targets(batch["dr"], N_DR)
         dr_m = batch["dr_mask"].unsqueeze(1).expand_as(dr_t)
-        l_dr = masked_bce(dr_logits, dr_t, dr_m, dr_pos_weight, smoothing)
-
         dme_t, dme_m = dme_targets_and_mask(batch["dme_lo"], batch["dme_hi"])
+        if head == "corn":
+            # the conditional subset multiplies the existing supervision mask, so a row that
+            # is unsupervised at threshold k stays unsupervised
+            dr_m = dr_m * corn_mask(dr_t)
+            dme_m = dme_m * corn_mask(dme_t)
+        l_dr = masked_bce(dr_logits, dr_t, dr_m, dr_pos_weight, smoothing)
         l_dme = masked_bce(dme_logits, dme_t, dme_m, dme_pos_weight, smoothing)
     else:
         dr_m = batch["dr_mask"]
@@ -309,6 +331,11 @@ def decode(logits, n_classes, head="ordinal", threshold=0.5):
     """
     if not is_ordinal(head):
         return logits.argmax(dim=1)
+    if head == "corn":
+        # conditionals compose: P(y > k) = prod_{j<=k} sigmoid(logit_j), which is monotone
+        # non-increasing in k by construction, so no cummin repair is needed
+        p = torch.cumprod(torch.sigmoid(logits), dim=1)
+        return (p > threshold).float().sum(dim=1).long().clamp(0, n_classes - 1)
     fired = (torch.sigmoid(logits) > threshold).float()
     return torch.cummin(fired, dim=1).values.sum(dim=1).long().clamp(0, n_classes - 1)
 
@@ -322,4 +349,6 @@ def expected_grade(logits, head="ordinal"):
     if not is_ordinal(head):
         return (torch.softmax(logits, 1) *
                 torch.arange(logits.shape[1], device=logits.device)).sum(1)
+    if head == "corn":
+        return torch.cumprod(torch.sigmoid(logits), dim=1).sum(dim=1)
     return torch.sigmoid(logits).sum(dim=1)

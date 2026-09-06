@@ -1,0 +1,3 @@
+run E20CORAL  commit b723945197  device=cuda  backbone=densenet121 head=coral size=448
+[corpora] APTOS            0 images
+APTOS matched 0 images — is it attached to this kernel?

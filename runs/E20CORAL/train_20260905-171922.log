@@ -1,0 +1,441 @@
+===== launched 2026-09-05 17:19:22 =====
+COMMIT b72394519749faa33916c03048d3519950a655c3
+RUN E20CORAL
+device=cuda  torch=2.5.1+cu121  gpu=Tesla P100-PCIE-16GB
+[gpu] sm_60 usable
+[corpora] IDRiD          516 images
+[corpora] Messidor-2    1744 images
+  IDRiD       n=   516  DR0=168 DR1=25 DR2=168 DR3=93 DR4=62   dme_supervised=  516 (exact=516)
+  Messidor-2  n=  1744  DR0=1017 DR1=270 DR2=347 DR3=75 DR4=35   dme_supervised= 1744 (exact=151)
+[split] /kaggle/working/repo/data/splits/dev_v1.json fingerprint=0cfbbfeb081999af 5 folds
+[corpora] EyePACS      35126 images
+  EyePACS     n= 35126  DR0=25810 DR1=2443 DR2=5292 DR3=873 DR4=708   dme_supervised=    0 (exact=0)
+[cache] decoding 37386 images -> /kaggle/temp/cache560
+[cache]   250/37386  36s, ~5288s left
+[cache]   500/37386  71s, ~5266s left
+[cache]   750/37386  78s, ~3804s left
+[cache]   1000/37386  83s, ~3002s left
+[cache]   1250/37386  87s, ~2513s left
+[cache]   1500/37386  91s, ~2183s left
+[cache]   1750/37386  94s, ~1923s left
+[cache]   2000/37386  97s, ~1719s left
+[cache]   2250/37386  100s, ~1558s left
+[cache]   2500/37386  103s, ~1440s left
+[cache]   2750/37386  107s, ~1342s left
+[cache]   3000/37386  110s, ~1261s left
+[cache]   3250/37386  113s, ~1191s left
+[cache]   3500/37386  117s, ~1132s left
+[cache]   3750/37386  121s, ~1082s left
+[cache]   4000/37386  124s, ~1036s left
+[cache]   4250/37386  128s, ~995s left
+[cache]   4500/37386  131s, ~958s left
+[cache]   4750/37386  135s, ~925s left
+[cache]   5000/37386  138s, ~895s left
+[cache]   5250/37386  142s, ~867s left
+[cache]   5500/37386  145s, ~841s left
+[cache]   5750/37386  149s, ~818s left
+[cache]   6000/37386  152s, ~796s left
+[cache]   6250/37386  156s, ~776s left
+[cache]   6500/37386  159s, ~758s left
+[cache]   6750/37386  163s, ~740s left
+[cache]   7000/37386  167s, ~723s left
+[cache]   7250/37386  170s, ~707s left
+[cache]   7500/37386  174s, ~692s left
+[cache]   7750/37386  177s, ~678s left
+[cache]   8000/37386  181s, ~664s left
+[cache]   8250/37386  184s, ~650s left
+[cache]   8500/37386  188s, ~637s left
+[cache]   8750/37386  191s, ~625s left
+[cache]   9000/37386  194s, ~613s left
+[cache]   9250/37386  198s, ~601s left
+[cache]   9500/37386  201s, ~591s left
+[cache]   9750/37386  205s, ~580s left
+[cache]   10000/37386  208s, ~570s left
+[cache]   10250/37386  211s, ~560s left
+[cache]   10500/37386  215s, ~550s left
+[cache]   10750/37386  218s, ~540s left
+[cache]   11000/37386  222s, ~531s left
+[cache]   11250/37386  225s, ~523s left
+[cache]   11500/37386  228s, ~514s left
+[cache]   11750/37386  232s, ~506s left
+[cache]   12000/37386  235s, ~498s left
+[cache]   12250/37386  239s, ~490s left
+[cache]   12500/37386  242s, ~482s left
+[cache]   12750/37386  246s, ~475s left
+[cache]   13000/37386  249s, ~468s left
+[cache]   13250/37386  253s, ~461s left
+[cache]   13500/37386  256s, ~454s left
+[cache]   13750/37386  260s, ~447s left
+[cache]   14000/37386  264s, ~440s left
+[cache]   14250/37386  267s, ~434s left
+[cache]   14500/37386  271s, ~428s left
+[cache]   14750/37386  274s, ~421s left
+[cache]   15000/37386  278s, ~415s left
+[cache]   15250/37386  282s, ~409s left
+[cache]   15500/37386  285s, ~402s left
+[cache]   15750/37386  289s, ~396s left
+[cache]   16000/37386  292s, ~391s left
+[cache]   16250/37386  296s, ~385s left
+[cache]   16500/37386  299s, ~379s left
+[cache]   16750/37386  303s, ~373s left
+[cache]   17000/37386  306s, ~367s left
+[cache]   17250/37386  310s, ~362s left
+[cache]   17500/37386  313s, ~356s left
+[cache]   17750/37386  317s, ~351s left
+[cache]   18000/37386  321s, ~345s left
+[cache]   18250/37386  324s, ~340s left
+[cache]   18500/37386  328s, ~335s left
+[cache]   18750/37386  332s, ~330s left
+[cache]   19000/37386  335s, ~324s left
+[cache]   19250/37386  339s, ~319s left
+[cache]   19500/37386  343s, ~314s left
+[cache]   19750/37386  346s, ~309s left
+[cache]   20000/37386  350s, ~304s left
+[cache]   20250/37386  354s, ~299s left
+[cache]   20500/37386  357s, ~294s left
+[cache]   20750/37386  361s, ~290s left
+[cache]   21000/37386  365s, ~285s left
+[cache]   21250/37386  369s, ~280s left
+[cache]   21500/37386  373s, ~276s left
+[cache]   21750/37386  377s, ~271s left
+[cache]   22000/37386  381s, ~266s left
+[cache]   22250/37386  384s, ~262s left
+[cache]   22500/37386  388s, ~257s left
+[cache]   22750/37386  392s, ~252s left
+[cache]   23000/37386  395s, ~247s left
+[cache]   23250/37386  399s, ~242s left
+[cache]   23500/37386  402s, ~238s left
+[cache]   23750/37386  406s, ~233s left
+[cache]   24000/37386  410s, ~228s left
+[cache]   24250/37386  413s, ~224s left
+[cache]   24500/37386  417s, ~219s left
+[cache]   24750/37386  421s, ~215s left
+[cache]   25000/37386  424s, ~210s left
+[cache]   25250/37386  428s, ~206s left
+[cache]   25500/37386  432s, ~201s left
+[cache]   25750/37386  435s, ~197s left
+[cache]   26000/37386  439s, ~192s left
+[cache]   26250/37386  443s, ~188s left
+[cache]   26500/37386  446s, ~183s left
+[cache]   26750/37386  450s, ~179s left
+[cache]   27000/37386  454s, ~175s left
+[cache]   27250/37386  458s, ~170s left
+[cache]   27500/37386  462s, ~166s left
+[cache]   27750/37386  465s, ~162s left
+[cache]   28000/37386  469s, ~157s left
+[cache]   28250/37386  473s, ~153s left
+[cache]   28500/37386  476s, ~149s left
+[cache]   28750/37386  480s, ~144s left
+[cache]   29000/37386  484s, ~140s left
+[cache]   29250/37386  488s, ~136s left
+[cache]   29500/37386  491s, ~131s left
+[cache]   29750/37386  495s, ~127s left
+[cache]   30000/37386  499s, ~123s left
+[cache]   30250/37386  503s, ~119s left
+[cache]   30500/37386  507s, ~114s left
+[cache]   30750/37386  511s, ~110s left
+[cache]   31000/37386  515s, ~106s left
+[cache]   31250/37386  518s, ~102s left
+[cache]   31500/37386  522s, ~98s left
+[cache]   31750/37386  526s, ~93s left
+[cache]   32000/37386  530s, ~89s left
+[cache]   32250/37386  533s, ~85s left
+[cache]   32500/37386  537s, ~81s left
+[cache]   32750/37386  541s, ~77s left
+[cache]   33000/37386  545s, ~72s left
+[cache]   33250/37386  549s, ~68s left
+[cache]   33500/37386  553s, ~64s left
+[cache]   33750/37386  557s, ~60s left
+[cache]   34000/37386  561s, ~56s left
+[cache]   34250/37386  565s, ~52s left
+[cache]   34500/37386  569s, ~48s left
+[cache]   34750/37386  573s, ~43s left
+[cache]   35000/37386  577s, ~39s left
+[cache]   35250/37386  581s, ~35s left
+[cache]   35500/37386  585s, ~31s left
+[cache]   35750/37386  589s, ~27s left
+[cache]   36000/37386  593s, ~23s left
+[cache]   36250/37386  597s, ~19s left
+[cache]   36500/37386  600s, ~15s left
+[cache]   36750/37386  604s, ~10s left
+[cache]   37000/37386  608s, ~6s left
+[cache]   37250/37386  612s, ~2s left
+[cache]   37386/37386  614s, ~0s left
+
+==============================================================================
+PRETRAIN on 35126 images (5 epochs)
+==============================================================================
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/usr/local/lib/python3.12/dist-packages/torch/optim/lr_scheduler.py:224: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn(
+  pretrain ep  0/5  loss 0.5378  676s
+  pretrain ep  1/5  loss 0.4240  676s
+  pretrain ep  2/5  loss 0.3721  677s
+  pretrain ep  3/5  loss 0.3389  678s
+  pretrain ep  4/5  loss 0.3251  677s
+[pretrain] saved /kaggle/working/E20CORAL/pretrained.pt
+
+==============================================================================
+FOLD 0   train=1805  val=455
+==============================================================================
+  initialised from the pretrained backbone
+  ep   0/40  loss 0.3937 (dr 0.3653 dme 0.4363)  DR qwk 0.663 acc 47.5%  DME qwk 0.272 acc 58.1%  score 0.5069  41s  *best
+  ep   1/40  loss 0.3259 (dr 0.3417 dme 0.3021)  DR qwk 0.739 acc 49.5%  DME qwk 0.830 acc 84.8%  score 0.7753  41s  *best
+  ep   2/40  loss 0.3046 (dr 0.3239 dme 0.2758)  DR qwk 0.751 acc 52.5%  DME qwk 0.790 acc 81.0%  score 0.7666  40s
+  ep   3/40  loss 0.2882 (dr 0.3219 dme 0.2377)  DR qwk 0.761 acc 53.2%  DME qwk 0.806 acc 83.8%  score 0.7794  40s  *best
+  ep   4/40  loss 0.2652 (dr 0.3054 dme 0.2049)  DR qwk 0.766 acc 54.7%  DME qwk 0.807 acc 83.8%  score 0.7822  40s  *best
+  ep   5/40  loss 0.2576 (dr 0.2899 dme 0.2091)  DR qwk 0.782 acc 57.6%  DME qwk 0.823 acc 83.8%  score 0.7985  40s  *best
+  ep   6/40  loss 0.2434 (dr 0.2849 dme 0.1812)  DR qwk 0.805 acc 59.8%  DME qwk 0.852 acc 86.7%  score 0.8240  40s  *best
+  ep   7/40  loss 0.2401 (dr 0.2832 dme 0.1756)  DR qwk 0.811 acc 60.0%  DME qwk 0.861 acc 88.6%  score 0.8311  41s  *best
+  ep   8/40  loss 0.2309 (dr 0.2723 dme 0.1688)  DR qwk 0.815 acc 61.1%  DME qwk 0.862 acc 88.6%  score 0.8340  41s  *best
+  ep   9/40  loss 0.2292 (dr 0.2676 dme 0.1715)  DR qwk 0.825 acc 62.2%  DME qwk 0.877 acc 88.6%  score 0.8459  41s  *best
+  ep  10/40  loss 0.2245 (dr 0.2634 dme 0.1661)  DR qwk 0.826 acc 63.3%  DME qwk 0.877 acc 88.6%  score 0.8462  41s  *best
+  ep  11/40  loss 0.2223 (dr 0.2648 dme 0.1587)  DR qwk 0.826 acc 62.9%  DME qwk 0.877 acc 88.6%  score 0.8465  41s  *best
+  ep  12/40  loss 0.2159 (dr 0.2567 dme 0.1547)  DR qwk 0.823 acc 62.0%  DME qwk 0.877 acc 88.6%  score 0.8447  41s
+  ep  13/40  loss 0.2157 (dr 0.2504 dme 0.1637)  DR qwk 0.830 acc 62.9%  DME qwk 0.877 acc 88.6%  score 0.8487  41s  *best
+  ep  14/40  loss 0.2147 (dr 0.2494 dme 0.1625)  DR qwk 0.834 acc 62.9%  DME qwk 0.868 acc 86.7%  score 0.8477  41s
+  ep  15/40  loss 0.2104 (dr 0.2467 dme 0.1560)  DR qwk 0.836 acc 62.9%  DME qwk 0.868 acc 86.7%  score 0.8490  41s  *best
+  ep  16/40  loss 0.2093 (dr 0.2499 dme 0.1483)  DR qwk 0.832 acc 62.6%  DME qwk 0.868 acc 86.7%  score 0.8468  41s
+  ep  17/40  loss 0.2069 (dr 0.2425 dme 0.1535)  DR qwk 0.833 acc 63.1%  DME qwk 0.868 acc 86.7%  score 0.8472  40s
+  ep  18/40  loss 0.2073 (dr 0.2424 dme 0.1547)  DR qwk 0.833 acc 63.7%  DME qwk 0.868 acc 86.7%  score 0.8470  41s
+  ep  19/40  loss 0.2046 (dr 0.2379 dme 0.1548)  DR qwk 0.836 acc 63.5%  DME qwk 0.868 acc 86.7%  score 0.8488  40s
+  ep  20/40  loss 0.2019 (dr 0.2326 dme 0.1558)  DR qwk 0.832 acc 62.9%  DME qwk 0.873 acc 87.6%  score 0.8480  41s
+  ep  21/40  loss 0.1998 (dr 0.2324 dme 0.1509)  DR qwk 0.826 acc 62.6%  DME qwk 0.886 acc 87.6%  score 0.8504  40s  *best
+  ep  22/40  loss 0.2018 (dr 0.2324 dme 0.1559)  DR qwk 0.826 acc 62.4%  DME qwk 0.886 acc 87.6%  score 0.8500  41s
+  ep  23/40  loss 0.2016 (dr 0.2340 dme 0.1529)  DR qwk 0.825 acc 62.4%  DME qwk 0.882 acc 86.7%  score 0.8478  40s
+  ep  24/40  loss 0.1980 (dr 0.2292 dme 0.1512)  DR qwk 0.827 acc 62.9%  DME qwk 0.882 acc 86.7%  score 0.8488  41s
+  ep  25/40  loss 0.1974 (dr 0.2320 dme 0.1455)  DR qwk 0.825 acc 63.1%  DME qwk 0.882 acc 86.7%  score 0.8479  40s
+  ep  26/40  loss 0.1959 (dr 0.2282 dme 0.1474)  DR qwk 0.826 acc 63.3%  DME qwk 0.882 acc 86.7%  score 0.8481  40s
+  ep  27/40  loss 0.1972 (dr 0.2288 dme 0.1499)  DR qwk 0.825 acc 63.3%  DME qwk 0.882 acc 86.7%  score 0.8479  40s
+  ep  28/40  loss 0.1948 (dr 0.2264 dme 0.1473)  DR qwk 0.825 acc 63.5%  DME qwk 0.882 acc 86.7%  score 0.8480  40s
+  ep  29/40  loss 0.1940 (dr 0.2271 dme 0.1444)  DR qwk 0.827 acc 64.0%  DME qwk 0.882 acc 86.7%  score 0.8492  40s
+  ep  30/40  loss 0.1919 (dr 0.2242 dme 0.1433)  DR qwk 0.826 acc 63.5%  DME qwk 0.897 acc 86.7%  score 0.8541  40s  *best
+  ep  31/40  loss 0.1943 (dr 0.2248 dme 0.1486)  DR qwk 0.825 acc 64.2%  DME qwk 0.897 acc 86.7%  score 0.8535  40s
+  ep  32/40  loss 0.1910 (dr 0.2209 dme 0.1462)  DR qwk 0.824 acc 64.0%  DME qwk 0.897 acc 86.7%  score 0.8531  40s
+  ep  33/40  loss 0.1915 (dr 0.2221 dme 0.1456)  DR qwk 0.824 acc 64.0%  DME qwk 0.891 acc 85.7%  score 0.8507  40s
+  ep  34/40  loss 0.1907 (dr 0.2208 dme 0.1455)  DR qwk 0.823 acc 64.0%  DME qwk 0.891 acc 85.7%  score 0.8500  40s
+  ep  35/40  loss 0.1932 (dr 0.2251 dme 0.1452)  DR qwk 0.823 acc 64.2%  DME qwk 0.896 acc 86.7%  score 0.8521  40s
+  ep  36/40  loss 0.1908 (dr 0.2217 dme 0.1444)  DR qwk 0.820 acc 64.2%  DME qwk 0.901 acc 87.6%  score 0.8525  40s
+  ep  37/40  loss 0.1926 (dr 0.2234 dme 0.1464)  DR qwk 0.821 acc 64.4%  DME qwk 0.901 acc 87.6%  score 0.8530  40s
+  ep  38/40  loss 0.1927 (dr 0.2238 dme 0.1460)  DR qwk 0.824 acc 64.8%  DME qwk 0.901 acc 87.6%  score 0.8545  40s  *best
+  ep  39/40  loss 0.1906 (dr 0.2196 dme 0.1470)  DR qwk 0.824 acc 64.8%  DME qwk 0.901 acc 87.6%  score 0.8545  40s
+
+  fold 0 best (selected on validation score, never on test):
+    dr                     n=  455  acc  67.3% [62.6,71.4]  floor  52.3%  QWK  0.852  F1 0.573  BEATS
+    dme_ungated            n=  105  acc  87.6% [81.0,94.3]  floor  48.6%  QWK  0.917  F1 0.729  BEATS
+    dme_gated              n=   71  acc  81.7% [73.2,90.1]  floor  71.8%  QWK  0.814  F1 0.661  BEATS
+    dme_referable_binary   n=  455  acc  95.2% [93.2,97.1]  floor  82.0%  QWK  0.832  F1 0.916  BEATS
+
+==============================================================================
+FOLD 1   train=1805  val=455
+==============================================================================
+  initialised from the pretrained backbone
+  ep   0/40  loss 0.3990 (dr 0.3746 dme 0.4355)  DR qwk 0.596 acc 49.0%  DME qwk 0.191 acc 51.4%  score 0.4344  41s  *best
+  ep   1/40  loss 0.3272 (dr 0.3454 dme 0.2999)  DR qwk 0.624 acc 49.5%  DME qwk 0.731 acc 79.0%  score 0.6664  41s  *best
+  ep   2/40  loss 0.2951 (dr 0.3248 dme 0.2504)  DR qwk 0.756 acc 54.5%  DME qwk 0.741 acc 78.1%  score 0.7496  41s  *best
+  ep   3/40  loss 0.2797 (dr 0.3172 dme 0.2233)  DR qwk 0.773 acc 55.4%  DME qwk 0.748 acc 77.1%  score 0.7628  41s  *best
+  ep   4/40  loss 0.2596 (dr 0.2997 dme 0.1994)  DR qwk 0.783 acc 55.4%  DME qwk 0.755 acc 78.1%  score 0.7714  40s  *best
+  ep   5/40  loss 0.2525 (dr 0.2912 dme 0.1945)  DR qwk 0.797 acc 57.4%  DME qwk 0.740 acc 78.1%  score 0.7739  40s  *best
+  ep   6/40  loss 0.2474 (dr 0.2890 dme 0.1851)  DR qwk 0.811 acc 59.3%  DME qwk 0.740 acc 78.1%  score 0.7825  41s  *best
+  ep   7/40  loss 0.2373 (dr 0.2808 dme 0.1719)  DR qwk 0.818 acc 59.8%  DME qwk 0.769 acc 78.1%  score 0.7982  40s  *best
+  ep   8/40  loss 0.2381 (dr 0.2796 dme 0.1757)  DR qwk 0.826 acc 61.1%  DME qwk 0.769 acc 78.1%  score 0.8031  40s  *best
+  ep   9/40  loss 0.2314 (dr 0.2698 dme 0.1737)  DR qwk 0.834 acc 62.9%  DME qwk 0.769 acc 78.1%  score 0.8080  40s  *best
+  ep  10/40  loss 0.2248 (dr 0.2651 dme 0.1645)  DR qwk 0.843 acc 64.2%  DME qwk 0.818 acc 81.0%  score 0.8329  41s  *best
+  ep  11/40  loss 0.2145 (dr 0.2541 dme 0.1552)  DR qwk 0.841 acc 64.0%  DME qwk 0.816 acc 81.0%  score 0.8313  41s
+  ep  12/40  loss 0.2203 (dr 0.2605 dme 0.1600)  DR qwk 0.848 acc 65.7%  DME qwk 0.868 acc 81.9%  score 0.8561  41s  *best
+  ep  13/40  loss 0.2183 (dr 0.2560 dme 0.1617)  DR qwk 0.848 acc 66.6%  DME qwk 0.872 acc 82.9%  score 0.8580  40s  *best
+  ep  14/40  loss 0.2132 (dr 0.2541 dme 0.1518)  DR qwk 0.854 acc 67.5%  DME qwk 0.889 acc 82.9%  score 0.8678  41s  *best
+  ep  15/40  loss 0.2134 (dr 0.2504 dme 0.1578)  DR qwk 0.855 acc 67.7%  DME qwk 0.890 acc 85.7%  score 0.8693  40s  *best
+  ep  16/40  loss 0.2118 (dr 0.2477 dme 0.1578)  DR qwk 0.862 acc 68.1%  DME qwk 0.886 acc 84.8%  score 0.8718  41s  *best
+  ep  17/40  loss 0.2038 (dr 0.2380 dme 0.1525)  DR qwk 0.868 acc 69.0%  DME qwk 0.886 acc 84.8%  score 0.8750  40s  *best
+  ep  18/40  loss 0.2074 (dr 0.2462 dme 0.1491)  DR qwk 0.868 acc 68.6%  DME qwk 0.886 acc 84.8%  score 0.8749  41s
+  ep  19/40  loss 0.2058 (dr 0.2409 dme 0.1532)  DR qwk 0.866 acc 68.1%  DME qwk 0.886 acc 84.8%  score 0.8741  41s
+  ep  20/40  loss 0.2012 (dr 0.2358 dme 0.1491)  DR qwk 0.867 acc 69.0%  DME qwk 0.892 acc 85.7%  score 0.8768  41s  *best
+  ep  21/40  loss 0.1999 (dr 0.2361 dme 0.1456)  DR qwk 0.868 acc 69.2%  DME qwk 0.892 acc 85.7%  score 0.8776  40s  *best
+  ep  22/40  loss 0.1986 (dr 0.2326 dme 0.1477)  DR qwk 0.870 acc 69.5%  DME qwk 0.907 acc 85.7%  score 0.8848  40s  *best
+  ep  23/40  loss 0.1999 (dr 0.2346 dme 0.1478)  DR qwk 0.874 acc 69.7%  DME qwk 0.912 acc 86.7%  score 0.8896  41s  *best
+  ep  24/40  loss 0.1947 (dr 0.2259 dme 0.1478)  DR qwk 0.867 acc 69.5%  DME qwk 0.912 acc 86.7%  score 0.8852  40s
+  ep  25/40  loss 0.1951 (dr 0.2293 dme 0.1438)  DR qwk 0.867 acc 69.7%  DME qwk 0.917 acc 87.6%  score 0.8874  40s
+  ep  26/40  loss 0.1953 (dr 0.2297 dme 0.1437)  DR qwk 0.870 acc 69.7%  DME qwk 0.917 acc 87.6%  score 0.8889  40s
+  ep  27/40  loss 0.1944 (dr 0.2286 dme 0.1430)  DR qwk 0.868 acc 69.2%  DME qwk 0.917 acc 87.6%  score 0.8879  41s
+  ep  28/40  loss 0.1949 (dr 0.2283 dme 0.1447)  DR qwk 0.867 acc 69.0%  DME qwk 0.917 acc 87.6%  score 0.8874  40s
+  ep  29/40  loss 0.1933 (dr 0.2241 dme 0.1470)  DR qwk 0.866 acc 68.8%  DME qwk 0.917 acc 87.6%  score 0.8864  40s
+  ep  30/40  loss 0.1927 (dr 0.2258 dme 0.1430)  DR qwk 0.866 acc 69.0%  DME qwk 0.917 acc 87.6%  score 0.8866  40s
+  ep  31/40  loss 0.1911 (dr 0.2242 dme 0.1413)  DR qwk 0.866 acc 68.8%  DME qwk 0.917 acc 87.6%  score 0.8862  40s
+  ep  32/40  loss 0.1930 (dr 0.2239 dme 0.1466)  DR qwk 0.866 acc 69.0%  DME qwk 0.907 acc 85.7%  score 0.8825  41s
+  ep  33/40  loss 0.1913 (dr 0.2226 dme 0.1444)  DR qwk 0.868 acc 69.5%  DME qwk 0.907 acc 85.7%  score 0.8836  40s
+  ep  34/40  loss 0.1903 (dr 0.2223 dme 0.1422)  DR qwk 0.865 acc 69.5%  DME qwk 0.907 acc 85.7%  score 0.8815  40s
+  ep  35/40  loss 0.1905 (dr 0.2217 dme 0.1438)  DR qwk 0.867 acc 70.1%  DME qwk 0.907 acc 85.7%  score 0.8830  40s
+  ep  36/40  loss 0.1895 (dr 0.2228 dme 0.1395)  DR qwk 0.866 acc 70.1%  DME qwk 0.912 acc 86.7%  score 0.8844  41s
+  ep  37/40  loss 0.1905 (dr 0.2218 dme 0.1436)  DR qwk 0.867 acc 70.5%  DME qwk 0.917 acc 87.6%  score 0.8867  40s
+  ep  38/40  loss 0.1906 (dr 0.2216 dme 0.1439)  DR qwk 0.866 acc 70.3%  DME qwk 0.917 acc 87.6%  score 0.8862  40s
+  ep  39/40  loss 0.1890 (dr 0.2212 dme 0.1406)  DR qwk 0.866 acc 70.1%  DME qwk 0.917 acc 87.6%  score 0.8860  40s
+
+  fold 1 best (selected on validation score, never on test):
+    dr                     n=  455  acc  72.7% [68.8,76.7]  floor  52.3%  QWK  0.878  F1 0.616  BEATS
+    dme_ungated            n=  105  acc  89.5% [83.8,95.2]  floor  46.7%  QWK  0.941  F1 0.787  BEATS
+    dme_gated              n=   71  acc  85.9% [77.4,93.0]  floor  69.0%  QWK  0.866  F1 0.747  BEATS
+    dme_referable_binary   n=  455  acc  95.8% [93.8,97.6]  floor  83.1%  QWK  0.859  F1 0.930  BEATS
+
+==============================================================================
+FOLD 2   train=1808  val=452
+==============================================================================
+  initialised from the pretrained backbone
+  ep   0/40  loss 0.4021 (dr 0.3680 dme 0.4532)  DR qwk 0.719 acc 54.2%  DME qwk 0.168 acc 52.9%  score 0.4985  41s  *best
+  ep   1/40  loss 0.3235 (dr 0.3452 dme 0.2908)  DR qwk 0.809 acc 61.3%  DME qwk 0.691 acc 78.8%  score 0.7616  41s  *best
+  ep   2/40  loss 0.3067 (dr 0.3354 dme 0.2637)  DR qwk 0.819 acc 62.4%  DME qwk 0.785 acc 82.7%  score 0.8056  41s  *best
+  ep   3/40  loss 0.2881 (dr 0.3242 dme 0.2339)  DR qwk 0.821 acc 63.3%  DME qwk 0.845 acc 85.6%  score 0.8307  41s  *best
+  ep   4/40  loss 0.2648 (dr 0.3001 dme 0.2118)  DR qwk 0.826 acc 64.4%  DME qwk 0.851 acc 86.5%  score 0.8361  41s  *best
+  ep   5/40  loss 0.2543 (dr 0.3004 dme 0.1851)  DR qwk 0.832 acc 65.7%  DME qwk 0.835 acc 83.7%  score 0.8334  41s
+  ep   6/40  loss 0.2479 (dr 0.2912 dme 0.1829)  DR qwk 0.848 acc 66.8%  DME qwk 0.825 acc 84.6%  score 0.8387  41s  *best
+  ep   7/40  loss 0.2407 (dr 0.2850 dme 0.1742)  DR qwk 0.854 acc 67.5%  DME qwk 0.819 acc 83.7%  score 0.8397  41s  *best
+  ep   8/40  loss 0.2323 (dr 0.2748 dme 0.1684)  DR qwk 0.851 acc 66.8%  DME qwk 0.819 acc 83.7%  score 0.8382  41s
+  ep   9/40  loss 0.2343 (dr 0.2710 dme 0.1791)  DR qwk 0.860 acc 67.9%  DME qwk 0.804 acc 83.7%  score 0.8376  41s
+  ep  10/40  loss 0.2272 (dr 0.2684 dme 0.1653)  DR qwk 0.863 acc 69.2%  DME qwk 0.804 acc 83.7%  score 0.8396  41s
+  ep  11/40  loss 0.2238 (dr 0.2655 dme 0.1613)  DR qwk 0.864 acc 69.5%  DME qwk 0.811 acc 84.6%  score 0.8425  41s  *best
+  ep  12/40  loss 0.2188 (dr 0.2586 dme 0.1592)  DR qwk 0.870 acc 69.5%  DME qwk 0.796 acc 84.6%  score 0.8403  41s
+  ep  13/40  loss 0.2234 (dr 0.2609 dme 0.1672)  DR qwk 0.882 acc 70.1%  DME qwk 0.796 acc 84.6%  score 0.8479  41s  *best
+  ep  14/40  loss 0.2089 (dr 0.2484 dme 0.1496)  DR qwk 0.885 acc 70.8%  DME qwk 0.811 acc 84.6%  score 0.8551  41s  *best
+  ep  15/40  loss 0.2090 (dr 0.2499 dme 0.1477)  DR qwk 0.888 acc 71.2%  DME qwk 0.811 acc 84.6%  score 0.8570  41s  *best
+  ep  16/40  loss 0.2074 (dr 0.2447 dme 0.1516)  DR qwk 0.891 acc 71.7%  DME qwk 0.811 acc 84.6%  score 0.8586  41s  *best
+  ep  17/40  loss 0.2061 (dr 0.2448 dme 0.1481)  DR qwk 0.897 acc 73.5%  DME qwk 0.805 acc 83.7%  score 0.8598  41s  *best
+  ep  18/40  loss 0.2034 (dr 0.2389 dme 0.1502)  DR qwk 0.891 acc 73.2%  DME qwk 0.809 acc 84.6%  score 0.8584  41s
+  ep  19/40  loss 0.2035 (dr 0.2391 dme 0.1502)  DR qwk 0.894 acc 74.1%  DME qwk 0.828 acc 85.6%  score 0.8677  41s  *best
+  ep  20/40  loss 0.2002 (dr 0.2350 dme 0.1481)  DR qwk 0.892 acc 73.7%  DME qwk 0.837 acc 87.5%  score 0.8701  41s  *best
+  ep  21/40  loss 0.1976 (dr 0.2314 dme 0.1469)  DR qwk 0.893 acc 73.9%  DME qwk 0.837 acc 87.5%  score 0.8703  41s  *best
+  ep  22/40  loss 0.2012 (dr 0.2336 dme 0.1526)  DR qwk 0.894 acc 74.1%  DME qwk 0.831 acc 86.5%  score 0.8690  41s
+  ep  23/40  loss 0.1994 (dr 0.2328 dme 0.1493)  DR qwk 0.896 acc 74.6%  DME qwk 0.816 acc 86.5%  score 0.8639  41s
+  ep  24/40  loss 0.1957 (dr 0.2279 dme 0.1475)  DR qwk 0.894 acc 74.1%  DME qwk 0.816 acc 86.5%  score 0.8628  41s
+  ep  25/40  loss 0.1998 (dr 0.2327 dme 0.1505)  DR qwk 0.896 acc 74.6%  DME qwk 0.831 acc 86.5%  score 0.8698  41s
+  ep  26/40  loss 0.1948 (dr 0.2292 dme 0.1431)  DR qwk 0.894 acc 74.1%  DME qwk 0.825 acc 85.6%  score 0.8664  41s
+  ep  27/40  loss 0.1949 (dr 0.2293 dme 0.1433)  DR qwk 0.891 acc 73.5%  DME qwk 0.825 acc 85.6%  score 0.8646  41s
+  ep  28/40  loss 0.1956 (dr 0.2271 dme 0.1485)  DR qwk 0.892 acc 73.7%  DME qwk 0.825 acc 85.6%  score 0.8652  41s
+  ep  29/40  loss 0.1925 (dr 0.2263 dme 0.1419)  DR qwk 0.892 acc 73.9%  DME qwk 0.819 acc 84.6%  score 0.8630  41s
+  ep  30/40  loss 0.1904 (dr 0.2206 dme 0.1451)  DR qwk 0.892 acc 73.9%  DME qwk 0.819 acc 84.6%  score 0.8628  41s
+  ep  31/40  loss 0.1920 (dr 0.2239 dme 0.1442)  DR qwk 0.894 acc 74.6%  DME qwk 0.819 acc 84.6%  score 0.8643  41s
+  ep  32/40  loss 0.1943 (dr 0.2258 dme 0.1470)  DR qwk 0.895 acc 74.8%  DME qwk 0.819 acc 84.6%  score 0.8648  41s
+  ep  33/40  loss 0.1918 (dr 0.2227 dme 0.1454)  DR qwk 0.893 acc 74.3%  DME qwk 0.819 acc 84.6%  score 0.8635  41s
+  ep  34/40  loss 0.1921 (dr 0.2224 dme 0.1466)  DR qwk 0.893 acc 74.3%  DME qwk 0.819 acc 84.6%  score 0.8635  41s
+  ep  35/40  loss 0.1922 (dr 0.2235 dme 0.1451)  DR qwk 0.890 acc 74.3%  DME qwk 0.825 acc 85.6%  score 0.8643  41s
+  ep  36/40  loss 0.1896 (dr 0.2205 dme 0.1432)  DR qwk 0.889 acc 73.9%  DME qwk 0.825 acc 85.6%  score 0.8635  41s
+  ep  37/40  loss 0.1922 (dr 0.2229 dme 0.1463)  DR qwk 0.891 acc 73.9%  DME qwk 0.825 acc 85.6%  score 0.8649  41s
+  ep  38/40  loss 0.1912 (dr 0.2217 dme 0.1455)  DR qwk 0.884 acc 73.2%  DME qwk 0.825 acc 85.6%  score 0.8603  41s
+  ep  39/40  loss 0.1926 (dr 0.2247 dme 0.1444)  DR qwk 0.882 acc 73.5%  DME qwk 0.825 acc 85.6%  score 0.8595  41s
+
+  fold 2 best (selected on validation score, never on test):
+    dr                     n=  452  acc  78.3% [74.1,82.1]  floor  52.4%  QWK  0.906  F1 0.727  BEATS
+    dme_ungated            n=  104  acc  85.6% [78.8,92.3]  floor  49.0%  QWK  0.830  F1 0.699  BEATS
+    dme_gated              n=   70  acc  78.6% [68.6,87.1]  floor  72.9%  QWK  0.563  F1 0.614  below-floor
+    dme_referable_binary   n=  452  acc  94.2% [91.8,96.5]  floor  82.7%  QWK  0.808  F1 0.904  BEATS
+
+==============================================================================
+FOLD 3   train=1811  val=449
+==============================================================================
+  initialised from the pretrained backbone
+  ep   0/40  loss 0.3907 (dr 0.3649 dme 0.4294)  DR qwk 0.654 acc 49.9%  DME qwk 0.179 acc 52.5%  score 0.4641  41s  *best
+  ep   1/40  loss 0.3355 (dr 0.3460 dme 0.3198)  DR qwk 0.728 acc 52.3%  DME qwk 0.783 acc 80.2%  score 0.7503  41s  *best
+  ep   2/40  loss 0.3053 (dr 0.3308 dme 0.2670)  DR qwk 0.763 acc 56.8%  DME qwk 0.712 acc 78.2%  score 0.7424  41s
+  ep   3/40  loss 0.2839 (dr 0.3194 dme 0.2306)  DR qwk 0.771 acc 59.2%  DME qwk 0.733 acc 79.2%  score 0.7559  41s  *best
+  ep   4/40  loss 0.2649 (dr 0.3043 dme 0.2057)  DR qwk 0.780 acc 59.5%  DME qwk 0.733 acc 79.2%  score 0.7609  41s  *best
+  ep   5/40  loss 0.2568 (dr 0.2943 dme 0.2005)  DR qwk 0.796 acc 60.1%  DME qwk 0.726 acc 78.2%  score 0.7680  41s  *best
+  ep   6/40  loss 0.2502 (dr 0.2905 dme 0.1898)  DR qwk 0.793 acc 61.7%  DME qwk 0.726 acc 78.2%  score 0.7665  41s
+  ep   7/40  loss 0.2425 (dr 0.2775 dme 0.1901)  DR qwk 0.795 acc 62.6%  DME qwk 0.755 acc 78.2%  score 0.7794  41s  *best
+  ep   8/40  loss 0.2321 (dr 0.2741 dme 0.1691)  DR qwk 0.807 acc 65.0%  DME qwk 0.785 acc 78.2%  score 0.7980  41s  *best
+  ep   9/40  loss 0.2265 (dr 0.2608 dme 0.1751)  DR qwk 0.815 acc 65.7%  DME qwk 0.778 acc 77.2%  score 0.8006  41s  *best
+  ep  10/40  loss 0.2263 (dr 0.2700 dme 0.1607)  DR qwk 0.820 acc 66.8%  DME qwk 0.793 acc 77.2%  score 0.8091  41s  *best
+  ep  11/40  loss 0.2189 (dr 0.2605 dme 0.1564)  DR qwk 0.833 acc 69.3%  DME qwk 0.815 acc 78.2%  score 0.8262  41s  *best
+  ep  12/40  loss 0.2190 (dr 0.2584 dme 0.1598)  DR qwk 0.836 acc 69.5%  DME qwk 0.811 acc 80.2%  score 0.8261  41s
+  ep  13/40  loss 0.2169 (dr 0.2558 dme 0.1586)  DR qwk 0.836 acc 69.5%  DME qwk 0.817 acc 81.2%  score 0.8283  41s  *best
+  ep  14/40  loss 0.2185 (dr 0.2574 dme 0.1600)  DR qwk 0.837 acc 69.5%  DME qwk 0.806 acc 82.2%  score 0.8248  41s
+  ep  15/40  loss 0.2098 (dr 0.2460 dme 0.1553)  DR qwk 0.834 acc 69.9%  DME qwk 0.806 acc 82.2%  score 0.8232  41s
+  ep  16/40  loss 0.2061 (dr 0.2433 dme 0.1504)  DR qwk 0.836 acc 70.2%  DME qwk 0.813 acc 83.2%  score 0.8266  41s
+  ep  17/40  loss 0.2039 (dr 0.2409 dme 0.1483)  DR qwk 0.836 acc 70.6%  DME qwk 0.813 acc 83.2%  score 0.8270  41s
+  ep  18/40  loss 0.2056 (dr 0.2405 dme 0.1531)  DR qwk 0.837 acc 70.4%  DME qwk 0.819 acc 84.2%  score 0.8302  41s  *best
+  ep  19/40  loss 0.2077 (dr 0.2444 dme 0.1525)  DR qwk 0.838 acc 70.8%  DME qwk 0.819 acc 84.2%  score 0.8305  41s  *best
+  ep  20/40  loss 0.2025 (dr 0.2351 dme 0.1535)  DR qwk 0.837 acc 70.6%  DME qwk 0.819 acc 84.2%  score 0.8297  41s
+  ep  21/40  loss 0.2001 (dr 0.2329 dme 0.1509)  DR qwk 0.836 acc 70.6%  DME qwk 0.813 acc 83.2%  score 0.8269  41s
+  ep  22/40  loss 0.2007 (dr 0.2352 dme 0.1489)  DR qwk 0.841 acc 69.9%  DME qwk 0.817 acc 84.2%  score 0.8312  41s  *best
+  ep  23/40  loss 0.1978 (dr 0.2315 dme 0.1472)  DR qwk 0.846 acc 70.2%  DME qwk 0.817 acc 84.2%  score 0.8342  42s  *best
+  ep  24/40  loss 0.1963 (dr 0.2290 dme 0.1473)  DR qwk 0.842 acc 69.5%  DME qwk 0.817 acc 84.2%  score 0.8322  41s
+  ep  25/40  loss 0.1996 (dr 0.2313 dme 0.1520)  DR qwk 0.842 acc 69.5%  DME qwk 0.813 acc 83.2%  score 0.8305  41s
+  ep  26/40  loss 0.1949 (dr 0.2281 dme 0.1451)  DR qwk 0.838 acc 69.5%  DME qwk 0.813 acc 83.2%  score 0.8277  41s
+  ep  27/40  loss 0.1944 (dr 0.2260 dme 0.1469)  DR qwk 0.833 acc 69.3%  DME qwk 0.828 acc 83.2%  score 0.8309  41s
+  ep  28/40  loss 0.1947 (dr 0.2263 dme 0.1473)  DR qwk 0.830 acc 69.3%  DME qwk 0.828 acc 83.2%  score 0.8290  41s
+  ep  29/40  loss 0.1945 (dr 0.2260 dme 0.1473)  DR qwk 0.831 acc 69.5%  DME qwk 0.837 acc 82.2%  score 0.8332  41s
+  ep  30/40  loss 0.1924 (dr 0.2242 dme 0.1446)  DR qwk 0.829 acc 69.7%  DME qwk 0.837 acc 82.2%  score 0.8322  41s
+  ep  31/40  loss 0.1912 (dr 0.2228 dme 0.1437)  DR qwk 0.830 acc 70.2%  DME qwk 0.837 acc 82.2%  score 0.8329  41s
+  ep  32/40  loss 0.1949 (dr 0.2262 dme 0.1478)  DR qwk 0.830 acc 70.4%  DME qwk 0.837 acc 82.2%  score 0.8328  41s
+  ep  33/40  loss 0.1916 (dr 0.2230 dme 0.1446)  DR qwk 0.833 acc 70.6%  DME qwk 0.837 acc 82.2%  score 0.8344  41s  *best
+  ep  34/40  loss 0.1890 (dr 0.2221 dme 0.1394)  DR qwk 0.831 acc 70.2%  DME qwk 0.837 acc 82.2%  score 0.8331  41s
+  ep  35/40  loss 0.1899 (dr 0.2206 dme 0.1439)  DR qwk 0.831 acc 70.2%  DME qwk 0.837 acc 82.2%  score 0.8331  41s
+  ep  36/40  loss 0.1891 (dr 0.2211 dme 0.1411)  DR qwk 0.830 acc 69.9%  DME qwk 0.832 acc 81.2%  score 0.8309  41s
+  ep  37/40  loss 0.1936 (dr 0.2252 dme 0.1461)  DR qwk 0.829 acc 69.9%  DME qwk 0.832 acc 81.2%  score 0.8305  41s
+  ep  38/40  loss 0.1920 (dr 0.2220 dme 0.1470)  DR qwk 0.830 acc 70.2%  DME qwk 0.832 acc 81.2%  score 0.8309  41s
+  ep  39/40  loss 0.1923 (dr 0.2231 dme 0.1461)  DR qwk 0.829 acc 69.9%  DME qwk 0.837 acc 82.2%  score 0.8323  41s
+
+  fold 3 best (selected on validation score, never on test):
+    dr                     n=  449  acc  73.3% [69.3,77.3]  floor  52.6%  QWK  0.867  F1 0.606  BEATS
+    dme_ungated            n=  101  acc  86.1% [79.2,93.1]  floor  44.6%  QWK  0.874  F1 0.745  BEATS
+    dme_gated              n=   68  acc  80.9% [70.6,89.7]  floor  66.2%  QWK  0.779  F1 0.697  BEATS
+    dme_referable_binary   n=  449  acc  94.2% [92.0,96.2]  floor  82.6%  QWK  0.796  F1 0.898  BEATS
+
+==============================================================================
+FOLD 4   train=1811  val=449
+==============================================================================
+  initialised from the pretrained backbone
+  ep   0/40  loss 0.3919 (dr 0.3683 dme 0.4274)  DR qwk 0.650 acc 50.6%  DME qwk 0.363 acc 63.4%  score 0.5352  41s  *best
+  ep   1/40  loss 0.3298 (dr 0.3469 dme 0.3041)  DR qwk 0.782 acc 55.9%  DME qwk 0.767 acc 82.2%  score 0.7757  41s  *best
+  ep   2/40  loss 0.3087 (dr 0.3321 dme 0.2736)  DR qwk 0.780 acc 55.9%  DME qwk 0.752 acc 82.2%  score 0.7688  41s
+  ep   3/40  loss 0.2839 (dr 0.3185 dme 0.2319)  DR qwk 0.793 acc 57.7%  DME qwk 0.767 acc 82.2%  score 0.7825  41s  *best
+  ep   4/40  loss 0.2676 (dr 0.2999 dme 0.2191)  DR qwk 0.800 acc 60.4%  DME qwk 0.770 acc 83.2%  score 0.7882  41s  *best
+  ep   5/40  loss 0.2521 (dr 0.2934 dme 0.1901)  DR qwk 0.805 acc 61.0%  DME qwk 0.750 acc 82.2%  score 0.7827  41s
+  ep   6/40  loss 0.2445 (dr 0.2860 dme 0.1823)  DR qwk 0.816 acc 62.1%  DME qwk 0.779 acc 82.2%  score 0.8009  41s  *best
+  ep   7/40  loss 0.2396 (dr 0.2791 dme 0.1803)  DR qwk 0.823 acc 61.7%  DME qwk 0.775 acc 81.2%  score 0.8034  41s  *best
+  ep   8/40  loss 0.2362 (dr 0.2736 dme 0.1800)  DR qwk 0.829 acc 63.0%  DME qwk 0.796 acc 82.2%  score 0.8158  41s  *best
+  ep   9/40  loss 0.2353 (dr 0.2717 dme 0.1805)  DR qwk 0.835 acc 63.0%  DME qwk 0.796 acc 82.2%  score 0.8189  41s  *best
+  ep  10/40  loss 0.2228 (dr 0.2626 dme 0.1632)  DR qwk 0.834 acc 63.7%  DME qwk 0.817 acc 83.2%  score 0.8270  41s  *best
+  ep  11/40  loss 0.2245 (dr 0.2619 dme 0.1684)  DR qwk 0.835 acc 63.9%  DME qwk 0.810 acc 82.2%  score 0.8251  41s
+  ep  12/40  loss 0.2222 (dr 0.2619 dme 0.1626)  DR qwk 0.843 acc 65.0%  DME qwk 0.819 acc 81.2%  score 0.8336  41s  *best
+  ep  13/40  loss 0.2148 (dr 0.2534 dme 0.1568)  DR qwk 0.842 acc 64.8%  DME qwk 0.813 acc 80.2%  score 0.8300  41s
+  ep  14/40  loss 0.2111 (dr 0.2481 dme 0.1557)  DR qwk 0.847 acc 65.7%  DME qwk 0.828 acc 80.2%  score 0.8394  41s  *best
+  ep  15/40  loss 0.2113 (dr 0.2475 dme 0.1572)  DR qwk 0.850 acc 66.1%  DME qwk 0.834 acc 81.2%  score 0.8437  41s  *best
+  ep  16/40  loss 0.2053 (dr 0.2388 dme 0.1550)  DR qwk 0.848 acc 66.8%  DME qwk 0.849 acc 81.2%  score 0.8484  41s  *best
+  ep  17/40  loss 0.2083 (dr 0.2454 dme 0.1527)  DR qwk 0.847 acc 67.0%  DME qwk 0.849 acc 81.2%  score 0.8481  41s
+  ep  18/40  loss 0.2026 (dr 0.2378 dme 0.1499)  DR qwk 0.849 acc 67.7%  DME qwk 0.849 acc 81.2%  score 0.8492  41s  *best
+  ep  19/40  loss 0.2096 (dr 0.2439 dme 0.1582)  DR qwk 0.850 acc 67.0%  DME qwk 0.855 acc 82.2%  score 0.8523  41s  *best
+  ep  20/40  loss 0.2047 (dr 0.2383 dme 0.1542)  DR qwk 0.849 acc 67.0%  DME qwk 0.855 acc 82.2%  score 0.8519  41s
+  ep  21/40  loss 0.2002 (dr 0.2341 dme 0.1494)  DR qwk 0.854 acc 68.2%  DME qwk 0.862 acc 83.2%  score 0.8570  42s  *best
+  ep  22/40  loss 0.1992 (dr 0.2335 dme 0.1477)  DR qwk 0.855 acc 68.6%  DME qwk 0.856 acc 82.2%  score 0.8551  41s
+  ep  23/40  loss 0.1984 (dr 0.2298 dme 0.1512)  DR qwk 0.854 acc 68.4%  DME qwk 0.849 acc 81.2%  score 0.8521  41s
+  ep  24/40  loss 0.1959 (dr 0.2279 dme 0.1478)  DR qwk 0.851 acc 68.2%  DME qwk 0.849 acc 81.2%  score 0.8501  41s
+  ep  25/40  loss 0.1966 (dr 0.2290 dme 0.1481)  DR qwk 0.851 acc 68.4%  DME qwk 0.849 acc 81.2%  score 0.8505  41s
+  ep  26/40  loss 0.1959 (dr 0.2299 dme 0.1449)  DR qwk 0.855 acc 68.6%  DME qwk 0.849 acc 81.2%  score 0.8525  41s
+  ep  27/40  loss 0.1971 (dr 0.2291 dme 0.1491)  DR qwk 0.853 acc 68.4%  DME qwk 0.843 acc 80.2%  score 0.8492  41s
+  ep  28/40  loss 0.1956 (dr 0.2262 dme 0.1496)  DR qwk 0.855 acc 68.8%  DME qwk 0.848 acc 81.2%  score 0.8519  41s
+  ep  29/40  loss 0.1939 (dr 0.2253 dme 0.1468)  DR qwk 0.854 acc 68.6%  DME qwk 0.848 acc 81.2%  score 0.8513  41s
+  ep  30/40  loss 0.1946 (dr 0.2258 dme 0.1478)  DR qwk 0.849 acc 67.9%  DME qwk 0.841 acc 80.2%  score 0.8458  41s
+  ep  31/40  loss 0.1920 (dr 0.2204 dme 0.1493)  DR qwk 0.847 acc 67.7%  DME qwk 0.841 acc 80.2%  score 0.8450  41s
+  ep  32/40  loss 0.1914 (dr 0.2217 dme 0.1459)  DR qwk 0.851 acc 68.2%  DME qwk 0.841 acc 80.2%  score 0.8470  41s
+  ep  33/40  loss 0.1914 (dr 0.2198 dme 0.1489)  DR qwk 0.850 acc 68.2%  DME qwk 0.848 acc 81.2%  score 0.8491  41s
+  ep  34/40  loss 0.1929 (dr 0.2253 dme 0.1444)  DR qwk 0.850 acc 68.2%  DME qwk 0.848 acc 81.2%  score 0.8491  41s
+  ep  35/40  loss 0.1904 (dr 0.2206 dme 0.1451)  DR qwk 0.850 acc 68.2%  DME qwk 0.852 acc 82.2%  score 0.8510  41s
+  ep  36/40  loss 0.1909 (dr 0.2212 dme 0.1455)  DR qwk 0.851 acc 68.4%  DME qwk 0.852 acc 82.2%  score 0.8515  41s
+  ep  37/40  loss 0.1924 (dr 0.2225 dme 0.1471)  DR qwk 0.849 acc 67.9%  DME qwk 0.859 acc 83.2%  score 0.8530  41s
+  ep  38/40  loss 0.1922 (dr 0.2226 dme 0.1467)  DR qwk 0.847 acc 68.2%  DME qwk 0.859 acc 83.2%  score 0.8517  41s
+  ep  39/40  loss 0.1904 (dr 0.2210 dme 0.1444)  DR qwk 0.847 acc 68.2%  DME qwk 0.859 acc 83.2%  score 0.8517  41s
+
+  fold 4 best (selected on validation score, never on test):
+    dr                     n=  449  acc  69.9% [65.7,73.7]  floor  52.6%  QWK  0.856  F1 0.556  BEATS
+    dme_ungated            n=  101  acc  83.2% [76.2,89.1]  floor  46.5%  QWK  0.846  F1 0.593  BEATS
+    dme_gated              n=   68  acc  75.0% [64.7,85.3]  floor  69.1%  QWK  0.637  F1 0.496  below-floor
+    dme_referable_binary   n=  449  acc  92.9% [90.6,95.1]  floor  82.4%  QWK  0.766  F1 0.883  BEATS
+
+==============================================================================
+POOLED OUT-OF-FOLD (2260 images, folds [0, 1, 2, 3, 4])
+==============================================================================
+    dr                     n= 2260  acc  69.4% [67.5,71.4]  floor  52.4%  QWK  0.856  F1 0.587  BEATS
+    dme_ungated            n=  516  acc  85.5% [82.4,88.4]  floor  47.1%  QWK  0.870  F1 0.699  BEATS
+    dme_gated              n=  348  acc  78.7% [74.7,82.8]  floor  69.8%  QWK  0.709  F1 0.617  BEATS
+    dme_referable_binary   n= 2260  acc  94.1% [93.1,95.0]  floor  82.6%  QWK  0.799  F1 0.900  BEATS
+
+wrote /kaggle/working/E20CORAL/results.json  (12431s)
