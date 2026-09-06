@@ -36,8 +36,22 @@ that one choice.
 | DME, 3-class ungated | 516 | 47.1 % | 86.6 % | **0.8948** | 0.899 |
 | Referable DME, binary | 2 260 | 82.6 % | 94.9 % | — | 0.819 |
 
-**Externally, on 3 662 held-out APTOS images: DR QWK 0.8867.** That is the selected model's
-score on data it has never seen, and it is the defensible headline.
+**Externally, on 3 662 held-out APTOS images: DR QWK 0.9026 [0.8941, 0.9108]**, accuracy
+74.93 %, referable sensitivity 99.26 % at 84.32 % specificity. **This is the thesis headline.**
+It is the selected model's score on data it has never seen, and the selection was made on the
+development pool, never on APTOS (`PROTOCOL.md` §3).
+
+**Superseded, recorded rather than deleted:**
+
+| run | external DR QWK | why it is not the headline |
+|---|---|---|
+| E08 | 0.8972 | quoted as the headline until 2026-09-05; E08 is no longer the validation-selected model |
+| E10 | 0.8867 | selected model until E11FULL completed its five folds |
+| **E11FULL** | **0.9026** | **current — highest development-pool QWK, hence selected** |
+
+Note that E08 scores highest on APTOS among several members of the archive. **That is not a
+reason to report it**: choosing a model by its test score is selection on the test set, which
+§3 forbids. The headline follows the validation ranking wherever it lands.
 
 *Why matched cuts lead here:* T1 showed the shipped `sigmoid > 0.5` operating point is an
 arbitrary default that means different things on different corpora, so a number decoded at it
@@ -188,7 +202,14 @@ and has been corrected.
 ## The standing negative result — now upgraded to a positive finding (F7)
 
 **No intervention has significantly improved 3-class DME on QWK, the primary metric** — across
-pretraining, schedule, backbone, and architecture-plus-data combined. The one exception is
+pretraining, schedule, backbone, and architecture-plus-data combined.
+
+> ⚠️ **This is a statement about the DME head only, and must not be generalised to DR.** On DR
+> the backbone demonstrably matters: E11FULL vs E10, both EyePACS-pretrained at 448 with the
+> backbone the only difference, is **+0.0207 [+0.0105, +0.0320], significant**. The same
+> comparison on DME is indistinguishable (−0.0067 [−0.0313, +0.0172]). A summary of the form
+> "backbone swaps did not work here" is **false for DR and true for DME**, and the two heads
+> have behaved differently under almost every intervention this project has run. The one exception is
 effective resolution (E10), which moved DME **accuracy** +3.04 pts while leaving QWK
 indistinguishable. Every other gain in this project is on the DR head.
 

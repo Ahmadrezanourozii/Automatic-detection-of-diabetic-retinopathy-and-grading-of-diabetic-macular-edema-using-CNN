@@ -1080,6 +1080,51 @@ the fourth was not. When completing or extending an earlier run, **diff
 
 ---
 
+## §27. A check that reports success without examining anything  — 2026-09-06, FIXED as a class
+
+**Two instances, eight days apart, in two unrelated guards.** Recorded as a class because the
+shape is the same and the shape is what recurs.
+
+**Instance 1 — the CORAL bias check (2026-09-06).** E20CORAL pre-registered a property to
+verify: CORAL's rank-consistency holds for every sample only if the learned biases come out
+ordered. The check iterated folds, looked for `dr_head.bias` in the checkpoint, found nothing
+because the tensors sit under a nested `state_dict` key, and printed:
+
+    ALL FOLDS/HEADS ORDERED: True
+
+`ordered_all` was initialised `True` and never touched. **The check reported a pass having
+examined zero tensors**, on a property that was pre-registered as headline-level. Corrected,
+it examined 10 tensors and they were genuinely ordered — but the pass was luck, not evidence.
+
+**Instance 2 — the consumption manifest on an assembled run (2026-09-05).**
+`manifest.require_same` with `allow_unmanifested=True` printed a warning and **returned
+normally** when a run had no manifest at all. Assembling `E11FULL` produced exactly that: a
+run with no `kernel-metadata.json`, so nothing could be compared, so nothing was — and the
+call site could not tell that outcome from a verified pass.
+
+**Why this is the worst failure mode a guard has.** A guard that fails loudly costs you a
+run. A guard that passes wrongly costs you the belief that you checked. Every other provenance
+mechanism in this project (§24's script guard, §26's consumption manifest, `check_invariants`)
+is trusted *because it has refused things* — and a vacuous pass silently withdraws that
+standing while leaving the reassuring output in place. It is also invisible in review: the log
+says the check ran and passed.
+
+**Fix, applied to both and required of any future guard.**
+
+1. **Assert that something was inspected.** `manifest.require_same` now raises when fewer than
+   two runs are given or when zero pairs were compared. The bias check asserts `checked > 0`.
+2. **Never initialise an accumulator to the passing value and return it untouched.** Count
+   what was examined and make the count part of the result.
+3. **Report the count, not just the verdict.** The corrected check prints `tensors checked: 10`
+   beside `ALL ORDERED: True`, so a reader can see the pass had something to be about.
+
+**Relation to `PROTOCOL.md` §10.** §10 says a check that only ever fires one way is not a
+check. This is its degenerate case: **a check that never fires at all, while reporting that it
+did.** §10's record is what makes the other rules citable, and a vacuous pass forges an entry
+in it.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.

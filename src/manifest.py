@@ -182,12 +182,23 @@ def compare(a, b, name_a="A", name_b="B"):
 
 
 def require_same(runs, kaggle_dir="kaggle", allow_unmanifested=False):
-    """Raise unless every run in `runs` (dict name -> dir) consumed the same thing."""
+    """Raise unless every run in `runs` (dict name -> dir) consumed the same thing.
+
+    ISSUES.md §27: this must never report success without having compared anything. An
+    earlier version returned quietly when no pair could be evaluated, which looks identical
+    to a pass and is strictly worse than a failure.
+    """
+    if len(runs) < 2:
+        raise SystemExit(f"require_same needs at least two runs, got {sorted(runs)} — "
+                         f"a check that examines nothing must not report success "
+                         f"(ISSUES.md §27)")
     mans = {n: load(d, n, kaggle_dir) for n, d in runs.items()}
     names = sorted(mans)
+    compared = 0
     problems = []
     for i in range(len(names) - 1):
         ok, why = compare(mans[names[i]], mans[names[i + 1]], names[i], names[i + 1])
+        compared += 1
         if not ok:
             problems += [f"{names[i]} vs {names[i+1]}: {w}" for w in why]
     if problems:
@@ -200,4 +211,7 @@ def require_same(runs, kaggle_dir="kaggle", allow_unmanifested=False):
         raise SystemExit(
             "refusing to combine or compare these runs — consumption differs or is "
             "unverifiable (PROTOCOL.md §9, ISSUES.md §26):\n  " + "\n  ".join(problems))
+    if compared == 0:
+        raise SystemExit("consumption check examined 0 pairs — reporting success here would "
+                         "be a vacuous pass (ISSUES.md §27)")
     return mans

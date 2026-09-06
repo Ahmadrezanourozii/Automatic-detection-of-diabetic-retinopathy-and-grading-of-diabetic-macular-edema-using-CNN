@@ -1,0 +1,12 @@
+{
+  "run_id": "E11FULL",
+  "selected_on": "development-pool DR QWK at matched calibration",
+  "value": 0.8954,
+  "date": "2026-09-05",
+  "rationale": "Highest DR QWK on the frozen development split among runs with a complete 5-fold out-of-fold prediction, decoded with cut-points cross-fitted on the other folds. PROTOCOL.md §3: configurations are ranked by validation, never by test.",
+  "supersedes": [
+    {"run_id": "E10", "until": "2026-09-05", "dev_dr_qwk": 0.8749},
+    {"run_id": "E08", "until": "2026-09-05", "note": "quoted as the external headline at 0.8972"}
+  ],
+  "note": "E08 scores higher than E11FULL on APTOS (0.8972 vs 0.9026 — E11FULL is in fact higher, but other archive members can outscore the selected model externally). The headline follows the validation ranking regardless: choosing by test score is selection on the test set."
+}

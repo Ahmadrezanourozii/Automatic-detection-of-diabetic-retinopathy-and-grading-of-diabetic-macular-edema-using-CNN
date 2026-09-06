@@ -61,6 +61,40 @@ def load_runs(runs_dir):
     return out
 
 
+SELECTED_PATH = "data/selected_model.json"
+
+
+def selected_run(runs, path=SELECTED_PATH):
+    """The run the thesis reports — declared, not discovered.
+
+    `report.py` used to pick whichever run scored highest on DR QWK. That is model selection
+    by score, and when the pool of runs includes the external evaluations it is selection on
+    the test set (PROTOCOL.md §3). The selected model is therefore a **declared fact** in
+    `data/selected_model.json`, changed by a deliberate edit with a rationale, and this
+    function refuses rather than falling back to the maximum.
+
+    When some other run scores higher it says so loudly instead of quietly switching, because
+    that fact belongs in the write-up: it is what selection-on-validation costs.
+    """
+    if not os.path.exists(path):
+        raise SystemExit(
+            f"{path} is missing. The reported model must be declared, not inferred from "
+            f"whichever run scores highest (PROTOCOL.md §3).")
+    decl = json.load(open(path))
+    want = decl["run_id"]
+    hit = next((r for r in runs if r.get("run_id") == want), None)
+    if hit is None:
+        raise SystemExit(f"selected model {want!r} has no results.json under runs/")
+    scored = [(r["run_id"], headline(r)[0].get("dr", {}).get("qwk"))
+              for r in runs if headline(r)[0] and headline(r)[0].get("dr", {}).get("qwk")]
+    top = max(scored, key=lambda t: t[1], default=None)
+    if top and top[0] != want:
+        print(f"[report] NOTE: {top[0]} scores higher on DR QWK ({top[1]:.4f}) than the "
+              f"selected model {want} — reporting {want} anyway, because selection is on "
+              f"validation and not on score (PROTOCOL.md §3).")
+    return hit, decl
+
+
 def headline(run):
     """The corrected re-scoring if present, then pooled out-of-fold, then a fold mean.
 
@@ -382,8 +416,7 @@ def main():
     open(os.path.join(a.out, "experiments_table.md"), "w").write(tbl + "\n")
     print("\n" + tbl)
 
-    best = max((r for r in runs if headline(r)[0]),
-               key=lambda r: headline(r)[0].get("dr", {}).get("qwk", -9), default=None)
+    best, _decl = selected_run(runs)
     summary = {}
     if best:
         m, n, kind = headline(best)

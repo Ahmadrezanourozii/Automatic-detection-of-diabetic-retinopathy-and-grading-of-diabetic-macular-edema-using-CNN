@@ -11,3 +11,10 @@
 | `E11` | `ebe8a61` | efficientnet-b3-plus-eyepacs-pretraining-beats-densenet121-plus-the-same | tf_efficientnet_b3 / ordinal @448px | 1362 | 78.1% | 0.894 | 87.6% | 0.902 | DR yes, DME yes |
 | `E12def` | `23d765e` | source-control-default-only | densenet121 / ordinal @448px | 953 | 72.2% | 0.858 | 87.3% | 0.891 | DR yes, DME yes |
 | `E12nat` | `23d765e` | source-control-native-only | densenet121 / ordinal @448px | 953 | 69.6% | 0.856 | 87.3% | 0.901 | DR yes, DME yes |
+| `E14MAC` | `68563ef` |  | densenet121 / ordinal @448px | 2260 | 71.0% | 0.851 | 82.0% | 0.869 | DR yes, DME yes |
+| `E15LPFT` | `6ac4016` |  | densenet121 / ordinal @448px | 2260 | 68.7% | 0.847 | 83.7% | 0.855 | DR yes, DME yes |
+| `E17NAT` | `2b643eb` |  | densenet121 / ordinal @640px | 2260 | 74.8% | 0.869 | 84.9% | 0.873 | DR yes, DME yes |
+| `E19E11B` | `deb98c1` |  | tf_efficientnet_b3 / ordinal @448px | 898 | 77.1% | 0.871 | 84.2% | 0.863 | DR yes, DME yes |
+| `E19E11C` | `568ee7e` |  | tf_efficientnet_b3 / ordinal @448px | 898 | 77.1% | 0.879 | 87.6% | 0.882 | DR yes, DME yes |
+| `E20CORAL` | `b723945` |  | densenet121 / coral @448px | 2260 | 69.4% | 0.856 | 85.5% | 0.870 | DR yes, DME yes |
+| `I24FT01` | `c28d344` |  | retfound:/kaggle/input / ordinal @224px | 910 | 54.2% | 0.728 | 78.1% | 0.821 | **DR NO**, DME yes |
