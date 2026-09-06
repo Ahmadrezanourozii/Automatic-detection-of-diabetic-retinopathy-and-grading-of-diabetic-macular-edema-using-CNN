@@ -506,7 +506,30 @@ architecture alone** (§4.2).
 224-locked. Clearing E09 but not E08's 0.8646 would say a foundation backbone is worth about
 as much as doubling resolution — informative, and still not the best available pipeline.
 
-### E20CORAL — CORAL ordinal head — **pre-registered 2026-09-05, before launch**
+### E20CORAL — **RUN 2026-09-05. FALSIFIED. CORN launched as the control, per the contingency.**
+
+**DR QWK at matched calibration: 0.8569 vs E08's 0.8646 — −0.0076 [−0.0184, +0.0032],
+indistinguishable.** The criterion was to exceed 0.8646 by more than ~0.015; it is nominally
+below. DME also indistinguishable (−0.0158 [−0.0408, +0.0094]). Accuracy is significantly
+worse at matched cuts (−1.87 pts [−3.76, −0.09]).
+
+**The pre-registered bias check, reported with the headline as required: the guarantee HELD.**
+All ten bias tensors (5 folds × 2 heads) came out strictly ordered — DR biases run
+≈ [2.2…2.6, 0.75…0.83, −0.76…−0.88, −2.3…−2.7] on every fold. So CORAL's rank-consistency
+was real for every sample, and this null is a statement about CORAL rather than about a
+differently-parameterised head that failed to be CORAL.
+
+*(The first version of that check printed no rows and still reported `ALL ORDERED: True` — it
+was reading `dr_head.bias` from the wrong level of the checkpoint, which has `state_dict`
+nested under it. A vacuous pass is worse than a failure; the corrected check asserts that at
+least one tensor was examined.)*
+
+**Contingency triggered: E22CORN launched.** A negative CORAL cannot distinguish "the ordinal
+objective does not help" from "the shared-projection constraint hurts", because CORAL changes
+both. CORN keeps `OrdinalHead`'s K−1 independent projections and changes only the loss and the
+decode, isolating the objective.
+
+### E20CORAL — original pre-registration, kept for the record
 
 **Config.** E08 with **one change**: `--head coral`. densenet121, 448 px, batch 16, 40 epochs,
 EyePACS pretraining, TTA, folds 0–4. Tested on E08's configuration rather than E11's because
