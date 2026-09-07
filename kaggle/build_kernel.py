@@ -63,8 +63,34 @@ RUN_ID_REQUIRES_SCRIPT = {
 
 
 def cells(run_id, train_args, commit, external_only=False, from_run="", script="",
-          ext_args=None):
-    setup = f'''# {run_id} — pulls the code from GitHub so a run is reproducible from a commit SHA
+          ext_args=None, code_dataset=""):
+    if code_dataset:
+        # Account 2's kernels have no internet ("Could not resolve host: github.com"), the
+        # standard Kaggle restriction on accounts that have not verified a phone number. The
+        # code therefore arrives as a private dataset snapshot instead of a git clone. The
+        # provenance discipline is unchanged: the snapshot carries a COMMIT file and the
+        # kernel REFUSES to run unless it matches the commit this notebook was built against
+        # (ISSUES.md §24, PROTOCOL.md §9).
+        setup = f'''# {run_id} — code from a pinned dataset snapshot (no internet on this account)
+import os, glob, shutil
+COMMIT = "{commit}"
+WORK = "/kaggle/working/repo"
+if os.path.isdir(WORK):
+    shutil.rmtree(WORK)
+hits = glob.glob("/kaggle/input/**/COMMIT", recursive=True)
+if not hits:
+    raise SystemExit("no COMMIT file under /kaggle/input — the code dataset is not attached")
+root = os.path.dirname(hits[0])
+shutil.copytree(root, WORK)
+sha = open(os.path.join(WORK, "COMMIT")).read().strip()
+print("CODE COMMIT", sha)
+if COMMIT and COMMIT != "HEAD" and sha != COMMIT:
+    raise SystemExit(f"code snapshot is at {{sha}} but this notebook was built for {{COMMIT}} "
+                     f"— refusing to run code that is not the pinned commit")
+print("snapshot matches the pinned commit")
+'''
+    else:
+        setup = f'''# {run_id} — pulls the code from GitHub so a run is reproducible from a commit SHA
 import os, subprocess, sys, shutil, time
 REPO = "{REPO}"
 COMMIT = "{commit}"
@@ -287,6 +313,11 @@ def main():
     ap.add_argument("--external-only", action="store_true",
                     help="no training: load a finished run's weights and evaluate "
                          "externally")
+    ap.add_argument("--code-dataset", default="",
+                    help="Kaggle dataset holding a pinned code snapshot, e.g. "
+                         "reza12123/dr-dme-code. Use when the account's kernels have no "
+                         "internet and cannot clone from GitHub. The snapshot's COMMIT file "
+                         "must match --commit or the kernel refuses to run.")
     ap.add_argument("--ext-args", default="",
                     help="arguments for src/eval_external.py in an --external-only run. "
                          "Defaults to '--tta' (the 5-fold TTA ensemble). Use e.g. "
@@ -313,6 +344,9 @@ def main():
     # error that says nothing about the cause (ISSUES.md §23). Verify it is on the remote
     # BEFORE writing a notebook that depends on it.
     subprocess.run(["git", "fetch", "--quiet", "origin"], check=False)
+    if a.code_dataset:
+        print(f"[code] snapshot dataset {a.code_dataset}; the kernel will refuse to run "
+              f"unless its COMMIT file reads {a.commit[:10]}")
     on_remote = subprocess.run(
         ["git", "merge-base", "--is-ancestor", a.commit, "origin/main"]).returncode == 0
     if not on_remote:
@@ -349,7 +383,7 @@ def main():
     nb = {"cells": [{"cell_type": "code", "source": c, "metadata": {},
                      "execution_count": None, "outputs": []}
                     for c in cells(a.run_id, train_args, a.commit, a.external_only,
-                                   a.from_run, a.script, a.ext_args)],
+                                   a.from_run, a.script, a.ext_args, a.code_dataset)],
           "metadata": {"kernelspec": {"language": "python", "display_name": "Python 3",
                                       "name": "python3"}},
           "nbformat": 4, "nbformat_minor": 4}
@@ -392,7 +426,8 @@ def main():
         # pin is not honoured.
         "machine_shape": a.gpu,
         "enable_internet": True,
-        "dataset_sources": (DATASETS + ([EYEPACS] if a.eyepacs else [])
+        "dataset_sources": (DATASETS + ([a.code_dataset] if a.code_dataset else [])
+                            + ([EYEPACS] if a.eyepacs else [])
                             + ([APTOS] if a.aptos else [])
                             + ([MESSIDOR_HI] if a.messidor_hi else [])
                             + ([RETFOUND] if a.retfound else [])),
