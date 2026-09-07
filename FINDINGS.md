@@ -600,17 +600,56 @@ So on the only images where the test discriminates, the geometric definition and
 grade disagree half the time, and they disagree in the direction that matters: the definition
 says grade 2, the expert says 0 or 1.
 
-### What this means
+### Two competing explanations were ruled out before this was written
 
-**The published clinical definition is not the function the graders applied.** Whether the
-graders used a different exudate threshold, ignored small or peripheral deposits, judged
-"macula" as a region rather than the fovea point, or simply graded holistically, the mapping
-from annotations to grade is not the stated geometry.
+**(a) A wrong crosswalk would produce exactly this pattern** — a rich mask paired with an
+unrelated grade. Ruled out by overlaying each mask and fovea coordinate on the *matched
+grading image* and comparing pixels: mean absolute difference **0.78–0.96 of 255** for all
+four informative pairs, i.e. JPEG re-encoding noise. The images are the same eye. Visual
+inspection confirms the fovea marker sits on the macula and the optic disc on the expected
+side in each.
+
+**(b) A different published definition.** Ruled out: IDRiD's own grading criteria are exactly
+what was implemented — grade 0 "no **apparent** hard exudate(s)"; grade 1 hard exudates
+outside one disc diameter of the macula centre; grade 2 within it.
+
+### So the earlier wording was wrong, and this is the corrected diagnosis
+
+An earlier draft of this entry claimed *"the published clinical definition is not the function
+the graders applied."* **That claim is withdrawn — it went one step beyond the evidence.** The
+definition is the one we implemented. The failure is narrower and more useful:
+
+**A minimum-distance rule over a pixel mask is decided by the single smallest annotated
+speck.** Measuring the connected component that actually drives each derived grade:
+
+| image | expert | derived | nearest blob | at | 1 DD |
+|---|---|---|---|---|---|
+| IDRiD_40 | 1 | 2 ✗ | **74 px** | 53 px | 599 px |
+| IDRiD_52 | 0 | 2 ✗ | **349 px** | 87 px | 554 px |
+| IDRiD_29 | 1 | 1 ✓ | 139 px | 756 px | 551 px |
+| IDRiD_62 | 1 | 1 ✓ | 657 px | 560 px | 462 px |
+
+Both failures are driven by a **very small blob just inside the threshold** — 74 pixels in a
+2848×4288 frame for IDRiD_40. Both successes have exudates unambiguously beyond one disc
+diameter. **The word doing the work is "apparent".** Grade 0 is defined on what a clinician
+sees as present; a segmentation mask marks every speck a pixel-level annotator could find.
+Those are different objects, produced by different annotation efforts for different purposes,
+and a min-distance rule maximises the disagreement by keying on the smallest one.
+
+**This is a general methodological result, not an IDRiD quirk:** deriving a categorical
+clinical label from a segmentation mask via a distance threshold inherits the mask's
+annotation floor as its decision boundary.
 
 **Consequence: the derivation route is closed, and SUSTech-SYSU is not worth the
 engineering.** Its two known caveats — exudates as bounding boxes rather than pixel masks, and
 hard and soft exudates possibly merged — would stack on top of a method that already fails
 under ideal conditions, with pixel masks, expert landmarks and hard/soft separated.
+
+**Could a size threshold repair it?** The diagnosis suggests requiring a minimum blob area
+before counting an exudate. **That cannot be established here**: there are four informative
+images and two failures, so any threshold would be fitted to two examples and validated on
+none. It is recorded as the obvious next question for anyone with a properly powered set, not
+as something this data can answer.
 
 **This also explains something the project had only observed.** F2 recorded that no second
 3-class DME corpus exists. F10 offers a reason: the grade cannot be derived from the
