@@ -1,0 +1,20 @@
+{
+ "host": "Linux-6.12.90+-x86_64-with-glibc2.35",
+ "expected_sha256": "847f9dd0e33bf8d450cc6121295d2919fc4bba3c185757a17ce6427bfa14ed37",
+ "expected_bytes": 1213299887,
+ "mounted": {
+  "/kaggle/input": [
+   "datasets"
+  ]
+ },
+ "verdict": "IDENTICAL",
+ "candidates": [
+  "/kaggle/input/datasets/ah22reza/retfound-cfp-encoder/retfound_cfp_encoder.pth"
+ ],
+ "path": "/kaggle/input/datasets/ah22reza/retfound-cfp-encoder/retfound_cfp_encoder.pth",
+ "bytes": 1213299887,
+ "sha256": "847f9dd0e33bf8d450cc6121295d2919fc4bba3c185757a17ce6427bfa14ed37",
+ "embedded_source_sha256": "e1e4f66a1b792eeb6e2efaf158f33be35c8255f36b3d17ed67cd5129da246485",
+ "embedded_source_matches": true,
+ "n_tensors": 294
+}
