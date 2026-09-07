@@ -552,3 +552,81 @@ needed a like-for-like control, and the control turned out to answer an older an
 important question than the one it was built for. Recorded because the pattern is worth
 noticing: the comparison that isolates one claim is often the baseline another claim was
 missing.
+
+---
+
+## F10 — The DME grade is not recoverable from published annotations, and the test that would prove it cannot be powered
+
+**Part A verdict: DOES NOT REPRODUCE.** Criterion registered before any number was computed
+(`docs/PARTA_preregistration.md`); script `src/idrid_derivation_gate.py`; numbers
+`docs/generated/idrid_derivation_gate.json`.
+
+### The headline number is 96.3 % and it means almost nothing
+
+| one disc diameter = | exact match | grade 0 | **grade 1** | grade 2 |
+|---|---|---|---|---|
+| major axis | 96.3 % | 0.0 % (n=1) | **66.7 % (n=3)** | 100 % (n=50) |
+| equivalent-area | 96.3 % | 0.0 % | **66.7 %** | 100 % |
+| minor axis | 96.3 % | 0.0 % | **66.7 %** | 100 % |
+
+**A constant "always grade 2" predictor scores 92.6 % on this set.** The derivation is worth
++3.7 points over predicting nothing. The support column is why: of 54 usable images, **50 are
+grade 2, 3 are grade 1, and 1 is grade 0**. IDRiD selected its segmentation subset for images
+worth segmenting, i.e. images with lesions — so the subset is almost entirely the grade the
+exercise did not need to learn about.
+
+**The disc-diameter ambiguity turned out not to matter.** All three definitions give byte-identical
+verdicts, because the exudate-to-fovea distances sit far from the threshold in every case
+(53–756 px against diameters of 457–657 px). That was worth checking and it is now closed.
+
+### The four informative images, and two of them contradict the definition
+
+The derivation is only testable where the expert grade is not 2. There are four such images:
+
+| image | hard exudates | nearest to fovea | disc diam. | derived | expert |
+|---|---|---|---|---|---|
+| IDRiD_29 | 2 343 px, 5 blobs | 756 px | 551 px | 1 | **1** ✓ |
+| IDRiD_62 | 44 427 px, 68 blobs | 560 px | 462 px | 1 | **1** ✓ |
+| IDRiD_40 | 7 779 px, 19 blobs | **53 px** | 599 px | 2 | **1** ✗ |
+| IDRiD_52 | 2 974 px, 13 blobs | **87 px** | 554 px | 2 | **0** ✗ |
+
+**IDRiD_52 carries 2 974 annotated hard-exudate pixels in 13 connected components, 87 px from
+the fovea centre, and the experts graded it 0** — a grade whose definition is *no hard
+exudates*. **IDRiD_40 has exudates 53 px from the fovea — a tenth of a disc diameter — and was
+graded 1**, a grade whose definition is *further than one disc diameter from the macula*.
+Both were checked for stray-pixel artefacts and neither is one.
+
+So on the only images where the test discriminates, the geometric definition and the expert
+grade disagree half the time, and they disagree in the direction that matters: the definition
+says grade 2, the expert says 0 or 1.
+
+### What this means
+
+**The published clinical definition is not the function the graders applied.** Whether the
+graders used a different exudate threshold, ignored small or peripheral deposits, judged
+"macula" as a region rather than the fovea point, or simply graded holistically, the mapping
+from annotations to grade is not the stated geometry.
+
+**Consequence: the derivation route is closed, and SUSTech-SYSU is not worth the
+engineering.** Its two known caveats — exudates as bounding boxes rather than pixel masks, and
+hard and soft exudates possibly merged — would stack on top of a method that already fails
+under ideal conditions, with pixel masks, expert landmarks and hard/soft separated.
+
+**This also explains something the project had only observed.** F2 recorded that no second
+3-class DME corpus exists. F10 offers a reason: the grade cannot be derived from the
+annotations the field publishes, so producing one requires fresh expert grading rather than
+computation over existing labels.
+
+### The limitation that is not a caveat but the main result
+
+**IDRiD publishes no crosswalk between its segmentation numbering (`IDRiD_01..81`) and its
+grading numbering (`IDRiD_001..413` / `001..103`).** The correspondence had to be
+reconstructed from the images, using two independent signals that both had to agree: pixel
+correlation > 0.9999, and the optic disc centroid from the segmentation mask within 100 px of
+the optic disc centre published in the localisation CSV. Neither alone is sufficient —
+fundus images are globally similar, so correlation runner-ups sit within 0.01, and optic discs
+cluster nasally, so nearest-OD is not unique. **54 of 81 could be confirmed; 27 could not.**
+
+**Even a perfectly powered version of this test would have had 4 informative images.** The
+exercise cannot be rescued with more careful matching, and that is the finding: the ideal-
+conditions test of the derivation is not available in the data the field has published.

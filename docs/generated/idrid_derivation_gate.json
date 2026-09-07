@@ -1,0 +1,911 @@
+{
+ "n_segmentation": 81,
+ "n_crosswalk": 54,
+ "n_usable": 54,
+ "corr_min": 0.9999,
+ "od_max_px": 100.0,
+ "per_image": [
+  {
+   "seg": "IDRiD_01",
+   "grading": "IDRiD_102",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 530.0160522460938,
+    "equivalent_area": 521.8079626463737,
+    "minor_axis": 509.4921569824219
+   },
+   "major_axis": 2,
+   "min_dist_px": 123.54756169184401,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_02",
+   "grading": "IDRiD_366",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 530.6357421875,
+    "equivalent_area": 509.10787426894865,
+    "minor_axis": 473.9324645996094
+   },
+   "major_axis": 2,
+   "min_dist_px": 131.84839779079607,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_03",
+   "grading": "IDRiD_369",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 581.7366333007812,
+    "equivalent_area": 551.7058748326351,
+    "minor_axis": 522.5880737304688
+   },
+   "major_axis": 2,
+   "min_dist_px": 0.0,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_05",
+   "grading": "IDRiD_082",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 529.9669189453125,
+    "equivalent_area": 524.6817527662114,
+    "minor_axis": 518.5429077148438
+   },
+   "major_axis": 2,
+   "min_dist_px": 169.62311163281967,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_06",
+   "grading": "IDRiD_196",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 637.9998779296875,
+    "equivalent_area": 588.1096631141318,
+    "minor_axis": 534.9998779296875
+   },
+   "major_axis": 2,
+   "min_dist_px": 82.28000972289685,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_08",
+   "grading": "IDRiD_207",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 597.401611328125,
+    "equivalent_area": 511.8353275487961,
+    "minor_axis": 427.02874755859375
+   },
+   "major_axis": 2,
+   "min_dist_px": 26.40075756488817,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_09",
+   "grading": "IDRiD_091",
+   "split": "test",
+   "true": 2,
+   "dd": {
+    "major_axis": 617.4166870117188,
+    "equivalent_area": 574.5422622649213,
+    "minor_axis": 533.8869018554688
+   },
+   "major_axis": 2,
+   "min_dist_px": 6.4031242374328485,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_10",
+   "grading": "IDRiD_224",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 582.1575927734375,
+    "equivalent_area": 523.1932943411289,
+    "minor_axis": 459.8815002441406
+   },
+   "major_axis": 2,
+   "min_dist_px": 0.0,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_13",
+   "grading": "IDRiD_231",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 538.6221313476562,
+    "equivalent_area": 524.4802988877634,
+    "minor_axis": 504.16534423828125
+   },
+   "major_axis": 2,
+   "min_dist_px": 88.23264701911646,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_14",
+   "grading": "IDRiD_232",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 549.0228881835938,
+    "equivalent_area": 536.8844203494448,
+    "minor_axis": 523.3971557617188
+   },
+   "major_axis": 2,
+   "min_dist_px": 108.29589096544707,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_15",
+   "grading": "IDRiD_236",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 612.9998779296875,
+    "equivalent_area": 597.2377796986531,
+    "minor_axis": 577.9998779296875
+   },
+   "major_axis": 2,
+   "min_dist_px": 362.9490322345549,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_16",
+   "grading": "IDRiD_237",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 596.9998779296875,
+    "equivalent_area": 609.4626476369807,
+    "minor_axis": 589.9998779296875
+   },
+   "major_axis": 2,
+   "min_dist_px": 5.0990195135927845,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_17",
+   "grading": "IDRiD_239",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 545.50830078125,
+    "equivalent_area": 507.9260669747297,
+    "minor_axis": 471.7928161621094
+   },
+   "major_axis": 2,
+   "min_dist_px": 110.43550153822818,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_18",
+   "grading": "IDRiD_132",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 551.9998779296875,
+    "equivalent_area": 540.4924431886498,
+    "minor_axis": 508.99993896484375
+   },
+   "major_axis": 2,
+   "min_dist_px": 33.97057550292606,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_19",
+   "grading": "IDRiD_242",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 535.3494873046875,
+    "equivalent_area": 532.7097049337219,
+    "minor_axis": 524.9514770507812
+   },
+   "major_axis": 2,
+   "min_dist_px": 351.86929391465804,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_20",
+   "grading": "IDRiD_245",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 578.9998779296875,
+    "equivalent_area": 584.8945548701166,
+    "minor_axis": 573.9998779296875
+   },
+   "major_axis": 2,
+   "min_dist_px": 44.77722635447622,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_21",
+   "grading": "IDRiD_246",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 577.4728393554688,
+    "equivalent_area": 577.7940421193777,
+    "minor_axis": 573.9235229492188
+   },
+   "major_axis": 2,
+   "min_dist_px": 2.23606797749979,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_22",
+   "grading": "IDRiD_088",
+   "split": "test",
+   "true": 2,
+   "dd": {
+    "major_axis": 517.6981201171875,
+    "equivalent_area": 485.08625367253006,
+    "minor_axis": 444.4051208496094
+   },
+   "major_axis": 2,
+   "min_dist_px": 112.40106761058811,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_23",
+   "grading": "IDRiD_247",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 547.9998779296875,
+    "equivalent_area": 536.1154927708869,
+    "minor_axis": 510.99993896484375
+   },
+   "major_axis": 2,
+   "min_dist_px": 164.58432489152787,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_24",
+   "grading": "IDRiD_248",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 522.9998779296875,
+    "equivalent_area": 517.5300932225528,
+    "minor_axis": 498.99993896484375
+   },
+   "major_axis": 2,
+   "min_dist_px": 74.33034373659252,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_27",
+   "grading": "IDRiD_254",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 528.5674438476562,
+    "equivalent_area": 504.08121316282654,
+    "minor_axis": 477.649658203125
+   },
+   "major_axis": 2,
+   "min_dist_px": 136.0588108135596,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_28",
+   "grading": "IDRiD_261",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 547.9998779296875,
+    "equivalent_area": 532.3761789351511,
+    "minor_axis": 512.9998779296875
+   },
+   "major_axis": 2,
+   "min_dist_px": 46.51881339845203,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_29",
+   "grading": "IDRiD_263",
+   "split": "train",
+   "true": 1,
+   "dd": {
+    "major_axis": 579.434326171875,
+    "equivalent_area": 550.9518553395852,
+    "minor_axis": 521.8013916015625
+   },
+   "major_axis": 1,
+   "min_dist_px": 756.4634822646761,
+   "equivalent_area": 1,
+   "minor_axis": 1
+  },
+  {
+   "seg": "IDRiD_31",
+   "grading": "IDRiD_089",
+   "split": "test",
+   "true": 2,
+   "dd": {
+    "major_axis": 480.0,
+    "equivalent_area": 471.0128214744148,
+    "minor_axis": 442.0
+   },
+   "major_axis": 2,
+   "min_dist_px": 154.0194792875239,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_33",
+   "grading": "IDRiD_272",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 587.6646118164062,
+    "equivalent_area": 542.8746979747849,
+    "minor_axis": 498.6146545410156
+   },
+   "major_axis": 2,
+   "min_dist_px": 7.0710678118654755,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_34",
+   "grading": "IDRiD_277",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 485.0,
+    "equivalent_area": 487.38665901125137,
+    "minor_axis": 484.0
+   },
+   "major_axis": 2,
+   "min_dist_px": 99.72963451251589,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_35",
+   "grading": "IDRiD_278",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 514.9998779296875,
+    "equivalent_area": 490.79046118647443,
+    "minor_axis": 448.99993896484375
+   },
+   "major_axis": 2,
+   "min_dist_px": 16.0,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_36",
+   "grading": "IDRiD_280",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 529.0,
+    "equivalent_area": 528.4213012338636,
+    "minor_axis": 507.0
+   },
+   "major_axis": 2,
+   "min_dist_px": 179.8777362543792,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_37",
+   "grading": "IDRiD_281",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 535.6280517578125,
+    "equivalent_area": 517.9702859701117,
+    "minor_axis": 491.9491882324219
+   },
+   "major_axis": 2,
+   "min_dist_px": 154.02921800749363,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_38",
+   "grading": "IDRiD_185",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 594.5244750976562,
+    "equivalent_area": 564.190711925795,
+    "minor_axis": 526.7367553710938
+   },
+   "major_axis": 2,
+   "min_dist_px": 52.478567053607705,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_40",
+   "grading": "IDRiD_282",
+   "split": "train",
+   "true": 1,
+   "dd": {
+    "major_axis": 612.0,
+    "equivalent_area": 599.4327807854402,
+    "minor_axis": 576.0
+   },
+   "major_axis": 2,
+   "min_dist_px": 52.88667128870941,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_41",
+   "grading": "IDRiD_283",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 539.1948852539062,
+    "equivalent_area": 516.8937342881185,
+    "minor_axis": 491.26385498046875
+   },
+   "major_axis": 2,
+   "min_dist_px": 243.67396249907375,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_42",
+   "grading": "IDRiD_284",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 568.0554809570312,
+    "equivalent_area": 546.9636881071604,
+    "minor_axis": 517.1370849609375
+   },
+   "major_axis": 2,
+   "min_dist_px": 120.37026210821342,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_43",
+   "grading": "IDRiD_294",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 552.43896484375,
+    "equivalent_area": 531.170635178606,
+    "minor_axis": 509.8836975097656
+   },
+   "major_axis": 2,
+   "min_dist_px": 38.600518131237564,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_44",
+   "grading": "IDRiD_300",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 428.2518615722656,
+    "equivalent_area": 407.15260314214953,
+    "minor_axis": 376.87432861328125
+   },
+   "major_axis": 2,
+   "min_dist_px": 13.416407864998739,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_46",
+   "grading": "IDRiD_306",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 457.0,
+    "equivalent_area": 457.1955118537054,
+    "minor_axis": 450.0
+   },
+   "major_axis": 2,
+   "min_dist_px": 175.82377541163197,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_47",
+   "grading": "IDRiD_064",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 660.0,
+    "equivalent_area": 637.4793059332372,
+    "minor_axis": 613.0
+   },
+   "major_axis": 2,
+   "min_dist_px": 129.29423807734048,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_49",
+   "grading": "IDRiD_308",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 493.8995361328125,
+    "equivalent_area": 477.02154219325786,
+    "minor_axis": 449.612548828125
+   },
+   "major_axis": 2,
+   "min_dist_px": 17.72004514666935,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_51",
+   "grading": "IDRiD_310",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 565.6287841796875,
+    "equivalent_area": 533.3403230679199,
+    "minor_axis": 503.2315979003906
+   },
+   "major_axis": 2,
+   "min_dist_px": 129.29423807734048,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_52",
+   "grading": "IDRiD_311",
+   "split": "train",
+   "true": 0,
+   "dd": {
+    "major_axis": 657.0787963867188,
+    "equivalent_area": 553.5743553186,
+    "minor_axis": 465.8894348144531
+   },
+   "major_axis": 2,
+   "min_dist_px": 86.53323061113575,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_53",
+   "grading": "IDRiD_012",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 528.4378662109375,
+    "equivalent_area": 494.61506835522954,
+    "minor_axis": 443.3133239746094
+   },
+   "major_axis": 2,
+   "min_dist_px": 127.09445306542689,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_54",
+   "grading": "IDRiD_314",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 518.9998779296875,
+    "equivalent_area": 501.43600993023546,
+    "minor_axis": 466.99993896484375
+   },
+   "major_axis": 2,
+   "min_dist_px": 287.9600666759195,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_58",
+   "grading": "IDRiD_356",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 584.4945068359375,
+    "equivalent_area": 560.3126930407855,
+    "minor_axis": 524.1075439453125
+   },
+   "major_axis": 2,
+   "min_dist_px": 187.41664813991312,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_59",
+   "grading": "IDRiD_128",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 611.99462890625,
+    "equivalent_area": 564.3734793818562,
+    "minor_axis": 522.1284790039062
+   },
+   "major_axis": 2,
+   "min_dist_px": 39.56008088970496,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_62",
+   "grading": "IDRiD_375",
+   "split": "train",
+   "true": 1,
+   "dd": {
+    "major_axis": 462.70477294921875,
+    "equivalent_area": 461.9744716848627,
+    "minor_axis": 456.79913330078125
+   },
+   "major_axis": 1,
+   "min_dist_px": 560.0,
+   "equivalent_area": 1,
+   "minor_axis": 1
+  },
+  {
+   "seg": "IDRiD_63",
+   "grading": "IDRiD_059",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 649.310546875,
+    "equivalent_area": 598.2293469193277,
+    "minor_axis": 550.0796508789062
+   },
+   "major_axis": 2,
+   "min_dist_px": 178.1796845883391,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_67",
+   "grading": "IDRiD_027",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 517.9494018554688,
+    "equivalent_area": 514.8946343513836,
+    "minor_axis": 510.18072509765625
+   },
+   "major_axis": 2,
+   "min_dist_px": 98.35141076771599,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_71",
+   "grading": "IDRiD_066",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 507.0,
+    "equivalent_area": 481.72408383258283,
+    "minor_axis": 457.0
+   },
+   "major_axis": 2,
+   "min_dist_px": 91.2414379544733,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_73",
+   "grading": "IDRiD_020",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 591.2001953125,
+    "equivalent_area": 557.7104639711341,
+    "minor_axis": 524.5062255859375
+   },
+   "major_axis": 2,
+   "min_dist_px": 220.51077071199947,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_74",
+   "grading": "IDRiD_329",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 457.0,
+    "equivalent_area": 434.63987908600933,
+    "minor_axis": 398.0
+   },
+   "major_axis": 2,
+   "min_dist_px": 218.8332698654389,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_76",
+   "grading": "IDRiD_313",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 546.0,
+    "equivalent_area": 522.1323889590253,
+    "minor_axis": 489.0
+   },
+   "major_axis": 2,
+   "min_dist_px": 64.89992295835181,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_77",
+   "grading": "IDRiD_057",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 510.1642150878906,
+    "equivalent_area": 508.5436034480938,
+    "minor_axis": 498.67010498046875
+   },
+   "major_axis": 2,
+   "min_dist_px": 166.94010902116963,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_79",
+   "grading": "IDRiD_309",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 507.0,
+    "equivalent_area": 494.90715414176753,
+    "minor_axis": 470.0
+   },
+   "major_axis": 2,
+   "min_dist_px": 53.71219600798314,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  },
+  {
+   "seg": "IDRiD_81",
+   "grading": "IDRiD_186",
+   "split": "train",
+   "true": 2,
+   "dd": {
+    "major_axis": 546.2000732421875,
+    "equivalent_area": 521.5529146848953,
+    "minor_axis": 484.0604553222656
+   },
+   "major_axis": 2,
+   "min_dist_px": 0.0,
+   "equivalent_area": 2,
+   "minor_axis": 2
+  }
+ ],
+ "by_definition": {
+  "major_axis": {
+   "exact_match": 0.9629629629629629,
+   "confusion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0,
+     2,
+     1
+    ],
+    [
+     0,
+     0,
+     50
+    ]
+   ],
+   "per_class_recall": [
+    0.0,
+    0.6666666666666666,
+    1.0
+   ],
+   "support": [
+    1,
+    3,
+    50
+   ]
+  },
+  "equivalent_area": {
+   "exact_match": 0.9629629629629629,
+   "confusion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0,
+     2,
+     1
+    ],
+    [
+     0,
+     0,
+     50
+    ]
+   ],
+   "per_class_recall": [
+    0.0,
+    0.6666666666666666,
+    1.0
+   ],
+   "support": [
+    1,
+    3,
+    50
+   ]
+  },
+  "minor_axis": {
+   "exact_match": 0.9629629629629629,
+   "confusion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0,
+     2,
+     1
+    ],
+    [
+     0,
+     0,
+     50
+    ]
+   ],
+   "per_class_recall": [
+    0.0,
+    0.6666666666666666,
+    1.0
+   ],
+   "support": [
+    1,
+    3,
+    50
+   ]
+  }
+ }
+}
