@@ -15,6 +15,9 @@ import argparse, glob, json, os, shutil, subprocess, sys, tempfile, time
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
 
 
+OWNER = os.environ.get("KAGGLE_OWNER", "ah22reza")   # account 2 sets KAGGLE_OWNER=reza12123
+
+
 def _kaggle_bin():
     """Prefer the CLI in this repo's venv over whatever PATH happens to hold.
 
@@ -39,7 +42,7 @@ def kaggle(*args, check=False):
 
 
 def status(slug):
-    out = kaggle("kernels", "status", f"ah22reza/{slug}")
+    out = kaggle("kernels", "status", f"{OWNER}/{slug}")
     for token in ("RUNNING", "COMPLETE", "ERROR", "CANCEL", "QUEUED"):
         if token in out.upper():
             return token, out.strip()
@@ -48,7 +51,7 @@ def status(slug):
 
 def fetch(slug, dest, keep_weights=False):
     tmp = tempfile.mkdtemp()
-    out = kaggle("kernels", "output", f"ah22reza/{slug}", "-p", tmp)
+    out = kaggle("kernels", "output", f"{OWNER}/{slug}", "-p", tmp)
     os.makedirs(dest, exist_ok=True)
     moved = []
     run_id = os.path.basename(dest)

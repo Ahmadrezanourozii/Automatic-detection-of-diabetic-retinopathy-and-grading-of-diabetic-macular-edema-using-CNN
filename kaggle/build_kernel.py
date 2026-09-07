@@ -11,7 +11,13 @@ Usage:
 from __future__ import annotations
 import argparse, json, os, subprocess
 
-OWNER = "ah22reza"
+# Two Kaggle accounts, each with its own 30 h/week GPU quota. They are kept strictly
+# separate: account 1's kernels live in kaggle/ and are owned by ah22reza, account 2's live
+# in kaggle2/ and are owned by reza12123. Mixing them would make "which quota paid for this
+# run" unanswerable, and the account is part of a run's provenance (PROTOCOL.md §9).
+ACCOUNTS = {"1": {"owner": "ah22reza", "root": "kaggle", "token_env": "KAGGLE_API_TOKEN"},
+            "2": {"owner": "reza12123", "root": "kaggle2", "token_env": "KAGGLE_API_TOKEN_2"}}
+OWNER = ACCOUNTS["1"]["owner"]
 REPO = "https://github.com/Ahmadrezanourozii/Automatic-detection-of-diabetic-retinopathy-and-grading-of-diabetic-macular-edema-using-CNN.git"
 
 DATASETS = [
@@ -267,6 +273,10 @@ for p_ in glob.glob(f"{{OUT}}/best_*.pt"):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run-id", required=True)
+    ap.add_argument("--account", default="1", choices=sorted(ACCOUNTS),
+                    help="which Kaggle account runs this. 1 = ah22reza (kaggle/), "
+                         "2 = reza12123 (kaggle2/). Each has its own 30 h/week GPU quota; "
+                         "the choice is recorded in the kernel metadata as provenance.")
     ap.add_argument("--args", default="--folds 0,1,2,3,4 --epochs 30 --size 448")
     ap.add_argument("--commit", default="HEAD")
     ap.add_argument("--slug", default=None)
@@ -328,9 +338,11 @@ def main():
 
     # Kaggle derives the slug from the TITLE, so they must agree or every
     # status/output call afterwards addresses a kernel that does not exist
+    acct = ACCOUNTS[a.account]
+    owner, root = acct["owner"], acct["root"]
     slug = a.slug or f"dr-dme-{a.run_id.lower()}"
     title = slug.replace("-", " ").upper().replace("DR DME", "DR/DME")
-    out = a.out or f"kaggle/{slug}"
+    out = a.out or f"{root}/{slug}"
     os.makedirs(out, exist_ok=True)
 
     train_args = ", ".join(f'"{t}"' for t in a.args.split())
@@ -366,7 +378,7 @@ def main():
         json.dump(nb, f, indent=1)
 
     meta = {
-        "id": f"{OWNER}/{slug}",
+        "id": f"{owner}/{slug}",
         "title": title,
         "code_file": f"{slug}.ipynb",
         "language": "python",
@@ -391,7 +403,9 @@ def main():
     }
     with open(f"{out}/kernel-metadata.json", "w") as f:
         json.dump(meta, f, indent=1)
-    print(f"wrote {out}/  (id {meta['id']}, commit {a.commit[:10]})")
+    print(f"wrote {out}/  (id {meta['id']}, commit {a.commit[:10]}, account {a.account})")
+    print(f"  push with:  KAGGLE_API_TOKEN=\"${acct['token_env']}\" "
+          f".venv/bin/kaggle kernels push -p {out} --accelerator \"{a.gpu}\"")
 
     if a.push:
         r = subprocess.run(["kaggle", "kernels", "push", "-p", out,
