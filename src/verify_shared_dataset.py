@@ -30,6 +30,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--datasets", nargs="+", default=["/kaggle/input"])
     ap.add_argument("--out", default="runs/ACCT2VERIFY")
+    # build_kernel passes --splits to every standalone script; accepted and unused here
+    ap.add_argument("--splits", default="")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
 
