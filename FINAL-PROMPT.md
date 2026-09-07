@@ -39,6 +39,40 @@ secondary and may be paused at any point if Part B needs more work.
 
 ---
 
+---
+
+# ⚠️ FINDING-NUMBER CROSSWALK — READ BEFORE CITING ANY "F" NUMBER
+
+**`FINDINGS.md` is the base.** This file's `F1–F7` were assigned independently and **do not
+match** the repository's numbering. Nothing is renumbered — the repository is full of
+cross-references and renumbering it would be an unnecessary risk. Instead the mapping is made
+explicit here, and **all new writing uses the `FINDINGS.md` numbers.**
+
+| this file | means | actual home in the repository |
+|---|---|---|
+| `CLAIMS F1` | cut-point shifting recovered external minority-class recall ~5 % → ~78 % | **`FINDINGS.md` F1** (same finding, same number — the only coincidence) |
+| `CLAIMS F2` | matched calibration reversed four prior attributions, both directions | **`PROTOCOL.md` §4.1** (the record table) and **`FINDINGS.md` F3** (per-class comparisons dominated by cut-point placement) |
+| `CLAIMS F3` | the DME head is supervision-limited, not architecture-limited | **`FINDINGS.md` F7** |
+| `CLAIMS F4` | frozen RETFound beat ImageNet; fine-tuned RETFound lost to DenseNet+EyePACS | **`FINDINGS.md` F8** |
+| `CLAIMS F5` | the ensemble's development gain did not survive external validation | **`IDEAS.md` I23** and `docs/generated/ensemble_external.md` — never given an F number |
+| `CLAIMS F6` | Messidor-1 has ~88 % overlap with the development pool | **`FINDINGS.md` F2** |
+| `CLAIMS F7` | provenance bugs produced no runtime errors but wrong numbers | **`ISSUES.md` §24, §26, §27** (and §16, §20, §23) — never given an F number |
+
+**Findings with no counterpart in this file**, because they postdate it:
+
+| | |
+|---|---|
+| `FINDINGS.md` F4 | recalibration needs ~200 labelled local images; below 100, one attempt in four makes the model worse |
+| `FINDINGS.md` F5 | macro-recall must not be primary — tuning for it costs 19.2 points of referable sensitivity |
+| `FINDINGS.md` F6 | a deployment recommendation evaluated only at its mean can be harmful |
+| `FINDINGS.md` F9 | the pipeline is worth **+0.234 QWK** over frozen features and a linear model |
+| `FINDINGS.md` F10 | the DME grade is not recoverable from published annotations (Part A verdict) |
+
+**Rule from 2026-09-07 onward: cite `FINDINGS.md` numbers.** When quoting this file's text,
+translate the F number through the table above.
+
+---
+
 # PART A — GATE: the IDRiD derivation test
 
 CPU only. No GPU. Can run alongside any training job. **Nothing about additional DME
