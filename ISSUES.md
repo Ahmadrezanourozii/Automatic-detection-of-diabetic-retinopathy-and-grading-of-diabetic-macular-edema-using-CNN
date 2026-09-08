@@ -1125,6 +1125,43 @@ in it.
 
 ---
 
+## §28. A run reached a verdict without a pre-registered hypothesis  — 2026-09-08, FIXED
+
+**What happened.** `E21CNXA` (ConvNeXt-tiny, folds 0–1) finished on 2026-09-06 and was fetched
+on 2026-09-08. Its `results.json` carries **`hypothesis: ""`**. Every comparable run carries a
+string — E08 `eyepacs-pretrain-plus-longer-schedule-and-first-external-validation`, E11FULL
+`efficientnet-b3-plus-eyepacs-pretraining-beats-densenet121-plus-the-same`. The standing rule is
+that **every run pre-registers a hypothesis and a falsifying outcome before launch**. This one
+did not, and the session that launched it is gone, so the record cannot be recovered.
+
+**Why it matters, and why it is not a formality.** The control (E08 at DR QWK 0.8646) and the
+±0.015 criterion used to judge E21CNXA are **reconstructed from `HANDOFF.md`, not read off a
+stamped record**. Reconstructing a criterion *after* seeing the number is exactly the freedom
+pre-registration exists to remove — even when, as here, the reconstruction is honest and the
+result is negative in a direction nobody wanted. A negative result makes the lapse cheap; it
+does not make it invisible, and the next lapse may land on a positive one.
+
+**Why it slipped.** `--hypothesis` is optional in `train.py` and `build_kernel.py`. Nothing
+refuses to build a kernel without it, so the guard depended entirely on the operator
+remembering — which is `PROTOCOL.md` §10's failure mode: a rule with no mechanism behind it is
+a habit, not a check.
+
+**Fix, applied.** `build_kernel.py` now refuses to write a notebook that invokes
+`src/train.py` without a non-empty `--hypothesis`. Following §24, the guard greps the
+**generated notebook** rather than trusting the flag it was handed, so a run whose args are
+assembled somewhere else is caught too. `--external-only` and probe scripts are exempt: they
+evaluate finished weights and pre-register nothing of their own.
+
+**Fired in all three directions before being trusted (`PROTOCOL.md` §10):** refuses a training
+notebook with no hypothesis; prints `hypothesis pre-registered: …` and proceeds when one is
+present; and lets an `--external-only` kernel through untouched. A guard tested only on the
+case it was written for is the §27 problem wearing a different hat.
+
+`E21CNXA`'s write-up in `IDEAS.md` still states plainly that its criterion was reconstructed —
+the guard prevents the next occurrence, it does not repair this one.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.

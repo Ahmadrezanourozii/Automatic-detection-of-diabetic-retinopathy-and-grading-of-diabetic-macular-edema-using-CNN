@@ -1,0 +1,3 @@
+run E21CNXA  commit 2efb108dbd  device=cuda  backbone=convnext_tiny head=ordinal size=448
+[corpora] APTOS            0 images
+APTOS matched 0 images — is it attached to this kernel?

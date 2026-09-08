@@ -9,7 +9,7 @@ Usage:
     python kaggle/build_kernel.py --run-id E05 --args "--epochs 30 --size 448" [--push]
 """
 from __future__ import annotations
-import argparse, json, os, subprocess
+import argparse, json, os, re, subprocess
 
 # Two Kaggle accounts, each with its own 30 h/week GPU quota. They are kept strictly
 # separate: account 1's kernels live in kaggle/ and are owned by ah22reza, account 2's live
@@ -406,6 +406,23 @@ def main():
         raise SystemExit(
             f"generated notebook invokes BOTH {a.script} and src/train.py -- refusing to "
             f"push an ambiguous run.")
+
+    # A training run must carry a pre-registered hypothesis, and the check looks at the
+    # GENERATED NOTEBOOK rather than at the flag it was handed -- the §24 lesson. E21CNXA
+    # reached a significant verdict with `hypothesis: ""` in its results.json, so its
+    # control and criterion had to be reconstructed after the number was known, which is
+    # the one freedom pre-registration exists to remove (ISSUES.md §28). An external-only
+    # run or a probe script pre-registers nothing of its own and is exempt.
+    if "repo/src/train.py" in emitted and not a.external_only:
+        m = re.search(r'"--hypothesis",\s*"([^"]*)"', emitted)
+        if not (m and m.group(1).strip()):
+            raise SystemExit(
+                "the generated notebook trains without a hypothesis -- refusing to push.\n"
+                "Every run pre-registers what it predicts AND what would falsify it, before "
+                "launch. Add it to --args, hyphenated so it survives the whitespace split:\n"
+                '    --args "... --hypothesis convnext-tiny-beats-densenet121-at-matched-cuts"\n'
+                "(E21CNXA is why: ISSUES.md §28.)")
+        print(f"hypothesis pre-registered: {m.group(1)}")
     print(f"notebook invokes {intended}  (checked against run-id {a.run_id!r})")
 
     with open(f"{out}/{slug}.ipynb", "w") as f:

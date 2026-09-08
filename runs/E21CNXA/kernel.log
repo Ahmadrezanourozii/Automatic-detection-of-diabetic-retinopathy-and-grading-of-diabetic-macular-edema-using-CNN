@@ -1,0 +1,415 @@
+[{"stream_name":"stderr","time":6.665864187,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.665946115,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.665952756,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.665955705,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":7.275510029,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.275544604,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.275550024,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.275553569,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":9.728791377,"data":"CODE COMMIT 2efb108dbd087fdf45af5e90e96057a1a6e939c3\n"}
+,{"stream_name":"stdout","time":9.728867473,"data":"CORN implemented as CORAL's control: same parameterisation, conditional objective\n"}
+,{"stream_name":"stdout","time":109.368444991,"data":"datasets                                                  73471 files\n"}
+,{"stream_name":"stdout","time":112.907903401,"data":"torch 2.10.0+cu128 | cuda True | Tesla P100-PCIE-16GB\n"}
+,{"stream_name":"stderr","time":112.908915691,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":112.908941047,"data":"    Found GPU0 Tesla P100-PCIE-16GB which is of cuda capability 6.0.\n"}
+,{"stream_name":"stderr","time":112.908946974,"data":"    Minimum and Maximum cuda capability supported by this version of PyTorch is\n"}
+,{"stream_name":"stderr","time":112.90895195,"data":"    (7.0) - (12.0)\n"}
+,{"stream_name":"stderr","time":112.90895652,"data":"    \n"}
+,{"stream_name":"stderr","time":112.908961555,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":112.908966234,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":112.90897095,"data":"    Please install PyTorch with a following CUDA\n"}
+,{"stream_name":"stderr","time":112.908976119,"data":"    configurations:  12.6 following instructions at\n"}
+,{"stream_name":"stderr","time":112.908980837,"data":"    https://pytorch.org/get-started/locally/\n"}
+,{"stream_name":"stderr","time":112.90898513,"data":"    \n"}
+,{"stream_name":"stderr","time":112.90898974,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":112.908993795,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":112.908999503,"data":"Tesla P100-PCIE-16GB with CUDA capability sm_60 is not compatible with the current PyTorch installation.\n"}
+,{"stream_name":"stderr","time":112.909003952,"data":"The current PyTorch install supports CUDA capabilities sm_70 sm_75 sm_80 sm_86 sm_90 sm_100 sm_120.\n"}
+,{"stream_name":"stderr","time":112.909008707,"data":"If you want to use the Tesla P100-PCIE-16GB GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/\n"}
+,{"stream_name":"stderr","time":112.909013533,"data":"\n"}
+,{"stream_name":"stderr","time":112.909017877,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":112.909021821,"data":"\n"}
+,{"stream_name":"stderr","time":112.909025816,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":112.909046278,"data":"    Found GPU0 Tesla P100-PCIE-16GB which is of cuda capability 6.0.\n"}
+,{"stream_name":"stderr","time":112.909050936,"data":"    Minimum and Maximum cuda capability supported by this version of PyTorch is\n"}
+,{"stream_name":"stderr","time":112.909054832,"data":"    (7.0) - (12.0)\n"}
+,{"stream_name":"stderr","time":112.909058134,"data":"    \n"}
+,{"stream_name":"stderr","time":112.909061362,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":112.909064383,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":112.909067863,"data":"    Please install PyTorch with a following CUDA\n"}
+,{"stream_name":"stderr","time":112.909071443,"data":"    configurations:  12.6 following instructions at\n"}
+,{"stream_name":"stderr","time":112.909074973,"data":"    https://pytorch.org/get-started/locally/\n"}
+,{"stream_name":"stderr","time":112.909078394,"data":"    \n"}
+,{"stream_name":"stderr","time":112.909081795,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":112.909085247,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":112.909088946,"data":"Tesla P100-PCIE-16GB with CUDA capability sm_60 is not compatible with the current PyTorch installation.\n"}
+,{"stream_name":"stderr","time":112.909092154,"data":"The current PyTorch install supports CUDA capabilities sm_70 sm_75 sm_80 sm_86 sm_90 sm_100 sm_120.\n"}
+,{"stream_name":"stderr","time":112.909095578,"data":"If you want to use the Tesla P100-PCIE-16GB GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/\n"}
+,{"stream_name":"stderr","time":112.909099165,"data":"\n"}
+,{"stream_name":"stderr","time":112.909102167,"data":"  queued_call()\n"}
+,{"stream_name":"stdout","time":113.107994789,"data":"GPU Tesla P100-PCIE-16GB  sm_60  torch 2.10.0+cu128\n"}
+,{"stream_name":"stdout","time":113.118533575,"data":"UNUSABLE: CUDA error: no kernel image is available for execution on the device\n"}
+,{"stream_name":"stdout","time":113.118573276,"data":"Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.\n"}
+,{"stream_name":"stdout","time":113.118578571,"data":"CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\n"}
+,{"stream_name":"stdout","time":113.118582605,"data":"For debugging consider passing CUDA_LAUNCH_BLOCKING=1\n"}
+,{"stream_name":"stdout","time":113.118587932,"data":"Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"}
+,{"stream_name":"stdout","time":113.118596248,"data":"\n"}
+,{"stream_name":"stdout","time":113.11859917,"data":"installing a torch build that supports this GPU ...\n"}
+,{"stream_name":"stdout","time":123.075940259,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 780.4/780.4 MB 2.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":123.278188876,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 780.4/780.4 MB 2.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":125.765040054,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.3/7.3 MB 113.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":125.965112325,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.3/7.3 MB 113.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":126.454698449,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 23.7/23.7 MB 94.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":126.656885814,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 23.7/23.7 MB 94.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":126.815037579,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 823.6/823.6 kB 50.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":127.016747387,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 823.6/823.6 kB 50.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":127.021346295,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.1/14.1 MB 92.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":127.223481868,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.1/14.1 MB 92.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":134.327410962,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 664.8/664.8 MB 2.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":134.53019196,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 664.8/664.8 MB 2.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":142.234300308,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 410.6/410.6 MB 41.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":142.436620934,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 410.6/410.6 MB 41.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":144.924115784,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 121.6/121.6 MB 76.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":145.128120482,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 121.6/121.6 MB 76.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":146.114854394,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.5/56.5 MB 61.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":146.316687073,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.5/56.5 MB 61.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":148.205873956,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 124.2/124.2 MB 54.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":148.408292169,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 124.2/124.2 MB 54.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":152.065330781,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 196.0/196.0 MB 85.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":152.267678364,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 196.0/196.0 MB 85.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":154.246509593,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.7/188.7 MB 125.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":154.448603847,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.7/188.7 MB 125.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":154.869876275,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 99.1/99.1 kB 110.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":155.072680626,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 99.1/99.1 kB 110.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":156.941663175,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 209.6/209.6 MB 8.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":157.144198058,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 209.6/209.6 MB 8.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":159.786881192,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.2/6.2 MB 64.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":159.989348449,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.2/6.2 MB 64.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stderr","time":273.573709113,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":273.573757401,"data":"torchaudio 2.10.0+cu128 requires torch==2.10.0, but you have torch 2.5.1+cu121 which is incompatible.\n"}
+,{"stream_name":"stderr","time":273.778551172,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":273.77858201,"data":"torchaudio 2.10.0+cu128 requires torch==2.10.0, but you have torch 2.5.1+cu121 which is incompatible.\n"}
+,{"stream_name":"stderr","time":273.778606435,"data":"\n"}
+,{"stream_name":"stderr","time":273.778611838,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":273.778618118,"data":"torchaudio 2.10.0+cu128 requires torch==2.10.0, but you have torch 2.5.1+cu121 which is incompatible.\n"}
+,{"stream_name":"stdout","time":274.180458306,"data":"installed -- src/train.py runs in a subprocess so it picks up the new build\n"}
+,{"stream_name":"stdout","time":274.195969646,"data":"/usr/bin/python3 -u /kaggle/working/repo/src/train.py --datasets /kaggle/input --splits /kaggle/working/repo/data/splits/dev_v1.json --run-id E21CNXA --out /kaggle/working/E21CNXA --cache /kaggle/temp/cache560 --channels-last --resume --folds 0,1 --epochs 40 --size 448 --batch 16 --cache-size 560 --backbone convnext_tiny --pretrain-corpora EyePACS --pretrain-epochs 5 --tta\n"}
+,{"stream_name":"stdout","time":276.37656393,"data":"COMMIT 2efb108dbd087fdf45af5e90e96057a1a6e939c3\n"}
+,{"stream_name":"stdout","time":276.37742061,"data":"RUN E21CNXA\n"}
+,{"stream_name":"stdout","time":276.433934163,"data":"device=cuda  torch=2.5.1+cu121  gpu=Tesla P100-PCIE-16GB\n"}
+,{"stream_name":"stdout","time":276.56837252,"data":"[gpu] sm_60 usable\n"}
+,{"stream_name":"stdout","time":352.068688702,"data":"[corpora] IDRiD          516 images\n"}
+,{"stream_name":"stdout","time":376.190075811,"data":"[corpora] Messidor-2    1744 images\n"}
+,{"stream_name":"stdout","time":376.192776858,"data":"  IDRiD       n=   516  DR0=168 DR1=25 DR2=168 DR3=93 DR4=62   dme_supervised=  516 (exact=516)\n"}
+,{"stream_name":"stdout","time":376.193653843,"data":"  Messidor-2  n=  1744  DR0=1017 DR1=270 DR2=347 DR3=75 DR4=35   dme_supervised= 1744 (exact=151)\n"}
+,{"stream_name":"stdout","time":376.195253313,"data":"[split] /kaggle/working/repo/data/splits/dev_v1.json fingerprint=0cfbbfeb081999af 5 folds\n"}
+,{"stream_name":"stdout","time":376.723310011,"data":"[corpora] EyePACS      35126 images\n"}
+,{"stream_name":"stdout","time":376.76960738,"data":"  EyePACS     n= 35126  DR0=25810 DR1=2443 DR2=5292 DR3=873 DR4=708   dme_supervised=    0 (exact=0)\n"}
+,{"stream_name":"stdout","time":377.001635173,"data":"[cache] decoding 37386 images -\u003e /kaggle/temp/cache560\n"}
+,{"stream_name":"stdout","time":413.659193753,"data":"[cache]   250/37386  37s, ~5445s left\n"}
+,{"stream_name":"stdout","time":450.66700077,"data":"[cache]   500/37386  74s, ~5434s left\n"}
+,{"stream_name":"stdout","time":456.816636737,"data":"[cache]   750/37386  80s, ~3899s left\n"}
+,{"stream_name":"stdout","time":460.786233762,"data":"[cache]   1000/37386  84s, ~3049s left\n"}
+,{"stream_name":"stdout","time":464.870200111,"data":"[cache]   1250/37386  88s, ~2540s left\n"}
+,{"stream_name":"stdout","time":468.724180071,"data":"[cache]   1500/37386  92s, ~2194s left\n"}
+,{"stream_name":"stdout","time":471.576909518,"data":"[cache]   1750/37386  95s, ~1926s left\n"}
+,{"stream_name":"stdout","time":473.966936247,"data":"[cache]   2000/37386  97s, ~1716s left\n"}
+,{"stream_name":"stdout","time":476.292619532,"data":"[cache]   2250/37386  99s, ~1551s left\n"}
+,{"stream_name":"stdout","time":480.624614555,"data":"[cache]   2500/37386  104s, ~1446s left\n"}
+,{"stream_name":"stdout","time":484.910540903,"data":"[cache]   2750/37386  108s, ~1359s left\n"}
+,{"stream_name":"stdout","time":489.348295138,"data":"[cache]   3000/37386  112s, ~1288s left\n"}
+,{"stream_name":"stdout","time":493.801552138,"data":"[cache]   3250/37386  117s, ~1227s left\n"}
+,{"stream_name":"stdout","time":498.218421228,"data":"[cache]   3500/37386  121s, ~1174s left\n"}
+,{"stream_name":"stdout","time":502.534307508,"data":"[cache]   3750/37386  126s, ~1126s left\n"}
+,{"stream_name":"stdout","time":506.828973935,"data":"[cache]   4000/37386  130s, ~1084s left\n"}
+,{"stream_name":"stdout","time":511.208856969,"data":"[cache]   4250/37386  134s, ~1046s left\n"}
+,{"stream_name":"stdout","time":515.506326325,"data":"[cache]   4500/37386  139s, ~1012s left\n"}
+,{"stream_name":"stdout","time":519.887170803,"data":"[cache]   4750/37386  143s, ~982s left\n"}
+,{"stream_name":"stdout","time":524.243668453,"data":"[cache]   5000/37386  147s, ~954s left\n"}
+,{"stream_name":"stdout","time":528.553428031,"data":"[cache]   5250/37386  152s, ~928s left\n"}
+,{"stream_name":"stdout","time":532.868679086,"data":"[cache]   5500/37386  156s, ~904s left\n"}
+,{"stream_name":"stdout","time":537.19228406,"data":"[cache]   5750/37386  160s, ~881s left\n"}
+,{"stream_name":"stdout","time":541.424610148,"data":"[cache]   6000/37386  164s, ~860s left\n"}
+,{"stream_name":"stdout","time":545.645506685,"data":"[cache]   6250/37386  169s, ~840s left\n"}
+,{"stream_name":"stdout","time":549.896719394,"data":"[cache]   6500/37386  173s, ~822s left\n"}
+,{"stream_name":"stdout","time":554.317740818,"data":"[cache]   6750/37386  177s, ~805s left\n"}
+,{"stream_name":"stdout","time":558.614652022,"data":"[cache]   7000/37386  182s, ~788s left\n"}
+,{"stream_name":"stdout","time":562.94149159,"data":"[cache]   7250/37386  186s, ~773s left\n"}
+,{"stream_name":"stdout","time":567.217928248,"data":"[cache]   7500/37386  190s, ~758s left\n"}
+,{"stream_name":"stdout","time":571.478358789,"data":"[cache]   7750/37386  194s, ~744s left\n"}
+,{"stream_name":"stdout","time":575.714702753,"data":"[cache]   8000/37386  199s, ~730s left\n"}
+,{"stream_name":"stdout","time":579.995064271,"data":"[cache]   8250/37386  203s, ~717s left\n"}
+,{"stream_name":"stdout","time":584.215377092,"data":"[cache]   8500/37386  207s, ~704s left\n"}
+,{"stream_name":"stdout","time":588.469626568,"data":"[cache]   8750/37386  211s, ~692s left\n"}
+,{"stream_name":"stdout","time":592.729391087,"data":"[cache]   9000/37386  216s, ~680s left\n"}
+,{"stream_name":"stdout","time":597.063012331,"data":"[cache]   9250/37386  220s, ~669s left\n"}
+,{"stream_name":"stdout","time":601.362998473,"data":"[cache]   9500/37386  224s, ~659s left\n"}
+,{"stream_name":"stdout","time":605.526713229,"data":"[cache]   9750/37386  229s, ~648s left\n"}
+,{"stream_name":"stdout","time":609.801918877,"data":"[cache]   10000/37386  233s, ~638s left\n"}
+,{"stream_name":"stdout","time":614.101405097,"data":"[cache]   10250/37386  237s, ~628s left\n"}
+,{"stream_name":"stdout","time":618.407940776,"data":"[cache]   10500/37386  241s, ~618s left\n"}
+,{"stream_name":"stdout","time":622.746978342,"data":"[cache]   10750/37386  246s, ~609s left\n"}
+,{"stream_name":"stdout","time":627.170272106,"data":"[cache]   11000/37386  250s, ~600s left\n"}
+,{"stream_name":"stdout","time":631.520859028,"data":"[cache]   11250/37386  255s, ~591s left\n"}
+,{"stream_name":"stdout","time":635.923951925,"data":"[cache]   11500/37386  259s, ~583s left\n"}
+,{"stream_name":"stdout","time":640.310253679,"data":"[cache]   11750/37386  263s, ~574s left\n"}
+,{"stream_name":"stdout","time":644.610594186,"data":"[cache]   12000/37386  268s, ~566s left\n"}
+,{"stream_name":"stdout","time":648.917848841,"data":"[cache]   12250/37386  272s, ~558s left\n"}
+,{"stream_name":"stdout","time":653.372302028,"data":"[cache]   12500/37386  276s, ~550s left\n"}
+,{"stream_name":"stdout","time":657.760811099,"data":"[cache]   12750/37386  281s, ~542s left\n"}
+,{"stream_name":"stdout","time":662.334178623,"data":"[cache]   13000/37386  285s, ~535s left\n"}
+,{"stream_name":"stdout","time":666.609283111,"data":"[cache]   13250/37386  290s, ~528s left\n"}
+,{"stream_name":"stdout","time":671.139947163,"data":"[cache]   13500/37386  294s, ~520s left\n"}
+,{"stream_name":"stdout","time":675.518711335,"data":"[cache]   13750/37386  299s, ~513s left\n"}
+,{"stream_name":"stdout","time":679.859240557,"data":"[cache]   14000/37386  303s, ~506s left\n"}
+,{"stream_name":"stdout","time":684.131978583,"data":"[cache]   14250/37386  307s, ~499s left\n"}
+,{"stream_name":"stdout","time":688.371933763,"data":"[cache]   14500/37386  311s, ~491s left\n"}
+,{"stream_name":"stdout","time":692.608346021,"data":"[cache]   14750/37386  316s, ~484s left\n"}
+,{"stream_name":"stdout","time":696.831671778,"data":"[cache]   15000/37386  320s, ~477s left\n"}
+,{"stream_name":"stdout","time":701.103308412,"data":"[cache]   15250/37386  324s, ~470s left\n"}
+,{"stream_name":"stdout","time":705.423783183,"data":"[cache]   15500/37386  328s, ~464s left\n"}
+,{"stream_name":"stdout","time":709.660584384,"data":"[cache]   15750/37386  333s, ~457s left\n"}
+,{"stream_name":"stdout","time":713.896966632,"data":"[cache]   16000/37386  337s, ~450s left\n"}
+,{"stream_name":"stdout","time":718.076110948,"data":"[cache]   16250/37386  341s, ~444s left\n"}
+,{"stream_name":"stdout","time":722.347902647,"data":"[cache]   16500/37386  345s, ~437s left\n"}
+,{"stream_name":"stdout","time":726.626721456,"data":"[cache]   16750/37386  350s, ~431s left\n"}
+,{"stream_name":"stdout","time":730.944758651,"data":"[cache]   17000/37386  354s, ~424s left\n"}
+,{"stream_name":"stdout","time":735.253586059,"data":"[cache]   17250/37386  358s, ~418s left\n"}
+,{"stream_name":"stdout","time":739.384721571,"data":"[cache]   17500/37386  362s, ~412s left\n"}
+,{"stream_name":"stdout","time":743.726610797,"data":"[cache]   17750/37386  367s, ~406s left\n"}
+,{"stream_name":"stdout","time":748.000630044,"data":"[cache]   18000/37386  371s, ~400s left\n"}
+,{"stream_name":"stdout","time":752.284079054,"data":"[cache]   18250/37386  375s, ~394s left\n"}
+,{"stream_name":"stdout","time":756.634598414,"data":"[cache]   18500/37386  380s, ~388s left\n"}
+,{"stream_name":"stdout","time":760.959544582,"data":"[cache]   18750/37386  384s, ~382s left\n"}
+,{"stream_name":"stdout","time":765.247638725,"data":"[cache]   19000/37386  388s, ~376s left\n"}
+,{"stream_name":"stdout","time":769.418144321,"data":"[cache]   19250/37386  392s, ~370s left\n"}
+,{"stream_name":"stdout","time":773.716247101,"data":"[cache]   19500/37386  397s, ~364s left\n"}
+,{"stream_name":"stdout","time":777.926862634,"data":"[cache]   19750/37386  401s, ~358s left\n"}
+,{"stream_name":"stdout","time":782.331087878,"data":"[cache]   20000/37386  405s, ~352s left\n"}
+,{"stream_name":"stdout","time":786.736310137,"data":"[cache]   20250/37386  410s, ~347s left\n"}
+,{"stream_name":"stdout","time":791.128552598,"data":"[cache]   20500/37386  414s, ~341s left\n"}
+,{"stream_name":"stdout","time":795.56099222,"data":"[cache]   20750/37386  419s, ~336s left\n"}
+,{"stream_name":"stdout","time":799.950056097,"data":"[cache]   21000/37386  423s, ~330s left\n"}
+,{"stream_name":"stdout","time":804.381975119,"data":"[cache]   21250/37386  427s, ~325s left\n"}
+,{"stream_name":"stdout","time":808.72354167,"data":"[cache]   21500/37386  432s, ~319s left\n"}
+,{"stream_name":"stdout","time":813.161690482,"data":"[cache]   21750/37386  436s, ~314s left\n"}
+,{"stream_name":"stdout","time":817.495864858,"data":"[cache]   22000/37386  440s, ~308s left\n"}
+,{"stream_name":"stdout","time":821.948461753,"data":"[cache]   22250/37386  445s, ~303s left\n"}
+,{"stream_name":"stdout","time":826.419573535,"data":"[cache]   22500/37386  449s, ~297s left\n"}
+,{"stream_name":"stdout","time":830.746926763,"data":"[cache]   22750/37386  454s, ~292s left\n"}
+,{"stream_name":"stdout","time":835.127480368,"data":"[cache]   23000/37386  458s, ~287s left\n"}
+,{"stream_name":"stdout","time":839.667641661,"data":"[cache]   23250/37386  463s, ~281s left\n"}
+,{"stream_name":"stdout","time":844.063621883,"data":"[cache]   23500/37386  467s, ~276s left\n"}
+,{"stream_name":"stdout","time":848.530810336,"data":"[cache]   23750/37386  472s, ~271s left\n"}
+,{"stream_name":"stdout","time":852.927719175,"data":"[cache]   24000/37386  476s, ~265s left\n"}
+,{"stream_name":"stdout","time":857.396818924,"data":"[cache]   24250/37386  480s, ~260s left\n"}
+,{"stream_name":"stdout","time":861.965604181,"data":"[cache]   24500/37386  485s, ~255s left\n"}
+,{"stream_name":"stdout","time":866.344167959,"data":"[cache]   24750/37386  489s, ~250s left\n"}
+,{"stream_name":"stdout","time":870.822562036,"data":"[cache]   25000/37386  494s, ~245s left\n"}
+,{"stream_name":"stdout","time":875.309298823,"data":"[cache]   25250/37386  498s, ~240s left\n"}
+,{"stream_name":"stdout","time":879.763330621,"data":"[cache]   25500/37386  503s, ~234s left\n"}
+,{"stream_name":"stdout","time":884.207612117,"data":"[cache]   25750/37386  507s, ~229s left\n"}
+,{"stream_name":"stdout","time":888.680429036,"data":"[cache]   26000/37386  512s, ~224s left\n"}
+,{"stream_name":"stdout","time":893.131984184,"data":"[cache]   26250/37386  516s, ~219s left\n"}
+,{"stream_name":"stdout","time":897.561719042,"data":"[cache]   26500/37386  521s, ~214s left\n"}
+,{"stream_name":"stdout","time":901.856701073,"data":"[cache]   26750/37386  525s, ~209s left\n"}
+,{"stream_name":"stdout","time":906.340127258,"data":"[cache]   27000/37386  529s, ~204s left\n"}
+,{"stream_name":"stdout","time":911.092569251,"data":"[cache]   27250/37386  534s, ~199s left\n"}
+,{"stream_name":"stdout","time":915.512602272,"data":"[cache]   27500/37386  539s, ~194s left\n"}
+,{"stream_name":"stdout","time":919.882620311,"data":"[cache]   27750/37386  543s, ~189s left\n"}
+,{"stream_name":"stdout","time":924.336212919,"data":"[cache]   28000/37386  547s, ~183s left\n"}
+,{"stream_name":"stdout","time":928.813833916,"data":"[cache]   28250/37386  552s, ~178s left\n"}
+,{"stream_name":"stdout","time":933.26519803,"data":"[cache]   28500/37386  556s, ~173s left\n"}
+,{"stream_name":"stdout","time":937.734135528,"data":"[cache]   28750/37386  561s, ~168s left\n"}
+,{"stream_name":"stdout","time":942.365542781,"data":"[cache]   29000/37386  565s, ~163s left\n"}
+,{"stream_name":"stdout","time":946.886508466,"data":"[cache]   29250/37386  570s, ~159s left\n"}
+,{"stream_name":"stdout","time":951.352299397,"data":"[cache]   29500/37386  574s, ~154s left\n"}
+,{"stream_name":"stdout","time":955.860975013,"data":"[cache]   29750/37386  579s, ~149s left\n"}
+,{"stream_name":"stdout","time":960.25761203,"data":"[cache]   30000/37386  583s, ~144s left\n"}
+,{"stream_name":"stdout","time":964.795168559,"data":"[cache]   30250/37386  588s, ~139s left\n"}
+,{"stream_name":"stdout","time":969.318039848,"data":"[cache]   30500/37386  592s, ~134s left\n"}
+,{"stream_name":"stdout","time":974.142122711,"data":"[cache]   30750/37386  597s, ~129s left\n"}
+,{"stream_name":"stdout","time":978.772649803,"data":"[cache]   31000/37386  602s, ~124s left\n"}
+,{"stream_name":"stdout","time":983.375886708,"data":"[cache]   31250/37386  606s, ~119s left\n"}
+,{"stream_name":"stdout","time":987.776452337,"data":"[cache]   31500/37386  611s, ~114s left\n"}
+,{"stream_name":"stdout","time":992.163111594,"data":"[cache]   31750/37386  615s, ~109s left\n"}
+,{"stream_name":"stdout","time":996.512630178,"data":"[cache]   32000/37386  620s, ~104s left\n"}
+,{"stream_name":"stdout","time":1001.069281225,"data":"[cache]   32250/37386  624s, ~99s left\n"}
+,{"stream_name":"stdout","time":1005.553908861,"data":"[cache]   32500/37386  629s, ~94s left\n"}
+,{"stream_name":"stdout","time":1009.957125195,"data":"[cache]   32750/37386  633s, ~90s left\n"}
+,{"stream_name":"stdout","time":1014.452514429,"data":"[cache]   33000/37386  637s, ~85s left\n"}
+,{"stream_name":"stdout","time":1018.886976364,"data":"[cache]   33250/37386  642s, ~80s left\n"}
+,{"stream_name":"stdout","time":1023.290643544,"data":"[cache]   33500/37386  646s, ~75s left\n"}
+,{"stream_name":"stdout","time":1027.691632,"data":"[cache]   33750/37386  651s, ~70s left\n"}
+,{"stream_name":"stdout","time":1032.187113392,"data":"[cache]   34000/37386  655s, ~65s left\n"}
+,{"stream_name":"stdout","time":1036.767208803,"data":"[cache]   34250/37386  660s, ~60s left\n"}
+,{"stream_name":"stdout","time":1041.237316956,"data":"[cache]   34500/37386  664s, ~56s left\n"}
+,{"stream_name":"stdout","time":1045.712141439,"data":"[cache]   34750/37386  669s, ~51s left\n"}
+,{"stream_name":"stdout","time":1050.228511488,"data":"[cache]   35000/37386  673s, ~46s left\n"}
+,{"stream_name":"stdout","time":1054.771153985,"data":"[cache]   35250/37386  678s, ~41s left\n"}
+,{"stream_name":"stdout","time":1059.206589076,"data":"[cache]   35500/37386  682s, ~36s left\n"}
+,{"stream_name":"stdout","time":1063.773027557,"data":"[cache]   35750/37386  687s, ~31s left\n"}
+,{"stream_name":"stdout","time":1068.285003916,"data":"[cache]   36000/37386  691s, ~27s left\n"}
+,{"stream_name":"stdout","time":1072.815673515,"data":"[cache]   36250/37386  696s, ~22s left\n"}
+,{"stream_name":"stdout","time":1077.610519631,"data":"[cache]   36500/37386  701s, ~17s left\n"}
+,{"stream_name":"stdout","time":1082.414668853,"data":"[cache]   36750/37386  705s, ~12s left\n"}
+,{"stream_name":"stdout","time":1086.887499997,"data":"[cache]   37000/37386  710s, ~7s left\n"}
+,{"stream_name":"stdout","time":1091.935299491,"data":"[cache]   37250/37386  715s, ~3s left\n"}
+,{"stream_name":"stdout","time":1094.37326669,"data":"[cache]   37386/37386  717s, ~0s left\n"}
+,{"stream_name":"stdout","time":1094.384576379,"data":"\n"}
+,{"stream_name":"stdout","time":1094.385510057,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":1094.386290395,"data":"PRETRAIN on 35126 images (5 epochs)\n"}
+,{"stream_name":"stdout","time":1094.387099708,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":1100.971267571,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stdout","time":1106.455908844,"data":"/usr/local/lib/python3.12/dist-packages/torch/optim/lr_scheduler.py:224: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate\n"}
+,{"stream_name":"stdout","time":1106.456278638,"data":"  warnings.warn(\n"}
+,{"stream_name":"stdout","time":5003.658949155,"data":"  pretrain ep  0/5  loss 0.4596  3900s\n"}
+,{"stream_name":"stdout","time":8891.011960567,"data":"  pretrain ep  1/5  loss 0.3907  3887s\n"}
+,{"stream_name":"stdout","time":12776.073925627,"data":"  pretrain ep  2/5  loss 0.3333  3885s\n"}
+,{"stream_name":"stdout","time":16666.251508863,"data":"  pretrain ep  3/5  loss 0.2777  3890s\n"}
+,{"stream_name":"stdout","time":20542.426911265,"data":"  pretrain ep  4/5  loss 0.2489  3876s\n"}
+,{"stream_name":"stdout","time":20542.692467839,"data":"[pretrain] saved /kaggle/working/E21CNXA/pretrained.pt\n"}
+,{"stream_name":"stdout","time":20542.73140982,"data":"\n"}
+,{"stream_name":"stdout","time":20542.732561874,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":20542.733506441,"data":"FOLD 0   train=1805  val=455\n"}
+,{"stream_name":"stdout","time":20542.734264335,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":20543.357905187,"data":"  initialised from the pretrained backbone\n"}
+,{"stream_name":"stdout","time":20751.257393098,"data":"  ep   0/40  loss 0.3859 (dr 0.3471 dme 0.4440)  DR qwk 0.672 acc 42.6%  DME qwk 0.563 acc 49.5%  score 0.6283  207s  *best\n"}
+,{"stream_name":"stdout","time":20959.003737215,"data":"  ep   1/40  loss 0.3083 (dr 0.3142 dme 0.2994)  DR qwk 0.691 acc 43.7%  DME qwk 0.758 acc 66.7%  score 0.7175  207s  *best\n"}
+,{"stream_name":"stdout","time":21166.980196021,"data":"  ep   2/40  loss 0.2716 (dr 0.2837 dme 0.2534)  DR qwk 0.710 acc 44.8%  DME qwk 0.771 acc 66.7%  score 0.7346  207s  *best\n"}
+,{"stream_name":"stdout","time":21375.405925172,"data":"  ep   3/40  loss 0.2476 (dr 0.2688 dme 0.2159)  DR qwk 0.723 acc 46.8%  DME qwk 0.760 acc 65.7%  score 0.7380  208s  *best\n"}
+,{"stream_name":"stdout","time":21586.43872943,"data":"  ep   4/40  loss 0.2256 (dr 0.2439 dme 0.1981)  DR qwk 0.755 acc 51.4%  DME qwk 0.784 acc 68.6%  score 0.7666  210s  *best\n"}
+,{"stream_name":"stdout","time":21799.041803579,"data":"  ep   5/40  loss 0.2131 (dr 0.2251 dme 0.1950)  DR qwk 0.774 acc 53.6%  DME qwk 0.812 acc 72.4%  score 0.7891  212s  *best\n"}
+,{"stream_name":"stdout","time":22011.961561658,"data":"  ep   6/40  loss 0.2015 (dr 0.2219 dme 0.1708)  DR qwk 0.779 acc 53.2%  DME qwk 0.846 acc 77.1%  score 0.8059  212s  *best\n"}
+,{"stream_name":"stdout","time":22225.334608704,"data":"  ep   7/40  loss 0.1919 (dr 0.2134 dme 0.1596)  DR qwk 0.786 acc 54.3%  DME qwk 0.836 acc 78.1%  score 0.8063  212s  *best\n"}
+,{"stream_name":"stdout","time":22438.686370361,"data":"  ep   8/40  loss 0.1793 (dr 0.1951 dme 0.1557)  DR qwk 0.791 acc 55.6%  DME qwk 0.862 acc 81.9%  score 0.8195  212s  *best\n"}
+,{"stream_name":"stdout","time":22651.716960529,"data":"  ep   9/40  loss 0.1698 (dr 0.1841 dme 0.1485)  DR qwk 0.796 acc 56.5%  DME qwk 0.874 acc 83.8%  score 0.8271  212s  *best\n"}
+,{"stream_name":"stdout","time":22864.467987371,"data":"  ep  10/40  loss 0.1690 (dr 0.1845 dme 0.1458)  DR qwk 0.799 acc 57.1%  DME qwk 0.852 acc 82.9%  score 0.8205  212s\n"}
+,{"stream_name":"stdout","time":23077.141261965,"data":"  ep  11/40  loss 0.1611 (dr 0.1732 dme 0.1430)  DR qwk 0.805 acc 58.2%  DME qwk 0.865 acc 84.8%  score 0.8290  212s  *best\n"}
+,{"stream_name":"stdout","time":23289.879055908,"data":"  ep  12/40  loss 0.1595 (dr 0.1727 dme 0.1397)  DR qwk 0.810 acc 59.1%  DME qwk 0.877 acc 86.7%  score 0.8364  212s  *best\n"}
+,{"stream_name":"stdout","time":23502.644707706,"data":"  ep  13/40  loss 0.1524 (dr 0.1593 dme 0.1420)  DR qwk 0.810 acc 59.1%  DME qwk 0.883 acc 87.6%  score 0.8390  212s  *best\n"}
+,{"stream_name":"stdout","time":23715.27147608,"data":"  ep  14/40  loss 0.1492 (dr 0.1532 dme 0.1433)  DR qwk 0.816 acc 60.0%  DME qwk 0.883 acc 87.6%  score 0.8425  212s  *best\n"}
+,{"stream_name":"stdout","time":23928.337340547,"data":"  ep  15/40  loss 0.1436 (dr 0.1505 dme 0.1334)  DR qwk 0.817 acc 60.7%  DME qwk 0.867 acc 87.6%  score 0.8370  212s\n"}
+,{"stream_name":"stdout","time":24141.375745694,"data":"  ep  16/40  loss 0.1425 (dr 0.1489 dme 0.1327)  DR qwk 0.823 acc 61.3%  DME qwk 0.889 acc 88.6%  score 0.8490  212s  *best\n"}
+,{"stream_name":"stdout","time":24354.104507644,"data":"  ep  17/40  loss 0.1411 (dr 0.1478 dme 0.1310)  DR qwk 0.824 acc 61.5%  DME qwk 0.869 acc 87.6%  score 0.8420  212s\n"}
+,{"stream_name":"stdout","time":24566.707851425,"data":"  ep  18/40  loss 0.1394 (dr 0.1436 dme 0.1330)  DR qwk 0.829 acc 63.7%  DME qwk 0.869 acc 87.6%  score 0.8446  212s\n"}
+,{"stream_name":"stdout","time":24779.17718041,"data":"  ep  19/40  loss 0.1352 (dr 0.1385 dme 0.1302)  DR qwk 0.826 acc 63.3%  DME qwk 0.879 acc 86.7%  score 0.8473  212s\n"}
+,{"stream_name":"stdout","time":24991.678210921,"data":"  ep  20/40  loss 0.1353 (dr 0.1385 dme 0.1304)  DR qwk 0.826 acc 64.0%  DME qwk 0.864 acc 86.7%  score 0.8416  212s\n"}
+,{"stream_name":"stdout","time":25204.572122342,"data":"  ep  21/40  loss 0.1319 (dr 0.1341 dme 0.1288)  DR qwk 0.831 acc 65.1%  DME qwk 0.864 acc 86.7%  score 0.8443  212s\n"}
+,{"stream_name":"stdout","time":25417.144370134,"data":"  ep  22/40  loss 0.1306 (dr 0.1326 dme 0.1276)  DR qwk 0.833 acc 65.5%  DME qwk 0.870 acc 87.6%  score 0.8476  212s\n"}
+,{"stream_name":"stdout","time":25630.065009679,"data":"  ep  23/40  loss 0.1308 (dr 0.1331 dme 0.1273)  DR qwk 0.836 acc 66.2%  DME qwk 0.870 acc 87.6%  score 0.8495  212s  *best\n"}
+,{"stream_name":"stdout","time":25842.729400582,"data":"  ep  24/40  loss 0.1294 (dr 0.1308 dme 0.1271)  DR qwk 0.834 acc 66.2%  DME qwk 0.870 acc 87.6%  score 0.8484  212s\n"}
+,{"stream_name":"stdout","time":26055.465068886,"data":"  ep  25/40  loss 0.1300 (dr 0.1318 dme 0.1274)  DR qwk 0.825 acc 65.9%  DME qwk 0.864 acc 86.7%  score 0.8407  212s\n"}
+,{"stream_name":"stdout","time":26268.085984097,"data":"  ep  26/40  loss 0.1268 (dr 0.1277 dme 0.1253)  DR qwk 0.825 acc 65.9%  DME qwk 0.864 acc 86.7%  score 0.8409  212s\n"}
+,{"stream_name":"stdout","time":26480.446306149,"data":"  ep  27/40  loss 0.1275 (dr 0.1291 dme 0.1250)  DR qwk 0.828 acc 66.6%  DME qwk 0.864 acc 86.7%  score 0.8426  211s\n"}
+,{"stream_name":"stdout","time":26692.936892389,"data":"  ep  28/40  loss 0.1272 (dr 0.1288 dme 0.1250)  DR qwk 0.827 acc 66.4%  DME qwk 0.850 acc 86.7%  score 0.8362  212s\n"}
+,{"stream_name":"stdout","time":26905.466327398,"data":"  ep  29/40  loss 0.1264 (dr 0.1276 dme 0.1245)  DR qwk 0.828 acc 66.2%  DME qwk 0.850 acc 86.7%  score 0.8365  212s\n"}
+,{"stream_name":"stdout","time":27118.095230485,"data":"  ep  30/40  loss 0.1268 (dr 0.1282 dme 0.1247)  DR qwk 0.830 acc 66.8%  DME qwk 0.850 acc 86.7%  score 0.8379  212s\n"}
+,{"stream_name":"stdout","time":27330.681646036,"data":"  ep  31/40  loss 0.1269 (dr 0.1280 dme 0.1252)  DR qwk 0.832 acc 67.3%  DME qwk 0.850 acc 86.7%  score 0.8387  212s\n"}
+,{"stream_name":"stdout","time":27543.354539004,"data":"  ep  32/40  loss 0.1265 (dr 0.1272 dme 0.1253)  DR qwk 0.830 acc 67.5%  DME qwk 0.850 acc 86.7%  score 0.8376  212s\n"}
+,{"stream_name":"stdout","time":27755.776304347,"data":"  ep  33/40  loss 0.1264 (dr 0.1273 dme 0.1250)  DR qwk 0.830 acc 67.5%  DME qwk 0.850 acc 86.7%  score 0.8377  211s\n"}
+,{"stream_name":"stdout","time":27968.206219262,"data":"  ep  34/40  loss 0.1262 (dr 0.1265 dme 0.1257)  DR qwk 0.831 acc 67.7%  DME qwk 0.850 acc 86.7%  score 0.8383  212s\n"}
+,{"stream_name":"stdout","time":28180.669917465,"data":"  ep  35/40  loss 0.1258 (dr 0.1272 dme 0.1237)  DR qwk 0.831 acc 67.7%  DME qwk 0.850 acc 86.7%  score 0.8383  212s\n"}
+,{"stream_name":"stdout","time":28393.353414536,"data":"  ep  36/40  loss 0.1261 (dr 0.1273 dme 0.1243)  DR qwk 0.829 acc 67.9%  DME qwk 0.850 acc 86.7%  score 0.8370  212s\n"}
+,{"stream_name":"stdout","time":28605.787595254,"data":"  ep  37/40  loss 0.1259 (dr 0.1271 dme 0.1240)  DR qwk 0.829 acc 68.1%  DME qwk 0.850 acc 86.7%  score 0.8374  212s\n"}
+,{"stream_name":"stdout","time":28818.232581652,"data":"  ep  38/40  loss 0.1264 (dr 0.1276 dme 0.1246)  DR qwk 0.829 acc 68.1%  DME qwk 0.845 acc 85.7%  score 0.8356  212s\n"}
+,{"stream_name":"stdout","time":29030.529252822,"data":"  ep  39/40  loss 0.1275 (dr 0.1282 dme 0.1265)  DR qwk 0.829 acc 68.1%  DME qwk 0.845 acc 85.7%  score 0.8356  211s\n"}
+,{"stream_name":"stdout","time":29065.002908504,"data":"\n"}
+,{"stream_name":"stdout","time":29065.003191366,"data":"  fold 0 best (selected on validation score, never on test):\n"}
+,{"stream_name":"stdout","time":29065.004396162,"data":"    dr                     n=  455  acc  68.4% [64.0,72.3]  floor  52.3%  QWK  0.851  F1 0.599  BEATS\n"}
+,{"stream_name":"stdout","time":29065.005398471,"data":"    dme_ungated            n=  105  acc  86.7% [80.0,93.3]  floor  48.6%  QWK  0.864  F1 0.752  BEATS\n"}
+,{"stream_name":"stdout","time":29065.006382004,"data":"    dme_gated              n=   71  acc  80.3% [71.8,90.1]  floor  71.8%  QWK  0.689  F1 0.649  below-floor\n"}
+,{"stream_name":"stdout","time":29065.007400807,"data":"    dme_referable_binary   n=  455  acc  93.8% [91.6,95.8]  floor  82.0%  QWK  0.786  F1 0.893  BEATS\n"}
+,{"stream_name":"stdout","time":29065.022871383,"data":"\n"}
+,{"stream_name":"stdout","time":29065.023733481,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":29065.024642813,"data":"FOLD 1   train=1805  val=455\n"}
+,{"stream_name":"stdout","time":29065.025459957,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":29065.64972769,"data":"  initialised from the pretrained backbone\n"}
+,{"stream_name":"stdout","time":29277.669380427,"data":"  ep   0/40  loss 0.3956 (dr 0.3543 dme 0.4575)  DR qwk 0.669 acc 46.2%  DME qwk 0.671 acc 55.2%  score 0.6698  212s  *best\n"}
+,{"stream_name":"stdout","time":29489.34327749,"data":"  ep   1/40  loss 0.3203 (dr 0.3201 dme 0.3207)  DR qwk 0.679 acc 47.0%  DME qwk 0.768 acc 66.7%  score 0.7148  211s  *best\n"}
+,{"stream_name":"stdout","time":29701.402903594,"data":"  ep   2/40  loss 0.2767 (dr 0.2833 dme 0.2666)  DR qwk 0.704 acc 49.2%  DME qwk 0.757 acc 65.7%  score 0.7252  211s  *best\n"}
+,{"stream_name":"stdout","time":29913.597132012,"data":"  ep   3/40  loss 0.2424 (dr 0.2642 dme 0.2097)  DR qwk 0.712 acc 50.1%  DME qwk 0.775 acc 67.6%  score 0.7369  211s  *best\n"}
+,{"stream_name":"stdout","time":30125.674061056,"data":"  ep   4/40  loss 0.2310 (dr 0.2502 dme 0.2022)  DR qwk 0.729 acc 52.1%  DME qwk 0.744 acc 63.8%  score 0.7355  211s\n"}
+,{"stream_name":"stdout","time":30337.779204442,"data":"  ep   5/40  loss 0.2133 (dr 0.2310 dme 0.1868)  DR qwk 0.740 acc 53.2%  DME qwk 0.764 acc 66.7%  score 0.7500  211s  *best\n"}
+,{"stream_name":"stdout","time":30550.25351075,"data":"  ep   6/40  loss 0.2067 (dr 0.2283 dme 0.1744)  DR qwk 0.749 acc 54.1%  DME qwk 0.809 acc 72.4%  score 0.7731  212s  *best\n"}
+,{"stream_name":"stdout","time":30762.670700183,"data":"  ep   7/40  loss 0.1929 (dr 0.2139 dme 0.1615)  DR qwk 0.759 acc 54.5%  DME qwk 0.830 acc 75.2%  score 0.7870  212s  *best\n"}
+,{"stream_name":"stdout","time":30975.083059999,"data":"  ep   8/40  loss 0.1840 (dr 0.2024 dme 0.1562)  DR qwk 0.765 acc 54.9%  DME qwk 0.841 acc 77.1%  score 0.7956  212s  *best\n"}
+,{"stream_name":"stdout","time":31187.509364064,"data":"  ep   9/40  loss 0.1785 (dr 0.1954 dme 0.1530)  DR qwk 0.764 acc 55.2%  DME qwk 0.843 acc 77.1%  score 0.7960  212s  *best\n"}
+,{"stream_name":"stdout","time":31399.865611093,"data":"  ep  10/40  loss 0.1699 (dr 0.1840 dme 0.1486)  DR qwk 0.778 acc 55.6%  DME qwk 0.843 acc 77.1%  score 0.8039  211s  *best\n"}
+,{"stream_name":"stdout","time":31612.023595949,"data":"  ep  11/40  loss 0.1614 (dr 0.1699 dme 0.1487)  DR qwk 0.777 acc 56.3%  DME qwk 0.840 acc 79.0%  score 0.8023  211s\n"}
+,{"stream_name":"stdout","time":31824.450801736,"data":"  ep  12/40  loss 0.1612 (dr 0.1725 dme 0.1442)  DR qwk 0.780 acc 57.8%  DME qwk 0.847 acc 80.0%  score 0.8067  212s  *best\n"}
+,{"stream_name":"stdout","time":32037.07598018,"data":"  ep  13/40  loss 0.1533 (dr 0.1605 dme 0.1426)  DR qwk 0.788 acc 57.4%  DME qwk 0.849 acc 80.0%  score 0.8125  212s  *best\n"}
+,{"stream_name":"stdout","time":32249.696849511,"data":"  ep  14/40  loss 0.1492 (dr 0.1578 dme 0.1363)  DR qwk 0.789 acc 57.1%  DME qwk 0.849 acc 80.0%  score 0.8126  212s  *best\n"}
+,{"stream_name":"stdout","time":32462.128930893,"data":"  ep  15/40  loss 0.1472 (dr 0.1526 dme 0.1390)  DR qwk 0.792 acc 58.2%  DME qwk 0.844 acc 79.0%  score 0.8128  212s  *best\n"}
+,{"stream_name":"stdout","time":32674.638026175,"data":"  ep  16/40  loss 0.1446 (dr 0.1489 dme 0.1383)  DR qwk 0.790 acc 57.8%  DME qwk 0.855 acc 81.0%  score 0.8160  212s  *best\n"}
+,{"stream_name":"stdout","time":32886.948359832,"data":"  ep  17/40  loss 0.1400 (dr 0.1455 dme 0.1316)  DR qwk 0.789 acc 58.5%  DME qwk 0.855 acc 81.0%  score 0.8156  211s\n"}
+,{"stream_name":"stdout","time":33099.732581352,"data":"  ep  18/40  loss 0.1375 (dr 0.1418 dme 0.1310)  DR qwk 0.792 acc 59.1%  DME qwk 0.868 acc 82.9%  score 0.8222  212s  *best\n"}
+,{"stream_name":"stdout","time":33312.204655437,"data":"  ep  19/40  loss 0.1371 (dr 0.1414 dme 0.1307)  DR qwk 0.795 acc 59.6%  DME qwk 0.868 acc 82.9%  score 0.8241  212s  *best\n"}
+,{"stream_name":"stdout","time":33524.69097813,"data":"  ep  20/40  loss 0.1347 (dr 0.1381 dme 0.1297)  DR qwk 0.798 acc 60.4%  DME qwk 0.868 acc 82.9%  score 0.8260  212s  *best\n"}
+,{"stream_name":"stdout","time":33737.136417694,"data":"  ep  21/40  loss 0.1325 (dr 0.1358 dme 0.1274)  DR qwk 0.798 acc 60.4%  DME qwk 0.874 acc 83.8%  score 0.8287  212s  *best\n"}
+,{"stream_name":"stdout","time":33949.49625227,"data":"  ep  22/40  loss 0.1303 (dr 0.1323 dme 0.1274)  DR qwk 0.805 acc 61.1%  DME qwk 0.874 acc 83.8%  score 0.8330  211s  *best\n"}
+,{"stream_name":"stdout","time":34161.785410712,"data":"  ep  23/40  loss 0.1299 (dr 0.1327 dme 0.1259)  DR qwk 0.813 acc 62.6%  DME qwk 0.874 acc 83.8%  score 0.8377  211s  *best\n"}
+,{"stream_name":"stdout","time":34374.035968583,"data":"  ep  24/40  loss 0.1288 (dr 0.1304 dme 0.1265)  DR qwk 0.815 acc 64.2%  DME qwk 0.874 acc 83.8%  score 0.8386  211s  *best\n"}
+,{"stream_name":"stdout","time":34586.644075097,"data":"  ep  25/40  loss 0.1289 (dr 0.1302 dme 0.1270)  DR qwk 0.815 acc 64.0%  DME qwk 0.870 acc 82.9%  score 0.8367  212s\n"}
+,{"stream_name":"stdout","time":34799.275837554,"data":"  ep  26/40  loss 0.1289 (dr 0.1300 dme 0.1273)  DR qwk 0.819 acc 64.2%  DME qwk 0.870 acc 82.9%  score 0.8390  212s  *best\n"}
+,{"stream_name":"stdout","time":35011.86958857,"data":"  ep  27/40  loss 0.1274 (dr 0.1289 dme 0.1251)  DR qwk 0.818 acc 64.0%  DME qwk 0.871 acc 82.9%  score 0.8395  212s  *best\n"}
+,{"stream_name":"stdout","time":35224.605325848,"data":"  ep  28/40  loss 0.1268 (dr 0.1283 dme 0.1245)  DR qwk 0.819 acc 64.2%  DME qwk 0.871 acc 82.9%  score 0.8398  212s  *best\n"}
+,{"stream_name":"stdout","time":35437.292496331,"data":"  ep  29/40  loss 0.1268 (dr 0.1277 dme 0.1255)  DR qwk 0.818 acc 64.6%  DME qwk 0.871 acc 82.9%  score 0.8393  212s\n"}
+,{"stream_name":"stdout","time":35649.772319599,"data":"  ep  30/40  loss 0.1264 (dr 0.1272 dme 0.1252)  DR qwk 0.819 acc 64.8%  DME qwk 0.871 acc 82.9%  score 0.8397  212s\n"}
+,{"stream_name":"stdout","time":35862.498542625,"data":"  ep  31/40  loss 0.1266 (dr 0.1274 dme 0.1254)  DR qwk 0.824 acc 65.9%  DME qwk 0.871 acc 82.9%  score 0.8425  212s  *best\n"}
+,{"stream_name":"stdout","time":36075.080193676,"data":"  ep  32/40  loss 0.1266 (dr 0.1266 dme 0.1264)  DR qwk 0.823 acc 65.9%  DME qwk 0.871 acc 82.9%  score 0.8423  212s\n"}
+,{"stream_name":"stdout","time":36287.698528138,"data":"  ep  33/40  loss 0.1258 (dr 0.1269 dme 0.1243)  DR qwk 0.824 acc 66.2%  DME qwk 0.871 acc 82.9%  score 0.8427  212s  *best\n"}
+,{"stream_name":"stdout","time":36500.338525912,"data":"  ep  34/40  loss 0.1259 (dr 0.1269 dme 0.1243)  DR qwk 0.823 acc 65.7%  DME qwk 0.871 acc 82.9%  score 0.8419  212s\n"}
+,{"stream_name":"stdout","time":36713.128909987,"data":"  ep  35/40  loss 0.1256 (dr 0.1262 dme 0.1246)  DR qwk 0.826 acc 65.9%  DME qwk 0.871 acc 82.9%  score 0.8438  212s  *best\n"}
+,{"stream_name":"stdout","time":36925.867795507,"data":"  ep  36/40  loss 0.1251 (dr 0.1262 dme 0.1235)  DR qwk 0.826 acc 66.2%  DME qwk 0.876 acc 83.8%  score 0.8459  212s  *best\n"}
+,{"stream_name":"stdout","time":37138.585717358,"data":"  ep  37/40  loss 0.1258 (dr 0.1267 dme 0.1245)  DR qwk 0.826 acc 66.2%  DME qwk 0.876 acc 83.8%  score 0.8459  212s\n"}
+,{"stream_name":"stdout","time":37351.395229657,"data":"  ep  38/40  loss 0.1260 (dr 0.1265 dme 0.1254)  DR qwk 0.828 acc 66.6%  DME qwk 0.876 acc 83.8%  score 0.8471  212s  *best\n"}
+,{"stream_name":"stdout","time":37564.109903352,"data":"  ep  39/40  loss 0.1252 (dr 0.1259 dme 0.1242)  DR qwk 0.829 acc 66.8%  DME qwk 0.876 acc 83.8%  score 0.8476  212s  *best\n"}
+,{"stream_name":"stdout","time":37598.722956559,"data":"\n"}
+,{"stream_name":"stdout","time":37598.724345427,"data":"  fold 1 best (selected on validation score, never on test):\n"}
+,{"stream_name":"stdout","time":37598.725571323,"data":"    dr                     n=  455  acc  72.5% [68.6,76.3]  floor  52.3%  QWK  0.853  F1 0.566  BEATS\n"}
+,{"stream_name":"stdout","time":37598.726586543,"data":"    dme_ungated            n=  105  acc  86.7% [80.0,92.4]  floor  46.7%  QWK  0.892  F1 0.776  BEATS\n"}
+,{"stream_name":"stdout","time":37598.727767719,"data":"    dme_gated              n=   71  acc  80.3% [70.4,88.7]  floor  69.0%  QWK  0.749  F1 0.684  BEATS\n"}
+,{"stream_name":"stdout","time":37598.728802494,"data":"    dme_referable_binary   n=  455  acc  94.7% [92.5,96.5]  floor  83.1%  QWK  0.812  F1 0.906  BEATS\n"}
+,{"stream_name":"stdout","time":37601.960040107,"data":"\n"}
+,{"stream_name":"stdout","time":37601.961058323,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":37601.96207393,"data":"POOLED OUT-OF-FOLD (910 images, folds [0, 1])\n"}
+,{"stream_name":"stdout","time":37601.962936163,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":37601.963974895,"data":"    dr                     n=  910  acc  66.5% [63.6,69.3]  floor  52.3%  QWK  0.832  F1 0.534  BEATS\n"}
+,{"stream_name":"stdout","time":37601.964977022,"data":"    dme_ungated            n=  210  acc  85.7% [81.0,90.0]  floor  47.6%  QWK  0.873  F1 0.746  BEATS\n"}
+,{"stream_name":"stdout","time":37601.965670926,"data":"    dme_gated              n=  142  acc  79.6% [72.5,85.9]  floor  70.4%  QWK  0.708  F1 0.657  BEATS\n"}
+,{"stream_name":"stdout","time":37601.966406988,"data":"    dme_referable_binary   n=  910  acc  93.1% [91.4,94.7]  floor  82.5%  QWK  0.758  F1 0.879  BEATS\n"}
+,{"stream_name":"stdout","time":37601.967077511,"data":"\n"}
+,{"stream_name":"stdout","time":37601.967770805,"data":"wrote /kaggle/working/E21CNXA/results.json  (37326s)\n"}
+,{"stream_name":"stdout","time":37603.795872747,"data":"\n"}
+,{"stream_name":"stdout","time":37603.795920511,"data":"exit=0  37330s\n"}
+,{"stream_name":"stdout","time":37603.832478388,"data":"/usr/bin/python3 -u /kaggle/working/repo/src/eval_external.py --run /kaggle/working/E21CNXA --datasets /kaggle/input --corpus APTOS --cache /kaggle/temp/cache_ext --tta\n"}
+,{"stream_name":"stdout","time":37606.415707067,"data":"run E21CNXA  commit 2efb108dbd  device=cuda  backbone=convnext_tiny head=ordinal size=448\n"}
+,{"stream_name":"stdout","time":37712.495776871,"data":"[corpora] APTOS            0 images\n"}
+,{"stream_name":"stdout","time":37712.496661684,"data":"APTOS matched 0 images — is it attached to this kernel?\n"}
+,{"stream_name":"stdout","time":37712.838289133,"data":"external exit= 1\n"}
+,{"stream_name":"stdout","time":37713.039017098,"data":"dropping ckpt_0.pt 452 MB\n"}
+,{"stream_name":"stdout","time":37713.039083353,"data":"dropping ckpt_1.pt 452 MB\n"}
+,{"stream_name":"stdout","time":37713.039091882,"data":"  112.93 MB  best_0.pt\n"}
+,{"stream_name":"stdout","time":37713.039097216,"data":"  112.93 MB  best_1.pt\n"}
+,{"stream_name":"stdout","time":37713.039102255,"data":"    0.00 MB  external.log\n"}
+,{"stream_name":"stdout","time":37713.039107644,"data":"    0.01 MB  oof_0.npz\n"}
+,{"stream_name":"stdout","time":37713.039112522,"data":"    0.01 MB  oof_1.npz\n"}
+,{"stream_name":"stdout","time":37713.039117158,"data":"  112.93 MB  pretrained.pt\n"}
+,{"stream_name":"stdout","time":37713.039122074,"data":"    0.04 MB  results.json\n"}
+,{"stream_name":"stdout","time":37713.039146221,"data":"    0.02 MB  train_20260906-065723.log\n"}
+,{"stream_name":"stdout","time":37713.039153948,"data":"\n"}
+,{"stream_name":"stdout","time":37713.039156382,"data":"run E21CNXA commit 2efb108dbd | folds [0, 1]\n"}
+,{"stream_name":"stdout","time":37713.039158822,"data":"  dr                     n=  910 acc  66.5% floor  52.3% QWK  0.832\n"}
+,{"stream_name":"stdout","time":37713.039161282,"data":"  dme_ungated            n=  210 acc  85.7% floor  47.6% QWK  0.873\n"}
+,{"stream_name":"stdout","time":37713.039163777,"data":"  dme_gated              n=  142 acc  79.6% floor  70.4% QWK  0.708\n"}
+,{"stream_name":"stdout","time":37713.039166328,"data":"  dme_referable_binary   n=  910 acc  93.1% floor  82.5% QWK  0.758\n"}
+,{"stream_name":"stderr","time":37718.135334025,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":37718.135368232,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":37718.343006567,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":37718.343035766,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":37718.958640683,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":37719.302706765,"data":"[NbConvertApp] Writing 40914 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":37721.746497872,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":37722.710714441,"data":"[NbConvertApp] Writing 334659 bytes to __results__.html\n"}
+]

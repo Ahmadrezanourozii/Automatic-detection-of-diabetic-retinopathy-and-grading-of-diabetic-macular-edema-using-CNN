@@ -389,6 +389,65 @@ existing ordinal treatment, not a new capability. Order: **CORAL/CORN, then Conv
 Swin**, and if CORAL/CORN is null I would spend the remaining quota on I16 rather than on the
 second backbone.
 
+### I05 / E21CNXA — ConvNeXt-tiny, folds 0–1 — fetched 2026-09-08, **FALSIFIED, and the null is bounded rather than clean**
+
+**Result at matched calibration, fold-matched against E08 on the same 910 out-of-fold images:
+DR QWK 0.8267 vs 0.8628 — −0.0362 [−0.0593, −0.0153], significant.** ConvNeXt-tiny is worse
+than densenet121 on DR. DME is indistinguishable in both directions
+(+0.0149 [−0.0412, +0.0695]). Document: `docs/generated/matched_cnx_e08.md`.
+
+**The comparison is clean in configuration.** `results.json` for the two runs differs in
+exactly one field that is not the fold list: `backbone`. Same 448 px, batch 16, EyePACS
+5-epoch pretraining, TTA, 40 epochs, same `dev_v1.json` split fingerprint, same seed. The
+consumption manifests agree, so `compare_matched.py` ran without
+`--acknowledge-consumption-diff` (`PROTOCOL.md` §9).
+
+**⚠️ Two caveats that stop this from being a clean architecture verdict.**
+
+1. **No pre-registration exists for this run.** `results.json` carries `hypothesis: ""`. E08
+   and E11FULL both carry a hypothesis string; this run was launched without one, and the
+   session that launched it is gone. **The control (E08 at 0.8646) and the ~±0.015 criterion
+   are reconstructed from the handoff, not read off a stamped record.** Recorded as
+   `ISSUES.md` §28 rather than papered over — a rule that is only sometimes enforced is
+   `PROTOCOL.md` §10's problem, not a formality.
+2. **Fold 1 was truncated by the schedule, and the deficit is concentrated there.** ConvNeXt
+   took its best epoch at **39/40** on fold 1 — still improving when the schedule ended —
+   while fold 0 plateaued at **23/40** with sixteen further epochs of no improvement. E08's
+   best epochs are 33, 29, 17, 29, 22: never at the boundary. Splitting the same
+   cross-fitted comparison by fold:
+
+   | fold | ConvNeXt | E08 | difference | |
+   |---|---|---|---|---|
+   | fold 0 — plateaued at ep 23/40 | 0.8368 | 0.8544 | −0.0182 [−0.0439, +0.0077] | indistinguishable |
+   | fold 1 — **truncated**, best at ep 39/40 | 0.8167 | 0.8709 | −0.0541 [−0.0925, −0.0212] | significant |
+   | pooled | 0.8267 | 0.8628 | −0.0362 [−0.0593, −0.0153] | significant |
+
+   **This split is post-hoc and halves n, so it is a caveat, not a result** (`PROTOCOL.md`
+   §4.2). It does not rescue ConvNeXt — the converged fold's point estimate is still negative
+   — but it does mean the pooled significance is partly a statement about a 40-epoch schedule
+   rather than purely about the architecture. Note also that E08 itself scores *higher* on
+   fold 1 than on fold 0, so truncation is not the whole of the fold-1 gap either.
+
+**Decision: folds 2–4 are NOT launched, and the reason is that no outcome here reaches the
+headline.** The champion is E11FULL at **0.8954**; E08 is at **0.8646**. ConvNeXt would have
+to close ~0.067 to matter, and its *best* fold — the one that converged — sits 0.018 *below*
+E08. Completing the run costs ~9 h of a 30 h weekly quota to sharpen a negative that is
+already negative on 40 % of the data. **This is the I24 precedent applied unchanged**: that
+line closed at 2 of 5 folds for the same reason, and it is reported as a 2-of-5-fold result.
+
+**What a rescue would cost, priced so the choice is the owner's.** Resolving caveat 2 needs
+ConvNeXt re-run at a longer schedule on the same folds. `convnext_tiny` is **212 s/epoch**
+against densenet121's ~42 s, so 60 epochs is ~3.5 h of training per fold on top of ~1.5 h
+image caching and ~1.8 h EyePACS pretraining — **~6.8 h per fold, ~13.6 h for the pair**, which
+exceeds the 10 h single-run cap and so must be split one fold per kernel. **Not spent**, on
+the reasoning above; the alternative is recorded so the decision is visible rather than
+implied.
+
+**A third §4.1 sign reversal, logged as the rule's record of firing (`PROTOCOL.md` §10).** On
+DME the shipped cut-points say ConvNeXt is worse by −0.0368; matched cut-points say it is
+better by +0.0149. Same predictions, opposite sign, and both intervals cross zero. The
+honest reading of DME here is *indistinguishable*, which is what the matched row reports.
+
 ### I15 — auxiliary exudate segmentation head — **SKIPPED, and the reason is the point**
 
 The owner's condition was: run it only if a falsifying outcome exists that **81 masks could
