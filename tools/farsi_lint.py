@@ -61,7 +61,9 @@ def check_numbers(path, ledger):
     برای *این جمله* درست باشد؛ هیچ آزمون خودکاری آن را ثابت نمی‌کند.
     """
     body = strip_noise(open(path, encoding="utf-8").read())
-    allowed = {row["fa"] for row in ledger.values()}
+    # علامت منفی جدا از رقم بررسی می‌شود: متن ممکن است «−» تایپوگرافیک را به کار ببرد،
+    # در حالی که دفتر «-» می‌نویسد. آنچه باید بررسی شود خودِ رقم‌هاست.
+    allowed = {row["fa"].lstrip("-\u2212") for row in ledger.values()}
     bad_sep, unknown = [], []
     for tok, _ in numbers_in(body):
         if "/" in tok:
@@ -103,6 +105,23 @@ def scan(path):
     sentences = [s.strip() for s in re.split(r"[.؟!]\s", body) if s.strip()]
     longs = [s for s in sentences if len(s) > 260]
     return hits, ez, longs
+
+
+def check_refs(paths):
+    """ارجاعِ بی‌مقصد در خروجی به «??» تبدیل می‌شود و خطای لاتک تولید نمی‌کند.
+
+    ارجاع‌ها در همهٔ پرونده‌های داده‌شده با هم بررسی می‌شوند، چون یک فصل قانوناً به برچسبِ
+    فصل دیگر ارجاع می‌دهد.
+    """
+    labels, refs = set(), []
+    for p in paths:
+        try:
+            body = open(p, encoding="utf-8").read()
+        except FileNotFoundError:
+            continue
+        labels |= set(re.findall(r"\\label\{([^}]*)\}", body))
+        refs += [(p, r) for r in re.findall(r"\\ref\{([^}]*)\}", body)]
+    return [(p, r) for p, r in refs if r not in labels]
 
 
 def main(paths):
@@ -147,6 +166,14 @@ def main(paths):
                 print(f"     {sorted(set(unknown))[:8]}")
             if not bad_sep and not unknown:
                 print("  اعداد: همه در دفتر اعداد تولیدشده هستند ✅")
+    dangling = check_refs(paths)
+    total += len(dangling)
+    if dangling:
+        print("\nارجاع بی‌مقصد (در خروجی «??» می‌شود):")
+        for p, r in dangling:
+            print(f"  {p}: \\ref{{{r}}}")
+    else:
+        print("\nارجاع‌ها: همه مقصد دارند ✅")
     print(f"\nمجموع تخلف‌ها: {total}")
     return 0 if total == 0 else 1
 

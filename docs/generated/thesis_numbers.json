@@ -1133,6 +1133,168 @@
   "source": "docs/generated/matched_cnx_e08.json",
   "note": ""
  },
+ "retfound_ft.dr.qwk.a": {
+  "value": 0.7895543368052355,
+  "fa": "۰٫۷۸۹۶",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dr.qwk.b": {
+  "value": 0.8298367469913579,
+  "fa": "۰٫۸۲۹۸",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dr.qwk.diff": {
+  "value": -0.03991707989954008,
+  "fa": "-۰٫۰۳۹۹",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dr.qwk.lo": {
+  "value": -0.06690577094980528,
+  "fa": "-۰٫۰۶۶۹",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dr.qwk.hi": {
+  "value": -0.012358649174140464,
+  "fa": "-۰٫۰۱۲۴",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dr.qwk.n": {
+  "value": 910.0,
+  "fa": "۹۱۰",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dr.accuracy.a": {
+  "value": 60.21978021978022,
+  "fa": "۶۰٫۲",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dr.accuracy.b": {
+  "value": 63.84615384615384,
+  "fa": "۶۳٫۸",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dr.accuracy.diff": {
+  "value": -3.624945054945056,
+  "fa": "-۳٫۶",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dr.accuracy.lo": {
+  "value": -7.252747252747249,
+  "fa": "-۷٫۳",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dr.accuracy.hi": {
+  "value": 0.0,
+  "fa": "۰٫۰",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dr.accuracy.n": {
+  "value": 910.0,
+  "fa": "۹۱۰",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dme_ungated.qwk.a": {
+  "value": 0.7551415316678658,
+  "fa": "۰٫۷۵۵۱",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dme_ungated.qwk.b": {
+  "value": 0.8627845586890045,
+  "fa": "۰٫۸۶۲۸",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dme_ungated.qwk.diff": {
+  "value": -0.109129453586024,
+  "fa": "-۰٫۱۰۹۱",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dme_ungated.qwk.lo": {
+  "value": -0.20521320129656662,
+  "fa": "-۰٫۲۰۵۲",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dme_ungated.qwk.hi": {
+  "value": -0.018465905106555294,
+  "fa": "-۰٫۰۱۸۵",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dme_ungated.qwk.n": {
+  "value": 210.0,
+  "fa": "۲۱۰",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dme_ungated.accuracy.a": {
+  "value": 78.0952380952381,
+  "fa": "۷۸٫۱",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dme_ungated.accuracy.b": {
+  "value": 81.9047619047619,
+  "fa": "۸۱٫۹",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dme_ungated.accuracy.diff": {
+  "value": -3.8880952380952376,
+  "fa": "-۳٫۹",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dme_ungated.accuracy.lo": {
+  "value": -10.488095238095244,
+  "fa": "-۱۰٫۵",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dme_ungated.accuracy.hi": {
+  "value": 2.857142857142858,
+  "fa": "۲٫۹",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "retfound_ft.dme_ungated.accuracy.n": {
+  "value": 210.0,
+  "fa": "۲۱۰",
+  "source": "docs/generated/matched_retfound_e09.json",
+  "note": ""
+ },
+ "ensemble.diff": {
+  "value": 0.0025420079814991886,
+  "fa": "۰٫۰۰۲۵",
+  "source": "docs/generated/ensemble_external.json",
+  "note": ""
+ },
+ "ensemble.lo": {
+  "value": -0.0016281659685920603,
+  "fa": "-۰٫۰۰۱۶",
+  "source": "docs/generated/ensemble_external.json",
+  "note": ""
+ },
+ "ensemble.hi": {
+  "value": 0.00657425563877882,
+  "fa": "۰٫۰۰۶۶",
+  "source": "docs/generated/ensemble_external.json",
+  "note": ""
+ },
  "probe.dr.a": {
   "value": 0.7007919182275695,
   "fa": "۰٫۷۰۰۸",
@@ -1463,6 +1625,12 @@
   "source": "docs/generated/crosswalk_pairs.json",
   "note": ""
  },
+ "const.retfound_pretrain_images_m": {
+  "value": 1.6,
+  "fa": "۱٫۶",
+  "source": "RETFound (Nature 2023) -- unlabelled retinal images in its pretraining corpus, verified in results/VERIFICATION-P8-RETFound.md",
+  "note": ""
+ },
  "const.sigmoid_default": {
   "value": 0.5,
   "fa": "۰٫۵",
@@ -1582,6 +1750,12 @@
   "fa": "۰",
   "source": "runs/E11FULL + corpora",
   "note": ""
+ },
+ "corn.threshold3_rows": {
+  "value": 265.0,
+  "fa": "۲۶۵",
+  "source": "runs/E11FULL + corpora",
+  "note": "rows available to CORN's third conditional threshold"
  },
  "champion.dr.qwk": {
   "value": 0.8953734451443255,

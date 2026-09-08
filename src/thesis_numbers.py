@@ -119,8 +119,19 @@ def main():
                       ("native_res", f"{GEN}/matched_e10_e17nat.json"),
                       ("coral", f"{GEN}/matched_coral_e08.json"),
                       ("corn", f"{GEN}/matched_corn_e08.json"),
-                      ("convnext", f"{GEN}/matched_cnx_e08.json")):
+                      ("convnext", f"{GEN}/matched_cnx_e08.json"),
+                      # deliberately cross-source: RETFound replaces the EyePACS stage, so the
+                      # mounted datasets differ BY CONSTRUCTION and the comparison is run with
+                      # --acknowledge-consumption-diff, which stamps that into its document.
+                      ("retfound_ft", f"{GEN}/matched_retfound_e09.json")):
         add_matched(led, tag, path)
+
+    # ---- the ensemble, judged on the held-out set rather than on the pool that chose it
+    ens = f"{GEN}/ensemble_external.json"
+    if os.path.exists(ens):
+        e = json.load(open(ens))["vs_validation_selected"]
+        led.add("ensemble.diff", e["diff"], ens, 4)
+        led.add_interval("ensemble", e["lo"], e["hi"], ens, 4)
 
     # ---- frozen-probe comparison (F8): representation quality with the backbone frozen
     pp = f"{GEN}/probe_vs_probe.json"
@@ -201,6 +212,9 @@ def main():
 
     # ---- method constants: values chosen rather than measured. They are in the ledger so a
     # chapter cannot introduce a number from nowhere, and each carries what it is.
+    led.add("const.retfound_pretrain_images_m", 1.6,
+            "RETFound (Nature 2023) -- unlabelled retinal images in its pretraining corpus, "
+            "verified in results/VERIFICATION-P8-RETFound.md", 1)
     led.add("const.sigmoid_default", 0.5, "the untuned decode threshold on a sigmoid output", 1)
     led.add("const.corr_runner_up_margin", 0.01,
             "src/idrid_derivation_gate.py: the band within which the runner-up correlation "
@@ -249,6 +263,12 @@ def main():
         dr0 = [r for r in three if r["dr"] == 0]
         led.add("dme.n_dr0", len(dr0), src, 0)
         led.add("dme.n_dr0_positive", sum(r["dme"] > 0 for r in dr0), src, 0)
+
+        # ---- CORN's conditional subsets: the third threshold trains only on rows whose
+        # grade already exceeds 2, and that count is why the head collapses under this class
+        # imbalance. Computed here rather than quoted, so it moves if the pool moves.
+        led.add("corn.threshold3_rows", sum(r["dr"] >= 3 for r in rows if r["dr"] is not None),
+                src, 0, note="rows available to CORN's third conditional threshold")
 
         # ---- the champion's own per-class recall at matched calibration. Chapter 4 quotes
         # these next to the headline because a model can hold its accuracy while going blind
