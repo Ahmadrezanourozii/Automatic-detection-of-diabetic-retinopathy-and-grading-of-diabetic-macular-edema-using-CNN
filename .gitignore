@@ -44,3 +44,11 @@ data/messidor1/
 *.xls
 *.tif
 *.tiff
+
+# LaTeX build products
+thesis/*.aux
+thesis/*.log
+thesis/*.out
+thesis/*.toc
+thesis/*.lot
+thesis/*.blg

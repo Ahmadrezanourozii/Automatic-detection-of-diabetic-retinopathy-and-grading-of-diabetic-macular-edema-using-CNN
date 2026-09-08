@@ -1,0 +1,136 @@
+% main.tex — پایان‌نامه: درجه‌بندی خودکار رتینوپاتی دیابتی و ادم ماکولا
+% ساخت:  cd thesis && xelatex main && bibtex main && xelatex main && xelatex main
+% یا:    make -C thesis
+%
+% همهٔ عددهای فارسی متن از docs/generated/thesis_numbers.json می‌آیند و با
+% «python3 tools/farsi_lint.py --numbers thesis/*.tex» بررسی می‌شوند.
+
+\documentclass[12pt,a4paper,oneside]{report}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage[margin=2.7cm,bindingoffset=0.6cm]{geometry}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{pifont}   % \ding{55} — نشانهٔ رد در جدول‌های بخش نخست
+\usepackage[hidelinks]{hyperref}
+
+% ---- فارسی. xepersian باید پس از بقیهٔ بسته‌ها بارگذاری شود.
+\usepackage{xepersian}
+
+% قلم فارسی: وزیرمتن، با وزن سیاه واقعی (نه سیاهِ ساختگی) و ایتالیک که برای فارسی
+% تعریف نمی‌شود، پس \emph{} با همان وزن معمولی حروف‌چینی می‌شود.
+\settextfont[Path=fonts/,
+             BoldFont=Vazirmatn-Bold.ttf,
+             ItalicFont=Vazirmatn-Medium.ttf,
+             BoldItalicFont=Vazirmatn-Bold.ttf,
+             Scale=1.0]{Vazirmatn-Regular.ttf}
+% قلم لاتین: با نام پرونده بارگذاری می‌شود، نه با نام خانواده — نام خانواده تنها وقتی
+% کار می‌کند که قلم در سامانه نصب باشد، و اینجا از خودِ توزیع تک می‌آید.
+\setlatintextfont[Extension=.otf,
+                  UprightFont=lmroman10-regular,
+                  BoldFont=lmroman10-bold,
+                  ItalicFont=lmroman10-italic,
+                  BoldItalicFont=lmroman10-bolditalic,
+                  Scale=0.92]{lmroman10-regular}
+\setdigitfont[Path=fonts/,
+              BoldFont=Vazirmatn-Bold.ttf,
+              ItalicFont=Vazirmatn-Medium.ttf,
+              BoldItalicFont=Vazirmatn-Bold.ttf]{Vazirmatn-Regular.ttf}
+
+\linespread{1.35}
+\setlength{\parskip}{0.45em}
+
+% محیط فهرست برای نشانه‌ها و کوته‌نوشت‌ها
+\newenvironment{latinlist}
+  {\begin{list}{}{\setlength{\labelwidth}{4.2em}%
+    \setlength{\leftmargin}{5.0em}\setlength{\itemsep}{0.25em}%
+    \renewcommand{\makelabel}[1]{\textbf{##1}\hfill}}}
+  {\end{list}}
+
+% \wrongnum{...} برای عددی که متن عمداً به شکل نادرست نقل می‌کند (بخش شکست تبار داده).
+% ویراستار خودکار همین نشانه را می‌بیند و آن عدد را از بررسی کنار می‌گذارد، پس استثنا
+% در متن دیده می‌شود نه در قاعدهٔ آزمون.
+\newcommand{\wrongnum}[1]{\LR{#1}}
+
+% \num{...} هر عدد فارسی را در یک بازهٔ صریح چپ‌به‌راست می‌گذارد.
+% دلیلش این است که پیاده‌سازی دوسویهٔ زی‌تک، پیاده‌سازی کامل الگوریتم یونیکد نیست:
+% عددی مثل «۰٫۵» که به ترتیب منطقی نوشته شود، بدون این پوشش «۵٫۰» چاپ می‌شود، چون
+% جداکنندهٔ اعشار دو دستهٔ رقم را به هم نمی‌بندد و دسته‌ها مثل هر محتوای راست‌به‌چپ
+% دیگری از راست به چپ چیده می‌شوند. با \LR درست چاپ می‌شود؛ با \lr عدد از صفحه
+% \emph{ناپدید} می‌شود، چون \lr قلم لاتین را می‌آورد و آن قلم رقم فارسی ندارد.
+% هر دو حالت با چاپ آزمایشی بررسی شده‌اند، نه با حدس.
+\newcommand{\num}[1]{\LR{#1}}
+
+\hypersetup{pdftitle={درجه‌بندی خودکار رتینوپاتی دیابتی و ادم ماکولای دیابتی},
+            pdflang={fa}}
+
+\begin{document}
+
+% ------------------------------------------------------------------ صفحهٔ عنوان
+\begin{titlepage}
+\centering
+\vspace*{2cm}
+{\Large به نام خدا}\\[2.5cm]
+{\huge\bfseries درجه‌بندی خودکار رتینوپاتی دیابتی\\[0.4em]
+و ادم ماکولای دیابتی از تصویر ته‌چشم}\\[1.2em]
+{\Large قاعدهٔ تصمیم، سقف نظارت، و تبار داده}\\[3cm]
+{\large پایان‌نامه}\\[2.5cm]
+{\large علیرضا نوروزی}\\[1cm]
+{\large شهریور \num{۱۴۰۵}}
+\vfill
+\end{titlepage}
+
+\cleardoublepage
+\pagenumbering{roman}
+
+\input{frontmatter}
+\input{abstract_en}
+
+\tableofcontents
+\cleardoublepage
+\listoftables
+\cleardoublepage
+
+\cleardoublepage
+\pagenumbering{arabic}
+
+% ------------------------------------------------------------------ فصل‌ها
+\input{chapter1}
+\input{chapter2}
+\input{chapter3}
+\input{chapter4}
+\input{parta_report}
+\input{chapter5}
+
+% ------------------------------------------------------------------ کتاب‌نامه
+\cleardoublepage
+\addcontentsline{toc}{chapter}{کتاب‌نامه}
+% کتاب‌نامه لاتین است و باید در بستر چپ‌به‌راست چیده شود. بدون این، هر مدخل داخل
+% بند راست‌به‌چپ می‌افتد و ترتیب واژه‌ها وارونه چاپ می‌شود — نام نویسندگان از آخر به
+% اول. با چاپ آزمایشی بررسی شد، نه با فرض.
+% عنوان کتاب‌نامه فارسی است و بدنه‌اش لاتین. محیط latin هر دو را لاتین می‌کند و عنوان
+% فارسی در قلم لاتین ناپدید می‌شود، پس عنوان بیرون از محیط چاپ می‌شود و سرفصلِ خودکارِ
+% محیط کتاب‌نامه برداشته می‌شود.
+\chapter*{کتاب‌نامه}
+\makeatletter
+\renewenvironment{thebibliography}[1]
+  {\list{\@biblabel{\@arabic\c@enumiv}}%
+     {\settowidth\labelwidth{\@biblabel{#1}}%
+      \leftmargin\labelwidth \advance\leftmargin\labelsep
+      \@openbib@code \usecounter{enumiv}\let\p@enumiv\@empty
+      \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+   \sloppy\clubpenalty4000\widowpenalty4000\sfcode`\.\@m}
+  {\def\@noitemerr{\@latex@warning{Empty bibliography}}\endlist}
+\makeatother
+\begin{latin}
+\bibliographystyle{unsrt}
+\bibliography{refs}
+\end{latin}
+
+\end{document}

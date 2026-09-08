@@ -1,0 +1,57 @@
+% English abstract — set left-to-right inside the Persian document.
+
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract (English)}
+\markboth{Abstract}{Abstract}
+\begin{latin}
+\noindent
+Diabetic retinopathy is the leading cause of preventable blindness among working-age adults, and
+diabetic macular edema is the most common mechanism of central vision loss. Automated fundus
+grading reports high headline figures, yet as of the end of April 2024 only three ophthalmic AI
+devices had United States Food and Drug Administration clearance. This thesis begins from that
+gap and asks what the reported numbers do and do not establish.
+
+\vspace{0.6em}
+\noindent\textbf{Methods.} A shared backbone with two threshold heads --- five ordinal grades for
+retinopathy and three for macular edema --- was trained on 2{,}260 images from two public corpora
+under five-fold grouped cross-validation. The split was frozen before the first real run and
+built from perceptual clustering so that cross-corpus leakage is closed; 3{,}662 APTOS images were
+held out until the final model was frozen. One rule governs every comparison in this work:
+\textbf{no difference is attributed to representation unless both models are evaluated under
+cross-fitted cut-points}. An untuned default is a hyper-parameter that has been chosen, not one
+that has been avoided.
+
+\vspace{0.6em}
+\noindent\textbf{Results.} The selected model reaches a quadratic weighted kappa of 0.8954 on the
+development pool and 0.9026 [0.8941, 0.9108] on the held-out external set, and the full pipeline
+is worth +0.2342 kappa over frozen ImageNet features with a linear ordinal head on identical
+images, folds, decoding and calibration. Of nine pre-registered interventions, eight were
+falsified. The macular-edema head meets a ceiling that comes from data rather than architecture:
+six independent interventions --- including a crop isolating the region the clinical grade is
+defined on --- failed to move the confidence interval away from zero, and only 51 images in the
+entire study carry the middle grade. A separate negative result establishes that the macular-edema
+grade \textbf{cannot be recovered from published annotations}, closing the route to more
+three-class data via segmentation masks.
+
+\vspace{0.6em}
+\noindent\textbf{Contribution.} The contribution is methodological rather than a performance
+figure. The matched-calibration rule has reversed four prior attributions \emph{in both
+directions}, with two sign reversals; more importantly, the same rule converted the model's
+blindness to the mild grade from a capacity limit into a calibration problem solvable without
+retraining. Alongside it, a set of data-provenance mechanisms is presented, motivated by five
+worked examples --- \textbf{two of which are this thesis's own failures}: a chapter that
+asserted its numbers were generated while they were typed by hand, three of them wrong and one
+supporting a central argument with no artefact behind it at all; and, committed while writing
+that up, a diagnosis taken from a specification rather than from the rendered page, which
+``corrected'' something that was not broken.
+
+\vspace{0.6em}
+\noindent\textbf{Limitation.} The frozen, project-specific split makes every number here
+incommensurable with any published figure. That trade is deliberate: comparability was given up
+for correctness, and the reader should know which of the two they hold.
+
+\vspace{1em}
+\noindent\textbf{Keywords:} diabetic retinopathy, diabetic macular edema, ordinal grading,
+calibration, decision threshold, external validation, data provenance, foundation models.
+\end{latin}
+\cleardoublepage

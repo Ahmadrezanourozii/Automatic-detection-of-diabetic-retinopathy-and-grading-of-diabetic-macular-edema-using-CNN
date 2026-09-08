@@ -672,22 +672,17 @@ conditions test of the derivation is not available in the data the field has pub
 
 ---
 
-## F11 — A provenance failure of our own: eight reversed numbers, three real errors underneath, and one piece of evidence that had no artefact at all
+## F11 — A provenance failure of our own: a chapter that asserted its own provenance, three wrong numbers, one with no artefact at all — and a "fix" that broke what it claimed to repair
 
 **This finding is about this thesis, not about the literature.** Every other provenance exhibit
-we hold is someone else's. This one is ours, it is the same class of failure, and it was caught
-by the machinery this thesis argues for rather than by anyone reading carefully.
+we hold is someone else's. This one is ours, it is the same class of failure, and by the end it
+had produced *two* instances rather than one.
 
-### What happened
+### What was actually wrong
 
 `thesis/chapter3.tex` opened with a comment stating that every number in it came from the
-archived runs and that none was typed by hand. **Neither was true.** Eight decimals across
-chapter 3 and the Part A report were written with the integer and fractional groups **swapped**.
-Persian digits (U+06F0–U+06F9) are strong left-to-right under the bidi algorithm, so they render
-exactly as written: **the methods chapter told the reader that the default decode threshold on a
-sigmoid output was 5.0.**
-
-The reversal was cosmetic. What it was hiding was not.
+archived runs and that none was typed by hand. **That was false.** The numbers were typed by
+hand, nothing checked them, and three of them were wrong:
 
 | written | correct | what it is |
 |---|---|---|
@@ -699,61 +694,88 @@ The reversal was cosmetic. What it was hiding was not.
 
 The 0.78–0.96 range was **the evidence for the first of the two competing explanations Part A
 had to rule out** — that the segmentation-to-grading crosswalk had put the wrong grade beside
-the mask. On that number rested the claim that the matched pairs were the same photograph, and
-therefore the whole Part A verdict.
+the mask. The whole Part A verdict rested on it.
 
 **The session that computed it archived nothing.** No script, no output file, no record of the
-method. The number could not be regenerated, and when it was recomputed from scratch
-(`src/verify_crosswalk_pairs.py`) the answer came out **0.65–0.75** instead. The conclusion is
-unchanged — the pairs are the same photographs, and Part A's verdict stands — but **the
-published figures were not reproducible and have been replaced by figures that are.**
+method. It could not be regenerated, and recomputing it from scratch
+(`src/verify_crosswalk_pairs.py`) gave **0.65–0.75** instead. The conclusion is unchanged — the
+pairs are the same photographs and Part A's verdict stands — but **the published figures were
+not reproducible and have been replaced by figures that are.**
 
-*A number whose script no longer exists is a claim, not a measurement.* That sentence is the
+*A number whose script no longer exists is a claim, not a measurement.* That sentence is this
 thesis's argument about other people's papers. Here it is about ours.
+
+### ⚠️ The second instance: a "bug" that was not one, and a fix that broke the output
+
+**This part was committed while writing this finding, and it is the more instructive half.**
+
+The three errors above surfaced during a wider observation: every Persian decimal in the early
+chapters was written with its integer and fractional groups **transposed** — `۵/۰` where `۰٫۵`
+was meant. The diagnosis was made from first principles: Persian digits U+06F0–U+06F9 are
+Unicode bidi class EN, EN runs are laid out left-to-right, therefore the source renders as
+written, therefore **the methods chapter was telling the reader that the default sigmoid decode
+threshold was 5.0.**
+
+**That reasoning is correct about Unicode and wrong about this document.** XeTeX's bidi
+implementation is not a full UBA. Under `xepersian`, a decimal written in *logical* order comes
+out **reversed**: source `۰٫۵` prints as `۵٫۰`, and `۹۶٫۳` prints as `۳٫۹۶`. Verified by
+rendering a test page, which is what should have been done first.
+
+**So the original chapters were right.** Whoever wrote them was typing for the renderer, and the
+pages came out correct. The "fix" made the source logically ordered and **the printed output
+wrong**, and it shipped that way until a page was finally looked at.
+
+**The class of error is identical to the one the finding is about**, which is why it is recorded
+rather than quietly reverted: a confident analysis was substituted for an inspection of the
+artefact. The first instance trusted a comment at the top of a file about where numbers came
+from. The second trusted a specification about how they would be laid out. **Neither looked at
+the thing itself.**
+
+### What is true after both corrections
+
+* The chapters' numbers *were* hand-typed while claiming not to be. **Stands.**
+* Three of them were wrong, one unreproducibly so. **Stands** — and this is the substance.
+* They were *not* rendering incorrectly before this session. **Withdrawn.** Any statement that
+  the thesis told its reader the sigmoid threshold was 5.0 is **false and must not be repeated.**
+* The convention has still been changed, but **on its own merits, not as a bug fix**: source in
+  logical order, wrapped in `\num{}` (an explicit `\LR{}` run), which renders correctly *and* is
+  greppable, checkable against a ledger, and does not depend on a renderer quirk. The
+  transposed-source convention worked but was none of those things.
 
 ### Why it is worth stating rather than quietly fixing
 
-Four things about this failure make it the right exhibit to put next to the published ones.
-
-1. **No error was raised.** LaTeX compiles a reversed decimal. The Persian linter passed the
-   chapter at zero violations, because it checked forbidden words and ezafe, not numbers. Four
-   independent quality mechanisms were in place and none of them looked at a digit.
-2. **The chapter asserted its own provenance and was believed.** The comment at the top of
-   chapter 3 was the only evidence that its numbers were generated, and it was written by the
-   same process that typed them by hand. **A provenance claim is not provenance.** This is
-   §9's "configuration is not consumption" in a second setting: what a document *says* about
-   where its numbers came from records an intention, not an act.
-3. **It was found by mechanism, not by care.** Nobody spotted `۵/۰` by reading. It surfaced
-   because writing chapter 4 required a numbers ledger, and building the ledger meant resolving
-   every numeral in the earlier chapters against an artefact. The three substantive errors were
-   found only because the cosmetic one forced a check.
-4. **The repair had to be guarded too.** The script that rewrote the reversed decimals refuses
-   to write a replacement that is not in the ledger. That refusal is what caught `0.78`: the
-   obvious fix was to retype it in the correct digit order, which would have preserved an
-   unreproducible number in a tidier form and closed the case.
+1. **No error was raised, twice.** LaTeX compiles either convention. The Persian linter passed
+   the chapter at zero violations because it checked forbidden words and ezafe, not numbers.
+2. **The chapter asserted its own provenance and was believed.** The comment at the top was the
+   only evidence its numbers were generated, and it was written by the same process that typed
+   them by hand. **A provenance claim is not provenance** — `PROTOCOL.md` §9's "configuration is
+   not consumption" in a second setting.
+3. **Both were found by mechanism, not by care.** Nobody spotted the wrong floor by reading; it
+   surfaced because building a numbers ledger forced every numeral to resolve to an artefact.
+   Nobody spotted the broken rendering by reading the source either — a rendered page did.
+4. **The repair needed a guard of its own.** The script that rewrote the decimals refuses to
+   write a replacement that is not in the ledger. That refusal caught `0.78`: the obvious fix was
+   to retype it in the other digit order, which would have preserved an unreproducible number in
+   a tidier form and closed the case.
 
 ### What now enforces it
 
 `src/thesis_numbers.py` computes every quotable number from the archived artefacts into
-`docs/generated/thesis_numbers.json`, each rendered in the digit order the prose must use and
-carrying the file it came from. `tools/farsi_lint.py --numbers` **refuses any Persian numeral in
-a chapter that is not in that ledger**, and refuses `/` as a decimal separator.
+`docs/generated/thesis_numbers.json`. `tools/farsi_lint.py --numbers` then refuses any Persian
+numeral not in that ledger, refuses `/` as a decimal separator, **and refuses any numeral not
+wrapped in `\num{}`** — the third check exists precisely because the second instance above got
+past the first two.
 
-**Fired in both directions before being trusted** (`PROTOCOL.md` §10): it rejected all eight
-reversed decimals and six unledgered values on its first run, and it passes every chapter now
-that each numeral resolves to an artefact.
+**Each fired in both directions before being trusted** (`PROTOCOL.md` §10).
 
-**What the check does not do, stated so it is not over-claimed:** it proves a numeral exists in
-an artefact and is rendered correctly. It cannot prove the numeral belongs to the sentence
-around it. No automated check can, and claiming otherwise would be `ISSUES.md` §27 — a check
-that reports success without examining the thing that matters.
+**What the checks do not do:** they prove a numeral exists in an artefact, is rendered in the
+right order, and is wrapped. They cannot prove it belongs to the sentence around it. No
+automated check can, and claiming otherwise would be `ISSUES.md` §27.
 
 ### Where it goes in the thesis
 
-**In the provenance chapter, beside the four published exhibits (P5, P8, P9, P11), labelled as
-ours.** A chapter that audits other people's data lineage and does not report its own failure of
-the same kind is making an argument it does not itself submit to. The four published cases show
-the failure is endemic; this one shows it does not spare the people who are looking for it, and
-that the defence has to be mechanical because attention is not enough.
+**In the provenance chapter, beside the four published exhibits, labelled as ours** — now with
+both instances, because the second one was committed by the author of the chapter that audits
+the failure, which is the strongest available evidence that the defence has to be mechanical.
 
 Recorded also as `ISSUES.md` §29.

@@ -1,0 +1,178 @@
+\begin{thebibliography}{10}
+
+\bibitem{ruamviboonsuk2024review}
+Paisan Ruamviboonsuk, Niracha Arjkongharn, Nattaporn Vongsa, Pawin Pakaymaskul,
+  and Natsuda Kaothanthong.
+\newblock Discriminative, generative artificial intelligence, and foundation
+  models in retina imaging.
+\newblock {\em Taiwan Journal of Ophthalmology}, 14(4):473--485, 2024.
+
+\bibitem{yang2025review}
+Qianhui Yang, Yong~Mong Bee, Ciwei~Cynthia Lim, Charumathi Sabanayagam, Carol
+  Yim-Lui Cheung, Tien~Yin Wong, Daniel S.~W. Ting, Lee-Ling Lim, HuaTing Li,
+  Mingguang He, Aaron~Y. Lee, A.~Jonathan Shaw, Yeo~Khung Keong, and Gavin
+  Siew~Wei Tan.
+\newblock Use of artificial intelligence with retinal imaging in screening for
+  diabetes-associated complications: systematic review.
+\newblock {\em eClinicalMedicine}, 81:103089, 2025.
+
+\bibitem{duggal2025realworld}
+Mona Duggal, Anshul Chauhan, Vishali Gupta, Ankita Kankaria, Deepmala Budhija,
+  Priyanka Verma, Vaibhav Miglani, Preeti Syal, Gagandeep Kaur, Lakshay Kumar,
+  Naveen Mutyala, Rishabh Bezbaruah, Nayanshi Sood, Ashleigh Kernohan, Geeta
+  Menon, and Luke Vale.
+\newblock Real-world evaluation of {AI}-driven diabetic retinopathy screening
+  in public health settings: validation and implementation.
+\newblock {\em JMIR Medical Informatics}, 13:e67529, 2025.
+
+\bibitem{tahir2025meta}
+Hasan~Nawaz Tahir, Naseer Ullah, Mursala Tahir, Inbaraj~Susai Domnic,
+  Ramaprabha Prabhakar, Semmal~Syed Meerasa, Ahmed~Ibrahim AbdElneam, Shahnawaz
+  Tahir, and Yousaf Ali.
+\newblock Artificial intelligence versus manual screening for the detection of
+  diabetic retinopathy: a comparative systematic review and meta-analysis.
+\newblock {\em Frontiers in Medicine}, 12:1519768, 2025.
+
+\bibitem{sheng2026orderdr}
+Quanwei Sheng, Qiyu Dong, Shuang Wu, and Weijun Liang.
+\newblock {ORDER-DR}: external validation of severity grading and
+  referable-risk stratification from fundus images.
+\newblock {\em Frontiers in Endocrinology}, 17:1923216, 2026.
+
+\bibitem{tang2026mmrdr}
+Zhenyu Tang, Lilong Wang, Zhen Guo, Qianqian Liang, Shuyue Xue, Chengcheng
+  Feng, Lili Ran, Lingzhi Chen, Xiaosong Wang, and Jun Li.
+\newblock A multimodal retinal image dataset for diabetic retinopathy detection
+  using foundation models.
+\newblock {\em Scientific Data}, 13(1), 2026.
+
+\bibitem{zhou2023retfound}
+Yukun Zhou, Mark~A. Chia, Siegfried~K. Wagner, Murat~S. Ayhan, Dominic~J.
+  Williamson, Robbert~R. Struyven, Timing Liu, Moucheng Xu, Mateo~G. Lozano,
+  Peter Woodward-Court, Yuka Kihara, et~al.
+\newblock A foundation model for generalizable disease detection from retinal
+  images.
+\newblock {\em Nature}, 622(7981):156--163, 2023.
+
+\bibitem{nielsen2025he}
+Christopher Nielsen, Matthias Wilms, and Nils~D. Forkert.
+\newblock Highly efficient homomorphic encryption-based federated learning for
+  diabetic retinopathy classification.
+\newblock {\em Journal of Medical Imaging}, 12(3):034504, 2025.
+
+\bibitem{yu2026dualswinord}
+Wenjuan Yu, Xiaonan Si, and Jingxiang Zhong.
+\newblock {Dual-SwinOrd}: a dual-head {Swin} transformer with semantic prior
+  injection for ordinal diabetic retinopathy grading.
+\newblock {\em Bioengineering}, 13(4):374, 2026.
+
+\bibitem{poyrazer2026calibration}
+Mehmet Poyrazer, H{\"u}seyin Ya{\u{g}}c{\i}, and R{\i}dvan Erten.
+\newblock How well do frozen foundation models transfer? {A}
+  calibration-focused benchmark for diabetic retinopathy grading.
+\newblock {\em Frontiers in Medicine}, 13:1815982, 2026.
+
+\bibitem{tomic2024handheld}
+Martina Tomi{\'c}, Romano Vrabec, {\DJ}ur{\dj}ica Hendelja, Vilma Kolari{\'c},
+  Tomislav Bulum, and Dario Raheli{\'c}.
+\newblock Diagnostic accuracy of hand-held fundus camera and artificial
+  intelligence in diabetic retinopathy screening.
+\newblock {\em Biomedicines}, 12(1):34, 2024.
+\newblock Published online 22 December 2023.
+
+\bibitem{aptos2019}
+{Asia Pacific Tele-Ophthalmology Society}.
+\newblock {APTOS} 2019 blindness detection.
+\newblock Kaggle competition, 2019.
+\newblock \url{https://www.kaggle.com/c/aptos2019-blindness-detection}.
+
+\bibitem{cohen1968kappa}
+Jacob Cohen.
+\newblock Weighted kappa: nominal scale agreement with provision for scaled
+  disagreement or partial credit.
+\newblock {\em Psychological Bulletin}, 70(4):213--220, 1968.
+
+\bibitem{porwal2018idrid}
+Prasanna Porwal, Samiksha Pachade, Ravi Kamble, Manesh Kokare, Girish Deshmukh,
+  Vivek Sahasrabuddhe, and Fabrice Meriaudeau.
+\newblock Indian diabetic retinopathy image dataset ({IDRiD}): a database for
+  diabetic retinopathy screening research.
+\newblock {\em Data}, 3(3):25, 2018.
+
+\bibitem{decenciere2014messidor}
+Etienne Decenci{\`e}re, Xiwei Zhang, Guy Cazuguel, et~al.
+\newblock Feedback on a publicly distributed image database: the {Messidor}
+  database.
+\newblock {\em Image Analysis \& Stereology}, 33(3):231--234, 2014.
+
+\bibitem{wilkinson2003scale}
+C.~P. Wilkinson, Frederick~L. Ferris, Ronald~E. Klein, et~al.
+\newblock Proposed international clinical diabetic retinopathy and diabetic
+  macular edema disease severity scales.
+\newblock {\em Ophthalmology}, 110(9):1677--1682, 2003.
+
+\bibitem{huang2017densenet}
+Gao Huang, Zhuang Liu, Laurens van~der Maaten, and Kilian~Q. Weinberger.
+\newblock Densely connected convolutional networks.
+\newblock In {\em IEEE Conference on Computer Vision and Pattern Recognition
+  (CVPR)}, pages 4700--4708, 2017.
+
+\bibitem{tan2019efficientnet}
+Mingxing Tan and Quoc~V. Le.
+\newblock {EfficientNet}: rethinking model scaling for convolutional neural
+  networks.
+\newblock In {\em International Conference on Machine Learning (ICML)}, pages
+  6105--6114, 2019.
+
+\bibitem{liu2022convnext}
+Zhuang Liu, Hanzi Mao, Chao-Yuan Wu, Christoph Feichtenhofer, Trevor Darrell,
+  and Saining Xie.
+\newblock A {ConvNet} for the 2020s.
+\newblock In {\em IEEE/CVF Conference on Computer Vision and Pattern
+  Recognition (CVPR)}, pages 11976--11986, 2022.
+
+\bibitem{cao2020rank}
+Wenzhi Cao, Vahid Mirjalili, and Sebastian Raschka.
+\newblock Rank consistent ordinal regression for neural networks with
+  application to age estimation.
+\newblock In {\em Pattern Recognition Letters}, volume 140, pages 325--331,
+  2020.
+
+\bibitem{shi2023corn}
+Xintong Shi, Wenzhi Cao, and Sebastian Raschka.
+\newblock Deep neural networks for rank-consistent ordinal regression based on
+  conditional probabilities.
+\newblock {\em Pattern Analysis and Applications}, 26:941--955, 2023.
+
+\bibitem{kumar2022lpft}
+Ananya Kumar, Aditi Raghunathan, Robbie Jones, Tengyu Ma, and Percy Liang.
+\newblock Fine-tuning can distort pretrained features and underperform
+  out-of-distribution.
+\newblock In {\em International Conference on Learning Representations (ICLR)},
+  2022.
+
+\bibitem{mongan2020claim}
+John Mongan, Linda Moy, and Charles~E. Kahn.
+\newblock Checklist for artificial intelligence in medical imaging ({CLAIM}): a
+  guide for authors and reviewers.
+\newblock {\em Radiology: Artificial Intelligence}, 2(2):e200029, 2020.
+
+\bibitem{collins2015tripod}
+Gary~S. Collins, Johannes~B. Reitsma, Douglas~G. Altman, and Karel G.~M. Moons.
+\newblock Transparent reporting of a multivariable prediction model for
+  individual prognosis or diagnosis ({TRIPOD}): the {TRIPOD} statement.
+\newblock {\em BMJ}, 350:g7594, 2015.
+
+\bibitem{guo2017calibration}
+Chuan Guo, Geoff Pleiss, Yu~Sun, and Kilian~Q. Weinberger.
+\newblock On calibration of modern neural networks.
+\newblock In {\em International Conference on Machine Learning (ICML)}, pages
+  1321--1330, 2017.
+
+\bibitem{eyepacs2015}
+{EyePACS}.
+\newblock Diabetic retinopathy detection.
+\newblock Kaggle competition, 2015.
+\newblock \url{https://www.kaggle.com/c/diabetic-retinopathy-detection}.
+
+\end{thebibliography}
