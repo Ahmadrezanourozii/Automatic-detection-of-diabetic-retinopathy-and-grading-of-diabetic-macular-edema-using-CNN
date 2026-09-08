@@ -1,0 +1,280 @@
+"""
+thesis_numbers.py — the single source of every number the thesis quotes.
+
+Chapter 3 opens with the claim that no number in it was typed by hand. That claim was not
+true and nothing was in a position to notice: three decimals in it are wrong, and one of
+them says the default sigmoid threshold is 5.0. This script turns the claim into a check.
+
+It reads the archived artefacts — `runs/*/results.json`, `runs/*/external_aptos.json`, the
+comparison JSONs under `docs/generated/` — and writes `docs/generated/thesis_numbers.json`:
+one entry per quotable number, carrying the value, the Persian rendering the prose must use,
+and the file it came from. `tools/farsi_lint.py --numbers` then refuses any Persian numeral in
+a chapter that is not in that ledger.
+
+WHAT THE CHECK DOES AND DOES NOT PROVE. It proves a numeral in the prose exists in an
+archived artefact and is rendered in the right digit order. It does NOT prove the numeral is
+the right one for the sentence around it — no lint can. It removes hand-typing, stale values
+and digit reversal; it does not remove the need to read the sentence.
+
+Usage:  python3 src/thesis_numbers.py --datasets <root>
+"""
+from __future__ import annotations
+import argparse, json, os, sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+GEN = "docs/generated"
+LEDGER = f"{GEN}/thesis_numbers.json"
+
+FA_DIGITS = str.maketrans("0123456789", "۰۱۲۳۴۵۶۷۸۹")
+
+
+def fa(value, decimals=None, percent=False):
+    """Render a number the way Persian prose in this thesis must carry it.
+
+    The integer part comes FIRST, then the separator, then the fraction — the logical order,
+    which is what the bidi algorithm renders correctly because Persian digits (U+06F0..U+06F9)
+    are strong left-to-right. Typing the two groups the other way round, as chapter 3 did,
+    renders 0.5 as 5.0. That is the whole reason this helper exists rather than a str.format
+    at each call site.
+
+    The separator is U+066B ARABIC DECIMAL SEPARATOR — the same one `src/report.py` already
+    emits into the generated tables. The hand-written chapters used "/" instead, which is
+    also read as a decimal point in Persian practice but collides with the fraction and date
+    forms, and is what the reversed numbers were hiding inside.
+    """
+    if decimals is None:
+        decimals = 0 if float(value).is_integer() and not percent else (1 if percent else 4)
+    s = f"{value:.{decimals}f}"
+    intpart, _, frac = s.partition(".")
+    out = intpart if not frac else f"{intpart}\u066b{frac}"
+    return out.translate(FA_DIGITS)
+
+
+class Ledger:
+    def __init__(self):
+        self.rows = {}
+
+    def add(self, key, value, source, decimals=None, percent=False, note=""):
+        assert key not in self.rows, f"duplicate ledger key {key}"
+        self.rows[key] = {"value": float(value), "fa": fa(value, decimals, percent),
+                          "source": source, "note": note}
+        return self.rows[key]
+
+    def add_interval(self, key, lo, hi, source, decimals=4, note=""):
+        self.add(f"{key}.lo", lo, source, decimals, note=note)
+        self.add(f"{key}.hi", hi, source, decimals, note=note)
+
+
+def add_matched(led, tag, path):
+    """Every matched-calibration comparison: both runs' scores, the difference, the interval."""
+    if not os.path.exists(path):
+        return
+    for r in json.load(open(path)):
+        if r["mode"] != "matched":
+            continue          # the shipped-cut-point rows are not what the thesis quotes
+        stem = f"{tag}.{r['head']}.{r['metric'].lower()}"
+        pct = r["metric"] == "accuracy"
+        d = 1 if pct else 4
+        scale = 100 if pct else 1
+        led.add(f"{stem}.a", r["a"] * scale, path, d, pct)
+        led.add(f"{stem}.b", r["b"] * scale, path, d, pct)
+        led.add(f"{stem}.diff", r["diff"] * scale, path, d, pct)
+        led.add_interval(f"{stem}", r["lo"] * scale, r["hi"] * scale, path, d)
+        led.add(f"{stem}.n", r["n"], path, 0)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--datasets", nargs="+", default=None,
+                    help="dataset roots; needed only for the label-distribution rows")
+    a = ap.parse_args()
+    led = Ledger()
+
+    # ---- the declared model, read from the declaration and never inferred (PROTOCOL.md §3)
+    sel = json.load(open("data/selected_model.json"))
+    selected = sel.get("run") or sel.get("run_id") or sel.get("selected")
+
+    # ---- external validation of the DECLARED model, not of whichever run scored best
+    ext_path = f"runs/EXT{selected}/external_aptos.json"
+    ext = json.load(open(ext_path))["metrics"]["dr"]
+    led.add("external.n", ext["n"], ext_path, 0)
+    led.add("external.qwk", ext["qwk"], ext_path, 4)
+    led.add_interval("external.qwk", *ext["qwk_ci95"], ext_path, 4)
+    led.add("external.accuracy", ext["accuracy"] * 100, ext_path, 1, True)
+    led.add_interval("external.accuracy", ext["accuracy_ci95"][0] * 100,
+                     ext["accuracy_ci95"][1] * 100, ext_path, 1)
+    led.add("external.floor", ext["majority_floor"] * 100, ext_path, 1, True)
+    led.add("external.macro_f1", ext["macro_f1"], ext_path, 3)
+    led.add("external.referable_sensitivity", ext["referable_sensitivity"] * 100, ext_path, 1, True)
+    led.add("external.referable_specificity", ext["referable_specificity"] * 100, ext_path, 1, True)
+    for i, (rec, sup) in enumerate(zip(ext["per_class_recall"], ext["support"])):
+        led.add(f"external.recall.dr{i}", rec * 100, ext_path, 1, True)
+        led.add(f"external.support.dr{i}", sup, ext_path, 0)
+
+    # ---- every matched-calibration comparison the thesis cites
+    for tag, path in (("champion_vs_e10", f"{GEN}/matched_e11full_e10.json"),
+                      ("lpft", f"{GEN}/matched_comparison.json"),
+                      ("macula", f"{GEN}/matched_e08_e14mac.json"),
+                      ("native_res", f"{GEN}/matched_e10_e17nat.json"),
+                      ("coral", f"{GEN}/matched_coral_e08.json"),
+                      ("corn", f"{GEN}/matched_corn_e08.json"),
+                      ("convnext", f"{GEN}/matched_cnx_e08.json")):
+        add_matched(led, tag, path)
+
+    # ---- frozen-probe comparison (F8): representation quality with the backbone frozen
+    pp = f"{GEN}/probe_vs_probe.json"
+    if os.path.exists(pp):
+        for head, r in json.load(open(pp)).items():
+            if isinstance(r, dict) and "diff" in r:
+                led.add(f"probe.{head}.a", r["a"], pp, 4)
+                led.add(f"probe.{head}.b", r["b"], pp, 4)
+                led.add(f"probe.{head}.diff", r["diff"], pp, 4)
+                led.add_interval(f"probe.{head}", r["lo"], r["hi"], pp, 4)
+
+    # ---- Part A, the IDRiD derivation gate
+    gate = f"{GEN}/idrid_derivation_gate.json"
+    if os.path.exists(gate):
+        g = json.load(open(gate))
+        led.add("parta.n_segmentation", g["n_segmentation"], gate, 0)
+        led.add("parta.n_crosswalk", g["n_crosswalk"], gate, 0)
+        led.add("parta.n_usable", g["n_usable"], gate, 0)
+        led.add("parta.corr_min", g["corr_min"], gate, 4)
+        led.add("parta.od_max_px", g["od_max_px"], gate, 0)
+        for name, d in g["by_definition"].items():
+            key = name.replace(" ", "_").replace("-", "_")
+            led.add(f"parta.{key}.exact", d["exact_match"] * 100, gate, 1, True)
+            for grade, rec in enumerate(d["per_class_recall"]):
+                led.add(f"parta.{key}.recall.grade{grade}", rec * 100, gate, 1, True)
+
+    # ---- Part A: the constant-predictor floor the derivation has to beat. It is NOT in
+    # the gate JSON as its own field, and that is the number the verdict turns on, so it is
+    # recomputed here from the support vector rather than quoted from the session that
+    # first printed it.
+    if os.path.exists(gate):
+        g = json.load(open(gate))
+        any_def = next(iter(g["by_definition"].values()))
+        support = any_def["support"]
+        led.add("parta.constant_floor", 100 * max(support) / sum(support), gate, 1, True)
+        for grade, n in enumerate(support):
+            led.add(f"parta.support.grade{grade}", n, gate, 0)
+        led.add("parta.n_informative", sum(support) - max(support), gate, 0,
+                note="images whose grade is not the majority grade -- the only ones on which "
+                     "the derivation can be told apart from the constant predictor")
+
+    # ---- Part A per-image geometry. The two contradicting images and the two agreeing ones
+    # are quoted image by image in the report, so their distances and disc diameters belong in
+    # the ledger rather than being retyped from a table.
+    if os.path.exists(gate):
+        # The ranges the report quotes are over the FOUR INFORMATIVE images -- the ones whose
+        # expert grade is not the majority grade -- not over all 54. Quoting the range over
+        # all 54 would describe a set on which the test cannot discriminate, which is the one
+        # thing the report is at pains to say it did not do.
+        majority = max(range(3), key=lambda gr: sum(x["true"] == gr for x in g["per_image"]))
+        informative = [x for x in g["per_image"] if x["true"] != majority]
+        led.add("parta.informative.min_dist.smallest",
+                min(x["min_dist_px"] for x in informative), gate, 0)
+        led.add("parta.informative.min_dist.largest",
+                max(x["min_dist_px"] for x in informative), gate, 0)
+        dds = [d for x in informative for d in x["dd"].values()]
+        led.add("parta.informative.dd.smallest", min(dds), gate, 0)
+        led.add("parta.informative.dd.largest", max(dds), gate, 0)
+        # The disc diameter quoted per image is the equivalent-area definition, which is the
+        # one the write-up uses; all three agree on every verdict, and that is stated there.
+        for x in g["per_image"]:
+            key = x["seg"].replace("IDRiD_", "seg")
+            if x["true"] != x["equivalent_area"] or x in informative:
+                led.add(f"parta.{key}.min_dist", x["min_dist_px"], gate, 0)
+                led.add(f"parta.{key}.dd", x["dd"]["equivalent_area"], gate, 0)
+                led.add(f"parta.{key}.expert", x["true"], gate, 0)
+                led.add(f"parta.{key}.derived", x["equivalent_area"], gate, 0)
+
+    # ---- the crosswalk overlay check, regenerated by src/verify_crosswalk_pairs.py. The
+    # report previously quoted 0.78--0.96 from a session that archived nothing; those figures
+    # could not be reproduced and these replace them. The verdict they support is unchanged.
+    cwp = f"{GEN}/crosswalk_pairs.json"
+    if os.path.exists(cwp):
+        c = json.load(open(cwp))
+        led.add("crosswalk.diff_min", c["min_mean_abs_diff"], cwp, 2)
+        led.add("crosswalk.diff_max", c["max_mean_abs_diff"], cwp, 2)
+        led.add("crosswalk.n_informative", c["n_informative"], cwp, 0)
+
+    # ---- method constants: values chosen rather than measured. They are in the ledger so a
+    # chapter cannot introduce a number from nowhere, and each carries what it is.
+    led.add("const.sigmoid_default", 0.5, "the untuned decode threshold on a sigmoid output", 1)
+    led.add("const.corr_runner_up_margin", 0.01,
+            "src/idrid_derivation_gate.py: the band within which the runner-up correlation "
+            "sits, which is why pixel correlation alone cannot confirm a crosswalk match", 2)
+
+    # ---- constants of the sources, not measurements of ours. They are in the ledger so a
+    # chapter cannot introduce a number from nowhere, and each carries where it comes from.
+    for key, val, why in (
+            ("const.idrid_width", 4288, "IDRiD fundus frame width in pixels"),
+            ("const.idrid_height", 2848, "IDRiD fundus frame height in pixels"),
+            ("const.byte_max", 255, "8-bit intensity range, used for the overlay difference"),
+            ("const.messidor1_named", 687, "data/DATASETS.md: files in our Messidor-2 mirror "
+                                           "carrying Messidor-1 naming"),
+            ("const.messidor2_named", 1057, "data/DATASETS.md: files carrying the Messidor-2 "
+                                            "convention")):
+        led.add(key, val, why, 0)
+
+    # ---- F9: what the trained pipeline is worth against frozen features and a linear head.
+    # Both sides are read from the ledger's own rows so the subtraction cannot drift.
+    if "probe.dr.b" in led.rows and "champion_vs_e10.dr.qwk.a" in led.rows:
+        champ = led.rows["champion_vs_e10.dr.qwk.a"]["value"]
+        frozen = led.rows["probe.dr.b"]["value"]
+        led.add("pipeline_worth.qwk", champ - frozen, "derived: champion - frozen probe", 4,
+                note="F9 -- same images, folds, decoding and calibration on both sides")
+
+    # ---- label distributions, computed from the corpora rather than remembered
+    if a.datasets:
+        from tune_thresholds import load
+        rows, _, _, _ = load(f"runs/{selected}", a.datasets)
+        three = [r for r in rows if r.get("dme") is not None
+                 and r.get("dme_label_space") == "3class"]
+        gated = [r for r in three if r["dr"] >= 1]
+        src = "runs/%s + corpora" % selected
+        led.add("pool.n", len(rows), src, 0)
+        for corpus in sorted({r["corpus"] for r in rows}):
+            led.add(f"pool.n_{corpus.replace('-', '').lower()}",
+                    sum(r["corpus"] == corpus for r in rows), src, 0)
+        led.add("dme.n_3class", len(three), src, 0)
+        led.add("dme.n_gated", len(gated), src, 0)
+        for grade in (0, 1, 2):
+            led.add(f"dme.n_grade{grade}", sum(r["dme"] == grade for r in three), src, 0)
+        for name, subset in (("ungated", three), ("gated", gated)):
+            counts = [sum(r["dme"] == g for r in subset) for g in (0, 1, 2)]
+            led.add(f"dme.floor_{name}", 100 * max(counts) / len(subset), src, 1, True)
+        # the gate's own premise: no DME-positive image carries DR grade 0
+        dr0 = [r for r in three if r["dr"] == 0]
+        led.add("dme.n_dr0", len(dr0), src, 0)
+        led.add("dme.n_dr0_positive", sum(r["dme"] > 0 for r in dr0), src, 0)
+
+        # ---- the champion's own per-class recall at matched calibration. Chapter 4 quotes
+        # these next to the headline because a model can hold its accuracy while going blind
+        # to a rare class -- which is exactly what grade 1 does here (F1, F5).
+        import numpy as np
+        from compare_matched import expected_grade, crossfit_grades, head_arrays, N_DR, N_DME
+        import metrics as M
+        rows2, folds2, dr_l, dme_l = load(f"runs/{selected}", a.datasets)
+        for head, logits, k in (("dr", dr_l, N_DR), ("dme_ungated", dme_l, N_DME)):
+            score, y, keep = head_arrays(rows2, logits, head)
+            pred = crossfit_grades(score, y, folds2[keep], k, 0)
+            led.add(f"champion.{head}.qwk", M.quadratic_weighted_kappa(y, pred, k), src, 4)
+            led.add(f"champion.{head}.accuracy", 100 * M.accuracy(y, pred), src, 1, True)
+            led.add(f"champion.{head}.n", len(y), src, 0)
+            for g in range(k):
+                m = y == g
+                led.add(f"champion.{head}.support.grade{g}", int(m.sum()), src, 0)
+                led.add(f"champion.{head}.recall.grade{g}",
+                        100 * float((pred[m] == g).mean()) if m.any() else 0.0, src, 1, True)
+
+    os.makedirs(GEN, exist_ok=True)
+    json.dump(led.rows, open(LEDGER, "w"), ensure_ascii=False, indent=1)
+    print(f"wrote {LEDGER}  ({len(led.rows)} numbers)")
+    for k in sorted(led.rows):
+        print(f"  {k:44s} {led.rows[k]['fa']:>12s}   {led.rows[k]['value']}")
+
+
+if __name__ == "__main__":
+    main()

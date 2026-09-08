@@ -1,0 +1,40 @@
+{
+ "note": "mean absolute greyscale difference between the segmentation original and the grading original the crosswalk matched it to. A value of a few units out of 255 is JPEG re-encoding noise, i.e. the same photograph.",
+ "n_informative": 4,
+ "max_mean_abs_diff": 0.7479925155639648,
+ "min_mean_abs_diff": 0.6473954319953918,
+ "pairs": [
+  {
+   "seg": "IDRiD_29",
+   "grading": "IDRiD_263",
+   "expert": 1,
+   "derived": 1,
+   "mean_abs_diff": 0.68092280626297,
+   "agrees": true
+  },
+  {
+   "seg": "IDRiD_40",
+   "grading": "IDRiD_282",
+   "expert": 1,
+   "derived": 2,
+   "mean_abs_diff": 0.6607276201248169,
+   "agrees": false
+  },
+  {
+   "seg": "IDRiD_52",
+   "grading": "IDRiD_311",
+   "expert": 0,
+   "derived": 2,
+   "mean_abs_diff": 0.7479925155639648,
+   "agrees": false
+  },
+  {
+   "seg": "IDRiD_62",
+   "grading": "IDRiD_375",
+   "expert": 1,
+   "derived": 1,
+   "mean_abs_diff": 0.6473954319953918,
+   "agrees": true
+  }
+ ]
+}

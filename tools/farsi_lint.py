@@ -7,6 +7,7 @@ farsi_lint.py — شمارش کلمات و ساختارهای ممنوع در م
 Usage:  python3 tools/farsi_lint.py thesis/chapter3.tex thesis/chapter4.tex
 """
 from __future__ import annotations
+import json
 import re
 import sys
 
@@ -37,6 +38,41 @@ PATTERNS = {
 }
 
 EZAFE = {"هٔ": r"هٔ", "ه‌ی": r"ه‌ی"}
+
+LEDGER = "docs/generated/thesis_numbers.json"
+
+# جداکنندهٔ اعشار در متن فارسی این پایان‌نامه U+066B است، همان چیزی که src/report.py
+# در جدول‌های تولیدشده می‌نویسد. «/» جداکنندهٔ کسر و تاریخ است و در متن پذیرفته نیست.
+FA_DEC = "\u066b"
+NUMERAL = re.compile(r"[۰-۹]+(?:[" + FA_DEC + r"/][۰-۹]+)?")
+
+
+def numbers_in(body):
+    """هر عدد فارسیِ نثر، به همراه جای آن. اعداد لاتین بررسی نمی‌شوند."""
+    return [(m.group(), m.start()) for m in NUMERAL.finditer(body)]
+
+
+def check_numbers(path, ledger):
+    """هر عدد فارسی باید در دفتر اعداد تولیدشده باشد و با جداکنندهٔ درست نوشته شود.
+
+    این آزمون سه شکست را با هم می‌گیرد: عددی که با دست تایپ شده، عددی که کهنه شده، و
+    عددی که ارقامش وارونه نوشته شده — یعنی همان اشتباهی که «۵/۰» را به جای «۰٫۵»
+    نوشت و آستانهٔ سیگموئید را ۵ کرد. آنچه این آزمون ثابت نمی‌کند این است که عدد
+    برای *این جمله* درست باشد؛ هیچ آزمون خودکاری آن را ثابت نمی‌کند.
+    """
+    body = strip_noise(open(path, encoding="utf-8").read())
+    allowed = {row["fa"] for row in ledger.values()}
+    bad_sep, unknown = [], []
+    for tok, _ in numbers_in(body):
+        if "/" in tok:
+            bad_sep.append(tok)
+        elif FA_DEC in tok or int(tok.translate(TO_LATIN)) >= 100:
+            if tok not in allowed:
+                unknown.append(tok)
+    return bad_sep, unknown
+
+
+TO_LATIN = str.maketrans("۰۱۲۳۴۵۶۷۸۹", "0123456789")
 
 
 def strip_noise(text: str) -> str:
@@ -71,6 +107,15 @@ def scan(path):
 
 def main(paths):
     total = 0
+    ledger = None
+    if "--numbers" in paths:
+        paths = [p for p in paths if p != "--numbers"]
+        try:
+            ledger = json.load(open(LEDGER, encoding="utf-8"))
+        except FileNotFoundError:
+            print(f"دفتر اعداد پیدا نشد: {LEDGER}\n"
+                  f"نخست اجرا کنید: python3 src/thesis_numbers.py --datasets <root>")
+            return 1
     for p in paths:
         try:
             hits, ez, longs = scan(p)
@@ -91,6 +136,17 @@ def main(paths):
         print(f"  جمله‌های بلندتر از ۲۶۰ نویسه: {len(longs)}")
         for s in longs[:3]:
             print(f"     … {s[:90]}")
+        if ledger is not None:
+            bad_sep, unknown = check_numbers(p, ledger)
+            total += len(bad_sep) + len(unknown)
+            if bad_sep:
+                print(f"  جداکنندهٔ اعشار نادرست («/» به جای «٫»): {len(bad_sep)}")
+                print(f"     {sorted(set(bad_sep))[:8]}")
+            if unknown:
+                print(f"  عددی که در دفتر اعداد نیست: {len(unknown)}")
+                print(f"     {sorted(set(unknown))[:8]}")
+            if not bad_sep and not unknown:
+                print("  اعداد: همه در دفتر اعداد تولیدشده هستند ✅")
     print(f"\nمجموع تخلف‌ها: {total}")
     return 0 if total == 0 else 1
 

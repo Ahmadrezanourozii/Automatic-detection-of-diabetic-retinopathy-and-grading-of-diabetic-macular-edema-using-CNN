@@ -1,0 +1,1718 @@
+{
+ "external.n": {
+  "value": 3662.0,
+  "fa": "۳۶۶۲",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.qwk": {
+  "value": 0.9026437411646644,
+  "fa": "۰٫۹۰۲۶",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.qwk.lo": {
+  "value": 0.8941415012133312,
+  "fa": "۰٫۸۹۴۱",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.qwk.hi": {
+  "value": 0.910825118968087,
+  "fa": "۰٫۹۱۰۸",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.accuracy": {
+  "value": 74.93173129437466,
+  "fa": "۷۴٫۹",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.accuracy.lo": {
+  "value": 73.51174221736755,
+  "fa": "۷۳٫۵",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.accuracy.hi": {
+  "value": 76.29710540688149,
+  "fa": "۷۶٫۳",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.floor": {
+  "value": 49.29000546149645,
+  "fa": "۴۹٫۳",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.macro_f1": {
+  "value": 0.5447269150046886,
+  "fa": "۰٫۵۴۵",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.referable_sensitivity": {
+  "value": 99.26025554808339,
+  "fa": "۹۹٫۳",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.referable_specificity": {
+  "value": 84.32183908045977,
+  "fa": "۸۴٫۳",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.recall.dr0": {
+  "value": 98.11634349030471,
+  "fa": "۹۸٫۱",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.support.dr0": {
+  "value": 1805.0,
+  "fa": "۱۸۰۵",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.recall.dr1": {
+  "value": 4.864864864864865,
+  "fa": "۴٫۹",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.support.dr1": {
+  "value": 370.0,
+  "fa": "۳۷۰",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.recall.dr2": {
+  "value": 65.56556556556556,
+  "fa": "۶۵٫۶",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.support.dr2": {
+  "value": 999.0,
+  "fa": "۹۹۹",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.recall.dr3": {
+  "value": 63.212435233160626,
+  "fa": "۶۳٫۲",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.support.dr3": {
+  "value": 193.0,
+  "fa": "۱۹۳",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.recall.dr4": {
+  "value": 60.33898305084746,
+  "fa": "۶۰٫۳",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "external.support.dr4": {
+  "value": 295.0,
+  "fa": "۲۹۵",
+  "source": "runs/EXTE11FULL/external_aptos.json",
+  "note": ""
+ },
+ "champion_vs_e10.dr.qwk.a": {
+  "value": 0.8953734451443255,
+  "fa": "۰٫۸۹۵۴",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dr.qwk.b": {
+  "value": 0.8748823478623287,
+  "fa": "۰٫۸۷۴۹",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dr.qwk.diff": {
+  "value": 0.02070859431453593,
+  "fa": "۰٫۰۲۰۷",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dr.qwk.lo": {
+  "value": 0.010547081870858357,
+  "fa": "۰٫۰۱۰۵",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dr.qwk.hi": {
+  "value": 0.031988239659596615,
+  "fa": "۰٫۰۳۲۰",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dr.qwk.n": {
+  "value": 2260.0,
+  "fa": "۲۲۶۰",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dr.accuracy.a": {
+  "value": 77.83185840707965,
+  "fa": "۷۷٫۸",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dr.accuracy.b": {
+  "value": 74.77876106194691,
+  "fa": "۷۴٫۸",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dr.accuracy.diff": {
+  "value": 3.072389380530973,
+  "fa": "۳٫۱",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dr.accuracy.lo": {
+  "value": 1.3274336283185861,
+  "fa": "۱٫۳",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dr.accuracy.hi": {
+  "value": 4.82411504424779,
+  "fa": "۴٫۸",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dr.accuracy.n": {
+  "value": 2260.0,
+  "fa": "۲۲۶۰",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dme_ungated.qwk.a": {
+  "value": 0.8881536166469035,
+  "fa": "۰٫۸۸۸۲",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dme_ungated.qwk.b": {
+  "value": 0.8947891577780327,
+  "fa": "۰٫۸۹۴۸",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dme_ungated.qwk.diff": {
+  "value": -0.006656531527752209,
+  "fa": "-۰٫۰۰۶۷",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dme_ungated.qwk.lo": {
+  "value": -0.031317594917164515,
+  "fa": "-۰٫۰۳۱۳",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dme_ungated.qwk.hi": {
+  "value": 0.017219197947025294,
+  "fa": "۰٫۰۱۷۲",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dme_ungated.qwk.n": {
+  "value": 516.0,
+  "fa": "۵۱۶",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dme_ungated.accuracy.a": {
+  "value": 86.04651162790698,
+  "fa": "۸۶٫۰",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dme_ungated.accuracy.b": {
+  "value": 86.62790697674419,
+  "fa": "۸۶٫۶",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dme_ungated.accuracy.diff": {
+  "value": -0.5476744186046514,
+  "fa": "-۰٫۵",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dme_ungated.accuracy.lo": {
+  "value": -3.299418604651168,
+  "fa": "-۳٫۳",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dme_ungated.accuracy.hi": {
+  "value": 2.3255813953488413,
+  "fa": "۲٫۳",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "champion_vs_e10.dme_ungated.accuracy.n": {
+  "value": 516.0,
+  "fa": "۵۱۶",
+  "source": "docs/generated/matched_e11full_e10.json",
+  "note": ""
+ },
+ "lpft.dr.qwk.a": {
+  "value": 0.8645842726491791,
+  "fa": "۰٫۸۶۴۶",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dr.qwk.b": {
+  "value": 0.8655173434058284,
+  "fa": "۰٫۸۶۵۵",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dr.qwk.diff": {
+  "value": -0.0008471433966155774,
+  "fa": "-۰٫۰۰۰۸",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dr.qwk.lo": {
+  "value": -0.012639036756323815,
+  "fa": "-۰٫۰۱۲۶",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dr.qwk.hi": {
+  "value": 0.010497793781168972,
+  "fa": "۰٫۰۱۰۵",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dr.qwk.n": {
+  "value": 2260.0,
+  "fa": "۲۲۶۰",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dr.accuracy.a": {
+  "value": 72.12389380530973,
+  "fa": "۷۲٫۱",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dr.accuracy.b": {
+  "value": 74.070796460177,
+  "fa": "۷۴٫۱",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dr.accuracy.diff": {
+  "value": -1.9211946902654864,
+  "fa": "-۱٫۹",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dr.accuracy.lo": {
+  "value": -3.672566371681407,
+  "fa": "-۳٫۷",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dr.accuracy.hi": {
+  "value": -0.13274336283185528,
+  "fa": "-۰٫۱",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dr.accuracy.n": {
+  "value": 2260.0,
+  "fa": "۲۲۶۰",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dme_ungated.qwk.a": {
+  "value": 0.8764430656563088,
+  "fa": "۰٫۸۷۶۴",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dme_ungated.qwk.b": {
+  "value": 0.8577381553692293,
+  "fa": "۰٫۸۵۷۷",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dme_ungated.qwk.diff": {
+  "value": 0.019300537750578155,
+  "fa": "۰٫۰۱۹۳",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dme_ungated.qwk.lo": {
+  "value": -0.009931940209788595,
+  "fa": "-۰٫۰۰۹۹",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dme_ungated.qwk.hi": {
+  "value": 0.04806198589447436,
+  "fa": "۰٫۰۴۸۱",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dme_ungated.qwk.n": {
+  "value": 516.0,
+  "fa": "۵۱۶",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dme_ungated.accuracy.a": {
+  "value": 83.33333333333334,
+  "fa": "۸۳٫۳",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dme_ungated.accuracy.b": {
+  "value": 83.91472868217055,
+  "fa": "۸۳٫۹",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dme_ungated.accuracy.diff": {
+  "value": -0.5105620155038757,
+  "fa": "-۰٫۵",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dme_ungated.accuracy.lo": {
+  "value": -3.488372093023262,
+  "fa": "-۳٫۵",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dme_ungated.accuracy.hi": {
+  "value": 2.713178294573637,
+  "fa": "۲٫۷",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "lpft.dme_ungated.accuracy.n": {
+  "value": 516.0,
+  "fa": "۵۱۶",
+  "source": "docs/generated/matched_comparison.json",
+  "note": ""
+ },
+ "macula.dr.qwk.a": {
+  "value": 0.8645842726491791,
+  "fa": "۰٫۸۶۴۶",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dr.qwk.b": {
+  "value": 0.859525042692964,
+  "fa": "۰٫۸۵۹۵",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dr.qwk.diff": {
+  "value": 0.004898714542739568,
+  "fa": "۰٫۰۰۴۹",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dr.qwk.lo": {
+  "value": -0.007772880172093727,
+  "fa": "-۰٫۰۰۷۸",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dr.qwk.hi": {
+  "value": 0.01706785696498677,
+  "fa": "۰٫۰۱۷۱",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dr.qwk.n": {
+  "value": 2260.0,
+  "fa": "۲۲۶۰",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dr.accuracy.a": {
+  "value": 72.12389380530973,
+  "fa": "۷۲٫۱",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dr.accuracy.b": {
+  "value": 73.27433628318583,
+  "fa": "۷۳٫۳",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dr.accuracy.diff": {
+  "value": -1.15858407079646,
+  "fa": "-۱٫۲",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dr.accuracy.lo": {
+  "value": -2.920353982300883,
+  "fa": "-۲٫۹",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dr.accuracy.hi": {
+  "value": 0.6194690265486693,
+  "fa": "۰٫۶",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dr.accuracy.n": {
+  "value": 2260.0,
+  "fa": "۲۲۶۰",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dme_ungated.qwk.a": {
+  "value": 0.8764430656563088,
+  "fa": "۰٫۸۷۶۴",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dme_ungated.qwk.b": {
+  "value": 0.8537854910218015,
+  "fa": "۰٫۸۵۳۸",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dme_ungated.qwk.diff": {
+  "value": 0.02372191208169271,
+  "fa": "۰٫۰۲۳۷",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dme_ungated.qwk.lo": {
+  "value": -0.009380898085889997,
+  "fa": "-۰٫۰۰۹۴",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dme_ungated.qwk.hi": {
+  "value": 0.0566284111482627,
+  "fa": "۰٫۰۵۶۶",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dme_ungated.qwk.n": {
+  "value": 516.0,
+  "fa": "۵۱۶",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dme_ungated.accuracy.a": {
+  "value": 83.33333333333334,
+  "fa": "۸۳٫۳",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dme_ungated.accuracy.b": {
+  "value": 81.2015503875969,
+  "fa": "۸۱٫۲",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dme_ungated.accuracy.diff": {
+  "value": 2.261531007751939,
+  "fa": "۲٫۳",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dme_ungated.accuracy.lo": {
+  "value": -1.3565891472868135,
+  "fa": "-۱٫۴",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dme_ungated.accuracy.hi": {
+  "value": 5.813953488372093,
+  "fa": "۵٫۸",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "macula.dme_ungated.accuracy.n": {
+  "value": 516.0,
+  "fa": "۵۱۶",
+  "source": "docs/generated/matched_e08_e14mac.json",
+  "note": ""
+ },
+ "native_res.dr.qwk.a": {
+  "value": 0.8748823478623287,
+  "fa": "۰٫۸۷۴۹",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dr.qwk.b": {
+  "value": 0.8662143073900076,
+  "fa": "۰٫۸۶۶۲",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dr.qwk.diff": {
+  "value": 0.008603922014032438,
+  "fa": "۰٫۰۰۸۶",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dr.qwk.lo": {
+  "value": -0.002502899845882009,
+  "fa": "-۰٫۰۰۲۵",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dr.qwk.hi": {
+  "value": 0.019913817771926395,
+  "fa": "۰٫۰۱۹۹",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dr.qwk.n": {
+  "value": 2260.0,
+  "fa": "۲۲۶۰",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dr.accuracy.a": {
+  "value": 74.77876106194691,
+  "fa": "۷۴٫۸",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dr.accuracy.b": {
+  "value": 72.34513274336283,
+  "fa": "۷۲٫۳",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dr.accuracy.diff": {
+  "value": 2.4474115044247786,
+  "fa": "۲٫۴",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dr.accuracy.lo": {
+  "value": 0.5752212389380507,
+  "fa": "۰٫۶",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dr.accuracy.hi": {
+  "value": 4.292035398230087,
+  "fa": "۴٫۳",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dr.accuracy.n": {
+  "value": 2260.0,
+  "fa": "۲۲۶۰",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dme_ungated.qwk.a": {
+  "value": 0.8947891577780327,
+  "fa": "۰٫۸۹۴۸",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dme_ungated.qwk.b": {
+  "value": 0.874848411350958,
+  "fa": "۰٫۸۷۴۸",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dme_ungated.qwk.diff": {
+  "value": 0.019535524852129983,
+  "fa": "۰٫۰۱۹۵",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dme_ungated.qwk.lo": {
+  "value": -0.0052206658437741965,
+  "fa": "-۰٫۰۰۵۲",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dme_ungated.qwk.hi": {
+  "value": 0.045152086381918866,
+  "fa": "۰٫۰۴۵۲",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dme_ungated.qwk.n": {
+  "value": 516.0,
+  "fa": "۵۱۶",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dme_ungated.accuracy.a": {
+  "value": 86.62790697674419,
+  "fa": "۸۶٫۶",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dme_ungated.accuracy.b": {
+  "value": 84.30232558139535,
+  "fa": "۸۴٫۳",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dme_ungated.accuracy.diff": {
+  "value": 2.3055232558139527,
+  "fa": "۲٫۳",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dme_ungated.accuracy.lo": {
+  "value": -0.3875968992248069,
+  "fa": "-۰٫۴",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dme_ungated.accuracy.hi": {
+  "value": 5.232558139534882,
+  "fa": "۵٫۲",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "native_res.dme_ungated.accuracy.n": {
+  "value": 516.0,
+  "fa": "۵۱۶",
+  "source": "docs/generated/matched_e10_e17nat.json",
+  "note": ""
+ },
+ "coral.dr.qwk.a": {
+  "value": 0.8569265827483015,
+  "fa": "۰٫۸۵۶۹",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dr.qwk.b": {
+  "value": 0.8645842726491791,
+  "fa": "۰٫۸۶۴۶",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dr.qwk.diff": {
+  "value": -0.007561033983407979,
+  "fa": "-۰٫۰۰۷۶",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dr.qwk.lo": {
+  "value": -0.01841341617824461,
+  "fa": "-۰٫۰۱۸۴",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dr.qwk.hi": {
+  "value": 0.0032001830986102746,
+  "fa": "۰٫۰۰۳۲",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dr.qwk.n": {
+  "value": 2260.0,
+  "fa": "۲۲۶۰",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dr.accuracy.a": {
+  "value": 70.26548672566372,
+  "fa": "۷۰٫۳",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dr.accuracy.b": {
+  "value": 72.12389380530973,
+  "fa": "۷۲٫۱",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dr.accuracy.diff": {
+  "value": -1.8715486725663717,
+  "fa": "-۱٫۹",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dr.accuracy.lo": {
+  "value": -3.761061946902655,
+  "fa": "-۳٫۸",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dr.accuracy.hi": {
+  "value": -0.08849557522123686,
+  "fa": "-۰٫۱",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dr.accuracy.n": {
+  "value": 2260.0,
+  "fa": "۲۲۶۰",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dme_ungated.qwk.a": {
+  "value": 0.861057184922672,
+  "fa": "۰٫۸۶۱۱",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dme_ungated.qwk.b": {
+  "value": 0.8764430656563088,
+  "fa": "۰٫۸۷۶۴",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dme_ungated.qwk.diff": {
+  "value": -0.01582935413902199,
+  "fa": "-۰٫۰۱۵۸",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dme_ungated.qwk.lo": {
+  "value": -0.04077896341727759,
+  "fa": "-۰٫۰۴۰۸",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dme_ungated.qwk.hi": {
+  "value": 0.009356887613409446,
+  "fa": "۰٫۰۰۹۴",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dme_ungated.qwk.n": {
+  "value": 516.0,
+  "fa": "۵۱۶",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dme_ungated.accuracy.a": {
+  "value": 82.94573643410853,
+  "fa": "۸۲٫۹",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dme_ungated.accuracy.b": {
+  "value": 83.33333333333334,
+  "fa": "۸۳٫۳",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dme_ungated.accuracy.diff": {
+  "value": -0.4404069767441858,
+  "fa": "-۰٫۴",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dme_ungated.accuracy.lo": {
+  "value": -3.2945736434108475,
+  "fa": "-۳٫۳",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dme_ungated.accuracy.hi": {
+  "value": 2.3255813953488302,
+  "fa": "۲٫۳",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "coral.dme_ungated.accuracy.n": {
+  "value": 516.0,
+  "fa": "۵۱۶",
+  "source": "docs/generated/matched_coral_e08.json",
+  "note": ""
+ },
+ "corn.dr.qwk.a": {
+  "value": 0.8168376693754903,
+  "fa": "۰٫۸۱۶۸",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dr.qwk.b": {
+  "value": 0.8645842726491791,
+  "fa": "۰٫۸۶۴۶",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dr.qwk.diff": {
+  "value": -0.04788455050999932,
+  "fa": "-۰٫۰۴۷۹",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dr.qwk.lo": {
+  "value": -0.06563703863937273,
+  "fa": "-۰٫۰۶۵۶",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dr.qwk.hi": {
+  "value": -0.03248329603769777,
+  "fa": "-۰٫۰۳۲۵",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dr.qwk.n": {
+  "value": 2260.0,
+  "fa": "۲۲۶۰",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dr.accuracy.a": {
+  "value": 69.69026548672566,
+  "fa": "۶۹٫۷",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dr.accuracy.b": {
+  "value": 72.12389380530973,
+  "fa": "۷۲٫۱",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dr.accuracy.diff": {
+  "value": -2.428783185840708,
+  "fa": "-۲٫۴",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dr.accuracy.lo": {
+  "value": -4.424778761061942,
+  "fa": "-۴٫۴",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dr.accuracy.hi": {
+  "value": -0.4424778761061954,
+  "fa": "-۰٫۴",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dr.accuracy.n": {
+  "value": 2260.0,
+  "fa": "۲۲۶۰",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dme_ungated.qwk.a": {
+  "value": 0.8688838068658992,
+  "fa": "۰٫۸۶۸۹",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dme_ungated.qwk.b": {
+  "value": 0.8764430656563088,
+  "fa": "۰٫۸۷۶۴",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dme_ungated.qwk.diff": {
+  "value": -0.007819404272997998,
+  "fa": "-۰٫۰۰۷۸",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dme_ungated.qwk.lo": {
+  "value": -0.03625644514920814,
+  "fa": "-۰٫۰۳۶۳",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dme_ungated.qwk.hi": {
+  "value": 0.01899168320242836,
+  "fa": "۰٫۰۱۹۰",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dme_ungated.qwk.n": {
+  "value": 516.0,
+  "fa": "۵۱۶",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dme_ungated.accuracy.a": {
+  "value": 83.52713178294574,
+  "fa": "۸۳٫۵",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dme_ungated.accuracy.b": {
+  "value": 83.33333333333334,
+  "fa": "۸۳٫۳",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dme_ungated.accuracy.diff": {
+  "value": 0.11831395348837212,
+  "fa": "۰٫۱",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dme_ungated.accuracy.lo": {
+  "value": -2.9069767441860517,
+  "fa": "-۲٫۹",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dme_ungated.accuracy.hi": {
+  "value": 3.2945736434108475,
+  "fa": "۳٫۳",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "corn.dme_ungated.accuracy.n": {
+  "value": 516.0,
+  "fa": "۵۱۶",
+  "source": "docs/generated/matched_corn_e08.json",
+  "note": ""
+ },
+ "convnext.dr.qwk.a": {
+  "value": 0.8266912897621103,
+  "fa": "۰٫۸۲۶۷",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dr.qwk.b": {
+  "value": 0.862840025068853,
+  "fa": "۰٫۸۶۲۸",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dr.qwk.diff": {
+  "value": -0.03619212809307407,
+  "fa": "-۰٫۰۳۶۲",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dr.qwk.lo": {
+  "value": -0.05933509194327043,
+  "fa": "-۰٫۰۵۹۳",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dr.qwk.hi": {
+  "value": -0.01533328127827751,
+  "fa": "-۰٫۰۱۵۳",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dr.qwk.n": {
+  "value": 910.0,
+  "fa": "۹۱۰",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dr.accuracy.a": {
+  "value": 65.6043956043956,
+  "fa": "۶۵٫۶",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dr.accuracy.b": {
+  "value": 70.1098901098901,
+  "fa": "۷۰٫۱",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dr.accuracy.diff": {
+  "value": -4.449505494505495,
+  "fa": "-۴٫۴",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dr.accuracy.lo": {
+  "value": -7.472527472527468,
+  "fa": "-۷٫۵",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dr.accuracy.hi": {
+  "value": -1.318681318681325,
+  "fa": "-۱٫۳",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dr.accuracy.n": {
+  "value": 910.0,
+  "fa": "۹۱۰",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dme_ungated.qwk.a": {
+  "value": 0.8776382234882818,
+  "fa": "۰٫۸۷۷۶",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dme_ungated.qwk.b": {
+  "value": 0.8632563227671711,
+  "fa": "۰٫۸۶۳۳",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dme_ungated.qwk.diff": {
+  "value": 0.014874998209399706,
+  "fa": "۰٫۰۱۴۹",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dme_ungated.qwk.lo": {
+  "value": -0.041180251779029,
+  "fa": "-۰٫۰۴۱۲",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dme_ungated.qwk.hi": {
+  "value": 0.0694605527135763,
+  "fa": "۰٫۰۶۹۵",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dme_ungated.qwk.n": {
+  "value": 210.0,
+  "fa": "۲۱۰",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dme_ungated.accuracy.a": {
+  "value": 84.28571428571429,
+  "fa": "۸۴٫۳",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dme_ungated.accuracy.b": {
+  "value": 79.04761904761905,
+  "fa": "۷۹٫۰",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dme_ungated.accuracy.diff": {
+  "value": 5.186428571428571,
+  "fa": "۵٫۲",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dme_ungated.accuracy.lo": {
+  "value": -0.4761904761904745,
+  "fa": "-۰٫۵",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dme_ungated.accuracy.hi": {
+  "value": 10.952380952380958,
+  "fa": "۱۱٫۰",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "convnext.dme_ungated.accuracy.n": {
+  "value": 210.0,
+  "fa": "۲۱۰",
+  "source": "docs/generated/matched_cnx_e08.json",
+  "note": ""
+ },
+ "probe.dr.a": {
+  "value": 0.7007919182275695,
+  "fa": "۰٫۷۰۰۸",
+  "source": "docs/generated/probe_vs_probe.json",
+  "note": ""
+ },
+ "probe.dr.b": {
+  "value": 0.6611447602860666,
+  "fa": "۰٫۶۶۱۱",
+  "source": "docs/generated/probe_vs_probe.json",
+  "note": ""
+ },
+ "probe.dr.diff": {
+  "value": 0.04009458840046718,
+  "fa": "۰٫۰۴۰۱",
+  "source": "docs/generated/probe_vs_probe.json",
+  "note": ""
+ },
+ "probe.dr.lo": {
+  "value": 0.012189724395682777,
+  "fa": "۰٫۰۱۲۲",
+  "source": "docs/generated/probe_vs_probe.json",
+  "note": ""
+ },
+ "probe.dr.hi": {
+  "value": 0.06921201685835522,
+  "fa": "۰٫۰۶۹۲",
+  "source": "docs/generated/probe_vs_probe.json",
+  "note": ""
+ },
+ "probe.dme_ungated.a": {
+  "value": 0.7074392085890405,
+  "fa": "۰٫۷۰۷۴",
+  "source": "docs/generated/probe_vs_probe.json",
+  "note": ""
+ },
+ "probe.dme_ungated.b": {
+  "value": 0.6645394117100742,
+  "fa": "۰٫۶۶۴۵",
+  "source": "docs/generated/probe_vs_probe.json",
+  "note": ""
+ },
+ "probe.dme_ungated.diff": {
+  "value": 0.0433732898347823,
+  "fa": "۰٫۰۴۳۴",
+  "source": "docs/generated/probe_vs_probe.json",
+  "note": ""
+ },
+ "probe.dme_ungated.lo": {
+  "value": -0.017254586046177477,
+  "fa": "-۰٫۰۱۷۳",
+  "source": "docs/generated/probe_vs_probe.json",
+  "note": ""
+ },
+ "probe.dme_ungated.hi": {
+  "value": 0.10175511162383112,
+  "fa": "۰٫۱۰۱۸",
+  "source": "docs/generated/probe_vs_probe.json",
+  "note": ""
+ },
+ "parta.n_segmentation": {
+  "value": 81.0,
+  "fa": "۸۱",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.n_crosswalk": {
+  "value": 54.0,
+  "fa": "۵۴",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.n_usable": {
+  "value": 54.0,
+  "fa": "۵۴",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.corr_min": {
+  "value": 0.9999,
+  "fa": "۰٫۹۹۹۹",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.od_max_px": {
+  "value": 100.0,
+  "fa": "۱۰۰",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.major_axis.exact": {
+  "value": 96.29629629629629,
+  "fa": "۹۶٫۳",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.major_axis.recall.grade0": {
+  "value": 0.0,
+  "fa": "۰٫۰",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.major_axis.recall.grade1": {
+  "value": 66.66666666666666,
+  "fa": "۶۶٫۷",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.major_axis.recall.grade2": {
+  "value": 100.0,
+  "fa": "۱۰۰٫۰",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.equivalent_area.exact": {
+  "value": 96.29629629629629,
+  "fa": "۹۶٫۳",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.equivalent_area.recall.grade0": {
+  "value": 0.0,
+  "fa": "۰٫۰",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.equivalent_area.recall.grade1": {
+  "value": 66.66666666666666,
+  "fa": "۶۶٫۷",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.equivalent_area.recall.grade2": {
+  "value": 100.0,
+  "fa": "۱۰۰٫۰",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.minor_axis.exact": {
+  "value": 96.29629629629629,
+  "fa": "۹۶٫۳",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.minor_axis.recall.grade0": {
+  "value": 0.0,
+  "fa": "۰٫۰",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.minor_axis.recall.grade1": {
+  "value": 66.66666666666666,
+  "fa": "۶۶٫۷",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.minor_axis.recall.grade2": {
+  "value": 100.0,
+  "fa": "۱۰۰٫۰",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.constant_floor": {
+  "value": 92.5925925925926,
+  "fa": "۹۲٫۶",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.support.grade0": {
+  "value": 1.0,
+  "fa": "۱",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.support.grade1": {
+  "value": 3.0,
+  "fa": "۳",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.support.grade2": {
+  "value": 50.0,
+  "fa": "۵۰",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.n_informative": {
+  "value": 4.0,
+  "fa": "۴",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": "images whose grade is not the majority grade -- the only ones on which the derivation can be told apart from the constant predictor"
+ },
+ "parta.informative.min_dist.smallest": {
+  "value": 52.88667128870941,
+  "fa": "۵۳",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.informative.min_dist.largest": {
+  "value": 756.4634822646761,
+  "fa": "۷۵۶",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.informative.dd.smallest": {
+  "value": 456.79913330078125,
+  "fa": "۴۵۷",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.informative.dd.largest": {
+  "value": 657.0787963867188,
+  "fa": "۶۵۷",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.seg29.min_dist": {
+  "value": 756.4634822646761,
+  "fa": "۷۵۶",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.seg29.dd": {
+  "value": 550.9518553395852,
+  "fa": "۵۵۱",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.seg29.expert": {
+  "value": 1.0,
+  "fa": "۱",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.seg29.derived": {
+  "value": 1.0,
+  "fa": "۱",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.seg40.min_dist": {
+  "value": 52.88667128870941,
+  "fa": "۵۳",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.seg40.dd": {
+  "value": 599.4327807854402,
+  "fa": "۵۹۹",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.seg40.expert": {
+  "value": 1.0,
+  "fa": "۱",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.seg40.derived": {
+  "value": 2.0,
+  "fa": "۲",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.seg52.min_dist": {
+  "value": 86.53323061113575,
+  "fa": "۸۷",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.seg52.dd": {
+  "value": 553.5743553186,
+  "fa": "۵۵۴",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.seg52.expert": {
+  "value": 0.0,
+  "fa": "۰",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.seg52.derived": {
+  "value": 2.0,
+  "fa": "۲",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.seg62.min_dist": {
+  "value": 560.0,
+  "fa": "۵۶۰",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.seg62.dd": {
+  "value": 461.9744716848627,
+  "fa": "۴۶۲",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.seg62.expert": {
+  "value": 1.0,
+  "fa": "۱",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "parta.seg62.derived": {
+  "value": 1.0,
+  "fa": "۱",
+  "source": "docs/generated/idrid_derivation_gate.json",
+  "note": ""
+ },
+ "crosswalk.diff_min": {
+  "value": 0.6473954319953918,
+  "fa": "۰٫۶۵",
+  "source": "docs/generated/crosswalk_pairs.json",
+  "note": ""
+ },
+ "crosswalk.diff_max": {
+  "value": 0.7479925155639648,
+  "fa": "۰٫۷۵",
+  "source": "docs/generated/crosswalk_pairs.json",
+  "note": ""
+ },
+ "crosswalk.n_informative": {
+  "value": 4.0,
+  "fa": "۴",
+  "source": "docs/generated/crosswalk_pairs.json",
+  "note": ""
+ },
+ "const.sigmoid_default": {
+  "value": 0.5,
+  "fa": "۰٫۵",
+  "source": "the untuned decode threshold on a sigmoid output",
+  "note": ""
+ },
+ "const.corr_runner_up_margin": {
+  "value": 0.01,
+  "fa": "۰٫۰۱",
+  "source": "src/idrid_derivation_gate.py: the band within which the runner-up correlation sits, which is why pixel correlation alone cannot confirm a crosswalk match",
+  "note": ""
+ },
+ "const.idrid_width": {
+  "value": 4288.0,
+  "fa": "۴۲۸۸",
+  "source": "IDRiD fundus frame width in pixels",
+  "note": ""
+ },
+ "const.idrid_height": {
+  "value": 2848.0,
+  "fa": "۲۸۴۸",
+  "source": "IDRiD fundus frame height in pixels",
+  "note": ""
+ },
+ "const.byte_max": {
+  "value": 255.0,
+  "fa": "۲۵۵",
+  "source": "8-bit intensity range, used for the overlay difference",
+  "note": ""
+ },
+ "const.messidor1_named": {
+  "value": 687.0,
+  "fa": "۶۸۷",
+  "source": "data/DATASETS.md: files in our Messidor-2 mirror carrying Messidor-1 naming",
+  "note": ""
+ },
+ "const.messidor2_named": {
+  "value": 1057.0,
+  "fa": "۱۰۵۷",
+  "source": "data/DATASETS.md: files carrying the Messidor-2 convention",
+  "note": ""
+ },
+ "pipeline_worth.qwk": {
+  "value": 0.23422868485825887,
+  "fa": "۰٫۲۳۴۲",
+  "source": "derived: champion - frozen probe",
+  "note": "F9 -- same images, folds, decoding and calibration on both sides"
+ },
+ "pool.n": {
+  "value": 2260.0,
+  "fa": "۲۲۶۰",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "pool.n_idrid": {
+  "value": 516.0,
+  "fa": "۵۱۶",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "pool.n_messidor2": {
+  "value": 1744.0,
+  "fa": "۱۷۴۴",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "dme.n_3class": {
+  "value": 516.0,
+  "fa": "۵۱۶",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "dme.n_gated": {
+  "value": 348.0,
+  "fa": "۳۴۸",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "dme.n_grade0": {
+  "value": 222.0,
+  "fa": "۲۲۲",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "dme.n_grade1": {
+  "value": 51.0,
+  "fa": "۵۱",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "dme.n_grade2": {
+  "value": 243.0,
+  "fa": "۲۴۳",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "dme.floor_ungated": {
+  "value": 47.093023255813954,
+  "fa": "۴۷٫۱",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "dme.floor_gated": {
+  "value": 69.82758620689656,
+  "fa": "۶۹٫۸",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "dme.n_dr0": {
+  "value": 168.0,
+  "fa": "۱۶۸",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "dme.n_dr0_positive": {
+  "value": 0.0,
+  "fa": "۰",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dr.qwk": {
+  "value": 0.8953734451443255,
+  "fa": "۰٫۸۹۵۴",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dr.accuracy": {
+  "value": 77.83185840707965,
+  "fa": "۷۷٫۸",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dr.n": {
+  "value": 2260.0,
+  "fa": "۲۲۶۰",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dr.support.grade0": {
+  "value": 1185.0,
+  "fa": "۱۱۸۵",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dr.recall.grade0": {
+  "value": 94.17721518987342,
+  "fa": "۹۴٫۲",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dr.support.grade1": {
+  "value": 295.0,
+  "fa": "۲۹۵",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dr.recall.grade1": {
+  "value": 31.864406779661014,
+  "fa": "۳۱٫۹",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dr.support.grade2": {
+  "value": 515.0,
+  "fa": "۵۱۵",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dr.recall.grade2": {
+  "value": 71.06796116504854,
+  "fa": "۷۱٫۱",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dr.support.grade3": {
+  "value": 168.0,
+  "fa": "۱۶۸",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dr.recall.grade3": {
+  "value": 75.0,
+  "fa": "۷۵٫۰",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dr.support.grade4": {
+  "value": 97.0,
+  "fa": "۹۷",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dr.recall.grade4": {
+  "value": 58.76288659793815,
+  "fa": "۵۸٫۸",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dme_ungated.qwk": {
+  "value": 0.8881536166469035,
+  "fa": "۰٫۸۸۸۲",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dme_ungated.accuracy": {
+  "value": 86.04651162790698,
+  "fa": "۸۶٫۰",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dme_ungated.n": {
+  "value": 516.0,
+  "fa": "۵۱۶",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dme_ungated.support.grade0": {
+  "value": 222.0,
+  "fa": "۲۲۲",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dme_ungated.recall.grade0": {
+  "value": 88.28828828828829,
+  "fa": "۸۸٫۳",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dme_ungated.support.grade1": {
+  "value": 51.0,
+  "fa": "۵۱",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dme_ungated.recall.grade1": {
+  "value": 54.90196078431373,
+  "fa": "۵۴٫۹",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dme_ungated.support.grade2": {
+  "value": 243.0,
+  "fa": "۲۴۳",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ },
+ "champion.dme_ungated.recall.grade2": {
+  "value": 90.53497942386831,
+  "fa": "۹۰٫۵",
+  "source": "runs/E11FULL + corpora",
+  "note": ""
+ }
+}

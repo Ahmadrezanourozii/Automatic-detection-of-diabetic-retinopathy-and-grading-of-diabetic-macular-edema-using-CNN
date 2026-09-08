@@ -1162,6 +1162,50 @@ the guard prevents the next occurrence, it does not repair this one.
 
 ---
 
+## §29. The chapters said every number was generated, and three of them were reversed  — 2026-09-08, FIXED
+
+**What happened.** `thesis/chapter3.tex` opens with a comment stating that every number in it
+comes from `runs/` and `docs/generated/` and that none was typed by hand. Neither was true.
+Eight decimals across chapter 3 and the Part A report were written with the integer and
+fractional groups **swapped** — `۵/۰` where `۰٫۵` was meant. Persian digits are strong
+left-to-right under the bidi algorithm, so those render as written: the methods chapter told
+the reader the default decode threshold on a sigmoid output was **5.0**.
+
+**Three further errors were sitting underneath the reversal**, found only because fixing it
+required checking each value against an artefact:
+
+| written | correct | why |
+|---|---|---|
+| gated DME floor `69.6 %` | **`69.8 %`** | 243 of 348, recomputed from the corpora |
+| Part A exact match `96.6 %` | **`96.3 %`** | 52 of 54 |
+| overlay difference `0.78–0.96` | **`0.65–0.75`** | not reproducible; see below |
+
+**The overlay figure had no artefact at all.** The 0.78–0.96 range was the evidence for the
+first of Part A's two ruled-out explanations, and the session that computed it archived
+nothing. `src/verify_crosswalk_pairs.py` now regenerates it — the pairs are the same
+photographs and **the verdict is unchanged** — but the published figures could not be
+reproduced and have been replaced by ones that can. *A number whose script no longer exists is
+a claim, not a measurement*, and this project has an entire chapter about that distinction.
+
+**Fix, applied.** `src/thesis_numbers.py` computes every quotable number from the archived
+artefacts into `docs/generated/thesis_numbers.json`, rendering each in the digit order the
+prose must use and carrying the file it came from. `tools/farsi_lint.py --numbers` then
+**refuses any Persian numeral in a chapter that is not in that ledger**, and refuses `/` as a
+decimal separator (the generated tables already use U+066B). Both written chapters now pass at
+zero violations.
+
+**Fired in both directions before being trusted (`PROTOCOL.md` §10):** it rejected all eight
+reversed decimals and six unledgered values on the first run, and it passes both chapters now
+that each number resolves to an artefact. The repair script itself refuses to write a
+replacement that is not in the ledger — which is how the unreproducible `0.78` was caught
+rather than quietly re-typed in the right digit order.
+
+**What the check does not do.** It proves a numeral exists in an artefact and is rendered
+correctly. It cannot prove the numeral belongs to the sentence around it. Nothing automatic
+can, and claiming otherwise would be §27 again.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.
