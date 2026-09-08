@@ -669,3 +669,91 @@ cluster nasally, so nearest-OD is not unique. **54 of 81 could be confirmed; 27 
 **Even a perfectly powered version of this test would have had 4 informative images.** The
 exercise cannot be rescued with more careful matching, and that is the finding: the ideal-
 conditions test of the derivation is not available in the data the field has published.
+
+---
+
+## F11 — A provenance failure of our own: eight reversed numbers, three real errors underneath, and one piece of evidence that had no artefact at all
+
+**This finding is about this thesis, not about the literature.** Every other provenance exhibit
+we hold is someone else's. This one is ours, it is the same class of failure, and it was caught
+by the machinery this thesis argues for rather than by anyone reading carefully.
+
+### What happened
+
+`thesis/chapter3.tex` opened with a comment stating that every number in it came from the
+archived runs and that none was typed by hand. **Neither was true.** Eight decimals across
+chapter 3 and the Part A report were written with the integer and fractional groups **swapped**.
+Persian digits (U+06F0–U+06F9) are strong left-to-right under the bidi algorithm, so they render
+exactly as written: **the methods chapter told the reader that the default decode threshold on a
+sigmoid output was 5.0.**
+
+The reversal was cosmetic. What it was hiding was not.
+
+| written | correct | what it is |
+|---|---|---|
+| gated DME floor 69.6 % | **69.8 %** | 243 of 348, recomputed from the corpora |
+| Part A exact match 96.6 % | **96.3 %** | 52 of 54 |
+| overlay difference 0.78–0.96 | **0.65–0.75** | **not reproducible at all** |
+
+### The third row is the finding
+
+The 0.78–0.96 range was **the evidence for the first of the two competing explanations Part A
+had to rule out** — that the segmentation-to-grading crosswalk had put the wrong grade beside
+the mask. On that number rested the claim that the matched pairs were the same photograph, and
+therefore the whole Part A verdict.
+
+**The session that computed it archived nothing.** No script, no output file, no record of the
+method. The number could not be regenerated, and when it was recomputed from scratch
+(`src/verify_crosswalk_pairs.py`) the answer came out **0.65–0.75** instead. The conclusion is
+unchanged — the pairs are the same photographs, and Part A's verdict stands — but **the
+published figures were not reproducible and have been replaced by figures that are.**
+
+*A number whose script no longer exists is a claim, not a measurement.* That sentence is the
+thesis's argument about other people's papers. Here it is about ours.
+
+### Why it is worth stating rather than quietly fixing
+
+Four things about this failure make it the right exhibit to put next to the published ones.
+
+1. **No error was raised.** LaTeX compiles a reversed decimal. The Persian linter passed the
+   chapter at zero violations, because it checked forbidden words and ezafe, not numbers. Four
+   independent quality mechanisms were in place and none of them looked at a digit.
+2. **The chapter asserted its own provenance and was believed.** The comment at the top of
+   chapter 3 was the only evidence that its numbers were generated, and it was written by the
+   same process that typed them by hand. **A provenance claim is not provenance.** This is
+   §9's "configuration is not consumption" in a second setting: what a document *says* about
+   where its numbers came from records an intention, not an act.
+3. **It was found by mechanism, not by care.** Nobody spotted `۵/۰` by reading. It surfaced
+   because writing chapter 4 required a numbers ledger, and building the ledger meant resolving
+   every numeral in the earlier chapters against an artefact. The three substantive errors were
+   found only because the cosmetic one forced a check.
+4. **The repair had to be guarded too.** The script that rewrote the reversed decimals refuses
+   to write a replacement that is not in the ledger. That refusal is what caught `0.78`: the
+   obvious fix was to retype it in the correct digit order, which would have preserved an
+   unreproducible number in a tidier form and closed the case.
+
+### What now enforces it
+
+`src/thesis_numbers.py` computes every quotable number from the archived artefacts into
+`docs/generated/thesis_numbers.json`, each rendered in the digit order the prose must use and
+carrying the file it came from. `tools/farsi_lint.py --numbers` **refuses any Persian numeral in
+a chapter that is not in that ledger**, and refuses `/` as a decimal separator.
+
+**Fired in both directions before being trusted** (`PROTOCOL.md` §10): it rejected all eight
+reversed decimals and six unledgered values on its first run, and it passes every chapter now
+that each numeral resolves to an artefact.
+
+**What the check does not do, stated so it is not over-claimed:** it proves a numeral exists in
+an artefact and is rendered correctly. It cannot prove the numeral belongs to the sentence
+around it. No automated check can, and claiming otherwise would be `ISSUES.md` §27 — a check
+that reports success without examining the thing that matters.
+
+### Where it goes in the thesis
+
+**In the provenance chapter, beside the four published exhibits (P5, P8, P9, P11), labelled as
+ours.** A chapter that audits other people's data lineage and does not report its own failure of
+the same kind is making an argument it does not itself submit to. The four published cases show
+the failure is endemic; this one shows it does not spare the people who are looking for it, and
+that the defence has to be mechanical because attention is not enough.
+
+Recorded also as `ISSUES.md` §29.

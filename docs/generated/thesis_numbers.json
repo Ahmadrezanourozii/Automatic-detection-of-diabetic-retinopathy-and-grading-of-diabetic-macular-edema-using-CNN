@@ -1625,6 +1625,312 @@
   "source": "docs/generated/crosswalk_pairs.json",
   "note": ""
  },
+ "epoch_seconds.convnext": {
+  "value": 212.0,
+  "fa": "۲۱۲",
+  "source": "runs/E21CNXA/train*.log (80 epochs, median)",
+  "note": ""
+ },
+ "epoch_seconds.densenet": {
+  "value": 42.0,
+  "fa": "۴۲",
+  "source": "runs/E08/train*.log (200 epochs, median)",
+  "note": ""
+ },
+ "lit.p1.underestimate_default": {
+  "value": 84.7,
+  "fa": "۸۴٫۷",
+  "source": "literature, verified at source: P1 Table 12",
+  "note": ""
+ },
+ "lit.p1.underestimate_calibrated": {
+  "value": 49.7,
+  "fa": "۴۹٫۷",
+  "source": "literature, verified at source: P1 Table 12",
+  "note": ""
+ },
+ "lit.p1.grade1_predicted": {
+  "value": 712.7,
+  "fa": "۷۱۲٫۷",
+  "source": "literature, verified at source: P1 Table 12",
+  "note": ""
+ },
+ "lit.p1.grade1_true": {
+  "value": 270.0,
+  "fa": "۲۷۰",
+  "source": "literature, verified at source: P1 Table 12",
+  "note": ""
+ },
+ "lit.p1.grade1_precision": {
+  "value": 0.193,
+  "fa": "۰٫۱۹۳",
+  "source": "literature, verified at source: P1 Table 11",
+  "note": ""
+ },
+ "lit.p1.ece_internal": {
+  "value": 0.049,
+  "fa": "۰٫۰۴۹",
+  "source": "literature, verified at source: P1 Fig. 2",
+  "note": ""
+ },
+ "lit.p1.ece_external": {
+  "value": 0.16,
+  "fa": "۰٫۱۶۰",
+  "source": "literature, verified at source: P1 Fig. 2",
+  "note": ""
+ },
+ "lit.p1.qwk_external": {
+  "value": 0.6423,
+  "fa": "۰٫۶۴۲۳",
+  "source": "literature, verified at source: P1 Table 6",
+  "note": ""
+ },
+ "lit.p3.aptos_frozen": {
+  "value": 0.93,
+  "fa": "۰٫۹۳",
+  "source": "literature, verified at source: P3 results",
+  "note": ""
+ },
+ "lit.p3.aptos_finetuned": {
+  "value": 0.94,
+  "fa": "۰٫۹۴",
+  "source": "literature, verified at source: P3 results",
+  "note": ""
+ },
+ "lit.p3.odir_frozen": {
+  "value": 0.78,
+  "fa": "۰٫۷۸",
+  "source": "literature, verified at source: P3 results",
+  "note": ""
+ },
+ "lit.p3.odir_finetuned": {
+  "value": 0.8,
+  "fa": "۰٫۸۰",
+  "source": "literature, verified at source: P3 results",
+  "note": ""
+ },
+ "lit.p3.head_params": {
+  "value": 5125.0,
+  "fa": "۵۱۲۵",
+  "source": "literature, verified at source: P3 methods",
+  "note": ""
+ },
+ "lit.p3.retfound_params_m": {
+  "value": 303.3,
+  "fa": "۳۰۳٫۳",
+  "source": "literature, verified at source: P3 methods",
+  "note": ""
+ },
+ "lit.p5.accuracy_aptos": {
+  "value": 87.98,
+  "fa": "۸۷٫۹۸",
+  "source": "literature, verified at source: P5 abstract",
+  "note": ""
+ },
+ "lit.p5.qwk_aptos": {
+  "value": 0.937,
+  "fa": "۰٫۹۳۷۰",
+  "source": "literature, verified at source: P5 abstract",
+  "note": ""
+ },
+ "lit.p5.auc_mild": {
+  "value": 0.84,
+  "fa": "۰٫۸۴",
+  "source": "literature, verified at source: P5 §4.8",
+  "note": ""
+ },
+ "lit.p6.resnet_accuracy": {
+  "value": 0.823,
+  "fa": "۰٫۸۲۳",
+  "source": "literature, verified at source: P6 Table 3",
+  "note": ""
+ },
+ "lit.p6.retfound_accuracy": {
+  "value": 0.822,
+  "fa": "۰٫۸۲۲",
+  "source": "literature, verified at source: P6 Table 3",
+  "note": ""
+ },
+ "lit.p6.oct_images": {
+  "value": 2938.0,
+  "fa": "۲۹۳۸",
+  "source": "literature, verified at source: P6 methods",
+  "note": ""
+ },
+ "lit.p6.dme_middle": {
+  "value": 280.0,
+  "fa": "۲۸۰",
+  "source": "literature, verified at source: P6 Table 2",
+  "note": ""
+ },
+ "lit.p6.dme_middle_pct": {
+  "value": 9.530292716133424,
+  "fa": "۹٫۵",
+  "source": "literature, verified at source: P6 Table 2, derived",
+  "note": ""
+ },
+ "lit.p7.fda_devices": {
+  "value": 3.0,
+  "fa": "۳",
+  "source": "literature, verified at source: P7 challenges",
+  "note": ""
+ },
+ "lit.p7.retfound_pretrain_m": {
+  "value": 1.6,
+  "fa": "۱٫۶",
+  "source": "literature, verified at source: P7 foundation models",
+  "note": ""
+ },
+ "lit.p9.eyes": {
+  "value": 320.0,
+  "fa": "۳۲۰",
+  "source": "literature, verified at source: P9 abstract",
+  "note": ""
+ },
+ "lit.p9.patients": {
+  "value": 160.0,
+  "fa": "۱۶۰",
+  "source": "literature, verified at source: P9 abstract",
+  "note": ""
+ },
+ "lit.p9.kappa_clinical": {
+  "value": 0.86,
+  "fa": "۰٫۸۶",
+  "source": "literature, verified at source: P9 Table 4",
+  "note": ""
+ },
+ "lit.p9.kappa_standard": {
+  "value": 0.78,
+  "fa": "۰٫۷۸",
+  "source": "literature, verified at source: P9 Table 4",
+  "note": ""
+ },
+ "lit.p9.discrepant_clinical": {
+  "value": 22.0,
+  "fa": "۲۲",
+  "source": "literature, verified at source: P9 Table 2",
+  "note": ""
+ },
+ "lit.p9.discrepant_standard": {
+  "value": 34.0,
+  "fa": "۳۴",
+  "source": "literature, verified at source: P9 Table 2",
+  "note": ""
+ },
+ "lit.p10.studies": {
+  "value": 38.0,
+  "fa": "۳۸",
+  "source": "literature, verified at source: P10 results",
+  "note": ""
+ },
+ "lit.p10.external_validated": {
+  "value": 12.0,
+  "fa": "۱۲",
+  "source": "literature, verified at source: P10 results",
+  "note": ""
+ },
+ "lit.p10.external_pct": {
+  "value": 32.0,
+  "fa": "۳۲",
+  "source": "literature, verified at source: P10 results",
+  "note": ""
+ },
+ "lit.p10.missing_data": {
+  "value": 4.0,
+  "fa": "۴",
+  "source": "literature, verified at source: P10 TRIPOD",
+  "note": ""
+ },
+ "lit.p10.missing_data_pct": {
+  "value": 11.0,
+  "fa": "۱۱",
+  "source": "literature, verified at source: P10 TRIPOD",
+  "note": ""
+ },
+ "lit.p11.pooled_sensitivity": {
+  "value": 0.95,
+  "fa": "۰٫۹۵",
+  "source": "literature, verified at source: P11 meta-analysis",
+  "note": ""
+ },
+ "lit.p11.fn_derived_sensitivity": {
+  "value": 0.06,
+  "fa": "۰٫۰۶",
+  "source": "literature, verified at source: P11, 676/(676+9969)",
+  "note": ""
+ },
+ "lit.p12.specificity_low": {
+  "value": 14.25,
+  "fa": "۱۴٫۲۵",
+  "source": "literature, verified at source: P12 Table",
+  "note": ""
+ },
+ "lit.p12.specificity_high": {
+  "value": 96.01,
+  "fa": "۹۶٫۰۱",
+  "source": "literature, verified at source: P12 Table",
+  "note": ""
+ },
+ "lit.p12.kappa_before": {
+  "value": 0.65,
+  "fa": "۰٫۶۵",
+  "source": "literature, verified at source: P12",
+  "note": ""
+ },
+ "lit.p12.kappa_after": {
+  "value": 0.72,
+  "fa": "۰٫۷۲",
+  "source": "literature, verified at source: P12",
+  "note": ""
+ },
+ "lit.p12.dme_sensitivity": {
+  "value": 26.5,
+  "fa": "۲۶٫۵",
+  "source": "literature, verified at source: P12",
+  "note": ""
+ },
+ "lit.p12.dme_kappa": {
+  "value": 0.38,
+  "fa": "۰٫۳۸",
+  "source": "literature, verified at source: P12",
+  "note": ""
+ },
+ "lit.p12.dr_kappa": {
+  "value": 0.81,
+  "fa": "۰٫۸۱",
+  "source": "literature, verified at source: P12",
+  "note": ""
+ },
+ "f11.reversed_decimals": {
+  "value": 8.0,
+  "fa": "۸",
+  "source": "FINDINGS.md F11 -- decimals written with the groups swapped",
+  "note": ""
+ },
+ "f11.floor_written": {
+  "value": 69.6,
+  "fa": "۶۹٫۶",
+  "source": "FINDINGS.md F11 -- the gated DME floor as first written",
+  "note": ""
+ },
+ "f11.parta_written": {
+  "value": 96.6,
+  "fa": "۹۶٫۶",
+  "source": "FINDINGS.md F11 -- Part A exact match as first written",
+  "note": ""
+ },
+ "f11.overlay_written_lo": {
+  "value": 0.78,
+  "fa": "۰٫۷۸",
+  "source": "FINDINGS.md F11 -- unreproducible overlay figure, low",
+  "note": ""
+ },
+ "f11.overlay_written_hi": {
+  "value": 0.96,
+  "fa": "۰٫۹۶",
+  "source": "FINDINGS.md F11 -- unreproducible overlay figure, high",
+  "note": ""
+ },
  "const.retfound_pretrain_images_m": {
   "value": 1.6,
   "fa": "۱٫۶",

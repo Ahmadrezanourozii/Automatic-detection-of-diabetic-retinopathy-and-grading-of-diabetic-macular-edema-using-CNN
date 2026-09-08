@@ -151,32 +151,53 @@ report the IDRiD-only result alongside the pooled one.
 **D01 — the tiny-batch diagnostic (CPU, no quota).** Partially reported; suspects 2 and 3
 still running. See "the LP-FT re-ranking" below.
 
-## Next three planned experiments, and why
+## ⛔ No further training experiments — the modelling phase is CLOSED, 2026-09-08
 
-**Re-ranked 2026-08-31 on evidence.** LP-FT was priority 1 because it promised to lift the
-floor under every number; D01 withdrew that promise. I07 moved the other way — the gate
-widened it from 516 to 2 260 images. Ordering follows current expected value, not yesterday's.
+**By the owner's decision, the only remaining priority is the thesis itself.** No new training
+run is launched before the full document is delivered. The queue below is what was *decided*,
+not what was left undone, and each entry carries its reason.
 
-| # | experiment | est. | hypothesis / falsifying outcome |
-|---|---|---|---|
-| 1 | **I07 — macula-pooled DME head**, at 2 260 images | ~2 h | GAP dilutes the decisive region ~16× — 1 DD is ~55 px in a 448 px image. Pooling the DME head's features at the fovea should move DME QWK. **Falsified if** DME QWK moves less than its ±0.03 interval, meaning the DME ceiling is data, not architecture — **a real possibility given the standing negative result, named in advance.** Three binding conditions in `IDEAS.md` I07: the transfer caveat travels with every number; the IDRiD-only 516 result is reported alongside the 2 260 one; §4.1 matched calibration before any per-class attribution. |
-| 1b | **I21 — LP-FT**, as an independent question | ~3 h | Part one only: `src/train.py` has no linear-probe phase and trains the backbone from step 0 at 1e-4. **Part two withdrawn on D01 evidence** — the floor-lift argument is dead. Expected value **uncertain, not likely**. **Falsified if** it does not beat current at matched calibration. |
-| 2 | **T1 — deliberate referral threshold** | 0 h GPU | The 99.53 % sensitivity came from an unchosen `sigmoid > 0.5`. Choose the target **first**, justify it against screening practice, fit cross-fitted on the development pool (**never** APTOS), report the achieved sensitivity, the specificity cost, and the **transfer gap** — which F3 predicts will be non-zero and is itself a result. **Falsified if** no threshold transfers within a useful band, in which case the recommendation becomes "recalibrate locally" with F4's 200-image figure attached. |
-| 3 | **I20 — native-resolution test** | ~4 h | Gated on I19, which **passed in aggregate only**. Must report aggregate QWK as attributable to resolution and **per-class results explicitly under the source caveat** (see `IDEAS.md` I20). |
+### The backbone line is closed. Swin is not run
 
-Then: E11 folds 3–4 (running as E19E11B), multi-seed ensemble (~6 h), and **re-implementing
-the two literature baselines on our split (~4 h)**. That last item is now **the single most
-important thing in the queue for interpreting our own numbers**: with no internal baseline of
-any kind, a fair like-for-like comparison on our exact split is the *only* thing that will
-say whether DR QWK 0.865 is good.
+**Decision, 2026-09-08.** The selected model sits at DR QWK **0.8954**. The control every
+backbone experiment is measured against, E08, sits at **0.8646**. `ConvNeXt-tiny` came in at
+**0.8267** — significantly below E08 — and even its converged fold was nominally below it. For a
+Swin arm to change anything it would have to clear 0.8954, i.e. beat E08 by more than 0.03 in a
+line where the one completed candidate lost to E08 by 0.036. **No outcome available in this line
+reaches the headline**, so ~10 h of quota would buy a table row rather than a finding.
 
-**Budget:** 30 h/week, not rolling over — about 360 h over three months. No single run over
-~10 h. Checkpoint every epoch. Deferring work on cost grounds was a mistake made three times
-and has been corrected.
+This is the same argument that stopped ConvNeXt after two folds, applied one step earlier. Full
+reasoning in `IDEAS.md` under I05.
+
+**What the line did produce, and it is enough:** one confirmed result (EfficientNet-B3 over
+DenseNet121, **+0.0207 [+0.0105, +0.0320]**) and one significant negative. Together they fix the
+shape of the effect — **architecture moves this task by hundredths of a QWK point, in both
+directions, and is not where the remaining headroom is.**
+
+### The ConvNeXt schedule extension is not spent, and the caveat is therefore live
+
+`ConvNeXt`'s fold 1 took its best epoch at 39/40 and was still improving; fold 0 plateaued at
+23/40. Resolving that would cost ~13.6 h across two kernels. **Not spent, deliberately.** The
+consequence is that the results chapter must state — and does — that the negative is partly
+conditioned on a 40-epoch schedule, that it rests on two of five folds, and that the compute was
+declined because no outcome in this line reaches the champion. **An explicitly conditioned
+negative is stronger than a smoothed one.**
+
+### Also decided against, with reasons already recorded
+
+| | why not |
+|---|---|
+| ConvNeXt folds 2–4 (~9 h) | already significantly negative on 40 % of the data (`IDEAS.md` I05) |
+| I15 auxiliary exudate head | 81 masks are 3.6 % of the pool against a ±0.03 interval (`IDEAS.md` I15) |
+| I16 component 2, single-output CNN | worth one run, but after the thesis, not before |
+| SUSTech-SYSU derivation | closed by **F10** — the DME grade is not recoverable from published annotations |
+
+**Quota position:** both accounts are available and neither is being spent. That is the intended
+state until the thesis gate.
 
 ---
 
-## The six findings (`FINDINGS.md`)
+## The findings (`FINDINGS.md`) — now eleven, F1–F11
 
 * **F1** — the external Mild collapse is **calibration, not capacity**, and QWK conceals it.
   Mild recall 5–6 % on APTOS vs 36–45 % internally; recalibration alone recovers it to 77.8 %.

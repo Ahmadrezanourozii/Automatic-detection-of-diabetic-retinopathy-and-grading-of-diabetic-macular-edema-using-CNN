@@ -210,6 +210,83 @@ def main():
         led.add("crosswalk.diff_max", c["max_mean_abs_diff"], cwp, 2)
         led.add("crosswalk.n_informative", c["n_informative"], cwp, 0)
 
+    # ---- epoch wall-clock, read out of the training logs rather than remembered. The
+    # ConvNeXt decision in chapter 4 is priced in these seconds, so they are archived like any
+    # other quoted number instead of being typed from a session that is gone (FINDINGS.md F11).
+    import glob as _glob, re as _re
+    for tag, run in (("convnext", "E21CNXA"), ("densenet", "E08")):
+        secs = []
+        for lg in _glob.glob(f"runs/{run}/train*.log"):
+            secs += [int(m) for m in _re.findall(r"score\s+[\d.]+\s+(\d+)s", open(lg).read())]
+        if secs:
+            secs.sort()
+            led.add(f"epoch_seconds.{tag}", secs[len(secs) // 2],
+                    f"runs/{run}/train*.log ({len(secs)} epochs, median)", 0)
+
+    # ---- numbers quoted FROM THE LITERATURE. Each was read against the source and is
+    # recorded in results/VERIFICATION-*.md; the key names the paper so a reader of the thesis
+    # can go from a numeral in the prose to the paper and the check in two steps. Nothing goes
+    # in here that was not confirmed at source -- an unverified figure is not citable at all,
+    # so it must not be renderable either.
+    LIT = [
+        # key, value, decimals, percent, source
+        ("lit.p1.underestimate_default", 84.7, 1, True, "P1 Table 12"),
+        ("lit.p1.underestimate_calibrated", 49.7, 1, True, "P1 Table 12"),
+        ("lit.p1.grade1_predicted", 712.7, 1, False, "P1 Table 12"),
+        ("lit.p1.grade1_true", 270, 0, False, "P1 Table 12"),
+        ("lit.p1.grade1_precision", 0.193, 3, False, "P1 Table 11"),
+        ("lit.p1.ece_internal", 0.049, 3, False, "P1 Fig. 2"),
+        ("lit.p1.ece_external", 0.160, 3, False, "P1 Fig. 2"),
+        ("lit.p1.qwk_external", 0.6423, 4, False, "P1 Table 6"),
+        ("lit.p3.aptos_frozen", 0.93, 2, False, "P3 results"),
+        ("lit.p3.aptos_finetuned", 0.94, 2, False, "P3 results"),
+        ("lit.p3.odir_frozen", 0.78, 2, False, "P3 results"),
+        ("lit.p3.odir_finetuned", 0.80, 2, False, "P3 results"),
+        ("lit.p3.head_params", 5125, 0, False, "P3 methods"),
+        ("lit.p3.retfound_params_m", 303.3, 1, False, "P3 methods"),
+        ("lit.p5.accuracy_aptos", 87.98, 2, True, "P5 abstract"),
+        ("lit.p5.qwk_aptos", 0.9370, 4, False, "P5 abstract"),
+        ("lit.p5.auc_mild", 0.84, 2, False, "P5 §4.8"),
+        ("lit.p6.resnet_accuracy", 0.823, 3, False, "P6 Table 3"),
+        ("lit.p6.retfound_accuracy", 0.822, 3, False, "P6 Table 3"),
+        ("lit.p6.oct_images", 2938, 0, False, "P6 methods"),
+        ("lit.p6.dme_middle", 280, 0, False, "P6 Table 2"),
+        ("lit.p6.dme_middle_pct", 100 * 280 / 2938, 1, True, "P6 Table 2, derived"),
+        ("lit.p7.fda_devices", 3, 0, False, "P7 challenges"),
+        ("lit.p7.retfound_pretrain_m", 1.6, 1, False, "P7 foundation models"),
+        ("lit.p9.eyes", 320, 0, False, "P9 abstract"),
+        ("lit.p9.patients", 160, 0, False, "P9 abstract"),
+        ("lit.p9.kappa_clinical", 0.86, 2, False, "P9 Table 4"),
+        ("lit.p9.kappa_standard", 0.78, 2, False, "P9 Table 4"),
+        ("lit.p9.discrepant_clinical", 22, 0, False, "P9 Table 2"),
+        ("lit.p9.discrepant_standard", 34, 0, False, "P9 Table 2"),
+        ("lit.p10.studies", 38, 0, False, "P10 results"),
+        ("lit.p10.external_validated", 12, 0, False, "P10 results"),
+        ("lit.p10.external_pct", 32, 0, True, "P10 results"),
+        ("lit.p10.missing_data", 4, 0, False, "P10 TRIPOD"),
+        ("lit.p10.missing_data_pct", 11, 0, True, "P10 TRIPOD"),
+        ("lit.p11.pooled_sensitivity", 0.95, 2, False, "P11 meta-analysis"),
+        ("lit.p11.fn_derived_sensitivity", 0.06, 2, False, "P11, 676/(676+9969)"),
+        ("lit.p12.specificity_low", 14.25, 2, True, "P12 Table"),
+        ("lit.p12.specificity_high", 96.01, 2, True, "P12 Table"),
+        ("lit.p12.kappa_before", 0.65, 2, False, "P12"),
+        ("lit.p12.kappa_after", 0.72, 2, False, "P12"),
+        ("lit.p12.dme_sensitivity", 26.5, 1, True, "P12"),
+        ("lit.p12.dme_kappa", 0.38, 2, False, "P12"),
+        ("lit.p12.dr_kappa", 0.81, 2, False, "P12"),
+    ]
+    for key, val, dec, pct, src_ in LIT:
+        led.add(key, val, f"literature, verified at source: {src_}", dec, pct)
+
+    # ---- our own provenance failure, F11: the numbers the thesis quotes about itself
+    for key, val, dec, pct, why in (
+            ("f11.reversed_decimals", 8, 0, False, "decimals written with the groups swapped"),
+            ("f11.floor_written", 69.6, 1, True, "the gated DME floor as first written"),
+            ("f11.parta_written", 96.6, 1, True, "Part A exact match as first written"),
+            ("f11.overlay_written_lo", 0.78, 2, False, "unreproducible overlay figure, low"),
+            ("f11.overlay_written_hi", 0.96, 2, False, "unreproducible overlay figure, high")):
+        led.add(key, val, f"FINDINGS.md F11 -- {why}", dec, pct)
+
     # ---- method constants: values chosen rather than measured. They are in the ledger so a
     # chapter cannot introduce a number from nowhere, and each carries what it is.
     led.add("const.retfound_pretrain_images_m", 1.6,

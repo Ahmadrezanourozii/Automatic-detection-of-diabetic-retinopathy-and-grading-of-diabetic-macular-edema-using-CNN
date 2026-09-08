@@ -69,6 +69,11 @@ def check_numbers(path, ledger):
         if "/" in tok:
             bad_sep.append(tok)
         elif FA_DEC in tok or int(tok.translate(TO_LATIN)) >= 100:
+            # سال‌ها اندازه‌گیری نیستند و در دفتر اعداد جایی ندارند. این استثنا باریک است:
+            # تنها عدد صحیح چهاررقمی در بازهٔ ۱۹۰۰ تا ۲۱۰۰. هر شمارشی که در همین بازه بیفتد
+            # باید صریحاً در دفتر ثبت شود، وگرنه از این استثنا عبور می‌کند.
+            if FA_DEC not in tok and 1900 <= int(tok.translate(TO_LATIN)) <= 2100:
+                continue
             if tok not in allowed:
                 unknown.append(tok)
     return bad_sep, unknown
@@ -87,6 +92,10 @@ def strip_noise(text: str) -> str:
     body = re.sub(r"\\begin\{tabular\}.*?\\end\{tabular\}", "", body, flags=re.S)
     body = re.sub(r"\\begin\{(table|figure)\}.*?\\end\{(table|figure)\}", "", body, flags=re.S)
     body = re.sub(r"\\(section|subsection|subsubsection|caption)\{[^}]*\}", "", body)
+    # \wrongnum{...} است برای عددی که متن *عمداً* به شکل غلط نقل می‌کند — مثل «۵/۰» در
+    # بخش شکست تبار دادهٔ خودمان. استثنا باید در خودِ متن دیده شود، نه در قاعدهٔ آزمون؛
+    # وگرنه همان «آزمونی که موفقیت گزارش می‌کند بی‌آن‌که چیزی را بررسی کند» می‌شود.
+    body = re.sub(r"\\wrongnum\{[^}]*\}", "", body)
     return body
 
 

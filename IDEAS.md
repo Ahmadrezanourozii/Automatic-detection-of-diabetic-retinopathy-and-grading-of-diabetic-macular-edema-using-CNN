@@ -448,6 +448,43 @@ DME the shipped cut-points say ConvNeXt is worse by −0.0368; matched cut-point
 better by +0.0149. Same predictions, opposite sign, and both intervals cross zero. The
 honest reading of DME here is *indistinguishable*, which is what the matched row reports.
 
+### I05 — the backbone line is **CLOSED by decision, 2026-09-08.** Swin is not run
+
+**This is a decision, not an omission.** It is recorded here so that a reader who asks "why is
+there no Swin arm?" gets an argument rather than a silence.
+
+**The decision.** No further backbone is trained. `Swin` was the last untried candidate and is
+not launched.
+
+**The reason, in one line: no outcome available in this line reaches the headline.** The
+selected model sits at DR QWK **0.8954**. The cheap control every backbone experiment is run
+against, E08, sits at **0.8646** — already 0.031 below it. `ConvNeXt-tiny` came in at **0.8267**,
+significantly below E08, and its *converged* fold was still nominally below E08. For a Swin arm
+to change the thesis it would have to clear 0.8954, which means beating E08 by more than 0.03 in
+a line where the one completed candidate lost to E08 by 0.036.
+
+**Why this is the same argument that closed ConvNeXt, and not a new one.** ConvNeXt's remaining
+three folds were not run because ~9 h of quota would sharpen a negative that was already
+negative on 40 % of the data. Swin is the same trade one step earlier: ~10 h of quota for a
+result whose *best plausible* outcome is "another backbone, indistinguishable from E08, still
+below the champion." Spending it would buy a table row, not a finding.
+
+**What the thesis says instead, and it is stronger.** The backbone line produced one confirmed
+result — EfficientNet-B3 over DenseNet121, **+0.0207 [+0.0105, +0.0320]** — and one significant
+negative. That is enough to state the shape of the effect: **architecture moves this task by a
+few hundredths of a QWK point, in both directions, and is not where the remaining headroom is.**
+An exhaustive backbone table would say the same thing at four times the cost, and this thesis's
+argument was never that the best architecture wins.
+
+**What would reopen it.** A backbone that changes something other than the architecture — a
+different input resolution regime, a different pretraining corpus, a different adaptation
+protocol. `PROTOCOL.md` §4.2: swapping the backbone alone has now been measured twice and the
+answer is small in both directions. Swapping it *again* tests nothing new.
+
+**Cost not spent:** ~10 h for Swin, plus the ~13.6 h ConvNeXt schedule-extension that would have
+resolved the fold-1 truncation caveat. **Both declined deliberately**, and the ConvNeXt caveat is
+therefore stated in the results chapter as a live limitation rather than resolved.
+
 ### I15 — auxiliary exudate segmentation head — **SKIPPED, and the reason is the point**
 
 The owner's condition was: run it only if a falsifying outcome exists that **81 masks could
