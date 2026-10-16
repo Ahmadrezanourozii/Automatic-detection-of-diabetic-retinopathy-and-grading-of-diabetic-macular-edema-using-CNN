@@ -254,7 +254,7 @@ print("split", SPLIT, "fingerprint", m["fingerprint"], "images", m["n_images"],
         # its kernel wrote them to (e.g. .../E11/best_0.pt), never by path position, because
         # Kaggle's mount layout for kernel sources has changed under us before (ISSUES.md
         # §15). A fold index that two sources both supply is refused rather than overwritten.
-        spec = {{}}
+        spec = {}
         for item in external_multi.split(";"):
             name, srcs = item.split("=")
             spec[name.strip()] = [x.strip() for x in srcs.split("+") if x.strip()]
