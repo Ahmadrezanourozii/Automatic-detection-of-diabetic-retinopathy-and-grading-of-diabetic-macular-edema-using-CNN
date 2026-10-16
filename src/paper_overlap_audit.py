@@ -83,7 +83,13 @@ def main():
 
     def record(tag, pairs, ua, ub):
         cap = None if len(pairs) <= 5000 else 50       # small sets are archived in full
-        report["pairs"][tag] = {"n_pairs": len(pairs),
+        # the 16-bit threshold was calibrated on development images; on corpora with many
+        # low-information images it admits distinct photographs, so every pair at
+        # re-encoding distance (<= 8 bits) is archived in full, with the histogram
+        hist = np.bincount([d for _, _, d in pairs], minlength=THRESH + 1).tolist()
+        report["pairs"][tag] = {"n_pairs": len(pairs), "hist": hist,
+                                "n_le8": int(sum(hist[:9])),
+                                "le8": [[ua[i], ub[j], d] for i, j, d in pairs if d <= 8],
                                 "examples": [[ua[i], ub[j], d] for i, j, d in pairs[:cap]]}
         print(f"[audit] {tag:22s} {len(pairs):6d} pairs", flush=True)
 
