@@ -40,7 +40,11 @@ REGISTRY = {
     "S2E08": ("ordinal", ["S2E08"], {"APTOS": "S2E08", "DDR": "S2E08"}, "E08, seed 2"),
     "S3E08": ("ordinal", ["S3E08"], {"APTOS": "S3E08", "DDR": "S3E08"}, "E08, seed 3"),
     "S4E08": ("ordinal", ["S4E08"], {"APTOS": "S4E08", "DDR": "S4E08"}, "E08, seed 4"),
-    "I24FULL": ("ordinal", ["I24FT01", "I24FT234"], {"APTOS": "I24FULL", "DDR": "I24FULL"},
+    # folds 0-1 were scored inside X2DDR, folds 2-4 inside I24FT234; a list of external dirs
+    # is combined as the fold-count-weighted mean of their logit means, which equals the mean
+    # over all five fold models because eval_external averages logits linearly
+    "I24FULL": ("ordinal", ["I24FT01", "I24FT234"],
+                {"APTOS": ["I24FT01", "I24FT234"], "DDR": ["I24FT01", "I24FT234"]},
                 "RETFound ViT-L/16 LP-FT 224px, folds 0-1 + 2-4"),
 }
 # DDR re-scoring of every archived model happened in one kernel (X2DDR), which writes each
@@ -92,6 +96,22 @@ def collect_oof(roots, run_dirs):
 
 
 def collect_external(roots, run_dir, corpus):
+    if isinstance(run_dir, (list, tuple)):
+        parts = []
+        for rd in run_dir:
+            e, f = collect_external(roots, rd, corpus)
+            if e is None:
+                return None, None
+            meta = os.path.join(os.path.dirname(f), f"external_{corpus.lower()}.json")
+            n = json.load(open(meta))["n_folds_ensembled"]
+            parts.append((e, f, n))
+        e0 = parts[0][0]
+        for e, f, _ in parts[1:]:
+            assert (e["uids"] == e0["uids"]).all() and (e["y_dr"] == e0["y_dr"]).all(), f
+        w = np.array([n for *_, n in parts], dtype=np.float64)
+        dr = sum(wi * e["dr_logits"].astype(np.float64) for wi, (e, _, _) in zip(w, parts)) / w.sum()
+        return {"uids": e0["uids"], "y_dr": e0["y_dr"], "dr_logits": dr.astype(np.float32)}, \
+            "+".join(f"{f} (x{n})" for _, f, n in parts)
     pats = [f"external_{corpus.lower()}_predictions.npz"]
     for d in find_dirs(roots, run_dir):
         for p in pats:
@@ -135,7 +155,7 @@ def main():
                 continue
             os.makedirs(dst, exist_ok=True)
             np.savez_compressed(os.path.join(dst, f"external_{corpus.lower()}.npz"), **e)
-            entry["external"][corpus] = {"source_run": rd, "n": int(len(e["uids"]))}
+            entry["external"][corpus] = {"source_run": rd, "source": f, "n": int(len(e["uids"]))}
         registry[model] = entry
         print(f"{model:9s} oof={entry.get('oof_n')} folds={entry.get('oof_folds')} "
               f"external={ {k: v['n'] for k, v in entry['external'].items()} }")
