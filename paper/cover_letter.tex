@@ -17,25 +17,29 @@ College of Engineering, University of Tehran\\Tehran, Iran\\{}[email]}
 \begin{letter}{The Editors\\npj Digital Medicine}
 \opening{Dear Editors,}
 
-We submit the Article ``Decision rules rather than representations drive external failures of
-diabetic retinopathy grading models'' for consideration in \emph{npj Digital Medicine}.
+We submit the Article ``Separating decision rule failures from representation failures in external
+validation of diabetic retinopathy grading'' for consideration in \emph{npj Digital Medicine}.
 
 When a diabetic retinopathy grading model fails on a new population, the field attributes the
 failure to the learned representation and responds by changing the model: a larger backbone, a
-foundation encoder, a new ordinal loss. We show that a large part of what is reported as model
-failure, and as model difference, is instead produced by the decision rule that turns the
-model's ordinal outputs into a grade. Across development models, five training seeds, two
-external populations (APTOS 2019 and DDR) and the reverse direction of transfer, the mild
-grade collapses under the shipped rule and is restored by refitting four cut-points alone,
-without retraining. Development-fitted thresholds overshoot their target on new populations,
-and agreement statistics cannot see the referral operating point. Reanalysing the released
-predictions of a published ordinal model reproduces its result and the same pattern. Of nine
-pre-registered interventions on the model, \pn{iv.nfalsified} were falsified at matched
-calibration, including a retinal foundation model.
+foundation encoder, a new ordinal loss. We separate that contribution from the decision rule that
+turns a model's ordinal outputs into a grade. Across ten development models, two external
+populations (APTOS 2019 and DDR), five training seeds and the reverse direction of transfer, the
+ranking of images by severity transferred while the mapping from score to grade did not: the
+same models over-graded one population and under-graded the other, so a referral threshold
+fitted for 85\% sensitivity reached \pn{aptos.tr.e08.B.sens}\% and \pn{ddr.tr.e08.B.sens}\%.
+Refitting four cut-points alone restored the mild grade on APTOS and raised referral sensitivity
+in the reverse direction from \pn{rev.m2.R1.sens}\% to \pn{rev.m2.R4.sens}\%; where the ranking
+itself failed, recalibration could not help. We report with equal weight that two of our own
+pre-registered predictions were falsified: the mild-grade collapse did not generalise beyond
+APTOS, and models differed more than deployable rules. Reanalysing the released predictions of a
+published ordinal model reproduces its result and shows the same rule dependence, and
+\pn{iv.nfalsified} of \pn{iv.n} pre-registered interventions on the representation, including a
+retinal foundation model, were falsified at matched calibration.
 
 We think the work suits \emph{npj Digital Medicine} for three reasons. First, its message is
 practical for deployment: before a grading model is replaced, its decision rule should be
-recalibrated and evaluated, and we quantify how many locally labelled images that requires and
+recalibrated and evaluated against its full operating curve, and we quantify how many locally labelled images that requires and
 how often it does harm. Second, it corrects how model comparisons are reported: we propose
 \emph{matched calibration} as a reporting rule and document its record, including a case in
 which our own earlier archived result did not survive regeneration from per-image predictions.

@@ -1,14 +1,17 @@
-\abstract{Deep learning models that grade diabetic retinopathy lose performance on new
-populations, and the losses are usually attributed to what the network has learned. We tested
-whether the ordinal decision rule, not the representation, is responsible, in a pre-registered
-study of models trained on \pn{n.dev} images and evaluated on three external directions
-(APTOS, DDR, and APTOS to Messidor-2). Moving cut-points alone, without retraining, raised
-external mild-retinopathy recall from \pn{aptos.R1.mild.min}--\pn{aptos.R1.mild.max}\% to
-\pn{aptos.R4m.mild.min}--\pn{aptos.R4m.mild.max}\% on APTOS. Quadratic weighted kappa varied by
-less than 0.01 across operating points spanning \pn{aptos.band.e11full.sens.lo}--\pn{aptos.band.e11full.sens.hi}\%
-referral sensitivity. Models differing only by random seed produced spurious per-grade
-differences, and refitting a published model family's cut-points erased its reported fusion
-gain. Development-fitted thresholds did not transfer, while about 200 local labels sufficed to
-recalibrate with \pn{recal.200.harm}\% risk of harm. Eight of nine interventions on the
-representation failed. Grading models should be compared at matched calibration and
-recalibrated locally.}
+\abstract{Diabetic retinopathy grading models lose performance on new populations, and the
+losses are usually attributed to the learned representation. In a
+pre-registered study of ten development models evaluated on APTOS and DDR, five seed replicates
+and a reverse-direction model, we separated that contribution from the ordinal decision rule
+that converts scores into grades. Discrimination of referable disease transferred (area under
+the curve \pn{aptos.auroc.min}--\pn{aptos.auroc.max}), but the models over-graded APTOS and
+under-graded DDR: a threshold fitted for 85\% development sensitivity reached
+\pn{aptos.tr.e08.B.sens}\% and \pn{ddr.tr.e08.B.sens}\%. Refitting cut-points alone, without
+retraining, restored APTOS mild-grade recall from \pn{aptos.R1.mild.min}--\pn{aptos.R1.mild.max}\%
+to \pn{aptos.R4m.mild.min}--\pn{aptos.R4m.mild.max}\% and raised reverse-direction referral
+sensitivity from \pn{rev.m2.R1.sens}\% to \pn{rev.m2.R4.sens}\%. Contrary to our pre-registered
+predictions, model choice mattered more than development-fitted rules, and the mild-grade
+collapse did not generalise.
+Quadratic weighted kappa varied by under 0.01 across DDR operating points spanning
+\pn{ddr.band.e11full.sens.lo}--\pn{ddr.band.e11full.sens.hi}\% referral sensitivity. External
+evaluations should report operating curves; deployment should include local recalibration.}
+

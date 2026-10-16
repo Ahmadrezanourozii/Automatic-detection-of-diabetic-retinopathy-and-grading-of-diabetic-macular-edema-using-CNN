@@ -19,25 +19,28 @@ performance.}
 \begin{figure}[p]
 \centering
 \includegraphics[width=\textwidth]{figures/fig2_rules.pdf}
-\caption{\textbf{The decision rule moves external mild-grade recall and referral sensitivity
-more than the choice of model.} Each row is one development model (sorted by development QWK
-at matched calibration); markers show the same model's external metric under the four
-decision rules. \textbf{a},\textbf{b}, APTOS 2019; \textbf{c},\textbf{d}, DDR. Mild recall
-under the shipped rule is uniformly low and is restored by external cut-points (R4m) in every
-model, without retraining; development-fitted rules (R2, R3) do not restore it. The spread
-across models under any fixed rule is small compared with the spread across rules within a
-model. Referral sensitivity under R4m falls because mild DR is not a referable grade.}
+\caption{\textbf{External mild-grade recall and referral sensitivity of every pre-registered
+model under every decision rule.} Each row is one development model; markers show the same
+model's external metric under four decision rules. \textbf{a},\textbf{b}, APTOS 2019;
+\textbf{c},\textbf{d}, DDR. On APTOS, mild recall under the shipped rule (R1) is low in every
+model and is restored by cut-points refitted on half of the external labels (R4m, a diagnostic
+that involves no retraining); development-fitted rules (R2, R3) do not restore it. On DDR the
+mild grade is not collapsed and external cut-points recover less. Models differ at a fixed rule
+by more than the deployable rules R1--R3 differ within a model (pre-registered outcome O7,
+falsified). Referral sensitivity under R4m falls because mild DR is not a referable grade.}
 \label{fig:rules}
 \end{figure}
 
 \begin{figure}[p]
 \centering
 \includegraphics[width=0.75\textwidth]{figures/fig3_transfer.pdf}
-\caption{\textbf{Thresholds fitted on development data overshoot on new populations.} A
+\caption{\textbf{Thresholds fitted on development data do not hold their operating point on new
+populations.} A
 referral threshold on $P(\mathrm{grade}\geq2)$ was fitted on the development out-of-fold
 predictions of the reference model to reach each target sensitivity (x-axis), then applied
 unchanged to APTOS and DDR. Points show the achieved external sensitivity with 95\% bootstrap
-intervals; the diagonal is perfect transfer. Targets: 80\%; 85\% (the pre-specified
+intervals; the diagonal is perfect transfer. The same thresholds over-refer on APTOS, where the
+models over-grade, and under-refer on DDR, where they under-grade. Targets: 80\%; 85\% (the pre-specified
 superiority endpoint of the first autonomous pivotal trial); 87.2\% (that trial's achieved
 sensitivity); 95.5\% (a reported pivotal-trial sensitivity).}
 \label{fig:transfer}

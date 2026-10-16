@@ -145,10 +145,10 @@ def fig_frontier():
         ax.plot(sens, [r["kappa"] for r in fr], color=AQUA, lw=1.4, ls="--",
                 label="Cohen's κ (5 grades)")
         ax.set_xlim(70, 100.5)
-        ax.set_ylim(0.5, 1.0)
+        ax.set_ylim(0.3, 1.0)
         ax.set_xlabel("Referable-DR sensitivity (%)")
         ax.set_ylabel("Agreement with reference grade")
-        ax.set_title(f"{c}: agreement vs operating point", loc="left", color=INK)
+        ax.set_title(f"{c}: agreement", loc="left", color=INK, pad=8)
         ax.legend(frameon=False, loc="lower left")
         label_panel(ax, "abcd"[2 * i])
         ax2 = axes[2 * i + 1]
@@ -157,7 +157,7 @@ def fig_frontier():
         ax2.set_xlim(70, 100.5)
         ax2.set_xlabel("Referable-DR sensitivity (%)")
         ax2.set_ylabel("Specificity (%)")
-        ax2.set_title(f"{c}: what the referral cut trades", loc="left", color=INK)
+        ax2.set_title(f"{c}: specificity traded", loc="left", color=INK, pad=8)
         label_panel(ax2, "abcd"[2 * i + 1])
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, "fig4_frontier.pdf"))
@@ -208,7 +208,7 @@ def fig_forest():
     ax.set_xlabel("Δ development DR QWK at matched calibration (intervention − control)")
     ax.grid(axis="y", visible=False)
     if seeds:
-        ax.legend(frameon=False, loc="lower right")
+        ax.legend(frameon=False, loc="lower left")
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, "fig6_forest.pdf"))
     plt.close(fig)

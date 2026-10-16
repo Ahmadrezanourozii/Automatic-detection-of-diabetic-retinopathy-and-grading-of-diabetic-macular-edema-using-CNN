@@ -1,16 +1,18 @@
 \section{Discussion}\label{sec:discussion}
 
-The central finding is that, for ordinal DR grading models, the decision rule is a first-order
-determinant of external performance and of apparent differences between models, and that it
-is almost never reported as a choice. The external collapse of the mild grade, which the
-literature reads as representational blindness to microaneurysms, was reversed in every model
-we trained, on two external corpora, by moving cut-points alone; the same refit closed the gap
-between a published fused model and its branches; and per-grade differences of the size
-attributed to architecture appeared between models that differed only in their random seed.
-What did transfer across populations was the ranking of images by severity: external QWK
-remained high while the mapping from score to grade did not. A reader who sees an external
-failure of a grading model should therefore ask first where its cut-points were set and on
-which population, and only then what it has learned.
+The central finding is that an external failure of an ordinal DR grading model has two
+separable components, and that published evaluations rarely separate them. The ranking of images
+by severity transferred well to both new populations; the mapping from score to grade did not,
+and its error had opposite signs on two populations, so that the same development threshold
+over-referred on one and missed a third of referable disease on the other. Where ranking
+survived, the loss was recoverable by moving cut-points alone: the mild grade on APTOS, which the
+literature reads as representational blindness to microaneurysms, and referral sensitivity in
+the reverse direction. Where ranking degraded, as for the foundation model on DDR, no
+recalibration helped. The analysis is also bounded by what it falsified. The choice among
+decision rules that can be deployed without external labels did not outweigh the choice of
+model, and the mild-grade collapse was specific to APTOS. A reader who sees an external failure
+of a grading model should therefore ask first whether the model still ranks the new population,
+then where its cut-points were set and on which population, and only then what it has learned.
 
 This reframes several recent disagreements. Frozen-encoder benchmarks report that retinal
 foundation models fail on the mild grade externally\cite{poyrazer2026calibration}, while the
@@ -33,8 +35,9 @@ mild grade on Messidor-2, contrary to our own pre-registered prediction; it unde
 instead, and the cost fell on referral: at the shipped rule it referred \pn{rev.m2.R1.sens}\% of
 referable eyes while ranking them with an area under the curve of \pn{rev.m2.auroc}, and
 refitted cut-points restored \pn{rev.m2.R4.sens}\%. Which grade a population shift damages
-therefore depends on the direction of the shift, but in both directions the damage lay in where
-the scores were cut rather than in how the images were ranked. A system validated as safe on
+therefore depends on the population, and the development models under-graded DDR in the same
+way; in each case the damage lay in where the scores were cut rather than in how the images
+were ranked. A system validated as safe on
 its own population can miss more than half of referable disease on another without any change
 in its discriminative ability, and nothing in an agreement statistic would show it.
 
@@ -53,7 +56,7 @@ comparisons should be reported at matched calibration, with the fitting procedur
 because a per-grade verdict can depend on it (Supplementary Note~3). External evaluations
 should report the operating curve and the transfer gap of any development-fitted threshold
 rather than a single sensitivity, since the same threshold landed \pn{aptos.tr.e08.A.gap} points
-above its target on one population. Deployment should include local recalibration of the
+from its target on one population and \pn{ddr.tr.e08.A.gap} on another. Deployment should include local recalibration of the
 cut-points on about 200 labelled images, a procedure whose probability of harm, not only its mean
 benefit, we report, in line with long-standing advice on updating prediction models for new
 settings\cite{janssen2008updating,vergouwe2017updating} and with the sample sizes recommended
@@ -84,8 +87,10 @@ single architecture, and the published-model reanalysis uses one model family; t
 effect should be tested in prospective screening data, where cut-points can be fitted on an
 initial local sample and then frozen.
 
-In summary, external failures and model differences in DR grading are routinely attributed to
-learned representations when the decision rule that converts scores into grades explains much
-of them. Reporting matched-calibration comparisons, full operating curves and the transfer gap of
-any threshold, and recalibrating cut-points locally before deployment, would make published
+In summary, external failures of DR grading models are routinely attributed to learned
+representations, but a substantial part of them, and of the apparent differences between models,
+lies in the decision rule that converts scores into grades, and that part can be diagnosed and
+repaired without retraining. Reporting threshold-free discrimination beside matched-calibration
+comparisons, full operating curves and the transfer gap of any threshold, and recalibrating
+cut-points locally before deployment, would separate the two components and make published
 results comparable with one another and with the clinical decision they are meant to support.

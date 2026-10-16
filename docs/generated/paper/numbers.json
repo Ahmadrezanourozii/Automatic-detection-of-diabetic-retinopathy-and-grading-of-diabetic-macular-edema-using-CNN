@@ -606,6 +606,16 @@
   "value": 0.0797378481703987,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
+ "aptos.devmild.min": {
+  "tex": "26.8",
+  "value": 0.2677966101694915,
+  "source": "docs/generated/paper/phase0_aptos.json"
+ },
+ "aptos.devmild.max": {
+  "tex": "62.0",
+  "value": 0.6203389830508474,
+  "source": "docs/generated/paper/phase0_aptos.json"
+ },
  "aptos.auroc.min": {
   "tex": "0.914",
   "value": 0.9135132837078435,
@@ -1239,6 +1249,16 @@
  "ddr.R4.mean.max": {
   "tex": "+0.01",
   "value": 0.005430442421338445,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.devmild.min": {
+  "tex": "26.8",
+  "value": 0.2677966101694915,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.devmild.max": {
+  "tex": "62.0",
+  "value": 0.6203389830508474,
   "source": "docs/generated/paper/phase0_ddr.json"
  },
  "ddr.auroc.min": {
@@ -3808,6 +3828,21 @@
   "value": "held",
   "source": "docs/generated/paper/interventions.json"
  },
+ "dup.npairs": {
+  "tex": "7",
+  "value": 7,
+  "source": "docs/generated/paper/crossfold_dupes.json"
+ },
+ "dup.nimg": {
+  "tex": "14",
+  "value": 14,
+  "source": "docs/generated/paper/crossfold_dupes.json"
+ },
+ "dup.maxdiff": {
+  "tex": "0.0008",
+  "value": 0.000841537324869468,
+  "source": "docs/generated/paper/crossfold_dupes.json"
+ },
  "grid.effect": {
   "tex": "0.0033",
   "value": 0.0033,
@@ -3974,6 +4009,56 @@
  "dev.i24ft01.shipped": {
   "tex": "0.7281",
   "value": 0.7280971473400695,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.s1e08.matched": {
+  "tex": "0.8685",
+  "value": 0.8685101554580896,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.s1e08.shipped": {
+  "tex": "0.8626",
+  "value": 0.8626019738681971,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.s2e08.matched": {
+  "tex": "0.8714",
+  "value": 0.8713698923402677,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.s2e08.shipped": {
+  "tex": "0.8659",
+  "value": 0.8658905943452656,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.s3e08.matched": {
+  "tex": "0.8764",
+  "value": 0.8764121529261903,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.s3e08.shipped": {
+  "tex": "0.8684",
+  "value": 0.8683569218768358,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.s4e08.matched": {
+  "tex": "0.8692",
+  "value": 0.869178460754534,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.s4e08.shipped": {
+  "tex": "0.8628",
+  "value": 0.8628423001637542,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.i24full.matched": {
+  "tex": "0.7976",
+  "value": 0.7975837459199195,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.i24full.shipped": {
+  "tex": "0.7377",
+  "value": 0.7377433793545946,
   "source": "docs/generated/paper/dev_summary.json"
  }
 }

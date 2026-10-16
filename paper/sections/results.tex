@@ -15,68 +15,81 @@ pipeline was worth \pn{pipeline.worth} QWK over frozen ImageNet features with a 
 head (QWK \pn{probe.imagenet}). These numbers are competitive; the remainder of the paper asks
 what they do and do not measure.
 
-\subsection*{The external collapse of the mild grade is a decision-rule failure}
+\subsection*{Ranking transferred to new populations; the mapping from score to grade did not}
 
-On APTOS every development model shared the same failure. At the shipped rule (R1) the
-\pn{aptos.nmodels} archived models recalled only \pn{aptos.R1.mild.min}--\pn{aptos.R1.mild.max}\%
-of the 370 mild-DR images (Fig.~\ref{fig:rules}a), against \pn{sel.dev.mild}\% of mild images in
-the development pool, while recall of the rarest grade, proliferative DR, held. The failure
-was not a capacity limit. Refitting only the four cut-points on half of the external labels
-and applying them to the other half (R4m, a diagnostic that uses no retraining) restored mild
-recall to \pn{aptos.R4m.mild.min}--\pn{aptos.R4m.mild.max}\% in every model. The same pattern
-held on DDR (R1 \pn{ddr.R1.mild.min}--\pn{ddr.R1.mild.max}\%; R4m
-\pn{ddr.R4m.mild.min}--\pn{ddr.R4m.mild.max}\%; Fig.~\ref{fig:rules}c) and in all five seeds of
-the reference model (APTOS R1 \pn{seeds.aptos.mildR1.lo}--\pn{seeds.aptos.mildR1.hi}\%, R4m
-\pn{seeds.aptos.mildR4m.lo}--\pn{seeds.aptos.mildR4m.hi}\%; pre-registered outcome O3
-\pn{seeds.o3}). The mechanism is visible in the scores: on APTOS the model scored images of
-every grade higher than on the development pool, so a mild image crossed the moderate cut.
-The selected model's mean predicted-minus-true grade was \pn{aptos.sel.R1.mean} on APTOS at R1.
+Across the \pn{aptos.nmodels} pre-registered development models, the referral probability
+$P(\mathrm{grade}\geq2)$ ranked external images almost as well on both corpora: the area under
+the ROC curve was \pn{aptos.auroc.min}--\pn{aptos.auroc.max} on APTOS and
+\pn{ddr.auroc.min}--\pn{ddr.auroc.max} on DDR. Where those scores fell relative to the shipped
+cut-points did not transfer, and it moved in opposite directions on the two populations. Every
+model over-graded APTOS (mean predicted-minus-true grade \pn{aptos.R1.mean.min} to
+\pn{aptos.R1.mean.max}) and under-graded DDR (\pn{ddr.R1.mean.min} to \pn{ddr.R1.mean.max}). At the
+shipped rule (R1) this placed every model at a referable-DR sensitivity of
+\pn{aptos.R1.sens.min}--\pn{aptos.R1.sens.max}\% on APTOS but \pn{ddr.R1.sens.min}--\pn{ddr.R1.sens.max}\%
+on DDR (specificity \pn{ddr.R1.spec.min}--\pn{ddr.R1.spec.max}\%), and cut-points refitted on the
+external labels (R4, two-fold cross-fitted, a diagnostic) raised DDR sensitivity to
+\pn{ddr.R4.sens.min}--\pn{ddr.R4.sens.max}\% without retraining.
 
-In the reverse direction the miscalibration reversed, as pre-registered (O6 \pn{rev.o6}). A
-model trained on APTOS with the same recipe (out-of-fold QWK \pn{rev.dev.qwk}) under-graded
-Messidor-2 (mean predicted-minus-true grade \pn{rev.m2.R1.mean}): of its \pn{rev.m2.nmild} mild
-images, \pn{rev.m2.mild.to0} were called no DR and \pn{rev.m2.mild.to2} moderate. The mild
-grade did not collapse, however: the model recalled \pn{rev.m2.R1.mild}\% of them at the
-shipped rule, so the pre-registered prediction that a fine-tuned CNN would reproduce the
-near-zero mild performance reported for frozen encoders in this setting\cite{poyrazer2026calibration}
-was falsified (O4 \pn{rev.o4}), and so was the prediction that external cut-points would at
-least triple it (\pn{rev.m2.R4m.mild}\%; O5 \pn{rev.o5}). The clinically decisive failure was
-elsewhere. Under-grading moved the referral decision: at the shipped rule the model referred
-only \pn{rev.m2.R1.sens}\% of referable eyes (specificity \pn{rev.m2.R1.spec}\%), although its
-referral probability ranked them well (AUROC \pn{rev.m2.auroc}); cut-points refitted on the
-external labels raised sensitivity to \pn{rev.m2.R4.sens}\% (R4, specificity
-\pn{rev.m2.R4.spec}\%) with the representation untouched. Which grade a population shift
-damages depends on the direction of the shift; that it is the decision rule which fails does
-not.
+A referral threshold fitted on development predictions therefore did not hold its operating
+point (Fig.~\ref{fig:transfer}). Fitted for the 85\% sensitivity of the superiority endpoint of
+the first autonomous pivotal trial\cite{abramoff2018pivotal}, the reference model referred
+\pn{aptos.tr.e08.B.sens}\% of referable patients on APTOS but \pn{ddr.tr.e08.B.sens}\% on DDR
+(pre-registered O8 \pn{ddr.o8}); fitted for 80\%, it reached \pn{aptos.tr.e08.A.sens}\% and
+\pn{ddr.tr.e08.A.sens}\% (gaps \pn{aptos.tr.e08.A.gap} and \pn{ddr.tr.e08.A.gap} points). The
+same threshold sits at different points of the operating curve on different populations; a
+development-fitted operating point is not a property of the model.
 
-\subsection*{Decision rules that can be deployed do not repair it}
+The reverse direction showed the same dissociation. A model trained on APTOS with the same
+recipe (out-of-fold QWK \pn{rev.dev.qwk}) under-graded Messidor-2 (mean predicted-minus-true
+grade \pn{rev.m2.R1.mean}; pre-registered O6 \pn{rev.o6}) and, at its shipped rule, referred only
+\pn{rev.m2.R1.sens}\% of referable eyes (specificity \pn{rev.m2.R1.spec}\%), although it ranked
+them with an area under the curve of \pn{rev.m2.auroc}; refitted cut-points raised sensitivity
+to \pn{rev.m2.R4.sens}\% (specificity \pn{rev.m2.R4.spec}\%). The direction of miscalibration was
+set by the target population, not by the direction of transfer: the development models
+under-graded DDR just as the APTOS model under-graded Messidor-2.
 
-Rules fitted on development data did not transfer. Cut-points chosen to maximise development
-QWK (R2) lowered external QWK for \pn{aptos.r2worse} of the \pn{aptos.nmodels} models on APTOS
-and left mild recall at \pn{aptos.R2.mild.min}--\pn{aptos.R2.mild.max}\%; a referral cut
-fixed to give 90\% development sensitivity (R3) behaved likewise. The pre-registered
-comparison of rule against model (O7) asked whether the choice among these deployable rules
-moves a clinical metric more than the choice among models. For mild recall it did on APTOS
-(median within-model range \pn{aptos.o7.mildrecall.within} points against a between-model range
-of \pn{aptos.o7.mildrecall.between}; O7 \pn{aptos.o7.mildrecall.holds}) and on DDR
-(\pn{ddr.o7.mildrecall.within} against \pn{ddr.o7.mildrecall.between}; \pn{ddr.o7.mildrecall.holds}).
-For referable sensitivity it did not on APTOS, where every model and every deployable rule
-referred more than \pn{aptos.R1.sens.min}\% of referable patients
-(\pn{aptos.o7.refsens.within} against \pn{aptos.o7.refsens.between}), and on DDR it
-\pn{ddr.o7.refsens.holds} (\pn{ddr.o7.refsens.within} against \pn{ddr.o7.refsens.between}).
-The ranking of models was itself rule-dependent: the Spearman correlation between the model
-rankings by external QWK under R1 and under R2 was \pn{aptos.rho.R1vsR2} on APTOS and
-\pn{ddr.rho.R1vsR2} on DDR, and the development ranking predicted the APTOS ranking with
+\subsection*{The mild-grade collapse on APTOS is a decision-rule failure, but it is corpus-specific}
+
+On APTOS every development model lost the mild grade. At the shipped rule the models recalled
+\pn{aptos.R1.mild.min}--\pn{aptos.R1.mild.max}\% of the 370 mild-DR images (Fig.~\ref{fig:rules}a),
+against \pn{aptos.devmild.min}--\pn{aptos.devmild.max}\% of mild images in the development pool
+at the same rule. Refitting only the four cut-points on half
+of the external labels and applying them to the other half (R4m) restored mild recall to
+\pn{aptos.R4m.mild.min}--\pn{aptos.R4m.mild.max}\% in every model, and the same held in all five
+seeds of the reference configuration (R1 \pn{seeds.aptos.mildR1.lo}--\pn{seeds.aptos.mildR1.hi}\%,
+R4m \pn{seeds.aptos.mildR4m.lo}--\pn{seeds.aptos.mildR4m.hi}\%; pre-registered O3 \pn{seeds.o3}).
+Over-grading sent mild images across the moderate cut-point; the representation had separated
+them.
+
+The collapse did not generalise beyond APTOS. On DDR, where the models under-graded, mild
+recall at the shipped rule was \pn{ddr.R1.mild.min}--\pn{ddr.R1.mild.max}\% and external
+cut-points raised it only to \pn{ddr.R4m.mild.min}--\pn{ddr.R4m.mild.max}\% (Fig.~\ref{fig:rules}c).
+In the reverse direction, where a recent benchmark reported a mild-grade F1 of 0.000 for frozen
+encoders\cite{poyrazer2026calibration}, our fine-tuned model recalled \pn{rev.m2.R1.mild}\% of the
+\pn{rev.m2.nmild} mild Messidor-2 images at the shipped rule, errors falling to no DR
+(\pn{rev.m2.mild.to0}) rather than to moderate (\pn{rev.m2.mild.to2}); the pre-registered
+predictions that it would collapse (O4) and that refitted cut-points would at least triple it
+(\pn{rev.m2.R4m.mild}\%; O5) were both falsified. A collapsed grade is thus one possible
+consequence of a misplaced decision rule, not a general property of external DR grading.
+
+\subsection*{Deployable rules did not repair the failures, and models differed more than rules}
+
+Rules fitted on development data did not transfer either. Cut-points chosen to maximise
+development QWK (R2) lowered external QWK for \pn{aptos.r2worse} of the \pn{aptos.nmodels}
+models on APTOS and left mild recall at \pn{aptos.R2.mild.min}--\pn{aptos.R2.mild.max}\%; a referral
+cut fixed to give 90\% development sensitivity (R3) behaved likewise. We had pre-registered the
+prediction (O7) that the choice among these deployable rules would move mild recall and referable
+sensitivity more than the choice among models. It was falsified for both metrics on both corpora:
+on APTOS the median within-model range across R1--R3 was \pn{aptos.o7.mildrecall.within} points
+of mild recall against a between-model range of \pn{aptos.o7.mildrecall.between} at R1, and
+\pn{aptos.o7.refsens.within} against \pn{aptos.o7.refsens.between} points of sensitivity; on DDR
+\pn{ddr.o7.mildrecall.within} against \pn{ddr.o7.mildrecall.between} and \pn{ddr.o7.refsens.within}
+against \pn{ddr.o7.refsens.between}. Models trained on the same data thus differed materially at
+their shipped rules, and no rule fitted without external labels removed the population shift.
+The ranking of models was nonetheless rule-dependent: the Spearman correlation between rankings
+by external QWK at R1 and at the external-label rule R4 was \pn{aptos.rho.R1vsR4} on APTOS and
+\pn{ddr.rho.R1vsR4} on DDR, and the development ranking predicted the APTOS ranking with
 $\rho=$ \pn{aptos.rho.devmatchedvsR1}.
-
-A referral threshold fitted on development predictions overshot its target on new data
-(Fig.~\ref{fig:transfer}). Fitted for 80\% development sensitivity, the reference model
-referred \pn{aptos.tr.e08.A.sens}\% of referable APTOS patients (\pn{aptos.tr.e08.A.gap}
-points) and \pn{ddr.tr.e08.A.sens}\% on DDR (\pn{ddr.tr.e08.A.gap} points); fitted for the
-85\% superiority endpoint of the first autonomous pivotal trial\cite{abramoff2018pivotal}, it
-reached \pn{aptos.tr.e08.B.sens}\% and \pn{ddr.tr.e08.B.sens}\% (pre-registered O8
-\pn{ddr.o8}). The same threshold therefore sits at different points of the operating curve on
-different populations, and no development-fitted operating point is a property of the model.
 
 \subsection*{The grading metric cannot see the referral operating point}
 
@@ -89,7 +102,8 @@ from \pn{aptos.band.e11full.sens.lo}\% to \pn{aptos.band.e11full.sens.hi}\% and 
 \pn{aptos.band.e11full.miss.lo} and \pn{aptos.band.e11full.miss.hi} of
 \pn{aptos.band.e11full.nref} referable patients missed, with QWK unable to tell them apart. On
 DDR the corresponding band spanned \pn{ddr.band.e11full.sens.lo}--\pn{ddr.band.e11full.sens.hi}\%
-sensitivity. Optimising for the grade the metric under-weights carried its own cost: cut-points
+sensitivity, between \pn{ddr.band.e11full.miss.lo} and \pn{ddr.band.e11full.miss.hi} of
+\pn{ddr.band.e11full.nref} referable patients missed. Optimising for the grade the metric under-weights carried its own cost: cut-points
 chosen to maximise macro-averaged recall recovered the mild grade but cut the reference model's
 APTOS referable sensitivity from \pn{aptos.e08.R1.sens}\% to \pn{aptos.e08.R4m.sens}\%, because
 mild DR is not a referable grade. Macro-recall is therefore reported here as a diagnostic and
@@ -165,7 +179,13 @@ carried more DR signal than ImageNet features under an identical linear probe
 (\pn{probe.retfound} versus \pn{probe.imagenet}, \pn{probe.diff} \pn{probe.ci}); fine-tuned with
 linear-probe-then-fine-tune at its native 224 pixels, it fell below a DenseNet121 pretrained on
 EyePACS at the same resolution by \pn{iv.retfound.diff} \pn{iv.retfound.ci} over
-\pn{iv.retfound.folds} folds (pre-registered O9 \pn{retfound.o9}).
+\pn{iv.retfound.folds} folds (pre-registered O9 \pn{retfound.o9}). Externally (a secondary
+analysis, outside the pre-registered model set) its two failures had different causes. On APTOS
+it ranked referable eyes as well as the convolutional models (area under the curve
+\pn{rf.aptos.auroc}) and most of its QWK deficit was the decision rule: \pn{rf.aptos.R1.qwk} at
+its shipped rule against \pn{rf.aptos.R4.qwk} with refitted cut-points. On DDR its ranking itself
+degraded (area under the curve \pn{rf.ddr.auroc}, QWK \pn{rf.ddr.R4.qwk} even with refitted
+cut-points), a representational failure that recalibration cannot repair.
 
 No intervention moved the three-grade DME head. A crop centred on the fovea by a localiser
 validated before use (median error \pn{fovea.median} disc diameters), which encodes the

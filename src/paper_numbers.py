@@ -133,6 +133,9 @@ def phase0(corpus):
         put(f"{c}.{rule}.spec.max", max(spec), p1, src)
         put(f"{c}.{rule}.mean.min", min(mean), lambda v: f"{v:+.2f}".replace("-", "\\textminus{}"), src)
         put(f"{c}.{rule}.mean.max", max(mean), lambda v: f"{v:+.2f}".replace("-", "\\textminus{}"), src)
+    dm = [d["dev"][m]["mild_shipped"] for m in ms]
+    put(f"{c}.devmild.min", min(dm), p1, src)
+    put(f"{c}.devmild.max", max(dm), p1, src)
     au = [rm[m]["_threshold_free"]["ref_auroc"] for m in ms]
     put(f"{c}.auroc.min", min(au), q3, src)
     put(f"{c}.auroc.max", max(au), q3, src)
@@ -374,6 +377,12 @@ def outcomes():
 
 
 def overlap():
+    dsrc = f"{GP}/crossfold_dupes.json"
+    dd = load(dsrc)
+    if dd:
+        put("dup.npairs", dd["n_pairs"], i0, dsrc)
+        put("dup.nimg", dd["n_images"], i0, dsrc)
+        put("dup.maxdiff", dd["max_abs_diff"], q4, dsrc)
     src = f"{GP}/overlap_audit.json"
     d = load(src)
     if not d:
