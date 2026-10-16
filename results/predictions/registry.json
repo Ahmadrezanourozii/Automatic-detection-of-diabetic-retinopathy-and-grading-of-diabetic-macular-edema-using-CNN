@@ -6,6 +6,7 @@
    "E05"
   ],
   "external": {},
+  "reverse": false,
   "oof_folds": [
    0,
    1,
@@ -22,6 +23,7 @@
    "E06"
   ],
   "external": {},
+  "reverse": false,
   "oof_folds": [
    0,
    1,
@@ -40,9 +42,11 @@
   "external": {
    "APTOS": {
     "source_run": "E08X2",
+    "source": "/tmp/claude-0/kout2/dr-dme-e08x2/E08X2/external_aptos_predictions.npz",
     "n": 3662
    }
   },
+  "reverse": false,
   "oof_folds": [
    0,
    1,
@@ -61,9 +65,11 @@
   "external": {
    "APTOS": {
     "source_run": "EXTE09",
+    "source": "/tmp/claude-0/kout2/dr-dme-exte09/EXTE09/external_aptos_predictions.npz",
     "n": 3662
    }
   },
+  "reverse": false,
   "oof_folds": [
    0,
    1,
@@ -82,9 +88,11 @@
   "external": {
    "APTOS": {
     "source_run": "EXTE10",
+    "source": "/tmp/claude-0/kout2/dr-dme-exte10/EXTE10/external_aptos_predictions.npz",
     "n": 3662
    }
   },
+  "reverse": false,
   "oof_folds": [
    0,
    1,
@@ -104,9 +112,11 @@
   "external": {
    "APTOS": {
     "source_run": "EXTE11FULL",
+    "source": "/tmp/claude-0/kout3/dr-dme-exte11full/EXTE11FULL/external_aptos_predictions.npz",
     "n": 3662
    }
   },
+  "reverse": false,
   "oof_folds": [
    0,
    1,
@@ -125,9 +135,11 @@
   "external": {
    "APTOS": {
     "source_run": "EXTE14MAC",
+    "source": "/tmp/claude-0/kout3/dr-dme-exte14mac/EXTE14MAC/external_aptos_predictions.npz",
     "n": 3662
    }
   },
+  "reverse": false,
   "oof_folds": [
    0,
    1,
@@ -146,9 +158,11 @@
   "external": {
    "APTOS": {
     "source_run": "EXTE15LPFT",
+    "source": "/tmp/claude-0/kout3/dr-dme-exte15lpft/EXTE15LPFT/external_aptos_predictions.npz",
     "n": 3662
    }
   },
+  "reverse": false,
   "oof_folds": [
    0,
    1,
@@ -167,9 +181,11 @@
   "external": {
    "APTOS": {
     "source_run": "EXTE17NAT",
+    "source": "/tmp/claude-0/kout3/dr-dme-exte17nat/EXTE17NAT/external_aptos_predictions.npz",
     "n": 3662
    }
   },
+  "reverse": false,
   "oof_folds": [
    0,
    1,
@@ -186,6 +202,7 @@
    "E20CORAL"
   ],
   "external": {},
+  "reverse": false,
   "oof_folds": [
    0,
    1,
@@ -202,6 +219,7 @@
    "E22CORN"
   ],
   "external": {},
+  "reverse": false,
   "oof_folds": [
    0,
    1,
@@ -218,6 +236,7 @@
    "E21CNXA"
   ],
   "external": {},
+  "reverse": false,
   "oof_folds": [
    0,
    1
@@ -231,10 +250,128 @@
    "I24FT01"
   ],
   "external": {},
+  "reverse": false,
   "oof_folds": [
    0,
    1
   ],
   "oof_n": 910
+ },
+ "S1E08": {
+  "head": "ordinal",
+  "note": "E08, seed 1",
+  "oof_sources": [
+   "S1E08"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "S1E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-s1e08/S1E08/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": "S1E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-s1e08/S1E08/external_ddr_predictions.npz",
+    "n": 12522
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "S2E08": {
+  "head": "ordinal",
+  "note": "E08, seed 2",
+  "oof_sources": [
+   "S2E08"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "S2E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-s2e08/S2E08/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": "S2E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-s2e08/S2E08/external_ddr_predictions.npz",
+    "n": 12522
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "S3E08": {
+  "head": "ordinal",
+  "note": "E08, seed 3",
+  "oof_sources": [
+   "S3E08"
+  ],
+  "external": {},
+  "reverse": false
+ },
+ "S4E08": {
+  "head": "ordinal",
+  "note": "E08, seed 4",
+  "oof_sources": [
+   "S4E08"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "S4E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-s4e08/S4E08/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": "S4E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-s4e08/S4E08/external_ddr_predictions.npz",
+    "n": 12522
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "I24FULL": {
+  "head": "ordinal",
+  "note": "RETFound ViT-L/16 LP-FT 224px, folds 0-1 + 2-4",
+  "oof_sources": [
+   "I24FT01",
+   "I24FT234"
+  ],
+  "external": {},
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1
+  ],
+  "oof_n": 910
+ },
+ "R1APTOS": {
+  "head": "ordinal",
+  "note": "E08 recipe trained on APTOS (reverse direction)",
+  "oof_sources": [
+   "R1APTOS"
+  ],
+  "external": {},
+  "reverse": true
  }
 }
