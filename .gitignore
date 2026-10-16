@@ -52,3 +52,8 @@ thesis/*.out
 thesis/*.toc
 thesis/*.lot
 thesis/*.blg
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.blg
+paper/*.bbl
