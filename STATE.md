@@ -9,6 +9,16 @@ edema (DME) from a single retinal fundus photograph.
 → `FINDINGS.md` (what the project learned) → `EXPERIMENTS.md` (what each run did) →
 `ISSUES.md` (23 entries, mostly silent failures) → `IDEAS.md` (backlog with verdicts).
 
+**Journal paper (2026-10-16).** A manuscript for *npj Digital Medicine* is in `paper/`
+(`main.tex`, `supplementary.tex`, `cover_letter.tex`); every number in it is a `\pn{key}` generated
+by `src/paper_numbers.py` from `docs/generated/paper/*.json`, which `src/paper_*.py` compute from
+the per-image predictions in `results/predictions/`. Rebuild: `python src/paper_collect.py
+--search <kernel output dirs>`, then the analysis scripts, `src/paper_numbers.py`,
+`src/paper_figures.py`, `src/paper_tables_tex.py`, `src/paper_supp_tex.py`, then `pdflatex`/`bibtex`
+in `paper/`. Pre-registered journal outcomes and their verdicts:
+`docs/PAPER_EXPERIMENTS_preregistration.md` (O4, O5 and O7 falsified; the paper was reframed
+accordingly). Corrections found while regenerating: `ISSUES.md` §30 (CORN), §31 (E12).
+
 ---
 
 ## Where the project stands
