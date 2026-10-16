@@ -314,11 +314,19 @@ def reverse():
             put(f"rev.{k}.{rule}.mild", b["recall"][1], p1, src)
             put(f"rev.{k}.{rule}.qwk", b["qwk"], q4, src)
             put(f"rev.{k}.{rule}.sens", b["ref_sens"], p1, src)
+            put(f"rev.{k}.{rule}.spec", b["ref_spec"], p1, src)
             put(f"rev.{k}.{rule}.mean", b["mean_pred_minus_true"], "{:+.2f}", src)
             put(f"rev.{k}.{rule}.f1", b.get("mild_f1", float("nan")), q3, src)
     for o in ("o4", "o5", "o6"):
         if o in d:
             put(f"rev.{o}", "held" if d[o] else "was falsified", "{}", src)
+    for c, k in (("Messidor-2", "m2"), ("IDRiD", "idrid")):
+        if c in d:
+            dest = d[c]["mild_destination_R1"]
+            put(f"rev.{k}.nmild", d[c]["n_mild"], i0, src)
+            put(f"rev.{k}.mild.to0", dest[0], i0, src)
+            put(f"rev.{k}.mild.to2", dest[2], i0, src)
+            put(f"rev.{k}.auroc", d[c]["threshold_free"]["ref_auroc"], q3, src)
     if "dev" in d:
         put("rev.dev.qwk", d["dev"]["qwk_matched"], q4, src)
 

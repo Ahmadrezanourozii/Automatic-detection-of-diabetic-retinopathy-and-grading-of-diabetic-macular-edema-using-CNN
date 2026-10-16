@@ -2543,6 +2543,11 @@
   "value": 0.43544857768052514,
   "source": "docs/generated/paper/reverse.json"
  },
+ "rev.m2.R1.spec": {
+  "tex": "99.2",
+  "value": 0.9922299922299922,
+  "source": "docs/generated/paper/reverse.json"
+ },
  "rev.m2.R1.mean": {
   "tex": "\\textminus{}0.26",
   "value": -0.2603211009174312,
@@ -2566,6 +2571,11 @@
  "rev.m2.R4.sens": {
   "tex": "77.9",
   "value": 0.7789934354485777,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.R4.spec": {
+  "tex": "93.8",
+  "value": 0.9378399378399378,
   "source": "docs/generated/paper/reverse.json"
  },
  "rev.m2.R4.mean": {
@@ -2593,6 +2603,11 @@
   "value": 0.8271334792122538,
   "source": "docs/generated/paper/reverse.json"
  },
+ "rev.m2.R4m.spec": {
+  "tex": "91.7",
+  "value": 0.9168609168609169,
+  "source": "docs/generated/paper/reverse.json"
+ },
  "rev.m2.R4m.mean": {
   "tex": "+0.16",
   "value": 0.15940366972477063,
@@ -2616,6 +2631,11 @@
  "rev.idrid.R1.sens": {
   "tex": "81.7",
   "value": 0.8173374613003096,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.R1.spec": {
+  "tex": "96.9",
+  "value": 0.9689119170984456,
   "source": "docs/generated/paper/reverse.json"
  },
  "rev.idrid.R1.mean": {
@@ -2643,6 +2663,11 @@
   "value": 0.8823529411764706,
   "source": "docs/generated/paper/reverse.json"
  },
+ "rev.idrid.R4.spec": {
+  "tex": "92.7",
+  "value": 0.927461139896373,
+  "source": "docs/generated/paper/reverse.json"
+ },
  "rev.idrid.R4.mean": {
   "tex": "\\textminus{}0.04",
   "value": -0.04263565891472868,
@@ -2668,6 +2693,11 @@
   "value": 0.8885448916408669,
   "source": "docs/generated/paper/reverse.json"
  },
+ "rev.idrid.R4m.spec": {
+  "tex": "92.2",
+  "value": 0.9222797927461139,
+  "source": "docs/generated/paper/reverse.json"
+ },
  "rev.idrid.R4m.mean": {
   "tex": "+0.08",
   "value": 0.08139534883720931,
@@ -2691,6 +2721,46 @@
  "rev.o6": {
   "tex": "held",
   "value": "held",
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.nmild": {
+  "tex": "270",
+  "value": 270,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.mild.to0": {
+  "tex": "175",
+  "value": 175,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.mild.to2": {
+  "tex": "2",
+  "value": 2,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.auroc": {
+  "tex": "0.890",
+  "value": 0.889839312158787,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.nmild": {
+  "tex": "25",
+  "value": 25,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.mild.to0": {
+  "tex": "8",
+  "value": 8,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.mild.to2": {
+  "tex": "1",
+  "value": 1,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.auroc": {
+  "tex": "0.959",
+  "value": 0.9588540079244133,
   "source": "docs/generated/paper/reverse.json"
  },
  "rev.dev.qwk": {

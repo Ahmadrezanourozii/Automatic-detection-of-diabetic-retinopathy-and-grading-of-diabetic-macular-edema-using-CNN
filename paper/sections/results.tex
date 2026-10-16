@@ -32,13 +32,22 @@ the reference model (APTOS R1 \pn{seeds.aptos.mildR1.lo}--\pn{seeds.aptos.mildR1
 every grade higher than on the development pool, so a mild image crossed the moderate cut.
 The selected model's mean predicted-minus-true grade was \pn{aptos.sel.R1.mean} on APTOS at R1.
 
-% TODO(after R1APTOS): verify O6 direction before keeping this sentence
-In the reverse direction the miscalibration ran the other way, as pre-registered (O6). A
-model trained on APTOS with the same recipe under-graded Messidor-2 (mean predicted-minus-true
-grade \pn{rev.m2.R1.mean}) and recalled \pn{rev.m2.R1.mild}\% of its 270 mild images at the
-shipped rule (O4 \pn{rev.o4}), the setting in which a recent benchmark reported a grade-1 F1 of
-0.000 for two encoders\cite{poyrazer2026calibration}. External cut-points raised mild recall to
-\pn{rev.m2.R4m.mild}\% (O5 \pn{rev.o5}) with the representation untouched.
+In the reverse direction the miscalibration reversed, as pre-registered (O6 \pn{rev.o6}). A
+model trained on APTOS with the same recipe (out-of-fold QWK \pn{rev.dev.qwk}) under-graded
+Messidor-2 (mean predicted-minus-true grade \pn{rev.m2.R1.mean}): of its \pn{rev.m2.nmild} mild
+images, \pn{rev.m2.mild.to0} were called no DR and \pn{rev.m2.mild.to2} moderate. The mild
+grade did not collapse, however: the model recalled \pn{rev.m2.R1.mild}\% of them at the
+shipped rule, so the pre-registered prediction that a fine-tuned CNN would reproduce the
+near-zero mild performance reported for frozen encoders in this setting\cite{poyrazer2026calibration}
+was falsified (O4 \pn{rev.o4}), and so was the prediction that external cut-points would at
+least triple it (\pn{rev.m2.R4m.mild}\%; O5 \pn{rev.o5}). The clinically decisive failure was
+elsewhere. Under-grading moved the referral decision: at the shipped rule the model referred
+only \pn{rev.m2.R1.sens}\% of referable eyes (specificity \pn{rev.m2.R1.spec}\%), although its
+referral probability ranked them well (AUROC \pn{rev.m2.auroc}); cut-points refitted on the
+external labels raised sensitivity to \pn{rev.m2.R4.sens}\% (R4, specificity
+\pn{rev.m2.R4.spec}\%) with the representation untouched. Which grade a population shift
+damages depends on the direction of the shift; that it is the decision rule which fails does
+not.
 
 \subsection*{Decision rules that can be deployed do not repair it}
 
