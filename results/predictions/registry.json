@@ -44,6 +44,11 @@
     "source_run": "E08X2",
     "source": "/tmp/claude-0/kout2/dr-dme-e08x2/E08X2/external_aptos_predictions.npz",
     "n": 3662
+   },
+   "DDR": {
+    "source_run": "E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E08/external_ddr_predictions.npz",
+    "n": 12522
    }
   },
   "reverse": false,
@@ -67,6 +72,11 @@
     "source_run": "EXTE09",
     "source": "/tmp/claude-0/kout2/dr-dme-exte09/EXTE09/external_aptos_predictions.npz",
     "n": 3662
+   },
+   "DDR": {
+    "source_run": "E09",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E09/external_ddr_predictions.npz",
+    "n": 12522
    }
   },
   "reverse": false,
@@ -90,6 +100,11 @@
     "source_run": "EXTE10",
     "source": "/tmp/claude-0/kout2/dr-dme-exte10/EXTE10/external_aptos_predictions.npz",
     "n": 3662
+   },
+   "DDR": {
+    "source_run": "E10",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E10/external_ddr_predictions.npz",
+    "n": 12522
    }
   },
   "reverse": false,
@@ -114,6 +129,11 @@
     "source_run": "EXTE11FULL",
     "source": "/tmp/claude-0/kout3/dr-dme-exte11full/EXTE11FULL/external_aptos_predictions.npz",
     "n": 3662
+   },
+   "DDR": {
+    "source_run": "E11FULL",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E11FULL/external_ddr_predictions.npz",
+    "n": 12522
    }
   },
   "reverse": false,
@@ -137,6 +157,11 @@
     "source_run": "EXTE14MAC",
     "source": "/tmp/claude-0/kout3/dr-dme-exte14mac/EXTE14MAC/external_aptos_predictions.npz",
     "n": 3662
+   },
+   "DDR": {
+    "source_run": "E14MAC",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E14MAC/external_ddr_predictions.npz",
+    "n": 12522
    }
   },
   "reverse": false,
@@ -160,6 +185,11 @@
     "source_run": "EXTE15LPFT",
     "source": "/tmp/claude-0/kout3/dr-dme-exte15lpft/EXTE15LPFT/external_aptos_predictions.npz",
     "n": 3662
+   },
+   "DDR": {
+    "source_run": "E15LPFT",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E15LPFT/external_ddr_predictions.npz",
+    "n": 12522
    }
   },
   "reverse": false,
@@ -183,6 +213,11 @@
     "source_run": "EXTE17NAT",
     "source": "/tmp/claude-0/kout3/dr-dme-exte17nat/EXTE17NAT/external_aptos_predictions.npz",
     "n": 3662
+   },
+   "DDR": {
+    "source_run": "E17NAT",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E17NAT/external_ddr_predictions.npz",
+    "n": 12522
    }
   },
   "reverse": false,
@@ -201,7 +236,18 @@
   "oof_sources": [
    "E20CORAL"
   ],
-  "external": {},
+  "external": {
+   "DDR": {
+    "source_run": "E20CORAL",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E20CORAL/external_ddr_predictions.npz",
+    "n": 12522
+   },
+   "APTOS": {
+    "source_run": "E20CORAL",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E20CORAL/external_aptos_predictions.npz",
+    "n": 3662
+   }
+  },
   "reverse": false,
   "oof_folds": [
    0,
@@ -218,7 +264,18 @@
   "oof_sources": [
    "E22CORN"
   ],
-  "external": {},
+  "external": {
+   "DDR": {
+    "source_run": "E22CORN",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E22CORN/external_ddr_predictions.npz",
+    "n": 12522
+   },
+   "APTOS": {
+    "source_run": "E22CORN",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E22CORN/external_aptos_predictions.npz",
+    "n": 3662
+   }
+  },
   "reverse": false,
   "oof_folds": [
    0,
@@ -235,7 +292,18 @@
   "oof_sources": [
    "E21CNXA"
   ],
-  "external": {},
+  "external": {
+   "DDR": {
+    "source_run": "E21CNXA",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E21CNXA/external_ddr_predictions.npz",
+    "n": 12522
+   },
+   "APTOS": {
+    "source_run": "E21CNXA",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E21CNXA/external_aptos_predictions.npz",
+    "n": 3662
+   }
+  },
   "reverse": false,
   "oof_folds": [
    0,
@@ -376,7 +444,24 @@
    "I24FT01",
    "I24FT234"
   ],
-  "external": {},
+  "external": {
+   "APTOS": {
+    "source_run": [
+     "I24FT01",
+     "I24FT234"
+    ],
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/I24FT01/external_aptos_predictions.npz (x2)+/tmp/claude-0/kout4/dr-dme-i24ft234/I24FT234/external_aptos_predictions.npz (x3)",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": [
+     "I24FT01",
+     "I24FT234"
+    ],
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/I24FT01/external_ddr_predictions.npz (x2)+/tmp/claude-0/kout4/dr-dme-i24ft234/I24FT234/external_ddr_predictions.npz (x3)",
+    "n": 12522
+   }
+  },
   "reverse": false,
   "oof_folds": [
    0,

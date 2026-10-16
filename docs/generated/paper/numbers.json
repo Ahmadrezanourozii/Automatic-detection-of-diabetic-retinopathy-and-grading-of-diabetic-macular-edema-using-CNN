@@ -412,23 +412,23 @@
   "source": "docs/generated/paper/interventions.json"
  },
  "aptos.nmodels": {
-  "tex": "7",
-  "value": 7,
+  "tex": "10",
+  "value": 10,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.R1.mild.min": {
-  "tex": "4.3",
-  "value": 0.043243243243243246,
+  "tex": "1.6",
+  "value": 0.016216216216216217,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.R1.mild.max": {
-  "tex": "5.9",
-  "value": 0.05945945945945946,
+  "tex": "14.3",
+  "value": 0.14324324324324325,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.R1.sens.min": {
-  "tex": "98.7",
-  "value": 0.9865501008742434,
+  "tex": "98.2",
+  "value": 0.9818426361802286,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.R1.sens.max": {
@@ -437,8 +437,8 @@
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.R1.qwk.min": {
-  "tex": "0.8745",
-  "value": 0.8744944770955189,
+  "tex": "0.8623",
+  "value": 0.8622907304406939,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.R1.qwk.max": {
@@ -467,8 +467,8 @@
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.R2.qwk.min": {
-  "tex": "0.8632",
-  "value": 0.8631809095215005,
+  "tex": "0.8603",
+  "value": 0.8603447740197967,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.R2.qwk.max": {
@@ -512,8 +512,8 @@
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.R4.mild.max": {
-  "tex": "18.1",
-  "value": 0.1810810810810811,
+  "tex": "18.6",
+  "value": 0.1864864864864865,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.R4.sens.min": {
@@ -527,8 +527,8 @@
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.R4.qwk.min": {
-  "tex": "0.8889",
-  "value": 0.8889225965082723,
+  "tex": "0.8868",
+  "value": 0.8868495106650126,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.R4.qwk.max": {
@@ -566,64 +566,119 @@
   "value": 0.8896120006027068,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
+ "aptos.R1.spec.min": {
+  "tex": "83.9",
+  "value": 0.8390804597701149,
+  "source": "docs/generated/paper/phase0_aptos.json"
+ },
+ "aptos.R1.spec.max": {
+  "tex": "85.3",
+  "value": 0.8533333333333334,
+  "source": "docs/generated/paper/phase0_aptos.json"
+ },
+ "aptos.R1.mean.min": {
+  "tex": "+0.14",
+  "value": 0.1444565811032223,
+  "source": "docs/generated/paper/phase0_aptos.json"
+ },
+ "aptos.R1.mean.max": {
+  "tex": "+0.26",
+  "value": 0.2632441288913162,
+  "source": "docs/generated/paper/phase0_aptos.json"
+ },
+ "aptos.R4.spec.min": {
+  "tex": "85.7",
+  "value": 0.856551724137931,
+  "source": "docs/generated/paper/phase0_aptos.json"
+ },
+ "aptos.R4.spec.max": {
+  "tex": "87.1",
+  "value": 0.8708045977011494,
+  "source": "docs/generated/paper/phase0_aptos.json"
+ },
+ "aptos.R4.mean.min": {
+  "tex": "+0.03",
+  "value": 0.03386127799016931,
+  "source": "docs/generated/paper/phase0_aptos.json"
+ },
+ "aptos.R4.mean.max": {
+  "tex": "+0.08",
+  "value": 0.0797378481703987,
+  "source": "docs/generated/paper/phase0_aptos.json"
+ },
+ "aptos.auroc.min": {
+  "tex": "0.914",
+  "value": 0.9135132837078435,
+  "source": "docs/generated/paper/phase0_aptos.json"
+ },
+ "aptos.auroc.max": {
+  "tex": "0.973",
+  "value": 0.9729806986217718,
+  "source": "docs/generated/paper/phase0_aptos.json"
+ },
+ "aptos.o7.nfail": {
+  "tex": "2",
+  "value": 2,
+  "source": "docs/generated/paper/phase0_aptos.json"
+ },
  "aptos.r2worse": {
-  "tex": "6",
-  "value": 6,
+  "tex": "9",
+  "value": 9,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.o7.mildrecall.within": {
-  "tex": "4.3",
-  "value": 0.043243243243243246,
+  "tex": "5.7",
+  "value": 0.05675675675675676,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.o7.mildrecall.between": {
-  "tex": "1.6",
-  "value": 0.016216216216216217,
+  "tex": "12.7",
+  "value": 0.12702702702702703,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.o7.mildrecall.holds": {
-  "tex": "holds",
-  "value": "holds",
+  "tex": "was falsified",
+  "value": "was falsified",
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.o7.refsens.within": {
-  "tex": "0.4",
-  "value": 0.00403496973772699,
+  "tex": "0.9",
+  "value": 0.009078681909885644,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.o7.refsens.between": {
-  "tex": "0.9",
-  "value": 0.008742434431741719,
+  "tex": "1.3",
+  "value": 0.01344989912575656,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.o7.refsens.holds": {
-  "tex": "does not hold",
-  "value": "does not hold",
+  "tex": "was falsified",
+  "value": "was falsified",
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.o7.qwk.within": {
-  "tex": "0.0050",
-  "value": 0.005041894001062142,
+  "tex": "0.0064",
+  "value": 0.006363669253744431,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.o7.qwk.between": {
-  "tex": "0.0281",
-  "value": 0.02814926406914553,
+  "tex": "0.0404",
+  "value": 0.04035301072397046,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.o7.qwk.holds": {
-  "tex": "does not hold",
-  "value": "does not hold",
+  "tex": "was falsified",
+  "value": "was falsified",
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.rho.R1vsR2": {
-  "tex": "0.57",
-  "value": 0.5714285714285715,
+  "tex": "0.70",
+  "value": 0.7,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.rho.R1vsR3": {
-  "tex": "0.57",
-  "value": 0.5714285714285715,
+  "tex": "0.70",
+  "value": 0.7,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.rho.R2vsR3": {
@@ -632,18 +687,18 @@
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.rho.R1vsR4": {
-  "tex": "0.61",
-  "value": 0.6071428571428572,
+  "tex": "0.48",
+  "value": 0.48333333333333334,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.rho.devmatchedvsR1": {
-  "tex": "0.57",
-  "value": 0.5714285714285715,
+  "tex": "0.42",
+  "value": 0.41666666666666663,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.rho.devmatchedvsR4": {
-  "tex": "0.46",
-  "value": 0.4642857142857144,
+  "tex": "0.47",
+  "value": 0.4666666666666666,
   "source": "docs/generated/paper/phase0_aptos.json"
  },
  "aptos.e08.R1.sens": {
@@ -990,6 +1045,636 @@
   "tex": "0.086",
   "value": 0.08576686863511813,
   "source": "docs/generated/paper/phase0_aptos.json"
+ },
+ "ddr.nmodels": {
+  "tex": "10",
+  "value": 10,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R1.mild.min": {
+  "tex": "20.5",
+  "value": 0.20476190476190476,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R1.mild.max": {
+  "tex": "45.2",
+  "value": 0.4523809523809524,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R1.sens.min": {
+  "tex": "58.9",
+  "value": 0.589228581585496,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R1.sens.max": {
+  "tex": "70.3",
+  "value": 0.7029861357980803,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R1.qwk.min": {
+  "tex": "0.6970",
+  "value": 0.697005340747257,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R1.qwk.max": {
+  "tex": "0.7641",
+  "value": 0.764096557875238,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R2.mild.min": {
+  "tex": "19.5",
+  "value": 0.19523809523809524,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R2.mild.max": {
+  "tex": "33.8",
+  "value": 0.3380952380952381,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R2.sens.min": {
+  "tex": "50.4",
+  "value": 0.504443654461429,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R2.sens.max": {
+  "tex": "65.2",
+  "value": 0.6523284749377888,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R2.qwk.min": {
+  "tex": "0.7013",
+  "value": 0.7012656843243037,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R2.qwk.max": {
+  "tex": "0.7645",
+  "value": 0.764509047882357,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R3.mild.min": {
+  "tex": "8.7",
+  "value": 0.0873015873015873,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R3.mild.max": {
+  "tex": "26.5",
+  "value": 0.2650793650793651,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R3.sens.min": {
+  "tex": "65.0",
+  "value": 0.6501955207963028,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R3.sens.max": {
+  "tex": "72.1",
+  "value": 0.7214717383576253,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R3.qwk.min": {
+  "tex": "0.7259",
+  "value": 0.7258539489757085,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R3.qwk.max": {
+  "tex": "0.7723",
+  "value": 0.7723450262073003,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R4.mild.min": {
+  "tex": "22.7",
+  "value": 0.22698412698412698,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R4.mild.max": {
+  "tex": "41.4",
+  "value": 0.4142857142857143,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R4.sens.min": {
+  "tex": "70.0",
+  "value": 0.6997867045858513,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R4.sens.max": {
+  "tex": "81.2",
+  "value": 0.8124777817276928,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R4.qwk.min": {
+  "tex": "0.7467",
+  "value": 0.7467065846214287,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R4.qwk.max": {
+  "tex": "0.8131",
+  "value": 0.8131498519122512,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R4m.mild.min": {
+  "tex": "51.6",
+  "value": 0.5158730158730159,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R4m.mild.max": {
+  "tex": "62.1",
+  "value": 0.6206349206349207,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R4m.sens.min": {
+  "tex": "63.2",
+  "value": 0.6320654105936723,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R4m.sens.max": {
+  "tex": "69.4",
+  "value": 0.6939210806967651,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R4m.qwk.min": {
+  "tex": "0.7377",
+  "value": 0.7376557094882176,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R4m.qwk.max": {
+  "tex": "0.7993",
+  "value": 0.7993387403973173,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R1.spec.min": {
+  "tex": "97.3",
+  "value": 0.972737819025522,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R1.spec.max": {
+  "tex": "98.9",
+  "value": 0.9889791183294664,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R1.mean.min": {
+  "tex": "\\textminus{}0.35",
+  "value": -0.34794761220252357,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R1.mean.max": {
+  "tex": "\\textminus{}0.17",
+  "value": -0.16954160677208113,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R4.spec.min": {
+  "tex": "92.6",
+  "value": 0.925899071925754,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R4.spec.max": {
+  "tex": "96.3",
+  "value": 0.9631670533642691,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R4.mean.min": {
+  "tex": "\\textminus{}0.03",
+  "value": -0.031225043922696056,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.R4.mean.max": {
+  "tex": "+0.01",
+  "value": 0.005430442421338445,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.auroc.min": {
+  "tex": "0.921",
+  "value": 0.9208744560389573,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.auroc.max": {
+  "tex": "0.955",
+  "value": 0.9545248671440107,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.o7.nfail": {
+  "tex": "2",
+  "value": 2,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.r2worse": {
+  "tex": "4",
+  "value": 4,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.o7.mildrecall.within": {
+  "tex": "21.0",
+  "value": 0.2103174603174603,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.o7.mildrecall.between": {
+  "tex": "24.8",
+  "value": 0.24761904761904763,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.o7.mildrecall.holds": {
+  "tex": "was falsified",
+  "value": "was falsified",
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.o7.refsens.within": {
+  "tex": "7.1",
+  "value": 0.07065410593672239,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.o7.refsens.between": {
+  "tex": "11.4",
+  "value": 0.11375755421258438,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.o7.refsens.holds": {
+  "tex": "was falsified",
+  "value": "was falsified",
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.o7.qwk.within": {
+  "tex": "0.0185",
+  "value": 0.01845363948611728,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.o7.qwk.between": {
+  "tex": "0.0671",
+  "value": 0.06709121712798105,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.o7.qwk.holds": {
+  "tex": "was falsified",
+  "value": "was falsified",
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.rho.R1vsR2": {
+  "tex": "0.80",
+  "value": 0.7999999999999999,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.rho.R1vsR3": {
+  "tex": "0.88",
+  "value": 0.8833333333333333,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.rho.R2vsR3": {
+  "tex": "0.95",
+  "value": 0.9500000000000001,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.rho.R1vsR4": {
+  "tex": "0.55",
+  "value": 0.5499999999999999,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.rho.devmatchedvsR1": {
+  "tex": "0.73",
+  "value": 0.7333333333333334,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.rho.devmatchedvsR4": {
+  "tex": "0.77",
+  "value": 0.7666666666666667,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R1.sens": {
+  "tex": "65.48",
+  "value": 0.6548169214361891,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R1.spec": {
+  "tex": "98.69",
+  "value": 0.9869489559164734,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R1.mild": {
+  "tex": "33.3",
+  "value": 0.3333333333333333,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R1.qwk": {
+  "tex": "0.7329",
+  "value": 0.7329314145555765,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R2.sens": {
+  "tex": "62.51",
+  "value": 0.6251333096338428,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R2.spec": {
+  "tex": "99.03",
+  "value": 0.990284222737819,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R2.mild": {
+  "tex": "22.1",
+  "value": 0.22063492063492063,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R2.qwk": {
+  "tex": "0.7342",
+  "value": 0.7342212986026201,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R3.sens": {
+  "tex": "67.10",
+  "value": 0.670991823675791,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R3.spec": {
+  "tex": "98.32",
+  "value": 0.9831786542923434,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R3.mild": {
+  "tex": "17.5",
+  "value": 0.1746031746031746,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R3.qwk": {
+  "tex": "0.7421",
+  "value": 0.7420585271839353,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R4.sens": {
+  "tex": "80.79",
+  "value": 0.8078563810878067,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R4.spec": {
+  "tex": "93.16",
+  "value": 0.931554524361949,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R4.mild": {
+  "tex": "25.2",
+  "value": 0.2523809523809524,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R4.qwk": {
+  "tex": "0.8052",
+  "value": 0.8052209147567702,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R4m.sens": {
+  "tex": "66.76",
+  "value": 0.6676146462851049,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R4m.spec": {
+  "tex": "98.38",
+  "value": 0.9837587006960556,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R4m.mild": {
+  "tex": "59.8",
+  "value": 0.5984126984126984,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e08.R4m.qwk": {
+  "tex": "0.7865",
+  "value": 0.7865227820093929,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R1.sens": {
+  "tex": "70.30",
+  "value": 0.7029861357980803,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R1.spec": {
+  "tex": "98.69",
+  "value": 0.9869489559164734,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R1.mild": {
+  "tex": "29.8",
+  "value": 0.2984126984126984,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R1.qwk": {
+  "tex": "0.7551",
+  "value": 0.7551436930427184,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R2.sens": {
+  "tex": "65.23",
+  "value": 0.6523284749377888,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R2.spec": {
+  "tex": "99.00",
+  "value": 0.9899941995359629,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R2.mild": {
+  "tex": "22.1",
+  "value": 0.22063492063492063,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R2.qwk": {
+  "tex": "0.7561",
+  "value": 0.7560698799418348,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R3.sens": {
+  "tex": "65.64",
+  "value": 0.6564166370423036,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R3.spec": {
+  "tex": "98.94",
+  "value": 0.9894141531322506,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R3.mild": {
+  "tex": "21.4",
+  "value": 0.21428571428571427,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R3.qwk": {
+  "tex": "0.7569",
+  "value": 0.7568736289606758,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R4.sens": {
+  "tex": "81.25",
+  "value": 0.8124777817276928,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R4.spec": {
+  "tex": "94.21",
+  "value": 0.9421403712296984,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R4.mild": {
+  "tex": "24.6",
+  "value": 0.24603174603174602,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R4.qwk": {
+  "tex": "0.8131",
+  "value": 0.8131498519122512,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R4m.sens": {
+  "tex": "69.39",
+  "value": 0.6939210806967651,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R4m.spec": {
+  "tex": "98.38",
+  "value": 0.9837587006960556,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R4m.mild": {
+  "tex": "58.7",
+  "value": 0.5873015873015873,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.e11full.R4m.qwk": {
+  "tex": "0.7993",
+  "value": 0.7993387403973173,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R1.qwk": {
+  "tex": "0.7551",
+  "value": 0.7551436930427184,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R1.mild": {
+  "tex": "29.8",
+  "value": 0.2984126984126984,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R1.sens": {
+  "tex": "70.30",
+  "value": 0.7029861357980803,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R1.spec": {
+  "tex": "98.69",
+  "value": 0.9869489559164734,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R1.mean": {
+  "tex": "\\textminus{}0.26",
+  "value": -0.26417505190864077,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R2.qwk": {
+  "tex": "0.7561",
+  "value": 0.7560698799418348,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R2.mild": {
+  "tex": "22.1",
+  "value": 0.22063492063492063,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R2.sens": {
+  "tex": "65.23",
+  "value": 0.6523284749377888,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R2.spec": {
+  "tex": "99.00",
+  "value": 0.9899941995359629,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R2.mean": {
+  "tex": "\\textminus{}0.28",
+  "value": -0.2763136879092797,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R3.qwk": {
+  "tex": "0.7569",
+  "value": 0.7568736289606758,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R3.mild": {
+  "tex": "21.4",
+  "value": 0.21428571428571427,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R3.sens": {
+  "tex": "65.64",
+  "value": 0.6564166370423036,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R3.spec": {
+  "tex": "98.94",
+  "value": 0.9894141531322506,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R3.mean": {
+  "tex": "\\textminus{}0.27",
+  "value": -0.2741574828302188,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R4.qwk": {
+  "tex": "0.8131",
+  "value": 0.8131498519122512,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R4.mild": {
+  "tex": "24.6",
+  "value": 0.24603174603174602,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R4.sens": {
+  "tex": "81.25",
+  "value": 0.8124777817276928,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R4.spec": {
+  "tex": "94.21",
+  "value": 0.9421403712296984,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R4.mean": {
+  "tex": "\\textminus{}0.03",
+  "value": -0.031225043922696056,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R4m.qwk": {
+  "tex": "0.7993",
+  "value": 0.7993387403973173,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R4m.mild": {
+  "tex": "58.7",
+  "value": 0.5873015873015873,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R4m.sens": {
+  "tex": "69.39",
+  "value": 0.6939210806967651,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R4m.spec": {
+  "tex": "98.38",
+  "value": 0.9837587006960556,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.R4m.mean": {
+  "tex": "\\textminus{}0.08",
+  "value": -0.0753074588723846,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.auroc": {
+  "tex": "0.955",
+  "value": 0.9545248671440107,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.brier": {
+  "tex": "0.108",
+  "value": 0.1076219070256757,
+  "source": "docs/generated/paper/phase0_ddr.json"
+ },
+ "ddr.sel.ece": {
+  "tex": "0.111",
+  "value": 0.11111149744792237,
+  "source": "docs/generated/paper/phase0_ddr.json"
  },
  "aptos.tr.e08.A.sens": {
   "tex": "98.12",
@@ -1350,6 +2035,346 @@
   "tex": "0.9018",
   "value": 0.9017867790325004,
   "source": "docs/generated/paper/transfer_aptos.json"
+ },
+ "ddr.tr.e08.A.sens": {
+  "tex": "50.96",
+  "value": 0.5095982936366868,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e08.A.spec": {
+  "tex": "99.51",
+  "value": 0.9950696055684455,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e08.A.gap": {
+  "tex": "\\textminus{}29.0",
+  "value": -29.040170636331318,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e08.A.target": {
+  "tex": "80.0",
+  "value": 80.0,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e08.B.sens": {
+  "tex": "63.38",
+  "value": 0.6338428723782439,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e08.B.spec": {
+  "tex": "98.90",
+  "value": 0.9889791183294664,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e08.B.gap": {
+  "tex": "\\textminus{}21.6",
+  "value": -21.615712762175608,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e08.B.target": {
+  "tex": "85.0",
+  "value": 85.0,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e08.Bs.sens": {
+  "tex": "66.33",
+  "value": 0.663348738002133,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e08.Bs.spec": {
+  "tex": "98.52",
+  "value": 0.9852088167053364,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e08.Bs.gap": {
+  "tex": "\\textminus{}20.9",
+  "value": -20.865126199786697,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e08.Bs.target": {
+  "tex": "87.2",
+  "value": 87.2,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e08.C.sens": {
+  "tex": "84.68",
+  "value": 0.8467827941699253,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e08.C.spec": {
+  "tex": "91.39",
+  "value": 0.9138631090487239,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e08.C.gap": {
+  "tex": "\\textminus{}10.8",
+  "value": -10.821720583007465,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e08.C.target": {
+  "tex": "95.5",
+  "value": 95.5,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.band.e08.sens.lo": {
+  "tex": "70.1",
+  "value": 0.7012086740135087,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.band.e08.sens.hi": {
+  "tex": "86.4",
+  "value": 0.863846427301813,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.band.e08.spec.lo": {
+  "tex": "88.3",
+  "value": 0.8825406032482599,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.band.e08.spec.hi": {
+  "tex": "97.7",
+  "value": 0.9767981438515081,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.band.e08.miss.lo": {
+  "tex": "766",
+  "value": 766,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.band.e08.miss.hi": {
+  "tex": "1,681",
+  "value": 1681,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.band.e08.nref": {
+  "tex": "5,626",
+  "value": 5626,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.band.e08.qwkmax": {
+  "tex": "0.8068",
+  "value": 0.8068449881560602,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e11full.A.sens": {
+  "tex": "49.09",
+  "value": 0.49093494489868467,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e11full.A.spec": {
+  "tex": "99.64",
+  "value": 0.9963747099767981,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e11full.A.gap": {
+  "tex": "\\textminus{}30.9",
+  "value": -30.906505510131538,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e11full.A.target": {
+  "tex": "80.0",
+  "value": 80.0,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e11full.B.sens": {
+  "tex": "57.23",
+  "value": 0.5723426946320654,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e11full.B.spec": {
+  "tex": "99.41",
+  "value": 0.994054524361949,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e11full.B.gap": {
+  "tex": "\\textminus{}27.8",
+  "value": -27.765730536793455,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e11full.B.target": {
+  "tex": "85.0",
+  "value": 85.0,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e11full.Bs.sens": {
+  "tex": "62.46",
+  "value": 0.6246000710984714,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e11full.Bs.spec": {
+  "tex": "99.19",
+  "value": 0.9918793503480279,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e11full.Bs.gap": {
+  "tex": "\\textminus{}24.7",
+  "value": -24.739992890152863,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e11full.Bs.target": {
+  "tex": "87.2",
+  "value": 87.2,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e11full.C.sens": {
+  "tex": "83.24",
+  "value": 0.8323853537148951,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e11full.C.spec": {
+  "tex": "94.90",
+  "value": 0.9489559164733179,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e11full.C.gap": {
+  "tex": "\\textminus{}12.3",
+  "value": -12.261464628510488,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.tr.e11full.C.target": {
+  "tex": "95.5",
+  "value": 95.5,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.band.e11full.sens.lo": {
+  "tex": "71.3",
+  "value": 0.7129399217916815,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.band.e11full.sens.hi": {
+  "tex": "86.3",
+  "value": 0.8626022040526129,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.band.e11full.spec.lo": {
+  "tex": "89.3",
+  "value": 0.8934164733178654,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.band.e11full.spec.hi": {
+  "tex": "98.2",
+  "value": 0.9817285382830626,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.band.e11full.miss.lo": {
+  "tex": "773",
+  "value": 773,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.band.e11full.miss.hi": {
+  "tex": "1,615",
+  "value": 1615,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.band.e11full.nref": {
+  "tex": "5,626",
+  "value": 5626,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "ddr.band.e11full.qwkmax": {
+  "tex": "0.8151",
+  "value": 0.815115069793588,
+  "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "rf.aptos.R1.qwk": {
+  "tex": "0.703",
+  "value": 0.7032039526955121,
+  "source": "docs/generated/paper/secondary/phase0_aptos.json"
+ },
+ "rf.aptos.R1.mild": {
+  "tex": "11.4",
+  "value": 0.11351351351351352,
+  "source": "docs/generated/paper/secondary/phase0_aptos.json"
+ },
+ "rf.aptos.R1.sens": {
+  "tex": "94.0",
+  "value": 0.9401479488903833,
+  "source": "docs/generated/paper/secondary/phase0_aptos.json"
+ },
+ "rf.aptos.R4.qwk": {
+  "tex": "0.834",
+  "value": 0.8341043914389703,
+  "source": "docs/generated/paper/secondary/phase0_aptos.json"
+ },
+ "rf.aptos.R4.mild": {
+  "tex": "18.4",
+  "value": 0.1837837837837838,
+  "source": "docs/generated/paper/secondary/phase0_aptos.json"
+ },
+ "rf.aptos.R4.sens": {
+  "tex": "88.3",
+  "value": 0.882985877605918,
+  "source": "docs/generated/paper/secondary/phase0_aptos.json"
+ },
+ "rf.aptos.R4m.qwk": {
+  "tex": "0.826",
+  "value": 0.8255365336906361,
+  "source": "docs/generated/paper/secondary/phase0_aptos.json"
+ },
+ "rf.aptos.R4m.mild": {
+  "tex": "51.1",
+  "value": 0.5108108108108108,
+  "source": "docs/generated/paper/secondary/phase0_aptos.json"
+ },
+ "rf.aptos.R4m.sens": {
+  "tex": "76.7",
+  "value": 0.7666442501681238,
+  "source": "docs/generated/paper/secondary/phase0_aptos.json"
+ },
+ "rf.aptos.auroc": {
+  "tex": "0.947",
+  "value": 0.9467764302112561,
+  "source": "docs/generated/paper/secondary/phase0_aptos.json"
+ },
+ "rf.ddr.R1.qwk": {
+  "tex": "0.574",
+  "value": 0.5736708116256979,
+  "source": "docs/generated/paper/secondary/phase0_ddr.json"
+ },
+ "rf.ddr.R1.mild": {
+  "tex": "61.3",
+  "value": 0.6126984126984127,
+  "source": "docs/generated/paper/secondary/phase0_ddr.json"
+ },
+ "rf.ddr.R1.sens": {
+  "tex": "50.0",
+  "value": 0.49982225382154283,
+  "source": "docs/generated/paper/secondary/phase0_ddr.json"
+ },
+ "rf.ddr.R4.qwk": {
+  "tex": "0.646",
+  "value": 0.6455756518292333,
+  "source": "docs/generated/paper/secondary/phase0_ddr.json"
+ },
+ "rf.ddr.R4.mild": {
+  "tex": "29.5",
+  "value": 0.29523809523809524,
+  "source": "docs/generated/paper/secondary/phase0_ddr.json"
+ },
+ "rf.ddr.R4.sens": {
+  "tex": "59.5",
+  "value": 0.594738713117668,
+  "source": "docs/generated/paper/secondary/phase0_ddr.json"
+ },
+ "rf.ddr.R4m.qwk": {
+  "tex": "0.643",
+  "value": 0.6429114977117598,
+  "source": "docs/generated/paper/secondary/phase0_ddr.json"
+ },
+ "rf.ddr.R4m.mild": {
+  "tex": "34.1",
+  "value": 0.3412698412698413,
+  "source": "docs/generated/paper/secondary/phase0_ddr.json"
+ },
+ "rf.ddr.R4m.sens": {
+  "tex": "62.8",
+  "value": 0.6283327408460718,
+  "source": "docs/generated/paper/secondary/phase0_ddr.json"
+ },
+ "rf.ddr.auroc": {
+  "tex": "0.855",
+  "value": 0.8549847905358202,
+  "source": "docs/generated/paper/secondary/phase0_ddr.json"
  },
  "odr.n": {
   "tex": "1,744",
@@ -2767,6 +3792,11 @@
   "tex": "0.9134",
   "value": 0.9133735457425328,
   "source": "docs/generated/paper/reverse.json"
+ },
+ "ddr.o8": {
+  "tex": "held",
+  "value": "held",
+  "source": "docs/generated/paper/transfer_ddr.json"
  },
  "iv.retfound.folds": {
   "tex": "5",

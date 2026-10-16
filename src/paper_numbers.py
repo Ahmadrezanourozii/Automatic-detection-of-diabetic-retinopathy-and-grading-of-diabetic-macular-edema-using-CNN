@@ -126,6 +126,17 @@ def phase0(corpus):
         put(f"{c}.{rule}.sens.max", max(sens), p1, src)
         put(f"{c}.{rule}.qwk.min", min(qwk), q4, src)
         put(f"{c}.{rule}.qwk.max", max(qwk), q4, src)
+    for rule in ("R1", "R4"):
+        spec = [rm[m][rule]["ref_spec"] for m in ms]
+        mean = [rm[m][rule]["mean_pred_minus_true"] for m in ms]
+        put(f"{c}.{rule}.spec.min", min(spec), p1, src)
+        put(f"{c}.{rule}.spec.max", max(spec), p1, src)
+        put(f"{c}.{rule}.mean.min", min(mean), lambda v: f"{v:+.2f}".replace("-", "\\textminus{}"), src)
+        put(f"{c}.{rule}.mean.max", max(mean), lambda v: f"{v:+.2f}".replace("-", "\\textminus{}"), src)
+    au = [rm[m]["_threshold_free"]["ref_auroc"] for m in ms]
+    put(f"{c}.auroc.min", min(au), q3, src)
+    put(f"{c}.auroc.max", max(au), q3, src)
+    put(f"{c}.o7.nfail", sum(not d["spread"][k]["o7_holds"] for k in ("mild_recall", "ref_sens")), i0, src)
     r2_worse = sum(rm[m]["R2"]["qwk"] < rm[m]["R1"]["qwk"] for m in ms)
     put(f"{c}.r2worse", r2_worse, i0, src)
     for metric in ("mild_recall", "ref_sens", "qwk"):
@@ -133,7 +144,7 @@ def phase0(corpus):
         f = q4 if metric == "qwk" else p1
         put(f"{c}.o7.{metric.replace('_', '')}.within", s["within_median"], f, src)
         put(f"{c}.o7.{metric.replace('_', '')}.between", s["between_model_range"]["R1"], f, src)
-        put(f"{c}.o7.{metric.replace('_', '')}.holds", "holds" if s["o7_holds"] else "does not hold",
+        put(f"{c}.o7.{metric.replace('_', '')}.holds", "held" if s["o7_holds"] else "was falsified",
             "{}", src)
     for k, v in d["spearman"].items():
         put(f"{c}.rho.{k.replace('_', '')}", v, "{:.2f}", src)
@@ -159,6 +170,22 @@ def phase0(corpus):
         put(f"{c}.sel.auroc", tf["ref_auroc"], q3, src)
         put(f"{c}.sel.brier", tf["ref_brier"], q3, src)
         put(f"{c}.sel.ece", tf["ref_ece"], q3, src)
+
+
+def secondary(corpus):
+    """RETFound (five folds) is not in the pre-registered O7 model set; its rule matrix is
+    computed separately (src/paper_phase0.py --out-dir docs/generated/paper/secondary)."""
+    src = f"{GP}/secondary/phase0_{corpus.lower()}.json"
+    d = load(src)
+    if not d or "I24FULL" not in d["rule_matrix"]:
+        return
+    c = corpus.lower()
+    r = d["rule_matrix"]["I24FULL"]
+    for rule in ("R1", "R4", "R4m"):
+        put(f"rf.{c}.{rule}.qwk", r[rule]["qwk"], q3, src)
+        put(f"rf.{c}.{rule}.mild", r[rule]["recall"][1], p1, src)
+        put(f"rf.{c}.{rule}.sens", r[rule]["ref_sens"], p1, src)
+    put(f"rf.{c}.auroc", r["_threshold_free"]["ref_auroc"], q3, src)
 
 
 def transfer(corpus):
@@ -400,7 +427,8 @@ def write():
 
 if __name__ == "__main__":
     for f in (thesis_ledger, interventions, lambda: phase0("APTOS"), lambda: phase0("DDR"),
-              lambda: transfer("APTOS"), lambda: transfer("DDR"), orderdr, recalibration,
+              lambda: transfer("APTOS"), lambda: transfer("DDR"),
+              lambda: secondary("APTOS"), lambda: secondary("DDR"), orderdr, recalibration,
               optimism, record, seeds, reverse, outcomes, overlap, misc):
         f()
     write()
