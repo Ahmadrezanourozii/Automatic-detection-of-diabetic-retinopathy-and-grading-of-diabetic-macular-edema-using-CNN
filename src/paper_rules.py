@@ -105,9 +105,17 @@ def macro_recall(y, p, k=K_DR):
     return float(np.mean(out))
 
 
-def fit_cuts(score, y, objective="qwk", k=K_DR, rounds=8, grid=80):
-    """Coordinate ascent over K-1 ordered cut-points (same search as tune_thresholds.py /
-    analyse_mild.py, so every number in the paper comes from one optimiser)."""
+# Two grids, each reproducing the archived analysis it came from EXACTLY: 60 candidates per
+# cut is tune_thresholds.py / compare_matched.py (every development "matched calibration"
+# number, e.g. E08 0.8646), 80 is analyse_mild.py (the external recovery analysis of F1).
+# The grid alone moves a matched QWK by up to ~0.003 (E08: 0.8646 at 60, 0.8613 at 80), which
+# is recorded as the optimiser's own resolution rather than hidden by picking one.
+GRID_DEV, GRID_EXT = 60, 80
+
+
+def fit_cuts(score, y, objective="qwk", k=K_DR, rounds=8, grid=GRID_DEV):
+    """Coordinate ascent over K-1 ordered cut-points -- the search of tune_thresholds.py and
+    analyse_mild.py, with the grid as the only difference between them."""
     fn = ((lambda a, b: M.quadratic_weighted_kappa(a, b, k)) if objective == "qwk"
           else (lambda a, b: macro_recall(a, b, k)))
     cuts = [i + 0.5 for i in range(k - 1)]
@@ -151,7 +159,7 @@ def crossfit_external(score, y, objective, seed=0):
     pred = np.zeros(len(y), dtype=int)
     for h in (0, 1):
         tr, te = half != h, half == h
-        cuts, _ = fit_cuts(score[tr], y[tr], objective)
+        cuts, _ = fit_cuts(score[tr], y[tr], objective, grid=GRID_EXT)
         pred[te] = cuts_to_grades(score[te], cuts)
     return pred
 
@@ -278,3 +286,30 @@ def dev_matched(dev, head):
         pred[te] = cuts_to_grades(s[te], cuts)
     return {"shipped": block(y, shipped(dev["dr"], head)), "matched": block(y, pred),
             "n": int(len(y)), "folds": sorted(set(folds.tolist()))}, pred
+
+
+# ── operating-point frontier (Phase 1; the G8 replication on a model we control) ──
+def referral_frontier(logits, y, head, base_cuts, n=121):
+    """Sweep the grade-1|2 cut (the referral decision) with the other cuts held at
+    `base_cuts`, recording what each metric family does as the clinically decisive
+    operating point moves. Ordering is preserved by pushing the neighbouring cuts along."""
+    s = expected_grade(logits, head)
+    lo, hi = float(np.quantile(s, 0.02)), float(np.quantile(s, 0.98))
+    rows = []
+    for t in np.linspace(lo, hi, n):
+        c = list(base_cuts)
+        c[1] = float(t)
+        c[0] = min(c[0], c[1])
+        c[2] = max(c[2], c[1]); c[3] = max(c[3], c[2])
+        p = cuts_to_grades(s, c)
+        b = block(y, p)
+        ref_t, ref_p = y >= 2, p >= 2
+        tp, fp = int((ref_t & ref_p).sum()), int((~ref_t & ref_p).sum())
+        fn, tn = int((ref_t & ~ref_p).sum()), int((~ref_t & ~ref_p).sum())
+        rows.append({"t": float(t), "qwk": b["qwk"], "kappa": b["kappa"],
+                     "accuracy": b["accuracy"], "macro_f1": b["macro_f1"],
+                     "sens": b["ref_sens"], "spec": b["ref_spec"],
+                     "ppv": tp / max(1, tp + fp), "npv": tn / max(1, tn + fn),
+                     "binary_kappa": cohen_kappa(ref_t.astype(int), ref_p.astype(int), 2),
+                     "mild_recall": b["recall"][1], "pred_dist": b["pred_dist"]})
+    return rows

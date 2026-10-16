@@ -1,0 +1,61 @@
+\section{Introduction}\label{sec:intro}
+
+Diabetic retinopathy (DR) affects roughly one in five people with diabetes, an estimated
+103 million adults in 2020 and a projected 161 million by 2045, and it remains a leading cause
+of preventable blindness in the working-age population\cite{teo2021prevalence}. Diabetic
+macular oedema (DME), its most common mechanism of central vision loss, affects about one in
+fifteen\cite{yau2012prevalence}. Deep learning systems that grade fundus photographs reached
+specialist-level agreement in development studies a decade ago\cite{gulshan2016,ting2017}, and
+autonomous screening devices have since been authorised on the strength of prospective pivotal
+trials\cite{abramoff2018pivotal,ipp2021eyeart}. Yet the same class of system behaves very
+differently once it leaves the population it was built on. In a head-to-head evaluation of
+seven commercial algorithms on the same real-world images, sensitivity for referable disease
+ranged from 51\% to 86\%\cite{lee2021headtohead}; three commercial algorithms applied to the
+same eyes against the same reference standard in Indian public-health clinics returned
+specificities between 14\% and 96\%\cite{duggal2025realworld}.
+
+When a model fails on a new population, the failure is usually read as a statement about what
+the network has learned. A recent frozen-encoder benchmark found that two of three encoders,
+including the retinal foundation model RETFound, did not identify a single one of 270 mild
+cases in an external corpus (grade-1 F1 = 0.000), and attributed the collapse to the
+encoders' representations\cite{poyrazer2026calibration}. RETFound itself was shown to be
+superior using macro-averaged, threshold-free metrics\cite{zhou2023retfound}, which cannot
+reveal a per-grade failure of this kind. Comparisons between architectures, heads and
+pretraining schemes are reported in the same way: as differences in what a model represents.
+
+An ordinal grading model does not output a grade, however. It outputs scores that a decision
+rule turns into a grade, and the rule is almost never examined. Three different things are
+routinely conflated: \emph{probability calibration}, whether predicted probabilities match
+observed frequencies\cite{guo2017calibration,vancalster2019calibration}; the
+\emph{decision rule}, the cut-points or referral threshold that map scores to a grade or a
+referral; and the \emph{representation}, what the encoder has learned. The common default,
+a threshold of 0.5 on every ordinal output or an argmax, is a hyper-parameter that has been
+chosen implicitly rather than one that has been avoided. If a model ranks images correctly but
+its cut-points sit in the wrong place for a new population, it will look blind to a grade it
+in fact separates, and two models that differ mainly in where their defaults happen to fall
+will look as if they differ in what they learned. Clinical prediction research has long
+treated recalibration and model updating as a routine step before
+deployment\cite{janssen2008updating,vergouwe2017updating}; DR grading studies rarely test
+whether their headline failures and gains survive it.
+
+Here we test that alternative directly. We trained and archived 13 grading configurations on a
+pooled development set of 2,260 images, evaluated them on three external directions
+(\pn{n.aptos} APTOS images, \pn{n.ddr} DDR images from 147 Chinese hospitals, and the reverse
+direction, APTOS to Messidor-2 and IDRiD), and asked, for every reported failure and every
+reported difference, whether it survives \emph{matched calibration}: refitting the decision
+rule of every model by the same procedure before comparing them. Every training run and every
+hypothesis was pre-registered with its falsifying outcome before launch\cite{nosek2018prereg},
+and we report the interventions that failed with the same weight as those that
+worked.
+
+We find that the decision rule, not the representation, explains the external collapse of the
+mild grade and most apparent differences between models. Moving cut-points alone, with no
+retraining, raised external mild-DR recall several-fold; the choice among deployable decision
+rules changed clinically decisive metrics more than the choice among models; quadratic
+weighted kappa (QWK), the field's standard summary, was nearly flat across operating points
+that differed by tens of points in referral sensitivity; and models that differed only by
+random seed produced per-grade ``effects'' of the size that the literature attributes to
+architecture. Operating points fitted on development data did not transfer to new
+populations, while about 200 locally labelled images were enough to recalibrate safely. By
+contrast, eight of nine pre-registered interventions on the representation itself were
+falsified.

@@ -1,0 +1,175 @@
+\section{Methods}\label{sec:methods}
+
+\subsection*{Study design and pre-registration}
+
+This is a retrospective modelling study on public, de-identified fundus photographs. It was
+conducted under an evaluation protocol frozen before the first training run (unit of
+independence, held-out sets, model selection on the development pool only, metrics and
+uncertainty), and every experiment was pre-registered: its hypothesis, control and falsifying
+outcome were committed to the version-controlled repository before the run was launched, and
+the commit history is the record\cite{nosek2018prereg}. The nine interventions on the model
+and the nine outcomes O1--O9 of the journal experiments (seed replicates, the reverse
+direction, the second external corpus and the foundation-model completion) were registered in
+this way; a training run cannot be launched by our kernel builder without a recorded
+hypothesis. Reporting follows TRIPOD+AI\cite{collins2024tripodai} and
+CLAIM\cite{tejani2024claim} where applicable (Supplementary Table~S1).
+
+\subsection*{Datasets}
+
+The \emph{development pool} combined IDRiD\cite{porwal2018idrid,porwal2020challenge}
+(\pn{n.idrid} images; 5-grade International Clinical DR scale\cite{wilkinson2003scale}
+and a 3-grade risk-of-DME label defined by the distance of the nearest hard exudate to the
+macula) and Messidor-2\cite{decenciere2014messidor,abramoff2013messidor2}
+(\pn{n.messidor2} gradable images with adjudicated DR grades and a binary referable-DME
+label\cite{krause2018grader}), \pn{n.dev} images in total (Table~\ref{tab:cohorts}). IDRiD's
+official train/test partition was pooled, because a 103-image test split cannot resolve the
+effects studied here (half-width of a 95\% interval on accuracy $\approx$6 points). The
+\emph{external} DR sets were APTOS 2019 (\pn{n.aptos} images from Aravind Eye Hospital, India;
+single-grader labels) and DDR\cite{li2019ddr} (\pn{n.ddr} gradable images from 147 hospitals
+in 23 Chinese provinces, graded by seven graders; images distributed at 512 pixels). Neither
+was used for training, model selection or threshold fitting, and both were held out from the
+first run. The EyePACS 2015 training set (\pn{n.eyepacs} images, single-grader labels) was used
+only to pretrain the DR head. In the reverse-direction experiment APTOS was the training
+corpus and Messidor-2 and IDRiD the external sets. Per-image identity checks found no image of
+any external set in any training set. No patient identifiers are published for IDRiD,
+Messidor-2 or APTOS; the unit of resampling is therefore the image, and near-duplicate images
+were merged into one group by a 256-bit difference hash calibrated on fundus images (distinct
+pairs $\geq$28 bits apart, re-encodings of one image $\leq$8; threshold 16).
+
+\subsection*{Labels}
+
+DR labels are the 5-grade international scale in all corpora (0 no DR, 1 mild, 2 moderate,
+3 severe non-proliferative, 4 proliferative); referable DR is grade $\geq$2. DME is graded
+0--2 in IDRiD (none; exudates more than one disc diameter from the macula; within one disc
+diameter). Messidor-2's binary referable-DME label is, by its definition, exactly IDRiD's
+grade 2; a non-referable Messidor-2 image is grade 0 \emph{or} 1. In threshold form this
+partial label supervises the second DME threshold and leaves the first unsupervised for that
+image, so no label is imputed. The 3-grade DME metrics are computed on IDRiD only
+(\pn{n.idrid} images, \pn{dme.n1} of them in the middle grade), always beside the
+majority-class floor (\pn{dme.floor}\%), and without gating on DR.
+
+\subsection*{Model and training}
+
+All models share one design: a convolutional (or transformer) backbone, global average
+pooling, and two ordinal threshold heads (hidden width 256, dropout 0.4) that output
+$K-1$ logits for $P(y>k)$, four for DR and two for DME\cite{cao2020rank}. The loss is
+$0.6\,\mathcal{L}_\mathrm{DR}+0.4\,\mathcal{L}_\mathrm{DME}$, each a masked binary
+cross-entropy over the thresholds with label smoothing 0.05. Images were cropped to the
+retinal disc, cached at a long side of 560 pixels and resized to the training resolution
+(448 pixels unless stated), with unrestricted rotation, scaling (0.88--1.12), translation
+($\pm$4\%), horizontal and vertical flips and mild photometric jitter; a sampler balanced the
+DR grades. Training used AdamW (backbone learning rate $10^{-4}$, heads $10^{-3}$, weight
+decay $10^{-4}$), a 5\% linear warm-up followed by cosine decay to 2\% of the peak, gradient
+clipping at 1.0, mixed precision, and an exponential moving average of the weights (decay
+0.999) for evaluation. The reference configuration (E08) is DenseNet121\cite{huang2017densenet}
+pretrained on ImageNet, then on EyePACS for 5 epochs, then fine-tuned for 40 epochs with batch
+16. The selected model (E11FULL) replaces the backbone with EfficientNet-B3\cite{tan2019efficientnet}
+(30 epochs). Every other configuration changes exactly one factor relative to its control
+(Supplementary Table~S2): resolution (224, 560 and native 640 pixels), a macula-centred crop
+for the DME head driven by a fovea localiser validated before use (median error
+\pn{fovea.median} disc diameters), linear-probe-then-fine-tune\cite{kumar2022lpft}, CORAL and
+CORN ordinal heads\cite{cao2020rank,shi2023corn}, ConvNeXt-tiny\cite{liu2022convnext}, and the
+RETFound colour-fundus ViT-L/16 encoder\cite{zhou2023retfound} (224 pixels, linear probe for 5
+epochs then fine-tuning at $10^{-5}$). At the end of each fold the epoch with the highest
+$0.6\,\mathrm{QWK}_\mathrm{DR}+0.4\,\mathrm{QWK}_\mathrm{DME}$ on the held-out fold was kept,
+and its predictions were averaged over the four dihedral flips (test-time augmentation).
+External predictions average the logits of the five fold models.
+
+\subsection*{Cross-validation and model selection}
+
+All development results are out-of-fold over the full pool: a 5-fold split, stratified by
+corpus and DR grade and grouped by near-duplicate cluster, was built once, fingerprinted and
+committed before the first run, and every model loads it from that file. Configurations were
+ranked by development QWK at matched calibration (below) and the selected model was declared
+in the repository before any external number was examined; no external result was used to
+choose a model, a threshold or a hyper-parameter. Because the checkpoint epoch was chosen on
+the held-out fold, development estimates carry a small selection optimism. We estimated it by
+re-selecting each fold's epoch from the \emph{other} folds' validation curves: across nine
+5-fold runs the median optimism was \pn{optimism.median} DR QWK (range \pn{optimism.min} to
+\pn{optimism.max}). External estimates are not affected.
+
+\subsection*{Decision rules and matched calibration}
+
+For an ordinal model with threshold probabilities $p_k=P(y>k)$ the expected grade is
+$s=\sum_k p_k$. We compare five decision rules, fixed before the journal experiments.
+\textbf{R1} is the shipped rule: grade $=$ the number of leading thresholds with $p_k>0.5$
+(made rank-consistent with a cumulative minimum). \textbf{R2} places four cut-points on $s$ to
+maximise QWK on the development out-of-fold predictions. \textbf{R3} is R2 with the grade-1/2
+cut moved to the most specific value that gives a development referable sensitivity of at
+least 0.90. R1--R3 are deployable: none uses external labels. \textbf{R4} and \textbf{R4m}
+fit the cut-points on the external labels themselves, maximising QWK or macro-averaged recall,
+by two-fold cross-fitting (each half's cut-points are fitted on the other half); they are
+diagnostic upper bounds on what recalibration with local labels can recover and are never
+reported as performance. Cut-points are found by coordinate ascent (eight rounds; 60
+candidates per cut on development data and 80 on external data, reproducing the archived
+analyses exactly; the grid alone moves a matched QWK by at most \pn{grid.effect}).
+
+\emph{Matched calibration} is the comparison rule applied throughout: no difference between
+two models is attributed to representation unless it survives refitting both models' cut-points
+by the same cross-fitted procedure (on the development pool, fold $f$'s cut-points come from
+the other four folds). The rule is only evidence if it can return either answer; its record
+in this study is reported in Table~\ref{tab:record}.
+
+\subsection*{Metrics and statistical analysis}
+
+The primary grading metric is QWK\cite{cohen1968kappa}; the operationally primary pair is
+referable-DR sensitivity and specificity, never quoted alone; per-grade recall is reported
+beside every headline, and macro-averaged recall is used as a diagnostic, never as an
+objective (optimising it costs referral sensitivity; see Results). We also report Cohen's
+unweighted $\kappa$, accuracy and macro-F1, and, for the referral probability
+$P(\mathrm{grade}\geq2)=p_1$, the area under the ROC curve, the Brier score and the expected
+calibration error (ECE, ten equal-width bins) together, since ECE alone can reward an
+uninformative predictor\cite{poyrazer2026calibration}. Intervals are 95\% percentile
+intervals from 2,000 bootstrap resamples of groups; differences between models are paired
+bootstraps over the same groups, and a difference whose interval contains zero is reported as
+indistinguishable, not ranked. No correction for multiple comparisons is applied; per-grade
+claims are therefore treated as credible only when they replicate across conditions.
+
+\subsection*{Recalibration sample size}
+
+To quantify how many locally labelled images recalibration needs, we drew $n\in\{25, 50, 100,
+200, 400\}$ external images at random (200 draws per size), fitted cut-points on those $n$
+alone (maximising macro-recall), and evaluated on the remaining images, so that every estimate
+is out of sample with respect to its cut-points, as in deployment. The probability of harm is
+the fraction of draws in which macro-recall fell below that of the shipped rule on the same
+held-out images.
+
+\subsection*{Seed replicates, reverse direction and second external corpus}
+
+Seeds 1--4 of the reference configuration were trained with every other setting identical
+(E08 is seed 0; consumption manifests confirm the same files were read), and each was scored
+on APTOS and DDR. The reverse-direction model used the reference recipe trained on APTOS with
+a 5-fold split built by the same code before training (near-duplicates merged), and was scored
+on Messidor-2 and IDRiD. The archived development models were re-scored on DDR (and those
+without archived APTOS predictions on APTOS) from their stored fold weights, with the same
+inference recipe.
+
+\subsection*{Provenance controls}
+
+Each run records, from inside the process that read the disk, a consumption manifest (number of
+images per corpus and a hash over the resolved paths); runs whose manifests differ cannot be
+combined or compared without the difference being printed into the output. Every number in
+this article is generated from archived artefacts into a ledger, and the manuscript is compiled
+from that ledger, so no number in the text is typed by hand.
+
+\subsection*{Use of AI assistance}
+
+An AI system (Claude, Anthropic) assisted with analysis code, the execution of the
+pre-registered journal experiments and drafting of the manuscript under the direction of the
+authors, who verified the analyses, the numbers against their generated sources, and every
+cited claim against its primary source, and take full responsibility for the content.
+
+\subsection*{Data availability}
+
+All images are from public datasets: IDRiD (IEEE DataPort), Messidor-2 (ADCIS, with
+adjudicated grades from Krause \emph{et al.}\cite{krause2018grader}), APTOS 2019 and EyePACS
+2015 (Kaggle) and DDR\cite{li2019ddr}. Per-image out-of-fold and external predictions for every
+model, the frozen split, the pre-registration records and every generated table are available
+in the project repository
+(\url{https://github.com/Ahmadrezanourozii/Automatic-detection-of-diabetic-retinopathy-and-grading-of-diabetic-macular-edema-using-CNN}).
+
+\subsection*{Code availability}
+
+All code (training, evaluation, decision-rule analyses, figure and number generation) is
+available in the same repository; each run is reproducible from the commit hash recorded in its
+log.

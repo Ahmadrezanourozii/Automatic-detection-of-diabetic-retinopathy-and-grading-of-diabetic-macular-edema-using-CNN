@@ -1,0 +1,56 @@
+%% Manuscript for npj Digital Medicine (Article), Springer Nature LaTeX template.
+%% Every number in the text is a \pn{key} looked up in numbers.tex, which
+%% src/paper_numbers.py generates from the archived artefacts. An undefined key stops the
+%% build, so no number can be typed by hand or drift from its source.
+\documentclass[pdflatex,sn-nature,lineno]{sn-jnl}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{siunitx}
+\sisetup{group-separator={,},group-minimum-digits=4}
+
+\makeatletter
+\newcommand{\pndef}[2]{\expandafter\def\csname pn@#1\endcsname{#2}}
+\newcommand{\pn}[1]{\ifcsname pn@#1\endcsname\csname pn@#1\endcsname\else
+  \@latex@error{Undefined number key `#1'}{Run src/paper_numbers.py}\textbf{??#1??}\fi}
+\makeatother
+\input{numbers.tex}
+
+\raggedbottom
+
+\begin{document}
+
+\title[Decision rules drive external failures of DR grading]{Decision rules rather than
+representations drive external failures of diabetic retinopathy grading models}
+
+\author*[1]{\fnm{Alireza} \sur{Chegeni}}\email{[corresponding-author email]}
+\author[1]{\fnm{[Co-author]} \sur{[to be confirmed]}}
+\affil*[1]{\orgdiv{School of Electrical and Computer Engineering}, \orgname{College of
+Engineering, University of Tehran}, \orgaddress{\city{Tehran}, \country{Iran}}}
+
+\input{abstract.tex}
+
+\keywords{diabetic retinopathy, ordinal grading, decision threshold, calibration, external
+validation, foundation models, diabetic macular oedema}
+
+\maketitle
+
+\input{sections/introduction.tex}
+\input{sections/results.tex}
+\input{sections/discussion.tex}
+\input{sections/methods.tex}
+
+\backmatter
+
+\input{sections/backmatter.tex}
+
+\bibliography{refs}
+
+\clearpage
+\input{sections/figures.tex}
+
+\end{document}
