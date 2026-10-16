@@ -27,9 +27,18 @@ from tune_thresholds import load, fit_cuts, cuts_to_grades
 N_DR, N_DME = 5, 3
 
 
-def expected_grade(logits):
-    """Ordinal head: score = sum_k P(y > k), which is the expected grade."""
-    return torch.sigmoid(logits).sum(1).numpy()
+def expected_grade(logits, model_head="ordinal"):
+    """score = sum_k P(y > k), the expected grade.
+
+    HEAD-AWARE since 2026-10-16 (ISSUES.md §30). For ordinal and CORAL heads the logits are
+    P(y > k) directly; for CORN they are CONDITIONALS P(y > k | y > k-1) and must be chained
+    by cumulative product. The earlier version summed sigmoids for every head, which decoded
+    E22CORN wrongly and manufactured a "significant" -0.0479 QWK deficit that does not exist.
+    """
+    p = torch.sigmoid(logits)
+    if model_head == "corn":
+        p = torch.cumprod(p, dim=1)
+    return p.sum(1).numpy()
 
 
 def crossfit_grades(score, y, folds, k, seed=0):
@@ -45,18 +54,18 @@ def crossfit_grades(score, y, folds, k, seed=0):
     return out
 
 
-def default_grades(logits, k):
+def default_grades(logits, k, model_head="ordinal"):
     """The SHIPPED decode, taken from model.decode -- count leading thresholds that fire,
     made rank-consistent by cummin. Reimplementing it as round(expected_grade) would give
     a slightly different number and the 'default' row would not be the operating point the
     run actually shipped."""
     from model import decode
-    return decode(logits, k, head="ordinal").numpy()
+    return decode(logits, k, head=model_head).numpy()
 
 
-def head_arrays(rows, logits, head):
+def head_arrays(rows, logits, head, model_head="ordinal"):
     """Return (score, y, keep-mask) for one head, dropping rows with no label."""
-    score = expected_grade(logits)
+    score = expected_grade(logits, model_head)
     if head == "dr":
         y = np.array([r["dr"] if r["dr"] is not None else -1 for r in rows])
     else:
@@ -94,6 +103,9 @@ def compare(a_run, b_run, datasets, n_boot=2000, seed=0, allow_unmanifested=True
         note = str(e)
         print("[manifest] consumption differs; proceeding under explicit acknowledgement.\n"
               "           The difference will be stamped into the output.", flush=True)
+    # each run decodes with ITS OWN head (ISSUES.md §30)
+    head_a = json.load(open(os.path.join(a_run, "results.json")))["config"].get("head", "ordinal")
+    head_b = json.load(open(os.path.join(b_run, "results.json")))["config"].get("head", "ordinal")
     rows_a, folds_a, dr_a, dme_a = load(a_run, datasets)
     rows_b, folds_b, dr_b, dme_b = load(b_run, datasets)
 
@@ -112,13 +124,13 @@ def compare(a_run, b_run, datasets, n_boot=2000, seed=0, allow_unmanifested=True
     out = []
     for head, la, lb, k in (("dr", dr_a[ja], dr_b[jb], N_DR),
                             ("dme_ungated", dme_a[ja], dme_b[jb], N_DME)):
-        sa, y, keep = head_arrays(rows, la, head)
-        sb = expected_grade(lb)[keep]
+        sa, y, keep = head_arrays(rows, la, head, head_a)
+        sb = expected_grade(lb, head_b)[keep]
         groups = [r["group"] for r, m in zip(rows, keep) if m]
         f = folds[keep]
 
         pred = {
-            "default": (default_grades(la[keep], k), default_grades(lb[keep], k)),
+            "default": (default_grades(la[keep], k, head_a), default_grades(lb[keep], k, head_b)),
             "matched": (crossfit_grades(sa, y, f, k, seed),
                         crossfit_grades(sb, y, f, k, seed)),
         }

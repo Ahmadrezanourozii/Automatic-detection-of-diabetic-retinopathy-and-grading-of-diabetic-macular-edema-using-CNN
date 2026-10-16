@@ -7,6 +7,16 @@ mid-flight, and the exact next actions.
 Repository HEAD at handover: **`86404c3`**, branch `main`, pushed.
 One uncommitted file: `results/VERIFICATION-P8-RETFound.md` (complete, just needs committing).
 
+
+> ## ⚠️ 2026-10-16 — correction that the thesis must carry (ISSUES.md §30)
+>
+> `thesis/chapter4.tex` lines ~195 and ~221–223 report CORN as **−0.0479 [−0.0656, −0.0325],
+> significantly worse**, and explain it by the 265-row third threshold. That number came from
+> decoding CORN's conditional logits as a cumulative head. Correct: **−0.0082 [−0.0207,
+> +0.0036], indistinguishable** (`docs/generated/paper/matched_corn_e08.json`). The verdict
+> (falsified) stands; the "significantly worse" claim and its mechanism must be removed, and
+> `src/thesis_numbers.py` regenerated before `farsi_lint.py --numbers` will accept the new values.
+
 ---
 
 ## 1. The single most important thing to know
@@ -64,7 +74,7 @@ falsifying outcome before launch.
 | I23 | ensembling | **falsified externally** — dev +0.0136 → APTOS +0.0025 [−0.0016, +0.0066] |
 | I24 Stage 2 | RETFound fine-tune | **falsified** — −0.0399 [−0.0669, −0.0124] vs E09 (2 of 5 folds) |
 | E20CORAL | CORAL ordinal head | **falsified** — −0.0076 [−0.0184, +0.0032] |
-| E22CORN | CORN ordinal head | **falsified** — −0.0479 [−0.0656, −0.0325], significantly worse |
+| E22CORN | CORN ordinal head | **falsified** — **corrected 2026-10-16 (ISSUES.md §30): −0.0082 [−0.0207, +0.0036], indistinguishable**. The archived −0.0479 came from decoding CORN as a cumulative head |
 | **E19E11C** | **EfficientNet-B3, folds 3–4** | **CONFIRMED** — E11FULL beats E10 by **+0.0207 [+0.0105, +0.0320]** |
 
 **Ordinal-loss line is closed.** CORN's conditional subsets collapse under class imbalance:

@@ -1,5 +1,8 @@
 # E22CORN vs E08 — shipped cut-points and matched cut-points
 
+> ⚠️ **SUPERSEDED 2026-10-16 (ISSUES.md §30).** This file decoded E22CORN with the wrong (cumulative) head. Correct result: `docs/generated/paper/matched_corn_e08.json` — DR QWK −0.0082 [−0.0207, +0.0036], indistinguishable.
+
+
 `PROTOCOL.md` §4.1: a difference measured at two arbitrary thresholds is not evidence about representations. **matched** rows recalibrate both runs the same way — cut-points cross-fitted on the other folds under one objective — and repeat the paired bootstrap over groups.
 
 | head | cut-points | metric | E22CORN | E08 | A − B | 95 % interval | verdict |

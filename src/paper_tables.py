@@ -27,6 +27,7 @@ ROWS = [
 
 
 def pick(rows, head, mode, metric="QWK"):
+    rows = [r for r in rows if r.get("metric", "QWK") == metric]
     for r in rows:
         if r["head"] == head and r["mode"] == mode and r["metric"] == metric:
             return r
@@ -36,11 +37,11 @@ def pick(rows, head, mode, metric="QWK"):
 def main():
     out = []
     for label, fn, side, control, folds in ROWS:
-        override = os.path.join(GP, fn.replace(".json", "_5fold.json"))
+        override = os.path.join(GP, fn)
         src = override if os.path.exists(override) else os.path.join(G, fn)
         data = json.load(open(src))
         if os.path.exists(override):
-            folds = "5"
+            folds = str(json.load(open(override))[0].get("folds", folds))
         sgn = 1 if side == "a" else -1
         row = {"label": label, "control": control, "folds": folds, "source": src}
         for head in ("dr", "dme_ungated"):

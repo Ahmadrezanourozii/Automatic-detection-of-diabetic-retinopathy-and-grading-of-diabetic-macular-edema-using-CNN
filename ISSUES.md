@@ -1218,6 +1218,47 @@ guards now exist because an argument was substituted for an inspection.
 
 ---
 
+## §30. The matched-calibration script decoded CORN as if it were a cumulative head — a "significant" deficit that does not exist  — 2026-10-16, FIXED
+
+**Symptom.** `docs/generated/matched_corn_e08.json` reported CORN (E22CORN) significantly
+worse than E08 at matched calibration: **−0.0479 [−0.0656, −0.0325]**. `HANDOFF.md`,
+`IDEAS.md` and the thesis then explained the deficit mechanistically ("CORN's conditional
+subsets collapse under class imbalance — threshold 3 trains on only 265 of 2 260 rows").
+
+**How it was found.** Re-deriving every development number for the journal paper from the
+archived per-image logits (`src/paper_rules.py`), every run reproduced its archived matched
+QWK exactly — except E22CORN: **0.8564**, not 0.8168. The archived file's own *shipped*
+column (0.8463) also disagreed with the run's `results.json` (0.8527), which `train.py`
+computes with the correct head.
+
+**Root cause.** `compare_matched.py` scored every run with `sigmoid(logits).sum()` and
+`decode(head="ordinal")`. CORN's logits are *conditional* probabilities P(y > k | y > k−1) and
+must be chained by cumulative product (`model.decode` and `model.expected_grade` already do
+this). Treating them as cumulative P(y > k) gives a different expected grade and a worse
+decode. The archived −0.0479 is reproduced exactly by forcing the wrong decoding, which
+confirms the diagnosis.
+
+**Corrected result** (`docs/generated/paper/matched_corn_e08.json`, `src/paper_matched.py`):
+DR QWK at matched calibration **0.8564 vs 0.8646, −0.0082 [−0.0207, +0.0036] —
+indistinguishable**. DME **+0.0070 [−0.0207, +0.0334]**, indistinguishable.
+
+**What changes.** The pre-registered verdict is unchanged — CORN did not beat E08, so it is
+still falsified. What is withdrawn: "significantly worse", and the mechanism offered to
+explain a deficit that was an artefact of the analysis. The ordinal-loss line is closed
+because neither CORAL nor CORN helped, not because CORN hurt.
+
+**Fix.** `compare_matched.py` now reads each run's head from its `results.json` and decodes
+with it. CORAL was unaffected (its logits are cumulative), which is why E20CORAL's archived
+0.8569 reproduces.
+
+**The class of error.** Same as §16/§20: an analysis script that is correct for the runs it
+was written against and silently wrong for a run with a different output convention. It
+raised no error; it produced a confident, significant, mechanistically "explained" number.
+It was caught only because the paper regenerates every number from per-image predictions
+with independent code.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.
