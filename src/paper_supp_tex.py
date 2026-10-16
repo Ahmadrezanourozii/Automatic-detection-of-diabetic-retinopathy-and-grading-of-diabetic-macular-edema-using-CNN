@@ -53,7 +53,7 @@ def s2_configs():
          "\\caption{\\textbf{Configurations.} Each configuration changes one factor relative to its",
          "control. Dev QWK: development out-of-fold DR QWK at matched calibration (fold-wise",
          "cross-fitted cut-points); folds: development folds trained.}\\label{tab:s2}",
-         "\\centering\\scriptsize", "\\begin{tabular}{@{}lllllllll@{}}", "\\toprule",
+         "\\centering\\scriptsize", "\\resizebox{\\textwidth}{!}{%", "\\begin{tabular}{@{}lllllllll@{}}", "\\toprule",
          "Model & Control & Backbone & DR head & Pixels & Pretraining & Epochs & Factor & Dev QWK \\\\",
          "\\midrule"]
     for m, c, bb, hd, px, pre, ep, fac in CONFIGS:
@@ -61,7 +61,7 @@ def s2_configs():
         folds = reg.get(m, {}).get("oof_folds")
         qs = "--" if q is None else f"{q:.4f}" + ("" if not folds or len(folds) == 5 else f" ({len(folds)} f)")
         t.append(" & ".join([m, c, bb, hd, px, pre, ep, fac, qs]) + " \\\\")
-    t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
+    t += ["\\bottomrule", "\\end{tabular}}", "\\end{table}"]
     write("table_s2.tex", t)
 
 
@@ -165,8 +165,8 @@ def s8_overlap():
         write("table_s8.tex", placeholder("overlap_audit.json", cap, "tab:s8"))
         return
     t = ["\\begin{table}[h]", f"\\caption{{{cap}}}\\label{{tab:s8}}", "\\centering\\scriptsize",
-         "\\begin{tabular}{@{}lrr@{}}", "\\toprule",
-         "Corpus pair & Images (a / b) & Near-duplicate pairs \\\\", "\\midrule"]
+         "\\begin{tabular}{@{}lrrrr@{}}", "\\toprule",
+         "Corpus pair & Images & Pairs $\\leq$16 bits & $\\leq$8 bits & 0 bits \\\\", "\\midrule"]
     names = {"dev": "Development pool", "APTOS": "APTOS", "DDR": "DDR", "EyePACS": "EyePACS"}
     for tag, v in d["pairs"].items():
         a, _, b = tag.partition("_vs_")
@@ -178,9 +178,10 @@ def s8_overlap():
             a = tag.replace("_within", "")
             n = f"{d['n'][a]:,}"
             lab = f"within {names[a]}"
-        t.append(f"{lab} & {n} & {v['n_pairs']:,} \\\\")
-    t.append(f"\\multicolumn{{3}}{{@{{}}l}}{{Threshold {d['threshold_bits']} bits; development pairs "
-             f"split across folds: {len(d.get('dev_within_cross_fold_examples', [])):,}}} \\\\")
+        t.append(f"{lab} & {n} & {v['n_pairs']:,} & {v['n_le8']:,} & "
+                 f"{v['hist'][0] if 'hist' in v else '--'} \\\\")
+    t.append(f"\\multicolumn{{5}}{{@{{}}l}}{{Threshold {d['threshold_bits']} bits; development pairs "
+             f"split across folds: {len([p for p in d.get('dev_within_cross_fold_examples', []) if p[2] <= 8]):,}}} \\\\")
     t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
     write("table_s8.tex", t)
 

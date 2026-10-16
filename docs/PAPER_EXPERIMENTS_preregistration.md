@@ -172,7 +172,7 @@ Appended after the fact; nothing above this line was edited. Numbers are generat
 | outcome | verdict | evidence |
 |---|---|---|
 | O1 noise floor | measured | matched dev QWK across 5 seeds 0.8646–0.8764, SD 0.0043; APTOS R1 QWK SD 0.0026 |
-| O2 >5 of 50 seed-pair per-grade differences "significant" on APTOS (R1) | **held** | 15 of 50 (29 of 50 under R4); DDR 17 of 30 |
+| O2 >5 of 50 seed-pair per-grade differences "significant" on APTOS (R1) | **held** | 15 of 50 (29 of 50 under R4); DDR 30 of 50 (35 under R4) |
 | O3 every seed APTOS mild R1 < 15 % and R4m > 50 % | **held** | R1 5.4–6.2 %, R4m 63.8–72.7 % |
 | O4 reverse: Messidor-2 mild R1 < 20 % | **falsified** | 34.4 % |
 | O5 reverse: R4m ≥ 3× R1 and ≥ 40 % | **falsified** | 44.4 % (1.3×) |

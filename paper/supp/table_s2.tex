@@ -3,6 +3,7 @@
 control. Dev QWK: development out-of-fold DR QWK at matched calibration (fold-wise
 cross-fitted cut-points); folds: development folds trained.}\label{tab:s2}
 \centering\scriptsize
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lllllllll@{}}
 \toprule
 Model & Control & Backbone & DR head & Pixels & Pretraining & Epochs & Factor & Dev QWK \\
@@ -21,5 +22,5 @@ I24FULL & E09 & RETFound ViT-L/16 & cumulative & 224 & RETFound (colour fundus) 
 S1E08--S4E08 & E08 & DenseNet121 & cumulative & 448 & ImageNet + EyePACS & 40 & seed only & -- \\
 R1APTOS & E08 & DenseNet121 & cumulative & 448 & ImageNet + EyePACS & 40 & trained on APTOS (reverse) & -- \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}

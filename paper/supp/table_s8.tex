@@ -1,5 +1,20 @@
 \begin{table}[h]
 \caption{\textbf{Content-overlap audit.} Pairs of images across corpora whose 256-bit difference hashes lie within the stated Hamming distance.}\label{tab:s8}
-\centering
-\emph{[overlap\_audit.json: analysis output not yet available.]}
+\centering\scriptsize
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Corpus pair & Images & Pairs $\leq$16 bits & $\leq$8 bits & 0 bits \\
+\midrule
+within Development pool & 2,260 & 29 & 10 & 10 \\
+Development pool vs APTOS & 2,260 / 3,662 & 47 & 0 & 0 \\
+within APTOS & 3,662 & 1,355 & 149 & 148 \\
+Development pool vs DDR & 2,260 / 12,522 & 14 & 0 & 0 \\
+within DDR & 12,522 & 23,021 & 265 & 120 \\
+APTOS vs DDR & 3,662 / 12,522 & 1,361 & 1 & 0 \\
+EyePACS vs APTOS & 35,126 / 3,662 & 10,086 & 18 & 0 \\
+EyePACS vs DDR & 35,126 / 12,522 & 267,402 & 2,304 & 0 \\
+EyePACS vs Development pool & 35,126 / 2,260 & 178 & 0 & 0 \\
+\multicolumn{5}{@{}l}{Threshold 16 bits; development pairs split across folds: 7} \\
+\bottomrule
+\end{tabular}
 \end{table}

@@ -3519,8 +3519,8 @@
   "source": "docs/generated/paper/seeds.json"
  },
  "seeds.ddr.sd": {
-  "tex": "0.0100",
-  "value": 0.009969112276104098,
+  "tex": "0.0116",
+  "value": 0.011583966992805391,
   "source": "docs/generated/paper/seeds.json"
  },
  "seeds.ddr.qwklo": {
@@ -3529,13 +3529,13 @@
   "source": "docs/generated/paper/seeds.json"
  },
  "seeds.ddr.qwkhi": {
-  "tex": "0.7281",
-  "value": 0.7280988880263355,
+  "tex": "0.7329",
+  "value": 0.7329314145555765,
   "source": "docs/generated/paper/seeds.json"
  },
  "seeds.ddr.mildR1.lo": {
-  "tex": "34.0",
-  "value": 0.3396825396825397,
+  "tex": "33.3",
+  "value": 0.3333333333333333,
   "source": "docs/generated/paper/seeds.json"
  },
  "seeds.ddr.mildR1.hi": {
@@ -3554,18 +3554,18 @@
   "source": "docs/generated/paper/seeds.json"
  },
  "seeds.ddr.sigR1": {
-  "tex": "17",
-  "value": 17,
+  "tex": "30",
+  "value": 30,
   "source": "docs/generated/paper/seeds.json"
  },
  "seeds.ddr.sigR4": {
-  "tex": "21",
-  "value": 21,
+  "tex": "35",
+  "value": 35,
   "source": "docs/generated/paper/seeds.json"
  },
  "seeds.ddr.ntests": {
-  "tex": "30",
-  "value": 30,
+  "tex": "50",
+  "value": 50,
   "source": "docs/generated/paper/seeds.json"
  },
  "seeds.ddr.maxR1": {
@@ -3842,6 +3842,216 @@
   "tex": "0.0008",
   "value": 0.000841537324869468,
   "source": "docs/generated/paper/crossfold_dupes.json"
+ },
+ "ov.bits": {
+  "tex": "16",
+  "value": 16,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.devwithin": {
+  "tex": "29",
+  "value": 29,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.devvsAPTOS": {
+  "tex": "47",
+  "value": 47,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.APTOSwithin": {
+  "tex": "1,355",
+  "value": 1355,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.devvsDDR": {
+  "tex": "14",
+  "value": 14,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.DDRwithin": {
+  "tex": "23,021",
+  "value": 23021,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.APTOSvsDDR": {
+  "tex": "1,361",
+  "value": 1361,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.EyePACSvsAPTOS": {
+  "tex": "10,086",
+  "value": 10086,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.EyePACSvsDDR": {
+  "tex": "267,402",
+  "value": 267402,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.EyePACSvsdev": {
+  "tex": "178",
+  "value": 178,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.crossfold": {
+  "tex": "7",
+  "value": 7,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.devwithin.le8": {
+  "tex": "10",
+  "value": 10,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.devwithin.exact": {
+  "tex": "10",
+  "value": 10,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.devwithin.mind": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.devvsAPTOS.le8": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.devvsAPTOS.exact": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.devvsAPTOS.mind": {
+  "tex": "12",
+  "value": 12,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.APTOSwithin.le8": {
+  "tex": "149",
+  "value": 149,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.APTOSwithin.exact": {
+  "tex": "148",
+  "value": 148,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.APTOSwithin.mind": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.devvsDDR.le8": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.devvsDDR.exact": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.devvsDDR.mind": {
+  "tex": "14",
+  "value": 14,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.DDRwithin.le8": {
+  "tex": "265",
+  "value": 265,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.DDRwithin.exact": {
+  "tex": "120",
+  "value": 120,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.DDRwithin.mind": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.APTOSvsDDR.le8": {
+  "tex": "1",
+  "value": 1,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.APTOSvsDDR.exact": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.APTOSvsDDR.mind": {
+  "tex": "8",
+  "value": 8,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.EyePACSvsAPTOS.le8": {
+  "tex": "18",
+  "value": 18,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.EyePACSvsAPTOS.exact": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.EyePACSvsAPTOS.mind": {
+  "tex": "6",
+  "value": 6,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.EyePACSvsDDR.le8": {
+  "tex": "2,304",
+  "value": 2304,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.EyePACSvsDDR.exact": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.EyePACSvsDDR.mind": {
+  "tex": "3",
+  "value": 3,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.EyePACSvsdev.le8": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.EyePACSvsdev.exact": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.EyePACSvsdev.mind": {
+  "tex": "12",
+  "value": 12,
+  "source": "docs/generated/paper/overlap_audit.json"
+ },
+ "ov.ddr.flagged": {
+  "tex": "202",
+  "value": 202,
+  "source": "docs/generated/paper/overlap_sensitivity.json"
+ },
+ "ov.ddr.maxchange": {
+  "tex": "0.55",
+  "value": 0.5483405483405535,
+  "source": "docs/generated/paper/overlap_sensitivity.json"
+ },
+ "ov.aptos.flagged": {
+  "tex": "11",
+  "value": 11,
+  "source": "docs/generated/paper/overlap_sensitivity.json"
+ },
+ "ov.aptos.maxchange": {
+  "tex": "0.04",
+  "value": 0.043589830856671785,
+  "source": "docs/generated/paper/overlap_sensitivity.json"
  },
  "grid.effect": {
   "tex": "0.0033",

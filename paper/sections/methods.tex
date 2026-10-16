@@ -78,7 +78,9 @@ External predictions average the logits of the five fold models.
 \subsection*{Cross-validation and model selection}
 
 All development results are out-of-fold over the full pool: a 5-fold split, stratified by
-corpus and DR grade and grouped by near-duplicate cluster, was built once, fingerprinted and
+corpus and DR grade and grouped by near-duplicate cluster (a later content audit found
+\pn{dup.npairs} hash-identical pairs split across folds, whose removal changes development QWK by
+at most \pn{dup.maxdiff}), was built once, fingerprinted and
 committed before the first run, and every model loads it from that file. Configurations were
 ranked by development QWK at matched calibration (below) and the selected model was declared
 in the repository before any external number was examined; no external result was used to
@@ -147,8 +149,10 @@ on Messidor-2 and IDRiD (Supplementary Notes~5 and 6). The archived development 
 re-scored on DDR (and those without archived APTOS predictions on APTOS) from their stored fold
 weights, with the same inference recipe. Because public fundus corpora draw on overlapping
 sources, every image of the development pool, the external sets and EyePACS was compared by a
-256-bit difference hash after the training crop, and near-duplicate pairs across corpora were
-counted (Supplementary Note~7).
+256-bit difference hash after the training crop. No development image lay within re-encoding
+distance of an APTOS or DDR image; removing the external images that lay within that distance of
+an EyePACS image changed no reported metric by more than \pn{ov.ddr.maxchange} percentage points
+(Supplementary Note~7).
 
 \subsection*{Provenance controls}
 

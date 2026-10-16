@@ -390,7 +390,20 @@ def overlap():
     put("ov.bits", d["threshold_bits"], i0, src)
     for tag, v in d["pairs"].items():
         put(f"ov.{tag.replace('_', '')}", v["n_pairs"], i0, src)
-    put("ov.crossfold", len(d.get("dev_within_cross_fold_examples", [])), i0, src)
+    put("ov.crossfold", len([p for p in d.get("dev_within_cross_fold_examples", []) if p[2] <= 8]), i0, src)
+    for tag, v in d["pairs"].items():
+        if "n_le8" in v:
+            put(f"ov.{tag.replace('_', '')}.le8", v["n_le8"], i0, src)
+            put(f"ov.{tag.replace('_', '')}.exact", v["hist"][0], i0, src)
+            nz = [i for i, h in enumerate(v["hist"]) if h]
+            if nz:
+                put(f"ov.{tag.replace('_', '')}.mind", nz[0], i0, src)
+    ssrc = f"{GP}/overlap_sensitivity.json"
+    sd = load(ssrc)
+    if sd:
+        for c, v in sd["corpora"].items():
+            put(f"ov.{c.lower()}.flagged", v["n_flagged"], i0, ssrc)
+            put(f"ov.{c.lower()}.maxchange", 100 * v["max_abs_change"], "{:.2f}", ssrc)
 
 
 def misc():

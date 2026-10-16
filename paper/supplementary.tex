@@ -235,19 +235,40 @@ direction, \pn{rev.o6}).
 \clearpage
 \note{Supplementary Note 7. Content-overlap audit}
 
-Public fundus corpora are assembled from overlapping sources, so a near-duplicate of an
-external image in the training data would inflate external performance. Every image of the
-development pool, APTOS, DDR and EyePACS was reduced to a 256-bit difference hash after the
-same retinal crop used for training, and all cross-corpus pairs within \pn{ov.bits} bits were
-counted (in this project's data, distinct images lie at least 28 bits apart and re-encodings of
-one image within 8). The development pool and the frozen split were built before this audit;
-development near-duplicate pairs that straddle two folds number \pn{ov.crossfold}.
+Public fundus corpora are assembled from overlapping sources, so a copy of an external image in
+the training or pretraining data would inflate external performance. Every image of the
+development pool, APTOS, DDR and EyePACS was reduced to a 256-bit difference hash after the same
+retinal crop used for training. In this project's data, re-encodings of one photograph lie within
+8 bits of each other and distinct photographs at least 28 bits apart, with a grey zone between;
+all pairs within \pn{ov.bits} bits were counted and every pair within 8 bits was archived.
+
+\emph{Development pool and external sets.} No development image lay within 8 bits of any APTOS
+or DDR image (closest pairs \pn{ov.devvsAPTOS.mind} and \pn{ov.devvsDDR.mind} bits), so no
+external estimate is affected by development-set leakage.
+
+\emph{EyePACS (pretraining) and external sets.} No external image was hash-identical to an
+EyePACS image. \pn{ov.EyePACSvsAPTOS.le8} APTOS--EyePACS pairs (\pn{ov.aptos.flagged} APTOS images)
+and \pn{ov.EyePACSvsDDR.le8} DDR--EyePACS pairs (\pn{ov.ddr.flagged} DDR images) lay within 8 bits,
+the closest at \pn{ov.EyePACSvsAPTOS.mind} and \pn{ov.EyePACSvsDDR.mind} bits. Their distances
+form a tail that rises towards the threshold rather than a peak at zero, the pattern expected of
+hash collisions between dark, low-contrast photographs rather than of copies; we could not verify
+them visually. Removing every flagged image changed no model's shipped-rule referable
+sensitivity, mild recall, QWK or referral area under the curve by more than
+\pn{ov.ddr.maxchange} percentage points on DDR and \pn{ov.aptos.maxchange} on APTOS.
+
+\emph{Within corpora.} The development pool contains \pn{ov.devwithin.exact} hash-identical
+pairs, \pn{ov.crossfold} of which straddle two folds of the frozen split (\pn{dup.nimg} images,
+missed when the split was built); removing those images changes every model's matched
+development QWK by at most \pn{dup.maxdiff}. APTOS and DDR contain \pn{ov.APTOSwithin.exact} and
+\pn{ov.DDRwithin.exact} hash-identical pairs respectively. Within-corpus duplicates in an external
+set do not leak information into the model, but they make image-level bootstrap intervals
+slightly narrow.
 
 \input{supp/table_s8.tex}
 
 %% ---------------------------------------------------------------------------------------
 \clearpage
-\note{Supplementary Tables S4--S5. Full decision-rule matrices}
+\note{Supplementary Tables S7--S8. Full decision-rule matrices}
 \input{supp/table_s4.tex}
 \clearpage
 \input{supp/table_s5.tex}
