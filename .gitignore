@@ -57,3 +57,4 @@ paper/*.log
 paper/*.out
 paper/*.blg
 paper/*.bbl
+paper/*.toc

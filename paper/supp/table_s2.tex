@@ -1,0 +1,25 @@
+\begin{table}[h]
+\caption{\textbf{Configurations.} Each configuration changes one factor relative to its
+control. Dev QWK: development out-of-fold DR QWK at matched calibration (fold-wise
+cross-fitted cut-points); folds: development folds trained.}\label{tab:s2}
+\centering\scriptsize
+\begin{tabular}{@{}lllllllll@{}}
+\toprule
+Model & Control & Backbone & DR head & Pixels & Pretraining & Epochs & Factor & Dev QWK \\
+\midrule
+E08 & -- & DenseNet121 & cumulative & 448 & ImageNet + EyePACS (5 ep) & 40 & reference & 0.8646 \\
+E09 & E08 & DenseNet121 & cumulative & 224 & ImageNet + EyePACS & 40 & resolution & 0.8389 \\
+E10 & E08 & DenseNet121 & cumulative & 640 (560 effective) & ImageNet + EyePACS & 40 & resolution & 0.8749 \\
+E17NAT & E10 & DenseNet121 & cumulative & 640 & ImageNet + EyePACS & 40 & native-resolution source files & 0.8662 \\
+E11FULL & E10 & EfficientNet-B3 & cumulative & 448 & ImageNet + EyePACS & 30 & backbone (selected model) & 0.8954 \\
+E14MAC & E08 & DenseNet121 & cumulative & 448 + macula crop & ImageNet + EyePACS & 40 & fovea-centred crop for DME head & 0.8595 \\
+E15LPFT & E08 & DenseNet121 & cumulative & 448 & ImageNet + EyePACS & 40 (LP 5) & linear probe then fine-tune & 0.8655 \\
+E20CORAL & E08 & DenseNet121 & CORAL & 448 & ImageNet + EyePACS & 40 & ordinal head & 0.8569 \\
+E22CORN & E08 & DenseNet121 & CORN & 448 & ImageNet + EyePACS & 40 & ordinal head & 0.8564 \\
+E21CNXA & E08 & ConvNeXt-tiny & cumulative & 448 & ImageNet + EyePACS & 40 & backbone (2 folds) & 0.8267 (2 f) \\
+I24FULL & E09 & RETFound ViT-L/16 & cumulative & 224 & RETFound (colour fundus) & 30 (LP 5) & foundation encoder & -- \\
+S1E08--S4E08 & E08 & DenseNet121 & cumulative & 448 & ImageNet + EyePACS & 40 & seed only & -- \\
+R1APTOS & E08 & DenseNet121 & cumulative & 448 & ImageNet + EyePACS & 40 & trained on APTOS (reverse) & -- \\
+\bottomrule
+\end{tabular}
+\end{table}

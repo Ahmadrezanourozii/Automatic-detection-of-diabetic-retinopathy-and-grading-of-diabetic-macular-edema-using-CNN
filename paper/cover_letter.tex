@@ -1,0 +1,54 @@
+%% Cover letter for the npj Digital Medicine submission. Numbers come from numbers.tex.
+\documentclass[11pt]{letter}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,textcomp}
+\makeatletter
+\newcommand{\pndef}[2]{\expandafter\def\csname pn@#1\endcsname{#2}}
+\newcommand{\pn}[1]{\ifcsname pn@#1\endcsname\csname pn@#1\endcsname\else
+  \@latex@error{Undefined number key `#1'}{Run src/paper_numbers.py}\textbf{??#1??}\fi}
+\makeatother
+\input{numbers.tex}
+\signature{[Corresponding author name]\\School of Electrical and Computer Engineering\\
+University of Tehran}
+\address{[Corresponding author name]\\School of Electrical and Computer Engineering\\
+College of Engineering, University of Tehran\\Tehran, Iran\\{}[email]}
+\begin{document}
+\begin{letter}{The Editors\\npj Digital Medicine}
+\opening{Dear Editors,}
+
+We submit the Article ``Decision rules rather than representations drive external failures of
+diabetic retinopathy grading models'' for consideration in \emph{npj Digital Medicine}.
+
+When a diabetic retinopathy grading model fails on a new population, the field attributes the
+failure to the learned representation and responds by changing the model: a larger backbone, a
+foundation encoder, a new ordinal loss. We show that a large part of what is reported as model
+failure, and as model difference, is instead produced by the decision rule that turns the
+model's ordinal outputs into a grade. Across development models, five training seeds, two
+external populations (APTOS 2019 and DDR) and the reverse direction of transfer, the mild
+grade collapses under the shipped rule and is restored by refitting four cut-points alone,
+without retraining. Development-fitted thresholds overshoot their target on new populations,
+and agreement statistics cannot see the referral operating point. Reanalysing the released
+predictions of a published ordinal model reproduces its result and the same pattern. Of nine
+pre-registered interventions on the model, \pn{iv.nfalsified} were falsified at matched
+calibration, including a retinal foundation model.
+
+We think the work suits \emph{npj Digital Medicine} for three reasons. First, its message is
+practical for deployment: before a grading model is replaced, its decision rule should be
+recalibrated and evaluated, and we quantify how many locally labelled images that requires and
+how often it does harm. Second, it corrects how model comparisons are reported: we propose
+\emph{matched calibration} as a reporting rule and document its record, including a case in
+which our own earlier archived result did not survive regeneration from per-image predictions.
+Third, the study is fully reproducible: every outcome was pre-registered in a public
+repository before the corresponding run, every number in the manuscript is generated from
+archived per-image predictions, and code, splits and predictions are public.
+
+The manuscript has not been published and is not under consideration elsewhere. All data are
+public and de-identified. The authors declare no competing interests. The use of an AI
+assistant in analysis and drafting is disclosed in Methods.
+
+[Optional: suggested and excluded reviewers, to be added by the authors.]
+
+\closing{Sincerely,}
+\end{letter}
+\end{document}

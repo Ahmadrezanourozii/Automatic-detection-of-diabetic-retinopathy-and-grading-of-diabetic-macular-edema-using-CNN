@@ -264,6 +264,11 @@ def record():
         put(f"rec.lpft.{nm}", 100 * a["diff"], "{:+.2f}", src)
         put(f"rec.lpft.{nm}ci", (100 * a["lo"], 100 * a["hi"]),
             lambda x: f"[{x[0]:+.2f}, {x[1]:+.2f}]", src)
+    for mode, v in d["source_control"].items():
+        r = v["recall"][2]
+        put(f"rec.e12.{mode}", 100 * r["diff"], lambda x: f"{x:+.1f}".replace("-", "\\textminus{}"), src)
+        put(f"rec.e12.{mode}ci", (100 * r["lo"], 100 * r["hi"]),
+            lambda x: f"[{x[0]:+.1f}, {x[1]:+.1f}]".replace("-", "\\textminus{}"), src)
 
 
 def seeds():
@@ -333,11 +338,34 @@ def outcomes():
                     f"{GP}/interventions.json")
 
 
+def overlap():
+    src = f"{GP}/overlap_audit.json"
+    d = load(src)
+    if not d:
+        return
+    put("ov.bits", d["threshold_bits"], i0, src)
+    for tag, v in d["pairs"].items():
+        put(f"ov.{tag.replace('_', '')}", v["n_pairs"], i0, src)
+    put("ov.crossfold", len(d.get("dev_within_cross_fold_examples", [])), i0, src)
+
+
 def misc():
     put("grid.effect", 0.0033, "{:.4f}", "src/paper_rules.py: E08 matched QWK 0.8646 (grid 60) vs 0.8613 (grid 80)")
     put("fovea.median", 0.196, "{:.3f}", "runs/E13gate/fovea_gate.json")
     put("n.eyepacs", 35126, i0, "runs/E08/results.json pretrain.n_images")
     put("n.ddr", 12522, i0, "DDR DR_grading.csv (grades 0-4)")
+    # the archived (erroneous) CORN comparison, quoted in Supplementary Note 4
+    src = "docs/generated/matched_corn_e08.json"
+    arc = load(src) or []
+    for r in arc:
+        if r["head"] == "dr" and r["metric"] == "QWK" and r["mode"] == "matched":
+            put("corn.archived.diff", r["diff"], sg4, src)
+            put("corn.archived.ci", (r["lo"], r["hi"]), lambda x: ci4(*x), src)
+            put("corn.archived.qwk", r["a"], q4, src)
+    d = load(f"{GP}/dev_summary.json") or {}
+    for m, v in d.items():
+        put(f"dev.{m.lower()}.matched", v["qwk_matched"], q4, f"{GP}/dev_summary.json")
+        put(f"dev.{m.lower()}.shipped", v["qwk_shipped"], q4, f"{GP}/dev_summary.json")
 
 
 def write():
@@ -365,6 +393,6 @@ def write():
 if __name__ == "__main__":
     for f in (thesis_ledger, interventions, lambda: phase0("APTOS"), lambda: phase0("DDR"),
               lambda: transfer("APTOS"), lambda: transfer("DDR"), orderdr, recalibration,
-              optimism, record, seeds, reverse, outcomes, misc):
+              optimism, record, seeds, reverse, outcomes, overlap, misc):
         f()
     write()

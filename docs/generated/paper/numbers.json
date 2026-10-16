@@ -2331,6 +2331,58 @@
   ],
   "source": "docs/generated/paper/record.json"
  },
+ "rec.e12.shipped": {
+  "tex": "\\textminus{}6.9",
+  "value": -6.905755732546852,
+  "source": "docs/generated/paper/record.json"
+ },
+ "rec.e12.shippedci": {
+  "tex": "[\\textminus{}12.1, \\textminus{}2.1]",
+  "value": [
+   -12.088133640552996,
+   -2.1428571428571352
+  ],
+  "source": "docs/generated/paper/record.json"
+ },
+ "rec.e12.matched": {
+  "tex": "+0.4",
+  "value": 0.3752921685756116,
+  "source": "docs/generated/paper/record.json"
+ },
+ "rec.e12.matchedci": {
+  "tex": "[\\textminus{}5.7, +6.1]",
+  "value": [
+   -5.681818181818176,
+   6.1433447098976135
+  ],
+  "source": "docs/generated/paper/record.json"
+ },
+ "rec.e12.insample": {
+  "tex": "\\textminus{}10.8",
+  "value": -10.841200986533362,
+  "source": "docs/generated/paper/record.json"
+ },
+ "rec.e12.insampleci": {
+  "tex": "[\\textminus{}16.2, \\textminus{}5.4]",
+  "value": [
+   -16.196048078674192,
+   -5.39540675152186
+  ],
+  "source": "docs/generated/paper/record.json"
+ },
+ "rec.e12.randomhalf": {
+  "tex": "\\textminus{}6.6",
+  "value": -6.555751685145873,
+  "source": "docs/generated/paper/record.json"
+ },
+ "rec.e12.randomhalfci": {
+  "tex": "[\\textminus{}12.0, \\textminus{}1.1]",
+  "value": [
+   -11.985018726591756,
+   -1.1027399098325434
+  ],
+  "source": "docs/generated/paper/record.json"
+ },
  "iv.retfound.folds": {
   "tex": "2",
   "value": "2",
@@ -2355,5 +2407,153 @@
   "tex": "12,522",
   "value": 12522,
   "source": "DDR DR_grading.csv (grades 0-4)"
+ },
+ "corn.archived.diff": {
+  "tex": "\\textminus{}0.0479",
+  "value": -0.04788455050999932,
+  "source": "docs/generated/matched_corn_e08.json"
+ },
+ "corn.archived.ci": {
+  "tex": "[\\textminus{}0.0656, \\textminus{}0.0325]",
+  "value": [
+   -0.06563703863937273,
+   -0.03248329603769777
+  ],
+  "source": "docs/generated/matched_corn_e08.json"
+ },
+ "corn.archived.qwk": {
+  "tex": "0.8168",
+  "value": 0.8168376693754903,
+  "source": "docs/generated/matched_corn_e08.json"
+ },
+ "dev.e05.matched": {
+  "tex": "0.8306",
+  "value": 0.830577151874409,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e05.shipped": {
+  "tex": "0.7834",
+  "value": 0.7834337538671745,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e06.matched": {
+  "tex": "0.8554",
+  "value": 0.8554324074098779,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e06.shipped": {
+  "tex": "0.8475",
+  "value": 0.8474572930475913,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e08.matched": {
+  "tex": "0.8646",
+  "value": 0.8645842726491791,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e08.shipped": {
+  "tex": "0.8599",
+  "value": 0.8598709309506913,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e09.matched": {
+  "tex": "0.8389",
+  "value": 0.8388669249409204,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e09.shipped": {
+  "tex": "0.8200",
+  "value": 0.8200008124552732,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e10.matched": {
+  "tex": "0.8749",
+  "value": 0.8748823478623287,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e10.shipped": {
+  "tex": "0.8683",
+  "value": 0.8683060896213581,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e11full.matched": {
+  "tex": "0.8954",
+  "value": 0.8953734451443255,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e11full.shipped": {
+  "tex": "0.8883",
+  "value": 0.8882910566471596,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e14mac.matched": {
+  "tex": "0.8595",
+  "value": 0.859525042692964,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e14mac.shipped": {
+  "tex": "0.8507",
+  "value": 0.8507389756822106,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e15lpft.matched": {
+  "tex": "0.8655",
+  "value": 0.8655173434058284,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e15lpft.shipped": {
+  "tex": "0.8466",
+  "value": 0.846571991055955,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e17nat.matched": {
+  "tex": "0.8662",
+  "value": 0.8662143073900076,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e17nat.shipped": {
+  "tex": "0.8691",
+  "value": 0.8691045983605292,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e20coral.matched": {
+  "tex": "0.8569",
+  "value": 0.8569265827483015,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e20coral.shipped": {
+  "tex": "0.8562",
+  "value": 0.856209817483564,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e22corn.matched": {
+  "tex": "0.8564",
+  "value": 0.856439594054148,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e22corn.shipped": {
+  "tex": "0.8527",
+  "value": 0.852657259490571,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e21cnxa.matched": {
+  "tex": "0.8267",
+  "value": 0.8266912897621103,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.e21cnxa.shipped": {
+  "tex": "0.8323",
+  "value": 0.8323170460311384,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.i24ft01.matched": {
+  "tex": "0.7896",
+  "value": 0.7895543368052355,
+  "source": "docs/generated/paper/dev_summary.json"
+ },
+ "dev.i24ft01.shipped": {
+  "tex": "0.7281",
+  "value": 0.7280971473400695,
+  "source": "docs/generated/paper/dev_summary.json"
  }
 }

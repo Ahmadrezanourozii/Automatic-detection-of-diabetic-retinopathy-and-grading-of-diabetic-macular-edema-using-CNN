@@ -48,15 +48,24 @@ def external_pair(ea, eb, ha, hb):
     return out
 
 
-def dev_accuracy(a, b, ha, hb):
+def dev_accuracy(a, b, ha, hb, procedures=("shipped", "matched")):
+    """'matched' is the fold-wise cross-fit every development comparison uses; 'insample'
+    (cuts fitted on all rows) and 'randomhalf' (the external two-fold procedure, grid 80)
+    exist to show how a per-class verdict depends on the fitting procedure (ISSUES.md §31)."""
     ib = {u: i for i, u in enumerate(b["uids"])}
     ja = np.array([i for i, u in enumerate(a["uids"]) if u in ib])
     jb = np.array([ib[a["uids"][i]] for i in ja])
     y, f = a["y"][ja], a["folds"][ja]
     out = {}
-    for mode in ("shipped", "matched"):
+    sa, sb = P.expected_grade(a["dr"][ja], ha), P.expected_grade(b["dr"][jb], hb)
+    for mode in procedures:
         if mode == "shipped":
             pa, pb = P.shipped(a["dr"][ja], ha), P.shipped(b["dr"][jb], hb)
+        elif mode == "insample":
+            pa = P.cuts_to_grades(sa, P.fit_cuts(sa, y, "qwk")[0])
+            pb = P.cuts_to_grades(sb, P.fit_cuts(sb, y, "qwk")[0])
+        elif mode == "randomhalf":
+            pa, pb = P.crossfit_external(sa, y, "qwk"), P.crossfit_external(sb, y, "qwk")
         else:
             pa = P.crossfit_dev(P.expected_grade(a["dr"][ja], ha), y, f)
             pb = P.crossfit_dev(P.expected_grade(b["dr"][jb], hb), y, f)
@@ -91,7 +100,8 @@ def main():
                                    load_model(a.pred_root, "E08", L), "ordinal", "ordinal")
     # E12 source control: native minus default
     nat, de = oof_from_dir(a.e12[1], L), oof_from_dir(a.e12[0], L)
-    out["source_control"] = dev_accuracy(nat, de, "ordinal", "ordinal")
+    out["source_control"] = dev_accuracy(nat, de, "ordinal", "ordinal",
+                                         ("shipped", "matched", "insample", "randomhalf"))
     json.dump(out, open("docs/generated/paper/record.json", "w"), indent=1, default=float)
 
     names = ["NoDR", "Mild", "Mod", "Sev", "PDR"]
