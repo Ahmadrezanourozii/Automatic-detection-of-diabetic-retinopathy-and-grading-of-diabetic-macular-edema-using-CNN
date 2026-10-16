@@ -54,8 +54,46 @@ def grouped_stratified_folds(rows, n_folds=5, seed=0):
     return assignment
 
 
-def build(datasets_roots, n_folds=5, seed=0, corpora_names=("IDRiD", "Messidor-2")):
+def dedup_group(rows, thresh=16):
+    """Merge visually near-identical images into one group (256-bit dHash, union-find).
+
+    The calibration of the hash and of the 16-bit threshold is in src/dedup_groups.py
+    (ISSUES.md §7): distinct fundus pairs sit at >= 28 bits, re-encodings of one image at
+    0-8. APTOS is known to carry duplicates, so a split over it that ignored them would put
+    copies of one photograph on both sides of a fold boundary. Returns the number of images
+    that joined a multi-image group.
+    """
+    import cv2, numpy as np
+    from dedup_groups import dhash, pairwise_within, DSU
+    from preprocess import crop_retina
+    H = []
+    for i, r in enumerate(rows):
+        img = cv2.imread(r["path"], cv2.IMREAD_COLOR)
+        if img is None:
+            raise SystemExit(f"unreadable image while hashing: {r['path']}")
+        grey = cv2.cvtColor(crop_retina(img), cv2.COLOR_BGR2GRAY)
+        H.append(dhash(grey))
+        if (i + 1) % 500 == 0:
+            print(f"[dedup] hashed {i + 1}/{len(rows)}", flush=True)
+    H = np.stack(H)
+    dsu = DSU(len(rows))
+    n_pairs = 0
+    for i, j, _ in pairwise_within(H, thresh):
+        dsu.union(i, j); n_pairs += 1
+    for i, r in enumerate(rows):
+        r["group"] = rows[dsu.find(i)]["uid"]
+    sizes = collections.Counter(r["group"] for r in rows)
+    joined = sum(v for v in sizes.values() if v > 1)
+    print(f"[dedup] {n_pairs} near-duplicate pairs at <= {thresh} bits; {joined} images in "
+          f"{sum(1 for v in sizes.values() if v > 1)} multi-image groups", flush=True)
+    return joined
+
+
+def build(datasets_roots, n_folds=5, seed=0, corpora_names=("IDRiD", "Messidor-2"),
+          dedup_hamming=0):
     rows = corpora.build(datasets_roots, corpora_names)
+    if dedup_hamming:
+        dedup_group(rows, dedup_hamming)
     assignment = grouped_stratified_folds(rows, n_folds, seed)
 
     for r in rows:
@@ -115,9 +153,17 @@ def main():
     ap.add_argument("--folds", type=int, default=5)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--out", default="data/splits/dev_v1.json")
+    ap.add_argument("--corpora", default="IDRiD,Messidor-2",
+                    help="which corpora the split covers. The frozen development split is "
+                         "IDRiD,Messidor-2; APTOS is split only for the reverse-direction "
+                         "experiment (docs/PAPER_EXPERIMENTS_preregistration.md, G2)")
+    ap.add_argument("--dedup-hamming", type=int, default=0,
+                    help="merge near-duplicates into one group at this 256-bit dHash "
+                         "distance before splitting (16 is the calibrated value; 0 = off)")
     a = ap.parse_args()
 
-    rows, meta = build(a.datasets, a.folds, a.seed)
+    rows, meta = build(a.datasets, a.folds, a.seed, tuple(a.corpora.split(",")),
+                       a.dedup_hamming)
     print(corpora.summarise(rows))
     print()
     print(report(rows, a.folds))

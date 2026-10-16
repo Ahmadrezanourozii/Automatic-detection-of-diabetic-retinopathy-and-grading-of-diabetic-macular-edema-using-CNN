@@ -40,6 +40,9 @@ MESSIDOR_HI = "borhan2003/messidor-diabetic-retinopathy-dataset-jpg-format"
 # PRIVATELY (redistributing CC-BY-NC gated weights publicly is not ours to do). The probe
 # verifies its sha256 at load time, so the path is not trusted (docs/RETFound_provenance.md).
 RETFOUND = "ah22reza/retfound-cfp-encoder"
+# DDR (Li et al. 2019), 12 522 gradable images at 512 px from 147 Chinese hospitals. A second
+# external DR test set for the journal paper; evaluation only, like APTOS.
+DDR = "mariaherrerot/ddrdataset"
 
 # A run whose ID names a piece of work must actually launch that work. E13gate was pushed
 # as the fovea-localiser gate and silently ran src/train.py for 643 s instead, producing a
@@ -63,7 +66,8 @@ RUN_ID_REQUIRES_SCRIPT = {
 
 
 def cells(run_id, train_args, commit, external_only=False, from_run="", script="",
-          ext_args=None, code_dataset=""):
+          ext_args=None, code_dataset="", external_corpora="APTOS", build_split="",
+          external_multi="", cpu=False):
     if code_dataset:
         # Account 2's kernels have no internet ("Could not resolve host: github.com"), the
         # standard Kaggle restriction on accounts that have not verified a phone number. The
@@ -204,18 +208,100 @@ else:
     # /kaggle/input/datasets/ directory in E08, so a one-level scan reported APTOS missing
     # when it was present and skipped the evaluation (ISSUES.md §15). eval_external.py
     # already exits loudly if the corpus matches zero images -- let it be the judge.
-    cmd = [sys.executable, "-u", "/kaggle/working/repo/src/eval_external.py",
-           "--run", OUT, "--datasets", "/kaggle/input", "--corpus", "APTOS",
-           "--cache", "/kaggle/temp/cache_ext", "--tta"]
-    print(" ".join(cmd), flush=True)
-    with open(f"{{OUT}}/external.log", "w") as f:
-        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                             text=True, bufsize=1, cwd="/kaggle/working/repo")
-        for line in p.stdout:
-            print(line, end="", flush=True); f.write(line); f.flush()
-        p.wait()
-    print("external exit=", p.returncode)
+    # one evaluation per external corpus, each with its own image cache and log, so a
+    # failure on one corpus cannot be mistaken for the other's output
+    for CORPUS in {external_corpora.split(",")!r}:
+        tag = CORPUS.lower()
+        cmd = [sys.executable, "-u", "/kaggle/working/repo/src/eval_external.py",
+               "--run", OUT, "--datasets", "/kaggle/input", "--corpus", CORPUS,
+               "--cache", f"/kaggle/temp/cache_ext_{{tag}}", "--tta"]
+        print(" ".join(cmd), flush=True)
+        with open(f"{{OUT}}/external_{{tag}}.log", "w") as f:
+            p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                 text=True, bufsize=1, cwd="/kaggle/working/repo")
+            for line in p.stdout:
+                print(line, end="", flush=True); f.write(line); f.flush()
+            p.wait()
+        print(f"external {{CORPUS}} exit=", p.returncode)
 '''
+    split_cell = None
+    if build_split:
+        # The reverse-direction experiment trains on a corpus the frozen development split does
+        # not cover. Its split is built here by committed, deterministic code (seed 0,
+        # near-duplicates merged at the calibrated 16-bit dHash distance) BEFORE any training,
+        # archived beside the run, and its fingerprint is printed so the run is pinned to it.
+        split_cell = f'''import subprocess, sys, os, json
+RUN_ID = "{run_id}"
+OUT = f"/kaggle/working/{{RUN_ID}}"
+os.makedirs(OUT, exist_ok=True)
+SPLIT = f"{{OUT}}/split.json"
+if not os.path.exists(SPLIT):
+    cmd = [sys.executable, "-u", "/kaggle/working/repo/src/splits.py",
+           "--datasets", "/kaggle/input", "--corpora", "{build_split}",
+           "--dedup-hamming", "16", "--seed", "0", "--out", SPLIT]
+    print(" ".join(cmd), flush=True)
+    subprocess.run(cmd, check=True, cwd="/kaggle/working/repo")
+m = json.load(open(SPLIT))
+print("split", SPLIT, "fingerprint", m["fingerprint"], "images", m["n_images"],
+      "groups", m["n_groups"])
+'''
+        train = train.replace('"--channels-last", "--resume",',
+                              '"--channels-last", "--resume", "--splits", f"{OUT}/split.json",')
+
+    if external_multi:
+        # Several finished runs, each scored on the same external corpora with one shared
+        # image cache. Each run's fold weights are located by the name of the run directory
+        # its kernel wrote them to (e.g. .../E11/best_0.pt), never by path position, because
+        # Kaggle's mount layout for kernel sources has changed under us before (ISSUES.md
+        # §15). A fold index that two sources both supply is refused rather than overwritten.
+        spec = {{}}
+        for item in external_multi.split(";"):
+            name, srcs = item.split("=")
+            spec[name.strip()] = [x.strip() for x in srcs.split("+") if x.strip()]
+        multi = f'''import subprocess, sys, os, glob, shutil, json
+RUN_ID = "{run_id}"
+OUT = f"/kaggle/working/{{RUN_ID}}"
+os.makedirs(OUT, exist_ok=True)
+SPEC = {spec!r}
+CORPORA = {external_corpora.split(",")!r}
+summary = {{}}
+for name, srcdirs in SPEC.items():
+    dst = os.path.join(OUT, name)
+    os.makedirs(dst, exist_ok=True)
+    found = {{}}
+    for root, _, files in os.walk("/kaggle/input"):
+        if os.path.basename(root) in srcdirs:
+            for fn in files:
+                if fn.startswith("best_") and fn.endswith(".pt"):
+                    if fn in found:
+                        raise SystemExit(f"{{name}}: {{fn}} supplied twice ({{found[fn]}} and {{root}})")
+                    found[fn] = os.path.join(root, fn)
+    print(f"{{name}}: {{len(found)}} fold weights from {{srcdirs}}: {{sorted(found)}}", flush=True)
+    if not found:
+        summary[name] = "NO WEIGHTS FOUND"
+        continue
+    for fn, src in found.items():
+        shutil.copy2(src, os.path.join(dst, fn))
+    for CORPUS in CORPORA:
+        tag = CORPUS.lower()
+        cmd = [sys.executable, "-u", "/kaggle/working/repo/src/eval_external.py",
+               "--run", dst, "--datasets", "/kaggle/input", "--corpus", CORPUS,
+               "--cache", f"/kaggle/temp/cache_ext_{{tag}}", "--tta"]
+        print(" ".join(cmd), flush=True)
+        with open(os.path.join(dst, f"external_{{tag}}.log"), "w") as f:
+            p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                 text=True, bufsize=1, cwd="/kaggle/working/repo")
+            for line in p.stdout:
+                print(line, end="", flush=True); f.write(line); f.flush()
+            p.wait()
+        summary[f"{{name}}/{{CORPUS}}"] = p.returncode
+    for p_ in glob.glob(os.path.join(dst, "best_*.pt")):
+        os.remove(p_)        # they belong to the source runs; do not duplicate them
+json.dump(summary, open(os.path.join(OUT, "multi_summary.json"), "w"), indent=1)
+print(summary)
+'''
+        return [setup, inputs, guard, multi]
+
     if script:
         # a standalone analysis script, not the training loop
         only = f'''import subprocess, sys, os, time, shutil
@@ -293,6 +379,8 @@ for p_ in glob.glob(f"{{OUT}}/best_*.pt"):
     os.remove(p_)          # they came from the source run; no need to duplicate them
 '''
         return [setup, inputs, guard, ext_only]
+    if split_cell:
+        return [setup, inputs, guard, split_cell, train, external, collect]
     return [setup, inputs, guard, train, external, collect]
 
 
@@ -333,6 +421,18 @@ def main():
                     help="attach the private RETFound CFP encoder dataset")
     ap.add_argument("--eyepacs", action="store_true",
                     help="attach the EyePACS 2015 corpus for pretraining")
+    ap.add_argument("--ddr", action="store_true",
+                    help="attach DDR (second external DR test set, evaluation only)")
+    ap.add_argument("--external-corpora", default="APTOS",
+                    help="comma-separated corpora the post-training external step scores, "
+                         "e.g. APTOS,DDR, or Messidor-2,IDRiD for the reverse direction")
+    ap.add_argument("--build-split", default="",
+                    help="build a fresh split over these corpora inside the kernel before "
+                         "training (reverse-direction experiment only) and train on it")
+    ap.add_argument("--external-multi", default="",
+                    help="no training: score several finished runs, e.g. "
+                         "'E08=E08;E11FULL=E11+E19E11C'. Right-hand names are the run "
+                         "directories inside the attached kernel sources (--from-run).")
     ap.add_argument("--push", action="store_true")
     a = ap.parse_args()
 
@@ -347,13 +447,17 @@ def main():
     if a.code_dataset:
         print(f"[code] snapshot dataset {a.code_dataset}; the kernel will refuse to run "
               f"unless its COMMIT file reads {a.commit[:10]}")
-    on_remote = subprocess.run(
-        ["git", "merge-base", "--is-ancestor", a.commit, "origin/main"]).returncode == 0
+    # `git clone` fetches every branch, so a commit reachable from ANY remote branch can be
+    # checked out by the kernel -- not only one on main. The journal-paper experiments run
+    # from a feature branch.
+    remote_refs = subprocess.run(["git", "branch", "-r", "--contains", a.commit],
+                                 capture_output=True, text=True).stdout.split()
+    on_remote = any(r.startswith("origin/") for r in remote_refs)
     if not on_remote:
         raise SystemExit(
-            f"commit {a.commit[:10]} is not on origin/main. The kernel clones from GitHub, "
-            f"so it could not check this out. Push first:\n"
-            f"    git push origin main\n"
+            f"commit {a.commit[:10]} is not on any origin branch. The kernel clones from "
+            f"GitHub, so it could not check this out. Push first:\n"
+            f"    git push origin <branch>\n"
             f"(If you meant to pin an older commit, pass --commit <sha> explicitly.)")
     # A run-id that names a piece of work must launch that work (ISSUES.md §24). This is
     # checked before anything is written, so the failure is a refusal to build rather than
@@ -383,7 +487,8 @@ def main():
     nb = {"cells": [{"cell_type": "code", "source": c, "metadata": {},
                      "execution_count": None, "outputs": []}
                     for c in cells(a.run_id, train_args, a.commit, a.external_only,
-                                   a.from_run, a.script, a.ext_args, a.code_dataset)],
+                                   a.from_run, a.script, a.ext_args, a.code_dataset,
+                                   a.external_corpora, a.build_split, a.external_multi)],
           "metadata": {"kernelspec": {"language": "python", "display_name": "Python 3",
                                       "name": "python3"}},
           "nbformat": 4, "nbformat_minor": 4}
@@ -396,13 +501,14 @@ def main():
     # run's weights and evaluates them. Defaulting `intended` to src/train.py made this
     # check refuse every such run -- a false positive in the §24 guard, found the first
     # time an external-only kernel was built after the guard landed.
-    intended = a.script or ("src/eval_external.py" if a.external_only else "src/train.py")
+    intended = a.script or ("src/eval_external.py" if (a.external_only or a.external_multi)
+                            else "src/train.py")
     invoked = [s_ for s_ in ("src/train.py", a.script) if s_ and f"repo/{s_}" in emitted]
     if f"repo/{intended}" not in emitted:
         raise SystemExit(
             f"generated notebook does not invoke {intended} -- refusing to push. "
             f"It invokes: {invoked or 'nothing recognisable'}")
-    if (a.script or a.external_only) and "repo/src/train.py" in emitted:
+    if (a.script or a.external_only or a.external_multi) and "repo/src/train.py" in emitted:
         raise SystemExit(
             f"generated notebook invokes BOTH {a.script} and src/train.py -- refusing to "
             f"push an ambiguous run.")
@@ -447,7 +553,8 @@ def main():
                             + ([EYEPACS] if a.eyepacs else [])
                             + ([APTOS] if a.aptos else [])
                             + ([MESSIDOR_HI] if a.messidor_hi else [])
-                            + ([RETFOUND] if a.retfound else [])),
+                            + ([RETFOUND] if a.retfound else [])
+                            + ([DDR] if a.ddr else [])),
         "competition_sources": [],
         # comma-separated: an assembled run's fold weights can live across several kernels
         # (E11FULL takes best_0..2 from E11 and best_3..4 from E19E11C, which do not collide)
