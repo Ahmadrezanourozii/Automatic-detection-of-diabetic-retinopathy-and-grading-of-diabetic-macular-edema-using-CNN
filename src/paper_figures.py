@@ -160,7 +160,31 @@ def fig_frontier():
         ax2.set_title(f"{c}: what the referral cut trades", loc="left", color=INK)
         label_panel(ax2, "abcd"[2 * i + 1])
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "fig3_frontier.pdf"))
+    fig.savefig(os.path.join(OUT, "fig4_frontier.pdf"))
+    plt.close(fig)
+
+
+# ── Figure 3: transfer gap of development-fitted referral thresholds ─────────
+def fig_transfer():
+    fig, ax = plt.subplots(figsize=(110 * MM, 70 * MM))
+    ax.plot([78, 100.5], [78, 100.5], color=GREY, lw=0.8, ls="--", zorder=1)
+    for c, col, mk, dx in (("APTOS", BLUE, "o", -0.25), ("DDR", ORANGE, "s", 0.25)):
+        d = load(f"{GP}/transfer_{c.lower()}.json")
+        if not d or "E08" not in d["models"]:
+            continue
+        rows = d["models"]["E08"]["transfer"]
+        x = np.array([100 * r["target"] for r in rows]) + dx
+        y = np.array([100 * r["ext_sens"] for r in rows])
+        lo = np.array([100 * r["ext_sens_ci"][0] for r in rows]); hi = np.array([100 * r["ext_sens_ci"][1] for r in rows])
+        ax.errorbar(x, y, yerr=[y - lo, hi - y], fmt=mk, color=col, ms=4.5, lw=1.0, capsize=2,
+                    label=f"{c}", zorder=3)
+    ax.set_xlabel("Target sensitivity, fitted on development data (%)")
+    ax.set_ylabel("Achieved external sensitivity (%)")
+    ax.set_xlim(78, 97.5)
+    ax.legend(frameon=False, loc="lower right")
+    ax.text(79, 79.6, "perfect transfer", color=MUTED, fontsize=6, rotation=0)
+    fig.tight_layout()
+    fig.savefig(os.path.join(OUT, "fig3_transfer.pdf"))
     plt.close(fig)
 
 
@@ -186,7 +210,7 @@ def fig_forest():
     if seeds:
         ax.legend(frameon=False, loc="lower right")
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "fig4_forest.pdf"))
+    fig.savefig(os.path.join(OUT, "fig6_forest.pdf"))
     plt.close(fig)
 
 
@@ -224,7 +248,7 @@ def fig_recal():
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    for f in (fig_design, fig_rules, fig_frontier, fig_forest, fig_recal):
+    for f in (fig_design, fig_rules, fig_transfer, fig_frontier, fig_forest, fig_recal):
         f()
         print("ok", f.__name__)
 

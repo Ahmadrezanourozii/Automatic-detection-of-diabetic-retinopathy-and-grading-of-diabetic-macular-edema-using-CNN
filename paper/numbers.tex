@@ -53,16 +53,56 @@
 \pndef{aptos.band.e11full.sens.lo}{87.8}
 \pndef{aptos.band.e11full.spec.hi}{92.3}
 \pndef{aptos.band.e11full.spec.lo}{82.3}
+\pndef{aptos.e08.R1.mild}{5.9}
+\pndef{aptos.e08.R1.qwk}{0.8968}
+\pndef{aptos.e08.R1.sens}{99.53}
+\pndef{aptos.e08.R1.spec}{84.28}
+\pndef{aptos.e08.R2.mild}{8.9}
+\pndef{aptos.e08.R2.qwk}{0.8827}
+\pndef{aptos.e08.R2.sens}{99.13}
+\pndef{aptos.e08.R2.spec}{85.06}
+\pndef{aptos.e08.R3.mild}{4.6}
+\pndef{aptos.e08.R3.qwk}{0.8816}
+\pndef{aptos.e08.R3.sens}{99.33}
+\pndef{aptos.e08.R3.spec}{84.18}
+\pndef{aptos.e08.R4.mild}{18.1}
+\pndef{aptos.e08.R4.qwk}{0.9036}
+\pndef{aptos.e08.R4.sens}{96.64}
+\pndef{aptos.e08.R4.spec}{87.03}
+\pndef{aptos.e08.R4m.mild}{70.8}
+\pndef{aptos.e08.R4m.qwk}{0.8858}
+\pndef{aptos.e08.R4m.sens}{80.36}
+\pndef{aptos.e08.R4m.spec}{95.36}
+\pndef{aptos.e11full.R1.mild}{4.9}
+\pndef{aptos.e11full.R1.qwk}{0.9026}
+\pndef{aptos.e11full.R1.sens}{99.26}
+\pndef{aptos.e11full.R1.spec}{84.32}
+\pndef{aptos.e11full.R2.mild}{7.6}
+\pndef{aptos.e11full.R2.qwk}{0.9000}
+\pndef{aptos.e11full.R2.sens}{98.99}
+\pndef{aptos.e11full.R2.spec}{84.92}
+\pndef{aptos.e11full.R3.mild}{7.0}
+\pndef{aptos.e11full.R3.qwk}{0.9000}
+\pndef{aptos.e11full.R3.sens}{99.06}
+\pndef{aptos.e11full.R3.spec}{84.83}
+\pndef{aptos.e11full.R4.mild}{16.8}
+\pndef{aptos.e11full.R4.qwk}{0.9067}
+\pndef{aptos.e11full.R4.sens}{96.50}
+\pndef{aptos.e11full.R4.spec}{86.57}
+\pndef{aptos.e11full.R4m.mild}{75.1}
+\pndef{aptos.e11full.R4m.qwk}{0.8896}
+\pndef{aptos.e11full.R4m.sens}{75.25}
+\pndef{aptos.e11full.R4m.spec}{96.41}
 \pndef{aptos.nmodels}{7}
-\pndef{aptos.o7.mild_recall.between}{1.6}
-\pndef{aptos.o7.mild_recall.holds}{holds}
-\pndef{aptos.o7.mild_recall.within}{4.3}
+\pndef{aptos.o7.mildrecall.between}{1.6}
+\pndef{aptos.o7.mildrecall.holds}{holds}
+\pndef{aptos.o7.mildrecall.within}{4.3}
 \pndef{aptos.o7.qwk.between}{0.0281}
 \pndef{aptos.o7.qwk.holds}{does not hold}
 \pndef{aptos.o7.qwk.within}{0.0050}
-\pndef{aptos.o7.ref_sens.between}{0.9}
-\pndef{aptos.o7.ref_sens.holds}{does not hold}
-\pndef{aptos.o7.ref_sens.within}{0.4}
+\pndef{aptos.o7.refsens.between}{0.9}
+\pndef{aptos.o7.refsens.holds}{does not hold}
+\pndef{aptos.o7.refsens.within}{0.4}
 \pndef{aptos.r2worse}{6}
 \pndef{aptos.rho.R1vsR2}{0.57}
 \pndef{aptos.rho.R1vsR3}{0.57}
@@ -187,6 +227,7 @@
 \pndef{iv.nfalsified}{8}
 \pndef{iv.retfound.ci}{[\textminus{}0.0669, \textminus{}0.0124]}
 \pndef{iv.retfound.diff}{\textminus{}0.0399}
+\pndef{iv.retfound.folds}{2}
 \pndef{iv.retfound.ship}{\textminus{}0.0943}
 \pndef{iv.retfound.shipci}{[\textminus{}0.1284, \textminus{}0.0611]}
 \pndef{lit.p12.dme.kappa}{0.38}
@@ -355,6 +396,28 @@
 \pndef{probe.diff}{+0.0401}
 \pndef{probe.imagenet}{0.6611}
 \pndef{probe.retfound}{0.7008}
+\pndef{rec.bb.R1.mild}{\textminus{}1.1}
+\pndef{rec.bb.R1.mod}{+1.4}
+\pndef{rec.bb.R1.pdr}{+8.1}
+\pndef{rec.bb.R1.qwk}{+0.0059}
+\pndef{rec.bb.R1.qwkci}{[+0.0007, +0.0110]}
+\pndef{rec.bb.R1.sev}{\textminus{}1.0}
+\pndef{rec.bb.R4.mild}{\textminus{}1.4}
+\pndef{rec.bb.R4.mod}{+4.0}
+\pndef{rec.bb.R4.pdr}{+6.8}
+\pndef{rec.bb.R4.qwk}{+0.0032}
+\pndef{rec.bb.R4.qwkci}{[\textminus{}0.0020, +0.0083]}
+\pndef{rec.bb.R4.sev}{\textminus{}10.3}
+\pndef{rec.bb.R4m.mild}{+4.3}
+\pndef{rec.bb.R4m.mod}{\textminus{}11.7}
+\pndef{rec.bb.R4m.pdr}{+3.4}
+\pndef{rec.bb.R4m.qwk}{+0.0038}
+\pndef{rec.bb.R4m.qwkci}{[\textminus{}0.0027, +0.0105]}
+\pndef{rec.bb.R4m.sev}{+4.3}
+\pndef{rec.lpft.match}{+1.95}
+\pndef{rec.lpft.matchci}{[+0.18, +3.72]}
+\pndef{rec.lpft.ship}{\textminus{}5.54}
+\pndef{rec.lpft.shipci}{[-7.48, -3.54]}
 \pndef{recal.100.ci}{[-3.09, +7.43]}
 \pndef{recal.100.gain}{+3.49}
 \pndef{recal.100.harm}{16.0}
@@ -385,6 +448,7 @@
 \pndef{sel.aptos.sens}{99.26}
 \pndef{sel.aptos.spec}{84.32}
 \pndef{sel.dev.acc}{77.8}
+\pndef{sel.dev.mild}{37.3}
 \pndef{sel.dev.qwk}{0.8954}
 \pndef{sel.dme.acc}{86.0}
 \pndef{sel.dme.mid}{54.9}

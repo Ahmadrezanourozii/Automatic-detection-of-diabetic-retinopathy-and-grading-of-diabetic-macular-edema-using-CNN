@@ -1,0 +1,18 @@
+\begin{table}[t]
+\caption{\textbf{Cohorts.} No external image was used for training,
+model selection or threshold fitting. DR, diabetic retinopathy (international 5-grade
+scale); DME, diabetic macular oedema.}\label{tab:cohorts}
+\centering\footnotesize
+\begin{tabular}{@{}llllll@{}}
+\toprule
+Role & Corpus & Origin & Images & Labels & Grading \\
+\midrule
+Development pool & IDRiD & India & 516 & DR 0--4; DME 0--2 & 3 graders (published grading) \\
+ & Messidor-2 & France & 1,744 & DR 0--4; referable DME & adjudicated (3 specialists) \\
+Pretraining only & EyePACS 2015 & USA & 35,126 & DR 0--4 & single grader \\
+External (forward) & APTOS 2019 & India & 3,662 & DR 0--4 & single grader \\
+ & DDR & China (147 hospitals) & 12,522 & DR 0--4 & 7 graders \\
+Reverse direction & APTOS $\rightarrow$ Messidor-2, IDRiD &  & 3,662 $\rightarrow$ 2,260 & DR 0--4 & as above \\
+\bottomrule
+\end{tabular}
+\end{table}

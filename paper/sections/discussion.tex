@@ -1,1 +1,80 @@
-% placeholder
+\section{Discussion}\label{sec:discussion}
+
+The central finding is that, for ordinal DR grading models, the decision rule is a first-order
+determinant of external performance and of apparent differences between models, and that it
+is almost never reported as a choice. The external collapse of the mild grade, which the
+literature reads as representational blindness to microaneurysms, was reversed in every model
+we trained, on two external corpora, by moving cut-points alone; the same refit closed the gap
+between a published fused model and its branches; and per-grade differences of the size
+attributed to architecture appeared between models that differed only in their random seed.
+What did transfer across populations was the ranking of images by severity: external QWK
+remained high while the mapping from score to grade did not. A reader who sees an external
+failure of a grading model should therefore ask first where its cut-points were set and on
+which population, and only then what it has learned.
+
+This reframes several recent disagreements. Frozen-encoder benchmarks report that retinal
+foundation models fail on the mild grade externally\cite{poyrazer2026calibration}, while the
+foundation model's own evaluation, by macro-averaged area under the curve, could not have
+detected such a failure\cite{zhou2023retfound}; our foundation-model results show the same
+dissociation from the other side, a better frozen representation that did not yield a better
+fine-tuned grader on 2,260 images. Calibration in the probabilistic sense is not the lever
+here: temperature scaling barely moves external calibration under shift\cite{poyrazer2026calibration},
+and in our data the referral probability was well ranked (external area under the curve
+\pn{aptos.sel.auroc} on APTOS) while the cut-points sat in the wrong place. Clinical evaluations
+show the same signature at the level of deployed systems. Commercial algorithms applied to the
+same eyes differed by more than 80 points in specificity\cite{duggal2025realworld}, and seven
+systems on the same images spanned 35 points of sensitivity at similar negative predictive
+values\cite{lee2021headtohead}. Both are consistent with operating-point variation being reported
+as model variation, and neither design could separate the two, because each system was
+evaluated only at its vendor's fixed operating point.
+
+The metric invariance we observed explains why the problem persists. QWK charges little for a
+one-grade error, so a model that sends every mild case to moderate, or refers 99\% rather than
+88\% of referable patients, scores almost the same. The same insensitivity has been observed in
+a deployed system, where agreement with the reference standard moved from $\kappa$=0.65 to
+0.72 while sensitivity and specificity each moved by about 31 points between phases, although
+that change also involved retraining and a new cohort\cite{duggal2025realworld}. Metric
+choice is a known source of misleading validation in image analysis\cite{reinke2024pitfalls,maierhein2024metrics};
+for screening, the implication is concrete: an agreement statistic cannot stand in for the
+referral operating point, and the two must be reported together.
+
+The practical recommendations follow directly and cost no additional training. Model
+comparisons should be reported at matched calibration, with the fitting procedure named,
+because a per-grade verdict can depend on it (Supplementary Note~3). External evaluations
+should report the operating curve and the transfer gap of any development-fitted threshold
+rather than a single sensitivity, since the same threshold landed \pn{aptos.tr.e08.A.gap} points
+above its target on one population. Deployment should include local recalibration of the
+cut-points on about 200 labelled images, a procedure whose probability of harm, not only its mean
+benefit, we report, in line with long-standing advice on updating prediction models for new
+settings\cite{janssen2008updating,vergouwe2017updating} and with the sample sizes recommended
+for external validation\cite{riley2021samplesize}. The recalibration need not change the network:
+it is a re-estimation of four numbers.
+
+The limits of the argument matter as much as its reach. First, decision rules do not explain
+everything. In the APTOS-to-Messidor-2 direction, refitting the cut-points of a published model
+raised mild recall several-fold but left mild F1 below 0.3, so part of that failure is
+representational; and the internal mild-grade errors of our own models were only partly
+recoverable. The claim is that the decision rule must be separated before the representation is
+blamed, not that representation never matters. Second, the cut-points that recover the mild
+grade were fitted on external labels; they bound what local recalibration can achieve and are
+not themselves external validation, which is why the deployable rules and the sample-size
+analysis are reported separately. Third, all data are public and retrospective. APTOS labels
+come from a single grader, so part of any internal-to-external difference is label noise;
+none of the development or external corpora publishes patient identifiers, so resampling is by
+image and fellow-eye pairs may be correlated across folds; EyePACS, used for pretraining, also
+contributes to the retinal foundation model's pretraining corpus\cite{zhou2023retfound}; and the
+checkpoint epoch was selected on the held-out fold, which makes development estimates slightly
+optimistic (median \pn{optimism.median} QWK) without affecting external ones. Fourth, the
+macular-oedema head has no external validation: the one candidate corpus overlapped the
+development pool by 88\%, and the three-grade label could not be derived from published
+annotations, so our DME conclusions rest on 516 images and are stated as a supervision ceiling
+rather than a performance claim. Finally, the reverse direction and the seed replicates use a
+single architecture, and the published-model reanalysis uses one model family; the decision-rule
+effect should be tested in prospective screening data, where cut-points can be fitted on an
+initial local sample and then frozen.
+
+In summary, external failures and model differences in DR grading are routinely attributed to
+learned representations when the decision rule that converts scores into grades explains much
+of them. Reporting matched-calibration comparisons, full operating curves and the transfer gap of
+any threshold, and recalibrating cut-points locally before deployment, would make published
+results comparable with one another and with the clinical decision they are meant to support.

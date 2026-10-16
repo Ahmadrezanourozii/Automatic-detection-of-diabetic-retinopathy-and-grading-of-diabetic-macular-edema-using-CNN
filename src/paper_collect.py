@@ -35,7 +35,25 @@ REGISTRY = {
     "E22CORN": ("corn", ["E22CORN"], {}, "densenet121, CORN head"),
     "E21CNXA": ("ordinal", ["E21CNXA"], {}, "convnext-tiny, folds 0-1 only"),
     "I24FT01": ("ordinal", ["I24FT01"], {}, "RETFound ViT-L/16 LP-FT 224px, folds 0-1"),
+    # journal-paper runs (docs/PAPER_EXPERIMENTS_preregistration.md)
+    "S1E08": ("ordinal", ["S1E08"], {"APTOS": "S1E08", "DDR": "S1E08"}, "E08, seed 1"),
+    "S2E08": ("ordinal", ["S2E08"], {"APTOS": "S2E08", "DDR": "S2E08"}, "E08, seed 2"),
+    "S3E08": ("ordinal", ["S3E08"], {"APTOS": "S3E08", "DDR": "S3E08"}, "E08, seed 3"),
+    "S4E08": ("ordinal", ["S4E08"], {"APTOS": "S4E08", "DDR": "S4E08"}, "E08, seed 4"),
+    "I24FULL": ("ordinal", ["I24FT01", "I24FT234"], {"APTOS": "I24FULL", "DDR": "I24FULL"},
+                "RETFound ViT-L/16 LP-FT 224px, folds 0-1 + 2-4"),
 }
+# DDR re-scoring of every archived model happened in one kernel (X2DDR), which writes each
+# model's predictions into a directory named after the model; the models without archived
+# APTOS predictions were re-scored on APTOS there too.
+for _m in ("E08", "E09", "E10", "E11FULL", "E14MAC", "E15LPFT", "E17NAT", "E20CORAL",
+           "E22CORN", "E21CNXA"):
+    REGISTRY[_m][2].setdefault("DDR", _m)
+for _m in ("E20CORAL", "E22CORN", "E21CNXA"):
+    REGISTRY[_m][2].setdefault("APTOS", _m)
+# the reverse direction: trained on APTOS (own split), external Messidor-2 and IDRiD
+REVERSE = {"R1APTOS": ("ordinal", ["R1APTOS"], {"Messidor-2": "R1APTOS", "IDRiD": "R1APTOS"},
+                       "E08 recipe trained on APTOS (reverse direction)")}
 
 
 def find_dirs(roots, name):
@@ -95,12 +113,14 @@ def main():
                          "{MODEL: [head, [oof dirs], {corpus: dir}, note]}")
     a = ap.parse_args()
     reg = dict(REGISTRY)
+    reg.update(REVERSE)
     if a.extra:
         reg.update({k: tuple(v) for k, v in json.load(open(a.extra)).items()})
     os.makedirs(a.out, exist_ok=True)
     registry = {}
     for model, (head, oof_dirs, ext, note) in reg.items():
-        entry = {"head": head, "note": note, "oof_sources": oof_dirs, "external": {}}
+        entry = {"head": head, "note": note, "oof_sources": oof_dirs, "external": {},
+                 "reverse": model in REVERSE}
         dst = os.path.join(a.out, model)
         oof, src = collect_oof(a.search, oof_dirs)
         if oof is not None:

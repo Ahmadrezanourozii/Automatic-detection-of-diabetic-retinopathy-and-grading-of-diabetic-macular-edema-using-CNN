@@ -1,1 +1,14 @@
-\abstract{Placeholder.}
+\abstract{Deep learning models that grade diabetic retinopathy lose performance on new
+populations, and the losses are usually attributed to what the network has learned. We tested
+whether the ordinal decision rule, not the representation, is responsible, in a pre-registered
+study of models trained on \pn{n.dev} images and evaluated on three external directions
+(APTOS, DDR, and APTOS to Messidor-2). Moving cut-points alone, without retraining, raised
+external mild-retinopathy recall from \pn{aptos.R1.mild.min}--\pn{aptos.R1.mild.max}\% to
+\pn{aptos.R4m.mild.min}--\pn{aptos.R4m.mild.max}\% on APTOS. Quadratic weighted kappa varied by
+less than 0.01 across operating points spanning \pn{aptos.band.e11full.sens.lo}--\pn{aptos.band.e11full.sens.hi}\%
+referral sensitivity. Models differing only by random seed produced spurious per-grade
+differences, and refitting a published model family's cut-points erased its reported fusion
+gain. Development-fitted thresholds did not transfer, while about 200 local labels sufficed to
+recalibrate with \pn{recal.200.harm}\% risk of harm. Eight of nine interventions on the
+representation failed. Grading models should be compared at matched calibration and
+recalibrated locally.}

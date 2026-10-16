@@ -1,0 +1,22 @@
+\begin{table}[t]
+\caption{\textbf{Matched calibration changes model comparisons.} Differences (first minus
+second) with 95\% paired-bootstrap intervals at the shipped rule and with both models'
+cut-points refitted by the same procedure (external rows: R4, two-fold cross-fitted on
+APTOS labels; development rows: fold-wise cross-fitted). $^\ast$Interval excludes zero.
+$^\dagger$Under random-half cross-fitting the matched difference is significant; under
+fold-wise cross-fitting it is not (Supplementary Note~3).}\label{tab:record}
+\centering\footnotesize
+\begin{tabular}{@{}p{5.4cm}p{2.9cm}p{2.9cm}l@{}}
+\toprule
+Comparison & Shipped rule & Matched calibration & Verdict \\
+\midrule
+EfficientNet-B3 vs DenseNet121, APTOS QWK & +0.0059 [+0.0007, +0.0110] & +0.0032 [$-$0.0020, +0.0083] & advantage dissolves \\
+\quad recall, moderate (points) & +1.4 & +4.0$^\ast$ & significance changes \\
+\quad recall, severe (points) & $-$1.0 & $-$10.3$^\ast$ & significance changes \\
+\quad recall, proliferative (points) & +8.1$^\ast$ & +6.8$^\ast$ & persists \\
+LP-FT vs fine-tuning, development accuracy (points) & $-$5.54 [$-$7.48, $-$3.54] & +1.95 [+0.18, +3.72] & reverses \\
+EfficientNet-B3 vs DenseNet121, development QWK & +0.0202 [+0.0071, +0.0329] & +0.0207 [+0.0105, +0.0320] & survives \\
+Image source (E12), moderate recall (points)$^\dagger$ & $-$6.9 [$-$12.1, $-$2.1] & +0.4 [$-$5.7, +6.1] & procedure-dependent \\
+\bottomrule
+\end{tabular}
+\end{table}

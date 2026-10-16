@@ -1,1 +1,168 @@
-% placeholder
+\section{Results}\label{sec:results}
+
+\subsection*{A pre-registered pipeline evaluated in three external directions}
+
+The development pool comprised \pn{n.dev} images (\pn{n.idrid} from IDRiD and
+\pn{n.messidor2} from Messidor-2) under a frozen 5-fold split; the external sets were APTOS
+2019 (\pn{n.aptos} images) and DDR (\pn{n.ddr} images), and a separate reverse-direction model
+was trained on APTOS and tested on Messidor-2 and IDRiD (Fig.~\ref{fig:design},
+Table~\ref{tab:cohorts}). The selected model, an EfficientNet-B3 with two ordinal heads,
+was chosen on the development pool before any external number was examined. It reached a
+development QWK of \pn{sel.dev.qwk} at matched calibration and an external QWK of
+\pn{sel.aptos.qwk} (95\% CI \pn{sel.aptos.lo}--\pn{sel.aptos.hi}) on APTOS and \pn{ddr.sel.R1.qwk}
+on DDR at its shipped decision rule. On identical images, folds and decoding, the full
+pipeline was worth \pn{pipeline.worth} QWK over frozen ImageNet features with a linear ordinal
+head (QWK \pn{probe.imagenet}). These numbers are competitive; the remainder of the paper asks
+what they do and do not measure.
+
+\subsection*{The external collapse of the mild grade is a decision-rule failure}
+
+On APTOS every development model shared the same failure. At the shipped rule (R1) the
+\pn{aptos.nmodels} archived models recalled only \pn{aptos.R1.mild.min}--\pn{aptos.R1.mild.max}\%
+of the 370 mild-DR images (Fig.~\ref{fig:rules}a), against \pn{sel.dev.mild}\% of mild images in
+the development pool, while recall of the rarest grade, proliferative DR, held. The failure
+was not a capacity limit. Refitting only the four cut-points on half of the external labels
+and applying them to the other half (R4m, a diagnostic that uses no retraining) restored mild
+recall to \pn{aptos.R4m.mild.min}--\pn{aptos.R4m.mild.max}\% in every model. The same pattern
+held on DDR (R1 \pn{ddr.R1.mild.min}--\pn{ddr.R1.mild.max}\%; R4m
+\pn{ddr.R4m.mild.min}--\pn{ddr.R4m.mild.max}\%; Fig.~\ref{fig:rules}c) and in all five seeds of
+the reference model (APTOS R1 \pn{seeds.aptos.mildR1.lo}--\pn{seeds.aptos.mildR1.hi}\%, R4m
+\pn{seeds.aptos.mildR4m.lo}--\pn{seeds.aptos.mildR4m.hi}\%; pre-registered outcome O3
+\pn{seeds.o3}). The mechanism is visible in the scores: on APTOS the model scored images of
+every grade higher than on the development pool, so a mild image crossed the moderate cut.
+The selected model's mean predicted-minus-true grade was \pn{aptos.sel.R1.mean} on APTOS at R1.
+
+In the reverse direction the miscalibration ran the other way, as pre-registered (O6). A
+model trained on APTOS with the same recipe under-graded Messidor-2 (mean predicted-minus-true
+grade \pn{rev.m2.R1.mean}) and recalled \pn{rev.m2.R1.mild}\% of its 270 mild images at the
+shipped rule (O4 \pn{rev.o4}), the setting in which a recent benchmark reported a grade-1 F1 of
+0.000 for two encoders\cite{poyrazer2026calibration}. External cut-points raised mild recall to
+\pn{rev.m2.R4m.mild}\% (O5 \pn{rev.o5}) with the representation untouched.
+
+\subsection*{Decision rules that can be deployed do not repair it}
+
+Rules fitted on development data did not transfer. Cut-points chosen to maximise development
+QWK (R2) lowered external QWK for \pn{aptos.r2worse} of the \pn{aptos.nmodels} models on APTOS
+and left mild recall at \pn{aptos.R2.mild.min}--\pn{aptos.R2.mild.max}\%; a referral cut
+fixed to give 90\% development sensitivity (R3) behaved likewise. The pre-registered
+comparison of rule against model (O7) asked whether the choice among these deployable rules
+moves a clinical metric more than the choice among models. For mild recall it did on APTOS
+(median within-model range \pn{aptos.o7.mildrecall.within} points against a between-model range
+of \pn{aptos.o7.mildrecall.between}; O7 \pn{aptos.o7.mildrecall.holds}) and on DDR
+(\pn{ddr.o7.mildrecall.within} against \pn{ddr.o7.mildrecall.between}; \pn{ddr.o7.mildrecall.holds}).
+For referable sensitivity it did not on APTOS, where every model and every deployable rule
+referred more than \pn{aptos.R1.sens.min}\% of referable patients
+(\pn{aptos.o7.refsens.within} against \pn{aptos.o7.refsens.between}), and on DDR it
+\pn{ddr.o7.refsens.holds} (\pn{ddr.o7.refsens.within} against \pn{ddr.o7.refsens.between}).
+The ranking of models was itself rule-dependent: the Spearman correlation between the model
+rankings by external QWK under R1 and under R2 was \pn{aptos.rho.R1vsR2} on APTOS and
+\pn{ddr.rho.R1vsR2} on DDR, and the development ranking predicted the APTOS ranking with
+$\rho=$ \pn{aptos.rho.devmatchedvsR1}.
+
+A referral threshold fitted on development predictions overshot its target on new data
+(Fig.~\ref{fig:transfer}). Fitted for 80\% development sensitivity, the reference model
+referred \pn{aptos.tr.e08.A.sens}\% of referable APTOS patients (\pn{aptos.tr.e08.A.gap}
+points) and \pn{ddr.tr.e08.A.sens}\% on DDR (\pn{ddr.tr.e08.A.gap} points); fitted for the
+85\% superiority endpoint of the first autonomous pivotal trial\cite{abramoff2018pivotal}, it
+reached \pn{aptos.tr.e08.B.sens}\% and \pn{ddr.tr.e08.B.sens}\% (pre-registered O8
+\pn{ddr.o8}). The same threshold therefore sits at different points of the operating curve on
+different populations, and no development-fitted operating point is a property of the model.
+
+\subsection*{The grading metric cannot see the referral operating point}
+
+QWK, the field's summary statistic, was nearly invariant to the decision that determines who
+is referred. Holding the other cut-points at their QWK-optimal values and sweeping only the
+referral cut (Fig.~\ref{fig:frontier}), every operating point within 0.01 of the maximum QWK
+for the selected model on APTOS (\pn{aptos.band.e11full.qwkmax}) spanned referable sensitivity
+from \pn{aptos.band.e11full.sens.lo}\% to \pn{aptos.band.e11full.sens.hi}\% and specificity from
+\pn{aptos.band.e11full.spec.lo}\% to \pn{aptos.band.e11full.spec.hi}\%: between
+\pn{aptos.band.e11full.miss.lo} and \pn{aptos.band.e11full.miss.hi} of
+\pn{aptos.band.e11full.nref} referable patients missed, with QWK unable to tell them apart. On
+DDR the corresponding band spanned \pn{ddr.band.e11full.sens.lo}--\pn{ddr.band.e11full.sens.hi}\%
+sensitivity. Optimising for the grade the metric under-weights carried its own cost: cut-points
+chosen to maximise macro-averaged recall recovered the mild grade but cut the reference model's
+APTOS referable sensitivity from \pn{aptos.e08.R1.sens}\% to \pn{aptos.e08.R4m.sens}\%, because
+mild DR is not a referable grade. Macro-recall is therefore reported here as a diagnostic and
+never optimised.
+
+\subsection*{The same pattern in a published model family}
+
+Because ORDER-DR\cite{sheng2026orderdr} released image-level class probabilities for its models
+on both its APTOS validation split and the \pn{odr.n} Messidor-2 images, we could apply the
+same rules to an independently trained model family in the published direction, without any
+weights. Using the authors' own fusion and cut-points we reproduced their reported external
+result exactly (QWK \pn{odr.odr.R2.qwk} $\pm$ \pn{odr.odr.R2.qwksd} over three seeds;
+\pn{odr.odr.R2.pred1} images predicted mild against \pn{odr.nmild} true, precision
+\pn{odr.odr.R2.prec}; Table~\ref{tab:orderdr}). At argmax, the four released models recalled
+\pn{odr.R1.mild.min}--\pn{odr.R1.mild.max}\% of mild images and \pn{odr.R1.sens.min}--\pn{odr.R1.sens.max}\%
+of referable ones. With cut-points fitted on external labels (R4), all four converged to QWK
+\pn{odr.R4.qwk.min}--\pn{odr.R4.qwk.max}: the 0.07 QWK advantage reported for the fused model
+over its best branch was a decision-rule effect. Refitting for macro-recall roughly doubled
+referable sensitivity (\pn{odr.R4m.sens.min}--\pn{odr.R4m.sens.max}\%) and raised mild recall to
+\pn{odr.R4m.mild.min}--\pn{odr.R4m.mild.max}\%. Mild F1, however, stayed at or below
+\pn{odr.R4m.f1.max}: in this direction part of the mild failure is representational, and the
+decomposition, not either extreme, is the result.
+
+\subsection*{Matched calibration changes model comparisons, and seeds set the noise floor}
+
+Comparisons between models were as sensitive to the decision rule as single-model metrics
+(Table~\ref{tab:record}). On APTOS the selected EfficientNet-B3 led the DenseNet121 reference
+by \pn{rec.bb.R1.qwk} QWK \pn{rec.bb.R1.qwkci} at the shipped rule; with both models'
+cut-points refitted the same way the difference became \pn{rec.bb.R4.qwk} \pn{rec.bb.R4.qwkci},
+and per-grade differences changed sign across operating points (moderate recall
+\pn{rec.bb.R1.mod}, \pn{rec.bb.R4.mod} and \pn{rec.bb.R4m.mod} points under R1, R4 and R4m;
+severe \pn{rec.bb.R1.sev}, \pn{rec.bb.R4.sev}, \pn{rec.bb.R4m.sev}). On the development pool,
+linear-probe-then-fine-tune appeared to cost \pn{rec.lpft.ship} accuracy points
+\pn{rec.lpft.shipci} at shipped cut-points and gained \pn{rec.lpft.match} \pn{rec.lpft.matchci}
+at matched ones. The rule is not a one-way filter: the development advantage of EfficientNet-B3
+over its DenseNet121 control (\pn{iv.effnet.ship} shipped) survived matched calibration
+(\pn{iv.effnet.diff} \pn{iv.effnet.ci}), and proliferative-DR recall favoured EfficientNet-B3
+at every operating point.
+
+Five seeds of the reference configuration set the scale of these effects. Development QWK at
+matched calibration varied with a standard deviation of \pn{seeds.dev.sd} across seeds
+(range \pn{seeds.dev.lo}--\pn{seeds.dev.hi}), and APTOS QWK at the shipped rule with
+\pn{seeds.aptos.sd}. Between models that differed only by seed, \pn{seeds.aptos.sigR1} of 50
+per-grade recall comparisons on APTOS were ``significant'' at the shipped rule (largest
+difference \pn{seeds.aptos.maxR1} points; pre-registered O2 \pn{seeds.o2}), and
+\pn{seeds.aptos.sigR4} at matched external cut-points: per-grade differences of the size the
+literature attributes to architecture arise between identical architectures.
+
+\subsection*{About 200 local labels are enough to recalibrate safely}
+
+If cut-points must be refitted locally, the practical question is how many labelled local
+images that requires. Fitting cut-points on $n$ randomly drawn APTOS images and evaluating on the
+rest (Fig.~\ref{fig:recal}), \pn{recal.25.harm}\% of draws at $n=25$ and \pn{recal.100.harm}\%
+at $n=100$ ended worse than the shipped rule, although the mean gain was positive at every size.
+At $n=200$ recalibration recovered \pn{recal.200.gain} macro-recall points \pn{recal.200.ci}
+with a \pn{recal.200.harm}\% probability of harm, and at $n=400$ the probability of harm was
+\pn{recal.400.harm}\%. A recommendation judged by its mean alone would have endorsed a
+procedure that harms roughly one adopter in four at small $n$.
+
+\subsection*{Interventions on the representation, and a supervision ceiling for macular oedema}
+
+Of \pn{iv.n} pre-registered interventions on the model itself, \pn{iv.nfalsified} failed their
+pre-specified criterion at matched calibration (Fig.~\ref{fig:forest}; Supplementary Table~S3).
+Only the EfficientNet-B3 backbone improved development QWK; a six-model ensemble gained on the
+development pool and \pn{ensemble.diff} \pn{ensemble.ci} on APTOS. The retinal foundation model
+showed the clearest dissociation between representation and outcome: frozen, its features
+carried more DR signal than ImageNet features under an identical linear probe
+(\pn{probe.retfound} versus \pn{probe.imagenet}, \pn{probe.diff} \pn{probe.ci}); fine-tuned with
+linear-probe-then-fine-tune at its native 224 pixels, it fell below a DenseNet121 pretrained on
+EyePACS at the same resolution by \pn{iv.retfound.diff} \pn{iv.retfound.ci} over
+\pn{iv.retfound.folds} folds (pre-registered O9 \pn{retfound.o9}).
+
+No intervention moved the three-grade DME head. A crop centred on the fovea by a localiser
+validated before use (median error \pn{fovea.median} disc diameters), which encodes the
+clinical definition of the grade directly, changed DME QWK by \pn{iv.macula.diff}
+\pn{iv.macula.ci}. The constraint is supervision: only \pn{dme.n1} of the \pn{n.idrid}
+three-grade images (\pn{dme.mid.pct}\%) carry the middle grade, a proportion that a
+purpose-built multimodal dataset reproduces (\pn{lit.p6.mid}\%)\cite{tang2026mmrdr}, and a
+deployed commercial system reached a DME sensitivity of \pn{lit.p12.dme.sens}\% ($\kappa$
+\pn{lit.p12.dme.kappa}) on the same images on which its referable-DR $\kappa$ was
+\pn{lit.p12.dr.kappa}\cite{duggal2025realworld}. Nor can the grade be derived from published
+annotations: applying the definition (nearest hard exudate within one disc diameter of the
+fovea) to IDRiD's pixel-level exudate masks matched the expert grade in \pn{parta.exact}\% of
+\pn{parta.n} images, against \pn{parta.constant}\% for a constant predictor, and failed on two
+of the \pn{parta.informative} images where the test was informative, each time on a single
+small exudate lying just inside the threshold (Supplementary Note~2).

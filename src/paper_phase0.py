@@ -86,7 +86,9 @@ def main():
         per_model[m] = rm
         dv, _ = P.dev_matched(d, head)
         dev[m] = {"n": dv["n"], "folds": dv["folds"],
-                  "qwk_shipped": dv["shipped"]["qwk"], "qwk_matched": dv["matched"]["qwk"]}
+                  "qwk_shipped": dv["shipped"]["qwk"], "qwk_matched": dv["matched"]["qwk"],
+                  "mild_shipped": dv["shipped"]["recall"][1],
+                  "mild_matched": dv["matched"]["recall"][1]}
         print(f"{m:9s} dev {dv['n']:4d} QWK {dv['matched']['qwk']:.4f} | {a.corpus} "
               + "  ".join(f"{r}: QWK {rm[r]['qwk']:.3f} mild {rm[r]['recall'][1]*100:4.1f} "
                           f"sens {rm[r]['ref_sens']*100:5.1f}"

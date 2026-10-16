@@ -1,1 +1,86 @@
-% placeholder
+% Figures and tables, each legend on the same page as its figure (npj requirement).
+
+\input{sections/table_cohorts.tex}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\textwidth]{figures/fig1_design.pdf}
+\caption{\textbf{Study design.} Models were pretrained on EyePACS, developed on a pooled IDRiD
+and Messidor-2 set under a frozen 5-fold split, and evaluated without any further tuning on
+APTOS 2019 and DDR; a separate model trained on APTOS with the same recipe was evaluated on
+Messidor-2 and IDRiD (reverse direction). Every model's ordinal outputs were decoded under the
+same five decision rules: R1, the shipped default; R2 and R3, deployable rules fitted on
+development predictions; and R4/R4m, diagnostic rules fitted on the external labels by two-fold
+cross-fitting, which bound what local recalibration can recover and are never reported as
+performance.}
+\label{fig:design}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\textwidth]{figures/fig2_rules.pdf}
+\caption{\textbf{The decision rule moves external mild-grade recall and referral sensitivity
+more than the choice of model.} Each row is one development model (sorted by development QWK
+at matched calibration); markers show the same model's external metric under the four
+decision rules. \textbf{a},\textbf{b}, APTOS 2019; \textbf{c},\textbf{d}, DDR. Mild recall
+under the shipped rule is uniformly low and is restored by external cut-points (R4m) in every
+model, without retraining; development-fitted rules (R2, R3) do not restore it. The spread
+across models under any fixed rule is small compared with the spread across rules within a
+model. Referral sensitivity under R4m falls because mild DR is not a referable grade.}
+\label{fig:rules}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/fig3_transfer.pdf}
+\caption{\textbf{Thresholds fitted on development data overshoot on new populations.} A
+referral threshold on $P(\mathrm{grade}\geq2)$ was fitted on the development out-of-fold
+predictions of the reference model to reach each target sensitivity (x-axis), then applied
+unchanged to APTOS and DDR. Points show the achieved external sensitivity with 95\% bootstrap
+intervals; the diagonal is perfect transfer. Targets: 80\%; 85\% (the pre-specified
+superiority endpoint of the first autonomous pivotal trial); 87.2\% (that trial's achieved
+sensitivity); 95.5\% (a reported pivotal-trial sensitivity).}
+\label{fig:transfer}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\textwidth]{figures/fig4_frontier.pdf}
+\caption{\textbf{Agreement statistics cannot see the referral operating point, and
+development-fitted thresholds do not transfer.} \textbf{a},\textbf{c}, QWK and Cohen's
+$\kappa$ of the selected model as the referral cut-point is swept with the other cut-points held
+at their QWK-optimal values, plotted against the referable-DR sensitivity it produces, on APTOS
+(\textbf{a}) and DDR (\textbf{c}). The shaded band contains every operating point whose QWK is
+within 0.01 of the maximum. \textbf{b},\textbf{d}, the specificity that the same sweep trades
+for sensitivity. Inside the band the referral decision changes by tens of points while the
+grading statistic does not.}
+\label{fig:frontier}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/fig5_recalibration.pdf}
+\caption{\textbf{How many locally labelled images recalibration needs.} Cut-points were fitted
+(maximising macro-averaged recall) on $n$ APTOS images drawn at random and evaluated on the
+remaining images, 200 draws per size. \textbf{a}, mean gain in macro-averaged recall over the
+shipped rule with the 2.5th--97.5th percentile range of draws. \textbf{b}, probability that a
+draw ends worse than the shipped rule. The mean gain is positive at every size, but below 100
+images roughly one recalibration in four does harm.}
+\label{fig:recal}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/fig6_forest.pdf}
+\caption{\textbf{Pre-registered interventions on the model.} Difference in development DR QWK
+(intervention minus control) at matched calibration with 95\% paired-bootstrap intervals; the
+macula-centred crop was registered on the DME head (DME QWK shown) and the ensemble on the
+external set (APTOS QWK shown). The grey band is $\pm2\sqrt{2}$ standard deviations of the
+matched development QWK across five seeds of the reference configuration, the pre-registered
+yardstick for a difference beyond seed noise. Blue, pre-registered improvement confirmed;
+orange, interval excludes zero in the unfavourable direction; grey, indistinguishable.}
+\label{fig:forest}
+\end{figure}
+
+\input{sections/table_orderdr.tex}
+\input{sections/table_record.tex}

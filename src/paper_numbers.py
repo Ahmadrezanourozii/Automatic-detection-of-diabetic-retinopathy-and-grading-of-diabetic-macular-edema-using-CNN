@@ -131,12 +131,22 @@ def phase0(corpus):
     for metric in ("mild_recall", "ref_sens", "qwk"):
         s = d["spread"][metric]
         f = q4 if metric == "qwk" else p1
-        put(f"{c}.o7.{metric}.within", s["within_median"], f, src)
-        put(f"{c}.o7.{metric}.between", s["between_model_range"]["R1"], f, src)
-        put(f"{c}.o7.{metric}.holds", "holds" if s["o7_holds"] else "does not hold",
+        put(f"{c}.o7.{metric.replace('_', '')}.within", s["within_median"], f, src)
+        put(f"{c}.o7.{metric.replace('_', '')}.between", s["between_model_range"]["R1"], f, src)
+        put(f"{c}.o7.{metric.replace('_', '')}.holds", "holds" if s["o7_holds"] else "does not hold",
             "{}", src)
     for k, v in d["spearman"].items():
         put(f"{c}.rho.{k.replace('_', '')}", v, "{:.2f}", src)
+    for mname in ("E08", "E11FULL"):
+        if mname in rm:
+            for rule in ("R1", "R2", "R3", "R4", "R4m"):
+                b = rm[mname][rule]
+                put(f"{c}.{mname.lower()}.{rule}.sens", b["ref_sens"], p2, src)
+                put(f"{c}.{mname.lower()}.{rule}.spec", b["ref_spec"], p2, src)
+                put(f"{c}.{mname.lower()}.{rule}.mild", b["recall"][1], p1, src)
+                put(f"{c}.{mname.lower()}.{rule}.qwk", b["qwk"], q4, src)
+    if c == "aptos" and "E11FULL" in d["dev"]:
+        put("sel.dev.mild", d["dev"]["E11FULL"]["mild_shipped"], p1, src)
     if "E11FULL" in rm:
         b = rm["E11FULL"]
         for rule in ("R1", "R2", "R3", "R4", "R4m"):
@@ -236,6 +246,93 @@ def optimism():
     put("optimism.max", max(v), "{:+.4f}", src)
 
 
+def record():
+    d = load(f"{GP}/record.json")
+    if not d:
+        return
+    src = f"{GP}/record.json"
+    bb = d["backbone_aptos"]
+    for rule in ("R1", "R4", "R4m"):
+        q = bb[rule]["qwk"]
+        put(f"rec.bb.{rule}.qwk", q["diff"], sg4, src)
+        put(f"rec.bb.{rule}.qwkci", (q["lo"], q["hi"]), lambda x: ci4(*x), src)
+        for k, nm in ((1, "mild"), (2, "mod"), (3, "sev"), (4, "pdr")):
+            put(f"rec.bb.{rule}.{nm}", 100 * bb[rule]["recall"][k]["diff"], "{:+.1f}", src)
+    lp = d["lpft_dev"]
+    for mode, nm in (("shipped", "ship"), ("matched", "match")):
+        a = lp[mode]["accuracy"]
+        put(f"rec.lpft.{nm}", 100 * a["diff"], "{:+.2f}", src)
+        put(f"rec.lpft.{nm}ci", (100 * a["lo"], 100 * a["hi"]),
+            lambda x: f"[{x[0]:+.2f}, {x[1]:+.2f}]", src)
+
+
+def seeds():
+    d = load(f"{GP}/seeds.json")
+    if not d:
+        return
+    src = f"{GP}/seeds.json"
+    put("seeds.n", len(d["seeds"]), i0, src)
+    put("seeds.dev.sd", d["dev_matched_qwk_sd"], q4, src)
+    put("seeds.dev.lo", d["dev_matched_qwk_range"][0], q4, src)
+    put("seeds.dev.hi", d["dev_matched_qwk_range"][1], q4, src)
+    put("seeds.yardstick", 2 * np.sqrt(2) * d["dev_matched_qwk_sd"], q4, src)
+    for c in ("APTOS", "DDR"):
+        if c not in d:
+            continue
+        v = d[c]; k = c.lower()
+        put(f"seeds.{k}.sd", v["qwk_R1_sd"], q4, src)
+        put(f"seeds.{k}.qwklo", v["qwk_R1_range"][0], q4, src)
+        put(f"seeds.{k}.qwkhi", v["qwk_R1_range"][1], q4, src)
+        put(f"seeds.{k}.mildR1.lo", v["mild_R1"][0], p1, src)
+        put(f"seeds.{k}.mildR1.hi", v["mild_R1"][1], p1, src)
+        put(f"seeds.{k}.mildR4m.lo", v["mild_R4m"][0], p1, src)
+        put(f"seeds.{k}.mildR4m.hi", v["mild_R4m"][1], p1, src)
+        put(f"seeds.{k}.sigR1", v["pairwise_R1"]["n_significant"], i0, src)
+        put(f"seeds.{k}.sigR4", v["pairwise_R4"]["n_significant"], i0, src)
+        put(f"seeds.{k}.ntests", v["pairwise_R1"]["n_tests"], i0, src)
+        put(f"seeds.{k}.maxR1", 100 * v["pairwise_R1"]["max_abs_diff"], "{:.1f}", src)
+        if c == "APTOS":
+            put("seeds.o2", "held" if v["O2_prediction_holds"] else "was falsified", "{}", src)
+            put("seeds.o3", "held" if v["O3_holds"] else "was falsified", "{}", src)
+
+
+def reverse():
+    d = load(f"{GP}/reverse.json")
+    if not d:
+        return
+    src = f"{GP}/reverse.json"
+    for c, k in (("Messidor-2", "m2"), ("IDRiD", "idrid")):
+        if c not in d:
+            continue
+        for rule in ("R1", "R4", "R4m"):
+            b = d[c]["rules"][rule]
+            put(f"rev.{k}.{rule}.mild", b["recall"][1], p1, src)
+            put(f"rev.{k}.{rule}.qwk", b["qwk"], q4, src)
+            put(f"rev.{k}.{rule}.sens", b["ref_sens"], p1, src)
+            put(f"rev.{k}.{rule}.mean", b["mean_pred_minus_true"], "{:+.2f}", src)
+            put(f"rev.{k}.{rule}.f1", b.get("mild_f1", float("nan")), q3, src)
+    for o in ("o4", "o5", "o6"):
+        if o in d:
+            put(f"rev.{o}", "held" if d[o] else "was falsified", "{}", src)
+    if "dev" in d:
+        put("rev.dev.qwk", d["dev"]["qwk_matched"], q4, src)
+
+
+def outcomes():
+    t = load(f"{GP}/transfer_ddr.json")
+    if t and "E08" in t["models"]:
+        b = [r for r in t["models"]["E08"]["transfer"] if r["tag"] == "B"][0]
+        put("ddr.o8", "held" if abs(b["gap"]) > 0.05 else "was falsified", "{}",
+            f"{GP}/transfer_ddr.json")
+    rows = load(f"{GP}/interventions.json") or []
+    for r in rows:
+        if r["label"].startswith("RETFound"):
+            put("iv.retfound.folds", r["folds"], "{}", f"{GP}/interventions.json")
+            if str(r["folds"]) == "5":
+                put("retfound.o9", "held" if r["hi"] < 0 else "was falsified", "{}",
+                    f"{GP}/interventions.json")
+
+
 def misc():
     put("grid.effect", 0.0033, "{:.4f}", "src/paper_rules.py: E08 matched QWK 0.8646 (grid 60) vs 0.8613 (grid 80)")
     put("fovea.median", 0.196, "{:.3f}", "runs/E13gate/fovea_gate.json")
@@ -268,6 +365,6 @@ def write():
 if __name__ == "__main__":
     for f in (thesis_ledger, interventions, lambda: phase0("APTOS"), lambda: phase0("DDR"),
               lambda: transfer("APTOS"), lambda: transfer("DDR"), orderdr, recalibration,
-              optimism, misc):
+              optimism, record, seeds, reverse, outcomes, misc):
         f()
     write()
