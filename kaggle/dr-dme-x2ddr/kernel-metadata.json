@@ -14,6 +14,7 @@
   "mariaherrerot/messidor2preprocess",
   "tanlikesmath/diabetic-retinopathy-resized",
   "mariaherrerot/aptos2019",
+  "ah22reza/retfound-cfp-encoder",
   "mariaherrerot/ddrdataset"
  ],
  "competition_sources": [],
@@ -28,6 +29,7 @@
   "ah22reza/dr-dme-e15lpft",
   "ah22reza/dr-dme-e14mac",
   "ah22reza/dr-dme-e17nat",
-  "ah22reza/dr-dme-e21cnxa"
+  "ah22reza/dr-dme-e21cnxa",
+  "ah22reza/dr-dme-i24ft01"
  ]
 }
