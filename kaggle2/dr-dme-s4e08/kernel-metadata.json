@@ -1,0 +1,21 @@
+{
+ "id": "reza12123/dr-dme-s4e08",
+ "title": "DR/DME S4E08",
+ "code_file": "dr-dme-s4e08.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": true,
+ "enable_gpu": true,
+ "machine_shape": "GPU T4 x2",
+ "enable_internet": true,
+ "dataset_sources": [
+  "aaryapatel98/indian-diabetic-retinopathy-image-dataset",
+  "google-brain/messidor2-dr-grades",
+  "mariaherrerot/messidor2preprocess",
+  "tanlikesmath/diabetic-retinopathy-resized",
+  "mariaherrerot/aptos2019",
+  "mariaherrerot/ddrdataset"
+ ],
+ "competition_sources": [],
+ "kernel_sources": []
+}

@@ -84,7 +84,9 @@ def build(rows, datasets, cache_dir=None, extra=None):
 # ever read by the external evaluation step, which runs after training finishes. Excluding it
 # from the retrofit comparison is a consequence of the protocol, not a convenience: a run with
 # APTOS attached and one without consumed the same development pool.
-EVAL_ONLY_DATASETS = {"mariaherrerot/aptos2019"}
+# DDR joins it for the journal-paper experiments: a second external DR set, read only by the
+# external evaluation step, never by training (its loader is not in any --corpora list).
+EVAL_ONLY_DATASETS = {"mariaherrerot/aptos2019", "mariaherrerot/ddrdataset"}
 
 
 def retrofit_from_kernel_metadata(run_id, kaggle_dir="kaggle"):

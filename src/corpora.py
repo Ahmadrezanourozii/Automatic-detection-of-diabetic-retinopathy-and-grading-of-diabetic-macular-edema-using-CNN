@@ -245,7 +245,9 @@ def load_aptos(roots):
     seen = set()
     for frag in ("train", "valid", "test"):
         p = find_file(roots, "aptos", frag, must_end=".csv") or find_file(roots, frag, must_end=".csv")
-        if not p:
+        if not p or "ddr" in p.lower():
+            # DDR's DR_grading.csv has the same id_code/diagnosis columns as APTOS's, so the
+            # loose fallback above could hand DDR's labels to the APTOS loader
             continue
         try:
             rows = _rows(p)
@@ -270,6 +272,56 @@ def load_aptos(roots):
                 "dme": None, "dme_candidates": None, "dme_label_space": None,
                 "fovea": None, "optic_disc": None,
             })
+    return out
+
+
+# ── DDR ───────────────────────────────────────────────────────────────────────
+def load_ddr(roots):
+    """DR only, 12 522 gradable images from 147 Chinese hospitals (Li et al., Inf Sci 2019).
+
+    A SECOND external DR test set, added for the journal paper: a different country, camera
+    fleet and grading team from both the development pool and APTOS. The Kaggle mirror
+    (mariaherrerot/ddrdataset) ships DR_grading.csv with columns id_code/diagnosis and the
+    images at 512 x 512; the ungradable class (5) is already removed (12 522 rows, grades
+    0-4). Never used for training or selection -- evaluation only.
+
+    The CSV is located by name *inside a path containing "ddr"*: its id_code/diagnosis
+    columns are the same as APTOS's, so a looser search would let one loader pick up the
+    other corpus's labels.
+    """
+    p = None
+    for root in roots:
+        if not os.path.isdir(root):
+            continue
+        for dirpath, _, files in os.walk(root):
+            if "dr_grading.csv" in {f.lower() for f in files} and "ddr" in dirpath.lower():
+                p = os.path.join(dirpath, [f for f in files if f.lower() == "dr_grading.csv"][0])
+                break
+        if p:
+            break
+    if not p:
+        return []
+    # Index only the directory holding the CSV. dataset_root_of() returns the shared
+    # /kaggle/input/datasets directory when Kaggle flattens every mount under it (ISSUES.md
+    # §15), which would index EyePACS and APTOS as well and invite basename collisions.
+    idx = index_images(os.path.dirname(p))
+    out = []
+    for r in _rows(p):
+        code = (r.get("id_code") or "").strip()
+        g = str(r.get("diagnosis", "")).strip()
+        if not code or g == "" or int(g) > 4:
+            continue                       # grade 5 = ungradable in the upstream release
+        path = idx.get(code) or idx.get(os.path.splitext(code)[0])
+        if not path:
+            continue
+        out.append({
+            "uid": f"DDR_{os.path.splitext(code)[0]}",
+            "corpus": "DDR",
+            "path": path,
+            "dr": int(g),
+            "dme": None, "dme_candidates": None, "dme_label_space": None,
+            "fovea": None, "optic_disc": None,
+        })
     return out
 
 
@@ -319,7 +371,7 @@ def load_eyepacs(roots):
 
 # ── assembly ──────────────────────────────────────────────────────────────────
 LOADERS = {"IDRiD": load_idrid, "Messidor-2": load_messidor2,
-           "APTOS": load_aptos, "EyePACS": load_eyepacs}
+           "APTOS": load_aptos, "EyePACS": load_eyepacs, "DDR": load_ddr}
 
 
 def build(roots, corpora=("IDRiD", "Messidor-2")):
