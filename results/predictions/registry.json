@@ -319,8 +319,27 @@
   "oof_sources": [
    "S3E08"
   ],
-  "external": {},
-  "reverse": false
+  "external": {
+   "APTOS": {
+    "source_run": "S3E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-s3e08/S3E08/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": "S3E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-s3e08/S3E08/external_ddr_predictions.npz",
+    "n": 12522
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
  },
  "S4E08": {
   "head": "ordinal",
