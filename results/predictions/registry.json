@@ -393,7 +393,26 @@
   "oof_sources": [
    "R1APTOS"
   ],
-  "external": {},
-  "reverse": true
+  "external": {
+   "Messidor-2": {
+    "source_run": "R1APTOS",
+    "source": "/tmp/claude-0/kout4/dr-dme-r1aptos/R1APTOS/external_messidor-2_predictions.npz",
+    "n": 1744
+   },
+   "IDRiD": {
+    "source_run": "R1APTOS",
+    "source": "/tmp/claude-0/kout4/dr-dme-r1aptos/R1APTOS/external_idrid_predictions.npz",
+    "n": 516
+   }
+  },
+  "reverse": true,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 3662
  }
 }

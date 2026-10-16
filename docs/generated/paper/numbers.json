@@ -2528,6 +2528,176 @@
   "value": 9.722240919427884,
   "source": "docs/generated/paper/seeds.json"
  },
+ "rev.m2.R1.mild": {
+  "tex": "34.4",
+  "value": 0.34444444444444444,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.R1.qwk": {
+  "tex": "0.7154",
+  "value": 0.7154287591760943,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.R1.sens": {
+  "tex": "43.5",
+  "value": 0.43544857768052514,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.R1.mean": {
+  "tex": "\\textminus{}0.26",
+  "value": -0.2603211009174312,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.R1.f1": {
+  "tex": "0.276",
+  "value": 0.2763744427934621,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.R4.mild": {
+  "tex": "25.9",
+  "value": 0.25925925925925924,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.R4.qwk": {
+  "tex": "0.7791",
+  "value": 0.7790574944136407,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.R4.sens": {
+  "tex": "77.9",
+  "value": 0.7789934354485777,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.R4.mean": {
+  "tex": "\\textminus{}0.02",
+  "value": -0.020068807339449542,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.R4.f1": {
+  "tex": "0.273",
+  "value": 0.2734375,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.R4m.mild": {
+  "tex": "44.4",
+  "value": 0.4444444444444444,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.R4m.qwk": {
+  "tex": "0.7553",
+  "value": 0.7552521679629755,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.R4m.sens": {
+  "tex": "82.7",
+  "value": 0.8271334792122538,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.R4m.mean": {
+  "tex": "+0.16",
+  "value": 0.15940366972477063,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.m2.R4m.f1": {
+  "tex": "0.325",
+  "value": 0.3252032520325203,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.R1.mild": {
+  "tex": "64.0",
+  "value": 0.64,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.R1.qwk": {
+  "tex": "0.8067",
+  "value": 0.8066562521225293,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.R1.sens": {
+  "tex": "81.7",
+  "value": 0.8173374613003096,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.R1.mean": {
+  "tex": "\\textminus{}0.24",
+  "value": -0.23837209302325582,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.R1.f1": {
+  "tex": "0.239",
+  "value": 0.23880597014925373,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.R4.mild": {
+  "tex": "28.0",
+  "value": 0.28,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.R4.qwk": {
+  "tex": "0.8409",
+  "value": 0.8408578915911913,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.R4.sens": {
+  "tex": "88.2",
+  "value": 0.8823529411764706,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.R4.mean": {
+  "tex": "\\textminus{}0.04",
+  "value": -0.04263565891472868,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.R4.f1": {
+  "tex": "0.200",
+  "value": 0.2,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.R4m.mild": {
+  "tex": "56.0",
+  "value": 0.56,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.R4m.qwk": {
+  "tex": "0.8283",
+  "value": 0.8283370071026206,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.R4m.sens": {
+  "tex": "88.9",
+  "value": 0.8885448916408669,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.R4m.mean": {
+  "tex": "+0.08",
+  "value": 0.08139534883720931,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.idrid.R4m.f1": {
+  "tex": "0.231",
+  "value": 0.23140495867768596,
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.o4": {
+  "tex": "was falsified",
+  "value": "was falsified",
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.o5": {
+  "tex": "was falsified",
+  "value": "was falsified",
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.o6": {
+  "tex": "held",
+  "value": "held",
+  "source": "docs/generated/paper/reverse.json"
+ },
+ "rev.dev.qwk": {
+  "tex": "0.9134",
+  "value": 0.9133735457425328,
+  "source": "docs/generated/paper/reverse.json"
+ },
  "iv.retfound.folds": {
   "tex": "5",
   "value": "5",
