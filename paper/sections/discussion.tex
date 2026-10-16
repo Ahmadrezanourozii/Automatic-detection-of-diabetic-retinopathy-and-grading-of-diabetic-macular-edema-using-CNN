@@ -28,6 +28,16 @@ values\cite{lee2021headtohead}. Both are consistent with operating-point variati
 as model variation, and neither design could separate the two, because each system was
 evaluated only at its vendor's fixed operating point.
 
+The reverse direction sharpens the point. Trained on APTOS, the same recipe did not lose the
+mild grade on Messidor-2, contrary to our own pre-registered prediction; it under-graded
+instead, and the cost fell on referral: at the shipped rule it referred \pn{rev.m2.R1.sens}\% of
+referable eyes while ranking them with an area under the curve of \pn{rev.m2.auroc}, and
+refitted cut-points restored \pn{rev.m2.R4.sens}\%. Which grade a population shift damages
+therefore depends on the direction of the shift, but in both directions the damage lay in where
+the scores were cut rather than in how the images were ranked. A system validated as safe on
+its own population can miss more than half of referable disease on another without any change
+in its discriminative ability, and nothing in an agreement statistic would show it.
+
 The metric invariance we observed explains why the problem persists. QWK charges little for a
 one-grade error, so a model that sends every mild case to moderate, or refers 99\% rather than
 88\% of referable patients, scores almost the same. The same insensitivity has been observed in
@@ -52,9 +62,10 @@ it is a re-estimation of four numbers.
 
 The limits of the argument matter as much as its reach. First, decision rules do not explain
 everything. In the APTOS-to-Messidor-2 direction, refitting the cut-points of a published model
-raised mild recall several-fold but left mild F1 below 0.3, so part of that failure is
-representational; and the internal mild-grade errors of our own models were only partly
-recoverable. The claim is that the decision rule must be separated before the representation is
+raised mild recall several-fold but left mild F1 below 0.3, and in our own model trained on
+APTOS external cut-points raised mild recall only to \pn{rev.m2.R4m.mild}\% (pre-registered O5
+falsified), so part of the mild-grade failure in that direction is representational; and the
+internal mild-grade errors of our own models were only partly recoverable. The claim is that the decision rule must be separated before the representation is
 blamed, not that representation never matters. Second, the cut-points that recover the mild
 grade were fitted on external labels; they bound what local recalibration can achieve and are
 not themselves external validation, which is why the deployable rules and the sample-size
