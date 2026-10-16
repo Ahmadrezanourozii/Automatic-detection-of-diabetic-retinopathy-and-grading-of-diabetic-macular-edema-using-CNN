@@ -38,8 +38,8 @@ def cohorts():
     ]
     t = ["\\begin{table}[t]", "\\caption{\\textbf{Cohorts.} No external image was used for training,",
          "model selection or threshold fitting. DR, diabetic retinopathy (international 5-grade",
-         "scale); DME, diabetic macular oedema.}\\label{tab:cohorts}", "\\centering\\footnotesize",
-         "\\begin{tabular}{@{}llllll@{}}", "\\toprule",
+         "scale); DME, diabetic macular oedema.}\\label{tab:cohorts}", "\\centering\\scriptsize\\setlength{\\tabcolsep}{3pt}",
+         "\\begin{tabular}{@{}p{2.0cm}p{2.5cm}p{1.9cm}p{1.6cm}p{1.8cm}p{2.0cm}@{}}", "\\toprule",
          "Role & Corpus & Origin & Images & Labels & Grading \\\\", "\\midrule"]
     for r in rows:
         t.append(" & ".join(r) + " \\\\")
@@ -88,7 +88,7 @@ def record():
          "APTOS labels; development rows: fold-wise cross-fitted). $^\\ast$Interval excludes zero.",
          "$^\\dagger$Under random-half cross-fitting the matched difference is significant; under",
          "fold-wise cross-fitting it is not (Supplementary Note~3).}\\label{tab:record}",
-         "\\centering\\footnotesize", "\\begin{tabular}{@{}p{5.4cm}p{2.9cm}p{2.9cm}l@{}}", "\\toprule",
+         "\\centering\\scriptsize\\setlength{\\tabcolsep}{3pt}", "\\begin{tabular}{@{}p{4.0cm}p{2.7cm}p{2.7cm}l@{}}", "\\toprule",
          "Comparison & Shipped rule & Matched calibration & Verdict \\\\", "\\midrule"]
     for x in rows:
         t.append(" & ".join(x) + " \\\\")
@@ -101,8 +101,8 @@ def orderdr():
     if not d:
         return
     agg = d["seed_mean_sd"]
-    rules = [("R1", "argmax"), ("R2", "validation-fitted (published)"), ("R4", "external, QWK"),
-             ("R4m", "external, macro-recall")]
+    rules = [("R1", "R1 argmax"), ("R2", "R2 val.-fitted"), ("R4", "R4 ext.\\ QWK"),
+             ("R4m", "R4m ext.\\ recall")]
     t = ["\\begin{table}[t]",
          "\\caption{\\textbf{Decision-rule reanalysis of a published model family (ORDER-DR,",
          "APTOS$\\rightarrow$Messidor-2).} Mean $\\pm$ s.d. over the authors' three seeds, computed",
@@ -110,8 +110,8 @@ def orderdr():
          f"({d['n_mild']} mild). For ORDER-DR the R2 row uses the authors' own fusion and cut-points",
          "and reproduces their reported result. R4/R4m use external labels (two-fold cross-fitting)",
          "and are diagnostic bounds, not performance claims.}\\label{tab:orderdr}",
-         "\\centering\\footnotesize", "\\begin{tabular}{@{}llccccc@{}}", "\\toprule",
-         "Model & Rule & QWK & Mild recall (\\%) & Mild F1 & Ref.\\ sens.\\ (\\%) & Ref.\\ spec.\\ (\\%) \\\\",
+         "\\centering\\scriptsize\\setlength{\\tabcolsep}{3pt}", "\\begin{tabular}{@{}llccccc@{}}", "\\toprule",
+         "Model & Rule & QWK & Mild rec.\\ (\\%) & Mild F1 & Sens.\\ (\\%) & Spec.\\ (\\%) \\\\",
          "\\midrule"]
     for name in ("CB-384", "LORS-384", "Swin-T", "ORDER-DR"):
         for i, (r, lab) in enumerate(rules):
@@ -131,7 +131,7 @@ def interventions():
          "\\caption{\\textbf{Pre-registered interventions on the model.} Development DR QWK",
          "difference (intervention minus control) at shipped and matched calibration with 95\\%",
          "paired-bootstrap intervals; the macula crop was registered on the DME head and the",
-         "ensemble on the external set.}\\label{tab:interv}", "\\centering\\footnotesize",
+         "ensemble on the external set.}\\label{tab:interv}", "\\centering\\scriptsize\\setlength{\\tabcolsep}{3pt}",
          "\\begin{tabular}{@{}lllll@{}}", "\\toprule",
          "Intervention & Control & Folds & Matched difference & Verdict \\\\", "\\midrule"]
     for r in rows:

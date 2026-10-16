@@ -5,30 +5,30 @@ from their released image-level probabilities on 1,744 Messidor-2 images
 (270 mild). For ORDER-DR the R2 row uses the authors' own fusion and cut-points
 and reproduces their reported result. R4/R4m use external labels (two-fold cross-fitting)
 and are diagnostic bounds, not performance claims.}\label{tab:orderdr}
-\centering\footnotesize
+\centering\scriptsize\setlength{\tabcolsep}{3pt}
 \begin{tabular}{@{}llccccc@{}}
 \toprule
-Model & Rule & QWK & Mild recall (\%) & Mild F1 & Ref.\ sens.\ (\%) & Ref.\ spec.\ (\%) \\
+Model & Rule & QWK & Mild rec.\ (\%) & Mild F1 & Sens.\ (\%) & Spec.\ (\%) \\
 \midrule
-CB-384 & argmax & 0.500 $\pm$ 0.018 & 2.0 & 0.027 & 32.8 & 99.5 \\
- & validation-fitted (published) & 0.544 $\pm$ 0.029 & 2.5 & 0.035 & 38.2 & 99.0 \\
- & external, QWK & 0.672 $\pm$ 0.030 & 27.8 & 0.231 & 55.1 & 95.4 \\
- & external, macro-recall & 0.614 $\pm$ 0.060 & 38.4 & 0.255 & 72.6 & 85.2 \\
+CB-384 & R1 argmax & 0.500 $\pm$ 0.018 & 2.0 & 0.027 & 32.8 & 99.5 \\
+ & R2 val.-fitted & 0.544 $\pm$ 0.029 & 2.5 & 0.035 & 38.2 & 99.0 \\
+ & R4 ext.\ QWK & 0.672 $\pm$ 0.030 & 27.8 & 0.231 & 55.1 & 95.4 \\
+ & R4m ext.\ recall & 0.614 $\pm$ 0.060 & 38.4 & 0.255 & 72.6 & 85.2 \\
 \addlinespace
-LORS-384 & argmax & 0.531 $\pm$ 0.014 & 3.5 & 0.049 & 36.3 & 98.9 \\
- & validation-fitted (published) & 0.570 $\pm$ 0.023 & 2.7 & 0.041 & 42.8 & 98.7 \\
- & external, QWK & 0.683 $\pm$ 0.045 & 30.5 & 0.245 & 55.9 & 96.1 \\
- & external, macro-recall & 0.677 $\pm$ 0.046 & 36.5 & 0.285 & 67.6 & 91.3 \\
+LORS-384 & R1 argmax & 0.531 $\pm$ 0.014 & 3.5 & 0.049 & 36.3 & 98.9 \\
+ & R2 val.-fitted & 0.570 $\pm$ 0.023 & 2.7 & 0.041 & 42.8 & 98.7 \\
+ & R4 ext.\ QWK & 0.683 $\pm$ 0.045 & 30.5 & 0.245 & 55.9 & 96.1 \\
+ & R4m ext.\ recall & 0.677 $\pm$ 0.046 & 36.5 & 0.285 & 67.6 & 91.3 \\
 \addlinespace
-Swin-T & argmax & 0.552 $\pm$ 0.045 & 5.2 & 0.062 & 35.4 & 96.9 \\
- & validation-fitted (published) & 0.564 $\pm$ 0.026 & 3.3 & 0.045 & 43.2 & 96.2 \\
- & external, QWK & 0.674 $\pm$ 0.022 & 13.0 & 0.147 & 64.8 & 93.8 \\
- & external, macro-recall & 0.629 $\pm$ 0.041 & 30.2 & 0.233 & 75.0 & 88.9 \\
+Swin-T & R1 argmax & 0.552 $\pm$ 0.045 & 5.2 & 0.062 & 35.4 & 96.9 \\
+ & R2 val.-fitted & 0.564 $\pm$ 0.026 & 3.3 & 0.045 & 43.2 & 96.2 \\
+ & R4 ext.\ QWK & 0.674 $\pm$ 0.022 & 13.0 & 0.147 & 64.8 & 93.8 \\
+ & R4m ext.\ recall & 0.629 $\pm$ 0.041 & 30.2 & 0.233 & 75.0 & 88.9 \\
 \addlinespace
-ORDER-DR & argmax & 0.509 $\pm$ 0.017 & 2.7 & 0.040 & 34.1 & 99.2 \\
- & validation-fitted (published) & 0.642 $\pm$ 0.036 & 50.5 & 0.277 & 39.8 & 99.1 \\
- & external, QWK & 0.676 $\pm$ 0.025 & 24.2 & 0.212 & 56.7 & 95.4 \\
- & external, macro-recall & 0.638 $\pm$ 0.049 & 42.0 & 0.284 & 70.0 & 88.8 \\
+ORDER-DR & R1 argmax & 0.509 $\pm$ 0.017 & 2.7 & 0.040 & 34.1 & 99.2 \\
+ & R2 val.-fitted & 0.642 $\pm$ 0.036 & 50.5 & 0.277 & 39.8 & 99.1 \\
+ & R4 ext.\ QWK & 0.676 $\pm$ 0.025 & 24.2 & 0.212 & 56.7 & 95.4 \\
+ & R4m ext.\ recall & 0.638 $\pm$ 0.049 & 42.0 & 0.284 & 70.0 & 88.8 \\
 \bottomrule
 \end{tabular}
 \end{table}
