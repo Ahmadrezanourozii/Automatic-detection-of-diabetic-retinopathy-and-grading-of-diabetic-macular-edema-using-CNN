@@ -29,7 +29,8 @@ for head, dme in (("dr", False), ("dme_ungated", True)):
         out.append({"head": head, "mode": mode, "metric": "QWK", "a": v["a"], "b": v["b"],
                     "diff": v["diff"], "lo": v["lo"], "hi": v["hi"],
                     "significant": v["significant"], "n": v["n"],
-                    "heads": [reg[a.a]["head"], reg[a.b]["head"]]})
+                    "heads": [reg[a.a]["head"], reg[a.b]["head"]],
+                    "folds": len(set(A["folds"].tolist()) & set(B["folds"].tolist()))})
 os.makedirs("docs/generated/paper", exist_ok=True)
 json.dump(out, open(f"docs/generated/paper/{a.name}.json", "w"), indent=1)
 for o in out:

@@ -363,28 +363,28 @@
   "source": "docs/generated/paper/interventions.json"
  },
  "iv.retfound.diff": {
-  "tex": "\\textminus{}0.0399",
-  "value": -0.03991707989954008,
+  "tex": "\\textminus{}0.0414",
+  "value": -0.04143100881809997,
   "source": "docs/generated/paper/interventions.json"
  },
  "iv.retfound.ci": {
-  "tex": "[\\textminus{}0.0669, \\textminus{}0.0124]",
+  "tex": "[\\textminus{}0.0583, \\textminus{}0.0238]",
   "value": [
-   -0.06690577094980528,
-   -0.012358649174140464
+   -0.05833664621929728,
+   -0.023777308202168036
   ],
   "source": "docs/generated/paper/interventions.json"
  },
  "iv.retfound.ship": {
-  "tex": "\\textminus{}0.0943",
-  "value": -0.09434834652634333,
+  "tex": "\\textminus{}0.0828",
+  "value": -0.0827732382773423,
   "source": "docs/generated/paper/interventions.json"
  },
  "iv.retfound.shipci": {
-  "tex": "[\\textminus{}0.1284, \\textminus{}0.0611]",
+  "tex": "[\\textminus{}0.1039, \\textminus{}0.0601]",
   "value": [
-   -0.12844953646526647,
-   -0.06112440010951277
+   -0.10392613869311061,
+   -0.060105567960562815
   ],
   "source": "docs/generated/paper/interventions.json"
  },
@@ -2529,8 +2529,13 @@
   "source": "docs/generated/paper/seeds.json"
  },
  "iv.retfound.folds": {
-  "tex": "2",
-  "value": "2",
+  "tex": "5",
+  "value": "5",
+  "source": "docs/generated/paper/interventions.json"
+ },
+ "retfound.o9": {
+  "tex": "held",
+  "value": "held",
   "source": "docs/generated/paper/interventions.json"
  },
  "grid.effect": {
