@@ -1259,6 +1259,41 @@ with independent code.
 
 ---
 
+## §31. The record's one "confirmed" per-class difference depends on how the cut-points are cross-fitted  — 2026-10-16, RECORDED
+
+**What was claimed.** `PROTOCOL.md` §4.1/§10 cite the E12 source control as the case that
+licenses the matched-calibration rule: Moderate recall native − default was −6.8 at shipped
+cut-points and **−6.5 [−11.9, −0.7] "with both arms recalibrated for QWK"** — the rule
+returned "real difference", so it is not a one-way filter.
+
+**What regenerating it from the per-image logits shows** (`src/paper_record.py`; no script
+for the original analysis was archived):
+
+| cut-points for both arms | Moderate recall, native − default |
+|---|---|
+| shipped (0.5) | −6.9 [−12.1, −2.1] |
+| fitted on all 953 rows (in-sample) | −10.8 [−16.2, −5.4] |
+| random 2-fold cross-fit, grid 80 (the external-recovery procedure) | **−6.6 [−12.0, −1.1]** ← the archived value |
+| fold-wise cross-fit, grid 60 (the procedure every other DEVELOPMENT comparison uses) | **+0.4 [−5.7, +6.1]** |
+
+The archived figure is reproduced by the random-half procedure. Under the project's own
+standard development procedure the difference dissolves. Aggregate QWK is indistinguishable
+under every procedure.
+
+**What changes.** The E12 entry is not a clean confirmation: whether a per-class difference
+"survives matched calibration" depended on which matched calibration was used. That is
+itself the paper's point (per-class comparisons are operating-point dependent), but the
+record must not present E12 as the case that shows the rule can confirm. The two-directional
+property of the rule rests instead on the development comparison E11FULL vs E10, where a
+significant difference **survives** matched calibration (+0.0202 shipped → +0.0207 matched,
+interval excluding zero), and on per-grade cells that stay significant at every operating
+point (Proliferative, E11FULL − E08 on APTOS: +8.1 at R1, +6.8 at R4).
+
+**Rule added.** A matched-calibration claim names its fitting procedure (in-sample, fold-wise
+cross-fit, random-half cross-fit) and, for per-class claims, is reported under at least two.
+
+---
+
 ## Things not to redo
 
 Ideas that were tried and failed, so neither of us tries them again in three months.
