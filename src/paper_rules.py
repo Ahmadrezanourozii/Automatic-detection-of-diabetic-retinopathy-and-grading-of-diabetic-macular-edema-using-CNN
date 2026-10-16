@@ -313,3 +313,49 @@ def referral_frontier(logits, y, head, base_cuts, n=121):
                      "binary_kappa": cohen_kappa(ref_t.astype(int), ref_p.astype(int), 2),
                      "mild_recall": b["recall"][1], "pred_dist": b["pred_dist"]})
     return rows
+
+
+# ── matched comparison between two models (torch-free port of compare_matched.py) ──
+def crossfit_dev(score, y, folds, k=K_DR):
+    out = np.zeros(len(score), dtype=int)
+    for f in sorted(set(folds.tolist())):
+        te = folds == f
+        if (~te).any() and te.any():
+            cuts, _ = fit_cuts(score[~te], y[~te], "qwk", k=k, grid=GRID_DEV)
+            out[te] = cuts_to_grades(score[te], cuts)
+    return out
+
+
+def matched_compare(a, b, head_a, head_b, n_boot=2000, seed=0, labels=None, dme=False):
+    """Paired bootstrap of A - B on the rows both predict, at shipped and at matched
+    (cross-fitted) cut-points. Groups are images (the frozen split's groups)."""
+    ib = {u: i for i, u in enumerate(b["uids"])}
+    ja = np.array([i for i, u in enumerate(a["uids"]) if u in ib])
+    jb = np.array([ib[a["uids"][i]] for i in ja])
+    folds = a["folds"][ja]
+    assert (b["folds"][jb] == folds).all(), "runs disagree on fold membership"
+    if dme:
+        uids = a["uids"][ja]
+        keep = np.array([labels[u]["space"] == "3class" for u in uids])
+        groups = uids[keep]
+        y = np.array([labels[u]["dme"] for u in uids[keep]])
+        la, lb, k = a["dme"][ja][keep], b["dme"][jb][keep], 3
+        folds = folds[keep]
+    else:
+        y = a["y"][ja]
+        groups = a["uids"][ja]
+        la, lb, k = a["dr"][ja], b["dr"][jb], K_DR
+    def ship(l, h):
+        fired = (p_greater(l, h) > 0.5).astype(int)
+        return np.minimum.accumulate(fired, axis=1).sum(axis=1).clip(0, k - 1)
+    pa_m = crossfit_dev(expected_grade(la, head_a), y, folds, k)
+    pb_m = crossfit_dev(expected_grade(lb, head_b), y, folds, k)
+    out = {}
+    for mode, (pa, pb) in (("shipped", (ship(la, head_a), ship(lb, head_b))),
+                           ("matched", (pa_m, pb_m))):
+        fn = lambda t, p: M.quadratic_weighted_kappa(t, p, k)
+        d, lo, hi, sig = M.paired_bootstrap_diff(y, pa, pb, fn, groups=groups,
+                                                 n_boot=n_boot, seed=seed)
+        out[mode] = {"a": fn(y, pa), "b": fn(y, pb), "diff": d, "lo": lo, "hi": hi,
+                     "significant": sig, "n": int(len(y))}
+    return out

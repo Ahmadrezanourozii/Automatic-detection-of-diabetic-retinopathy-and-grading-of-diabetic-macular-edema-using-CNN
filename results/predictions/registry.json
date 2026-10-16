@@ -1,0 +1,226 @@
+{
+ "E05": {
+  "head": "ordinal",
+  "note": "densenet121 448px, no pretraining, 30 ep",
+  "oof_sources": [
+   "E05"
+  ],
+  "external": {},
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E06": {
+  "head": "ordinal",
+  "note": "densenet121 448px, EyePACS pretraining, 25 ep",
+  "oof_sources": [
+   "E06"
+  ],
+  "external": {},
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E08": {
+  "head": "ordinal",
+  "note": "densenet121 448px, EyePACS, 40 ep (control)",
+  "oof_sources": [
+   "E08"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "E08X2",
+    "n": 3662
+   }
+  },
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E09": {
+  "head": "ordinal",
+  "note": "densenet121 224px",
+  "oof_sources": [
+   "E09"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "EXTE09",
+    "n": 3662
+   }
+  },
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E10": {
+  "head": "ordinal",
+  "note": "densenet121 560px effective",
+  "oof_sources": [
+   "E10"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "EXTE10",
+    "n": 3662
+   }
+  },
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E11FULL": {
+  "head": "ordinal",
+  "note": "efficientnet-b3 448px, EyePACS (selected model)",
+  "oof_sources": [
+   "E11",
+   "E19E11C"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "EXTE11FULL",
+    "n": 3662
+   }
+  },
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E14MAC": {
+  "head": "ordinal",
+  "note": "densenet121 + macula crop for DME",
+  "oof_sources": [
+   "E14MAC"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "EXTE14MAC",
+    "n": 3662
+   }
+  },
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E15LPFT": {
+  "head": "ordinal",
+  "note": "densenet121, LP-FT",
+  "oof_sources": [
+   "E15LPFT"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "EXTE15LPFT",
+    "n": 3662
+   }
+  },
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E17NAT": {
+  "head": "ordinal",
+  "note": "densenet121 640px native",
+  "oof_sources": [
+   "E17NAT"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "EXTE17NAT",
+    "n": 3662
+   }
+  },
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E20CORAL": {
+  "head": "coral",
+  "note": "densenet121, CORAL head",
+  "oof_sources": [
+   "E20CORAL"
+  ],
+  "external": {},
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E22CORN": {
+  "head": "corn",
+  "note": "densenet121, CORN head",
+  "oof_sources": [
+   "E22CORN"
+  ],
+  "external": {}
+ },
+ "E21CNXA": {
+  "head": "ordinal",
+  "note": "convnext-tiny, folds 0-1 only",
+  "oof_sources": [
+   "E21CNXA"
+  ],
+  "external": {},
+  "oof_folds": [
+   0
+  ],
+  "oof_n": 455
+ },
+ "I24FT01": {
+  "head": "ordinal",
+  "note": "RETFound ViT-L/16 LP-FT 224px, folds 0-1",
+  "oof_sources": [
+   "I24FT01"
+  ],
+  "external": {}
+ }
+}
