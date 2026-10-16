@@ -15,10 +15,11 @@ def accuracy(y_true, y_pred):
 
 
 def confusion(y_true, y_pred, k):
-    cm = np.zeros((k, k), dtype=np.int64)
-    for t, p in zip(np.asarray(y_true), np.asarray(y_pred)):
-        cm[int(t), int(p)] += 1
-    return cm
+    # bincount over the flattened (true, pred) cell index: identical counts to the per-row
+    # loop it replaces, and fast enough for cut-point searches over 12 522 DDR images
+    t = np.asarray(y_true).astype(np.int64)
+    p = np.asarray(y_pred).astype(np.int64)
+    return np.bincount(t * k + p, minlength=k * k).reshape(k, k).astype(np.int64)
 
 
 def quadratic_weighted_kappa(y_true, y_pred, k):

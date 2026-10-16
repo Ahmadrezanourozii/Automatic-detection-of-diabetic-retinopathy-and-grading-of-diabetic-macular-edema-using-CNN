@@ -210,7 +210,7 @@ else:
     # already exits loudly if the corpus matches zero images -- let it be the judge.
     # one evaluation per external corpus, each with its own image cache and log, so a
     # failure on one corpus cannot be mistaken for the other's output
-    for CORPUS in {external_corpora.split(",")!r}:
+    for CORPUS in {[c for c in external_corpora.split(",") if c and c != "none"]!r}:
         tag = CORPUS.lower()
         cmd = [sys.executable, "-u", "/kaggle/working/repo/src/eval_external.py",
                "--run", OUT, "--datasets", "/kaggle/input", "--corpus", CORPUS,
