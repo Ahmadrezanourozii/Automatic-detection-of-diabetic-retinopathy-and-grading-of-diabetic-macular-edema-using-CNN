@@ -2383,6 +2383,151 @@
   ],
   "source": "docs/generated/paper/record.json"
  },
+ "seeds.n": {
+  "tex": "5",
+  "value": 5,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.dev.sd": {
+  "tex": "0.0043",
+  "value": 0.004336368666592366,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.dev.lo": {
+  "tex": "0.8646",
+  "value": 0.8645842726491791,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.dev.hi": {
+  "tex": "0.8764",
+  "value": 0.8764121529261903,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.yardstick": {
+  "tex": "0.0123",
+  "value": 0.012265102759489315,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.aptos.sd": {
+  "tex": "0.0026",
+  "value": 0.002606623378872658,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.aptos.qwklo": {
+  "tex": "0.8900",
+  "value": 0.8899759040620038,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.aptos.qwkhi": {
+  "tex": "0.8968",
+  "value": 0.8968365469930835,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.aptos.mildR1.lo": {
+  "tex": "5.4",
+  "value": 0.05405405405405406,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.aptos.mildR1.hi": {
+  "tex": "6.2",
+  "value": 0.062162162162162166,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.aptos.mildR4m.lo": {
+  "tex": "63.8",
+  "value": 0.6378378378378379,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.aptos.mildR4m.hi": {
+  "tex": "72.7",
+  "value": 0.727027027027027,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.aptos.sigR1": {
+  "tex": "15",
+  "value": 15,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.aptos.sigR4": {
+  "tex": "29",
+  "value": 29,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.aptos.ntests": {
+  "tex": "50",
+  "value": 50,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.aptos.maxR1": {
+  "tex": "8.2",
+  "value": 8.21541319959266,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.o2": {
+  "tex": "held",
+  "value": "held",
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.o3": {
+  "tex": "held",
+  "value": "held",
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.ddr.sd": {
+  "tex": "0.0100",
+  "value": 0.009969112276104098,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.ddr.qwklo": {
+  "tex": "0.7041",
+  "value": 0.7041374252208259,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.ddr.qwkhi": {
+  "tex": "0.7281",
+  "value": 0.7280988880263355,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.ddr.mildR1.lo": {
+  "tex": "34.0",
+  "value": 0.3396825396825397,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.ddr.mildR1.hi": {
+  "tex": "38.4",
+  "value": 0.38412698412698415,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.ddr.mildR4m.lo": {
+  "tex": "55.1",
+  "value": 0.5507936507936508,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.ddr.mildR4m.hi": {
+  "tex": "63.2",
+  "value": 0.6317460317460317,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.ddr.sigR1": {
+  "tex": "17",
+  "value": 17,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.ddr.sigR4": {
+  "tex": "21",
+  "value": 21,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.ddr.ntests": {
+  "tex": "30",
+  "value": 30,
+  "source": "docs/generated/paper/seeds.json"
+ },
+ "seeds.ddr.maxR1": {
+  "tex": "9.7",
+  "value": 9.722240919427884,
+  "source": "docs/generated/paper/seeds.json"
+ },
  "iv.retfound.folds": {
   "tex": "2",
   "value": "2",

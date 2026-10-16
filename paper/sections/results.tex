@@ -123,11 +123,16 @@ at every operating point.
 Five seeds of the reference configuration set the scale of these effects. Development QWK at
 matched calibration varied with a standard deviation of \pn{seeds.dev.sd} across seeds
 (range \pn{seeds.dev.lo}--\pn{seeds.dev.hi}), and APTOS QWK at the shipped rule with
-\pn{seeds.aptos.sd}. Between models that differed only by seed, \pn{seeds.aptos.sigR1} of 50
-per-grade recall comparisons on APTOS were ``significant'' at the shipped rule (largest
-difference \pn{seeds.aptos.maxR1} points; pre-registered O2 \pn{seeds.o2}), and
-\pn{seeds.aptos.sigR4} at matched external cut-points: per-grade differences of the size the
-literature attributes to architecture arise between identical architectures.
+\pn{seeds.aptos.sd}. Between models that differed only by seed, \pn{seeds.aptos.sigR1} of
+\pn{seeds.aptos.ntests} per-grade recall comparisons on APTOS were ``significant'' at the
+shipped rule (largest difference \pn{seeds.aptos.maxR1} points; pre-registered O2
+\pn{seeds.o2}), and \pn{seeds.aptos.sigR4} at matched external cut-points; on DDR the counts
+were \pn{seeds.ddr.sigR1} and \pn{seeds.ddr.sigR4} of \pn{seeds.ddr.ntests}. An image-level
+bootstrap captures sampling of test images, not the variance of training, so per-grade
+differences of the size the literature attributes to architecture arise between identical
+architectures. A difference between configurations is treated here as beyond seed noise only
+if it exceeds $2\sqrt{2}$ seed standard deviations of matched development QWK
+(\pn{seeds.yardstick}; Fig.~\ref{fig:forest}).
 
 \subsection*{About 200 local labels are enough to recalibrate safely}
 
