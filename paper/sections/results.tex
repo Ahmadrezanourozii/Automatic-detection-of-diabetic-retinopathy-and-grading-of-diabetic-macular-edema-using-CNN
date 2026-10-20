@@ -42,16 +42,19 @@ A referral threshold fitted on development predictions therefore did not hold it
 point (Fig.~\ref{fig:transfer}). Fitted for 85\% sensitivity, the reference model referred
 \pn{aptos.tr.e08.B.sens}\% of referable patients on APTOS and \pn{sustech.tr.e08.B.sens}\% on
 SUSTech-SYSU but \pn{ddr.tr.e08.B.sens}\% on DDR (pre-registered O8 \pn{ddr.o8}); only on DeepDRiD,
-where the shift was smallest, did it land near its target (\pn{deepdrid.tr.e08.B.sens}\%). Models trained on \pn{eye.eb3.trainn} EyePACS images behaved the same way (Supplementary
+where the shift was smallest, did it land near its target (\pn{deepdrid.tr.e08.B.sens}\%).
+
+Models trained on \pn{eye.eb3.trainn} EyePACS images behaved the same way (Supplementary
 Table~S6). Their referral area under the curve on the six external sets was
 \pn{eye.auc.min}--\pn{eye.auc.max}, while a threshold fitted on their held-out EyePACS fold for 85\%
 sensitivity reached \pn{eye.tr85.min}--\pn{eye.tr85.max}\% (outcome E2 \pn{eye.E2.verdict}). The
 direction of the shift was a property of the target population rather than of the development data:
 like the development-pool models, they over-graded APTOS (mean predicted-minus-true grade
-\pn{eye.eb3.aptos.mean} for EfficientNet-B3) and under-graded DDR (\pn{eye.eb3.ddr.mean}). The size
+\pn{eye.dn.aptos.mean} for DenseNet121, \pn{eye.eb3.aptos.mean} for EfficientNet-B3) and
+under-graded DDR (\pn{eye.dn.ddr.mean} and \pn{eye.eb3.ddr.mean}). The size
 and even the sign of a threshold's transfer gap, by contrast, depended on where the threshold was
 fitted: for 85\% target sensitivity on DDR, \pn{ddr.tr.e08.B.sens}\% from the development pool but
-\pn{eye.eb3.ddr.tr85}\% from EyePACS. The decomposition is not an artefact of a small development set.
+\pn{eye.dn.ddr.tr85}\% and \pn{eye.eb3.ddr.tr85}\% from EyePACS. The decomposition is not an artefact of a small development set.
 
 \subsection{Why the mapping moved}
 

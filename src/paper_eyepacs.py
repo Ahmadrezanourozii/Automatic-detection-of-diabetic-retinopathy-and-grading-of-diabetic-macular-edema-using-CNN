@@ -53,7 +53,7 @@ def main():
                "folds": np.zeros(len(uids), dtype=int)}
         s_dev = P.expected_grade(dev["dr"], head)
         matched = P.crossfit_external(s_dev, dev["y"], "qwk")          # two-fold within the held-out fold
-        sp_path = find(a.search, m, "split.json")
+        sp_path = find(a.search, m, "split.json") or "data/splits/eyepacs_v1.json"
         n_split = json.load(open(sp_path))["n_images"] if sp_path else None
         v = {"label": label, "head": head,
              "train_n": int(n_split - len(uids)) if n_split else None,

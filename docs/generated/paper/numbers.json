@@ -4056,6 +4056,176 @@
   "value": 0.9412675145172825,
   "source": "docs/generated/paper/transfer_sustech.json"
  },
+ "eye.dn.devn": {
+  "tex": "7,030",
+  "value": 7030,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.trainn": {
+  "tex": "28,096",
+  "value": 28096,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.devqwk": {
+  "tex": "0.7503",
+  "value": 0.7503138638801308,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.ngap": {
+  "tex": "6",
+  "value": 6,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.aptos.auc": {
+  "tex": "0.941",
+  "value": 0.9406403388756194,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.aptos.mean": {
+  "tex": "+0.20",
+  "value": 0.20070999453850355,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.aptos.tr85": {
+  "tex": "100.0",
+  "value": 1.0,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.aptos.r1sens": {
+  "tex": "99.7",
+  "value": 0.9973100201748487,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.aptos.r4sens": {
+  "tex": "96.6",
+  "value": 0.9657027572293208,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.ddr.auc": {
+  "tex": "0.957",
+  "value": 0.95736838070757,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.ddr.mean": {
+  "tex": "\\textminus{}0.18",
+  "value": -0.18024277272001277,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.ddr.tr85": {
+  "tex": "90.9",
+  "value": 0.9086384642730181,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.ddr.r1sens": {
+  "tex": "77.8",
+  "value": 0.7778172769285461,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.ddr.r4sens": {
+  "tex": "83.9",
+  "value": 0.8387842161393531,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.messidor2.auc": {
+  "tex": "0.940",
+  "value": 0.9403732664126537,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.messidor2.mean": {
+  "tex": "+0.09",
+  "value": 0.08830275229357798,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.messidor2.tr85": {
+  "tex": "95.2",
+  "value": 0.9518599562363238,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.messidor2.r1sens": {
+  "tex": "86.9",
+  "value": 0.8687089715536105,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.messidor2.r4sens": {
+  "tex": "69.6",
+  "value": 0.6958424507658644,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.idrid.auc": {
+  "tex": "0.959",
+  "value": 0.9591908756957923,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.idrid.mean": {
+  "tex": "+0.15",
+  "value": 0.14728682170542637,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.idrid.tr85": {
+  "tex": "98.8",
+  "value": 0.9876160990712074,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.idrid.r1sens": {
+  "tex": "97.5",
+  "value": 0.9752321981424149,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.idrid.r4sens": {
+  "tex": "90.1",
+  "value": 0.9009287925696594,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.deepdrid.auc": {
+  "tex": "0.965",
+  "value": 0.9647535822574335,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.deepdrid.mean": {
+  "tex": "+0.02",
+  "value": 0.022,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.deepdrid.tr85": {
+  "tex": "98.7",
+  "value": 0.9872685185185185,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.deepdrid.r1sens": {
+  "tex": "94.9",
+  "value": 0.9490740740740741,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.deepdrid.r4sens": {
+  "tex": "88.5",
+  "value": 0.8854166666666666,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.sustech.auc": {
+  "tex": "0.999",
+  "value": 0.9991689239103669,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.sustech.mean": {
+  "tex": "+0.13",
+  "value": 0.13032145960034752,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.sustech.tr85": {
+  "tex": "100.0",
+  "value": 1.0,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.sustech.r1sens": {
+  "tex": "99.2",
+  "value": 0.9919354838709677,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.dn.sustech.r4sens": {
+  "tex": "98.4",
+  "value": 0.9838709677419355,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
  "eye.eb3.devn": {
   "tex": "7,030",
   "value": 7030,
@@ -4233,7 +4403,7 @@
  },
  "eye.auc.max": {
   "tex": "0.999",
-  "value": 0.9991504555528194,
+  "value": 0.9991689239103669,
   "source": "docs/generated/paper/eyepacs.json"
  },
  "eye.tr85.min": {
