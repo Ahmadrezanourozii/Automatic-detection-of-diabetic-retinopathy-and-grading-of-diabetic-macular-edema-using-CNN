@@ -1,0 +1,23 @@
+{
+ "id": "ah22reza/dr-dme-eyedn",
+ "title": "DR/DME EYEDN",
+ "code_file": "dr-dme-eyedn.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": true,
+ "enable_gpu": true,
+ "machine_shape": "GPU T4 x2",
+ "enable_internet": true,
+ "dataset_sources": [
+  "aaryapatel98/indian-diabetic-retinopathy-image-dataset",
+  "google-brain/messidor2-dr-grades",
+  "mariaherrerot/messidor2preprocess",
+  "tanlikesmath/diabetic-retinopathy-resized",
+  "mariaherrerot/aptos2019",
+  "mariaherrerot/ddrdataset",
+  "nancyhisham/deepdrid",
+  "mariaherrerot/the-sustechsysu-dataset"
+ ],
+ "competition_sources": [],
+ "kernel_sources": []
+}
