@@ -1,17 +1,22 @@
-\abstract{Diabetic retinopathy grading models lose performance on new populations, and the
-losses are usually attributed to the learned representation. In a
-pre-registered study of ten development models evaluated on APTOS and DDR, five seed replicates
-and a reverse-direction model, we separated that contribution from the ordinal decision rule
-that converts scores into grades. Discrimination of referable disease transferred (area under
-the curve \pn{aptos.auroc.min}--\pn{aptos.auroc.max}), but the models over-graded APTOS and
-under-graded DDR: a threshold fitted for 85\% development sensitivity reached
-\pn{aptos.tr.e08.B.sens}\% and \pn{ddr.tr.e08.B.sens}\%. Refitting cut-points alone, without
-retraining, restored APTOS mild-grade recall from \pn{aptos.R1.mild.min}--\pn{aptos.R1.mild.max}\%
-to \pn{aptos.R4m.mild.min}--\pn{aptos.R4m.mild.max}\% and raised reverse-direction referral
-sensitivity from \pn{rev.m2.R1.sens}\% to \pn{rev.m2.R4.sens}\%. Contrary to our pre-registered
-predictions, model choice mattered more than development-fitted rules, and the mild-grade
-collapse did not generalise.
-Quadratic weighted kappa varied by under 0.01 across DDR operating points spanning
-\pn{ddr.band.e11full.sens.lo}--\pn{ddr.band.e11full.sens.hi}\% referral sensitivity. External
-evaluations should report operating curves; deployment should include local recalibration.}
-
+\begin{abstract}
+Diabetic retinopathy (DR) grading models lose performance on new populations, and the losses are
+usually attributed to the learned representation, although ordinal models convert scores into
+grades with a rarely examined decision rule. Under analysis plans committed in advance to
+version control, we evaluated ten development models on four external
+populations (APTOS 2019, DDR, DeepDRiD and SUSTech-SYSU), a model trained on APTOS in the reverse
+direction, two models trained on about 28\,000 EyePACS images, five seeds and a published model's released
+predictions. We separated discrimination at each ordinal threshold
+from the mapping of scores to grades, and compared models under a matched decision rule that refits
+both models' cut-points identically. Ranking transferred everywhere
+(area under the curve for referable DR at least \pn{r2.auc1.allmin}), but the score given the true
+grade moved in opposite directions: the same models over-graded APTOS and under-graded DDR, so a
+threshold fitted for 85\% development sensitivity reached \pn{aptos.tr.e08.B.sens}\% and
+\pn{ddr.tr.e08.B.sens}\%. Refitting cut-points without retraining recovered the mild grade on APTOS
+and raised referral sensitivity in the reverse direction from \pn{rev.m2.R1.sens}\% to
+\pn{rev.m2.R4.sens}\%, but did not repair losses of ranking; label-free prior adaptation did
+not help. Contrary to two of our predictions, models differed more than deployable rules, and the
+mild-grade collapse was specific to one corpus.
+About 200 locally labelled images set a referral threshold with less than a one-in-five risk of
+missing an 80\% sensitivity floor. External evaluations should report per-threshold discrimination
+and operating curves, and referral thresholds should be set locally before deployment.
+\end{abstract}

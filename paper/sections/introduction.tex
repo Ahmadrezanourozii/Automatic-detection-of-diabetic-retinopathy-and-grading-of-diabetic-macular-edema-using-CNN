@@ -1,66 +1,58 @@
 \section{Introduction}\label{sec:intro}
 
-Diabetic retinopathy (DR) affects roughly one in five people with diabetes, an estimated
-103 million adults in 2020 and a projected 161 million by 2045, and it remains a leading cause
-of preventable blindness in the working-age population\cite{teo2021prevalence}. Diabetic
-macular oedema (DME), its most common mechanism of central vision loss, affects about one in
-fifteen\cite{yau2012prevalence}. Deep learning systems that grade fundus photographs reached
-specialist-level agreement in development studies a decade ago\cite{gulshan2016,ting2017}, and
-autonomous screening devices have since been authorised on the strength of prospective pivotal
-trials\cite{abramoff2018pivotal,ipp2021eyeart}. Yet the same class of system behaves very
-differently once it leaves the population it was built on. In a head-to-head evaluation of
-seven commercial algorithms on the same real-world images, sensitivity for referable disease
-ranged from 51\% to 86\%\cite{lee2021headtohead}; three commercial algorithms applied to the
-same eyes against the same reference standard in Indian public-health clinics returned
-specificities between 14\% and 96\%\cite{duggal2025realworld}.
+Diabetic retinopathy (DR) affects about one in five people with diabetes, an estimated
+103 million adults in 2020 and a projected 161 million by 2045\cite{teo2021prevalence}.
+Deep learning systems that grade fundus photographs reached specialist-level agreement in
+development studies\cite{gulshan2016,ting2017}, and autonomous screening devices have been
+authorised on the strength of prospective pivotal trials\cite{abramoff2018pivotal,ipp2021eyeart}.
+The same class of system behaves very differently once it leaves the population it was built
+on: seven commercial algorithms applied to the same real-world images ranged from 51\% to 86\%
+in referable-disease sensitivity\cite{lee2021headtohead}, and three algorithms evaluated against
+one reference standard in Indian public-health clinics ranged from 14\% to 96\% in
+specificity\cite{duggal2025realworld}.
 
-When a model fails on a new population, the failure is usually read as a statement about what
-the network has learned. A recent frozen-encoder benchmark found that two of three encoders,
-including the retinal foundation model RETFound, did not identify a single one of 270 mild
-cases in an external corpus (grade-1 F1 = 0.000), and attributed the collapse to the
-encoders' representations\cite{poyrazer2026calibration}. RETFound itself was shown to be
-superior using macro-averaged, threshold-free metrics\cite{zhou2023retfound}, which cannot
-reveal a per-grade failure of this kind. Comparisons between architectures, heads and
-pretraining schemes are reported in the same way: as differences in what a model represents.
+Such failures are usually read as statements about what the network has learned. A recent
+frozen-encoder benchmark found that two of three encoders, including the retinal foundation
+model RETFound, did not identify a single mild case in an external corpus (grade-1 F1 of 0.000)
+and attributed the result to the encoders' representations\cite{poyrazer2026calibration}.
+An ordinal grading model does not output a grade, however. It outputs scores, and a
+\emph{decision rule} --- a set of cut-points --- turns them into a grade and a referral. The
+common default, 0.5 on every cumulative output or an argmax, is a choice that is rarely
+reported or examined. If a model still ranks images correctly but its cut-points sit in the
+wrong place for a new population, it will look blind to a grade it in fact separates, and two
+models that differ mainly in where their defaults fall will look as if they differ in what they
+learned.
 
-An ordinal grading model does not output a grade, however. It outputs scores that a decision
-rule turns into a grade, and the rule is almost never examined. Three different things are
-routinely conflated: \emph{probability calibration}, whether predicted probabilities match
-observed frequencies\cite{guo2017calibration,vancalster2019calibration}; the
-\emph{decision rule}, the cut-points or referral threshold that map scores to a grade or a
-referral; and the \emph{representation}, what the encoder has learned. The common default,
-a threshold of 0.5 on every ordinal output or an argmax, is a hyper-parameter that has been
-chosen implicitly rather than one that has been avoided. If a model ranks images correctly but
-its cut-points sit in the wrong place for a new population, it will look blind to a grade it
-in fact separates, and two models that differ mainly in where their defaults happen to fall
-will look as if they differ in what they learned. Clinical prediction research has long
-treated recalibration and model updating as a routine step before
-deployment\cite{janssen2008updating,vergouwe2017updating}; DR grading studies rarely test
-whether their headline failures and gains survive it.
+Parts of this idea are not new. Recalibration before deployment is standard advice for
+clinical prediction models\cite{janssen2008updating,vergouwe2017updating}. ORDER-DR, an ordinal
+DR model developed on APTOS, explicitly distinguished threshold-dependent grade assignment from
+threshold-independent risk ranking and noted that models trained on one public dataset can show
+threshold shift externally\cite{sheng2026orderdr}. For binary referable DR across fundus
+cameras, a recent preprint showed that discrimination transfers while probability calibration
+degrades, mostly through prevalence, and that 100--200 labelled target images restore it
+\cite{tabibu2026discrimination}; concurrent work reports that calibration degrades unevenly
+across ordinal thresholds under domain shift\cite{gradeye2026}. What these studies do not
+provide is a decomposition across many models and several populations of how much of an external
+failure, and of an apparent difference between models, the ordinal decision rule accounts for;
+evidence on why the score-to-grade mapping moves; a rule for comparing models that removes it;
+and the label cost and risk of repairing it.
 
-Here we test that alternative directly. We trained and archived 13 grading configurations on a
-pooled development set of 2,260 images, evaluated them on three external directions
-(\pn{n.aptos} APTOS images, \pn{n.ddr} DDR images from 147 Chinese hospitals, and the reverse
-direction, APTOS to Messidor-2 and IDRiD), and asked, for every reported failure and every
-reported difference, whether it survives \emph{matched calibration}: refitting the decision
-rule of every model by the same procedure before comparing them. Every training run and every
-hypothesis was pre-registered with its falsifying outcome before launch\cite{nosek2018prereg},
-and we report the interventions that failed with the same weight as those that
-worked.
-
-We find that external failures of these models separate into two parts that call for
-different remedies. The ranking of images by severity transferred to both new populations,
-but the mapping from score to grade did not, and it moved in opposite directions: the same
-models over-graded one population and under-graded another, so that a referral threshold fitted
-for 85\% development sensitivity reached \pn{aptos.tr.e08.B.sens}\% on one and
-\pn{ddr.tr.e08.B.sens}\% on the other. Where the ranking survived, refitting the cut-points alone,
-with no retraining, recovered what had been lost: the mild grade on APTOS and much of the
-referable disease missed in the reverse direction. Where it did not, as for the foundation model
-on DDR, recalibration could not help. Contrary to two of our own pre-registered predictions,
-deployable rules fitted on development data did not move clinical metrics more than the choice
-of model, and the collapse of the mild grade was specific to one corpus. Quadratic weighted
-kappa (QWK), the field's standard summary, was nearly flat across operating points that
-differed by tens of points in referral sensitivity; models that differed only by random seed
-produced per-grade ``effects'' of the size that the literature attributes to architecture; and
-eight of nine pre-registered interventions on the representation were falsified. About 200
-locally labelled images were enough to recalibrate safely.
+We provide these in a study whose analysis plans were committed to version control before the
+corresponding analyses were run, reporting falsified predictions with the same weight as
+confirmed ones. Ten development models trained on \pn{n.dev} images were evaluated on four
+external populations --- APTOS 2019 (India), DDR (China, 147 hospitals), DeepDRiD (Shanghai)
+and SUSTech-SYSU (Shenzhen) --- and a model trained on APTOS was evaluated in the reverse
+direction. Two further models were trained on about 28\,000 EyePACS images to test whether the
+findings depend on the size of the development set, five seeds of the reference model measured
+training noise, and the released predictions of ORDER-DR were reanalysed. The contributions are:
+\begin{itemize}
+\item a decomposition of external performance into discrimination at every ordinal threshold
+and the mapping from score to grade, which shows that the mapping moves in opposite directions
+on different populations through a shift in the score \emph{given} the true grade;
+\item an account of what changing the decision rule can and cannot recover, including a negative
+result for label-free prior adaptation;
+\item the \emph{matched decision rule}, a comparison rule under which both models' cut-points are
+refitted by the same procedure, with its record of changed, unchanged and reversed comparisons;
+\item the number of locally labelled images needed to set a referral threshold, with its
+probability of harm, and what the operating point means per 10\,000 people screened.
+\end{itemize}

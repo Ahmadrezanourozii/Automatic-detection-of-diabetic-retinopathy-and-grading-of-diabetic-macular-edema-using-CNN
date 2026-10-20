@@ -1,96 +1,75 @@
+% TODO(after X5NEW, EYEDN, EYEEB3): check every sentence that depends on DeepDRiD/SUSTech, the EyePACS-trained models and A2 against the data
 \section{Discussion}\label{sec:discussion}
 
-The central finding is that an external failure of an ordinal DR grading model has two
-separable components, and that published evaluations rarely separate them. The ranking of images
-by severity transferred well to both new populations; the mapping from score to grade did not,
-and its error had opposite signs on two populations, so that the same development threshold
-over-referred on one and missed a third of referable disease on the other. Where ranking
-survived, the loss was recoverable by moving cut-points alone: the mild grade on APTOS, which the
-literature reads as representational blindness to microaneurysms, and referral sensitivity in
-the reverse direction. Where ranking degraded, as for the foundation model on DDR, no
-recalibration helped. The analysis is also bounded by what it falsified. The choice among
-decision rules that can be deployed without external labels did not outweigh the choice of
-model, and the mild-grade collapse was specific to APTOS. A reader who sees an external failure
-of a grading model should therefore ask first whether the model still ranks the new population,
-then where its cut-points were set and on which population, and only then what it has learned.
+In the DR-grading settings studied here, an external failure separated into two components that
+call for different remedies. The ranking of images by severity transferred to four new
+populations and to models trained on twelve times more data; the mapping from score to grade did
+not, and its error had opposite signs on different populations because the score given the true
+grade moved. Where ranking survived, part of the loss was a property of the decision rule and
+could be recovered without retraining --- the mild grade on APTOS, referral sensitivity in the
+reverse direction --- but only as a trade between grades, and only with local labels. Where ranking
+degraded, as for the foundation model on DDR, no rule helped. Two of our own predictions bound the
+argument: deployable rules did not outweigh the choice of model, and the mild-grade collapse that
+the literature reads as representational blindness was specific to one corpus. A reader who sees
+an external failure should therefore ask, in order, whether the model still ranks the new
+population, where its cut-points were set and on which population, and only then what it has
+learned.
 
-This reframes several recent disagreements. Frozen-encoder benchmarks report that retinal
-foundation models fail on the mild grade externally\cite{poyrazer2026calibration}, while the
-foundation model's own evaluation, by macro-averaged area under the curve, could not have
-detected such a failure\cite{zhou2023retfound}; our foundation-model results show the same
-dissociation from the other side, a better frozen representation that did not yield a better
-fine-tuned grader on 2,260 images. Calibration in the probabilistic sense is not the lever
-here: temperature scaling barely moves external calibration under shift\cite{poyrazer2026calibration},
-and in our data the referral probability was well ranked (external area under the curve
-\pn{aptos.sel.auroc} on APTOS) while the cut-points sat in the wrong place. Clinical evaluations
-show the same signature at the level of deployed systems. Commercial algorithms applied to the
-same eyes differed by more than 80 points in specificity\cite{duggal2025realworld}, and seven
-systems on the same images spanned 35 points of sensitivity at similar negative predictive
-values\cite{lee2021headtohead}. Both are consistent with operating-point variation being reported
-as model variation, and neither design could separate the two, because each system was
-evaluated only at its vendor's fixed operating point.
+These results refine rather than contradict recent work. ORDER-DR separated threshold-dependent
+grade assignment from threshold-independent risk ranking and noted threshold shift on external
+data\cite{sheng2026orderdr}; reanalysing its released predictions shows that its reported
+advantage over its own branches does not survive the matched decision rule. Tabibu and Abhyankar
+found that the probability calibration of a binary referral model degrades across cameras mostly
+through prevalence, and that 100--200 labelled images restore it\cite{tabibu2026discrimination}.
+Our sample-size estimate agrees, for an ordinal model and a referral threshold rather than a
+calibration map, but the mechanism we found differs: the score given the true grade moved, so
+prior adaptation without labels failed, and temperature-style rescaling cannot be expected to help
+either, as reported for frozen encoders\cite{poyrazer2026calibration}. Per-threshold calibration
+has also been reported to degrade unevenly under domain shift\cite{gradeye2026}, consistent with
+the grade-specific movement we observed on APTOS.
 
-The reverse direction sharpens the point. Trained on APTOS, the same recipe did not lose the
-mild grade on Messidor-2, contrary to our own pre-registered prediction; it under-graded
-instead, and the cost fell on referral: at the shipped rule it referred \pn{rev.m2.R1.sens}\% of
-referable eyes while ranking them with an area under the curve of \pn{rev.m2.auroc}, and
-refitted cut-points restored \pn{rev.m2.R4.sens}\%. Which grade a population shift damages
-therefore depends on the population, and the development models under-graded DDR in the same
-way; in each case the damage lay in where the scores were cut rather than in how the images
-were ranked. A system validated as safe on
-its own population can miss more than half of referable disease on another without any change
-in its discriminative ability, and nothing in an agreement statistic would show it.
+The central objection to this kind of analysis is that refitting cut-points on local labels may
+fit local label noise rather than fix the model. The two populations answer it differently. On
+DDR every grade moved down by a similar amount and degrading development images reproduced the
+direction (A2), so recalibration there corrects a change in the images. On APTOS one grade moved
+by about a whole step while its neighbours did not, which image quality does not produce and a
+difference in how a single grader assigned the mild grade would; recalibration there aligns the
+model with the local grading standard. Whether that is a fix depends on whether the local standard
+is the one the screening programme acts on --- which, for a programme deploying a model, it
+usually is. Either way, the rule must be fitted where it will be used, on a sample large enough
+for its risk to be known.
 
-The metric invariance we observed explains why the problem persists. QWK charges little for a
-one-grade error, so a model that sends every mild case to moderate, or refers 99\% rather than
-88\% of referable patients, scores almost the same. The same insensitivity has been observed in
-a deployed system, where agreement with the reference standard moved from $\kappa$=0.65 to
-0.72 while sensitivity and specificity each moved by about 31 points between phases, although
-that change also involved retraining and a new cohort\cite{duggal2025realworld}. Metric
-choice is a known source of misleading validation in image analysis\cite{reinke2024pitfalls,maierhein2024metrics};
-for screening, the implication is concrete: an agreement statistic cannot stand in for the
-referral operating point, and the two must be reported together.
+The practical recommendations cost no additional training. External evaluations should report
+discrimination at each ordinal threshold beside grade-level agreement, the full referral operating
+curve, and the transfer gap of any development-fitted threshold, since the same threshold landed
+\pn{aptos.tr.e08.A.gap} and \pn{ddr.tr.e08.A.gap} points from an 80\% target on two populations.
+Model comparisons should be made under a matched decision rule that names its fitting procedure,
+with differences judged against the variation between seeds of one configuration. Deployment
+should include setting the referral threshold on a local sample: with about 200 labelled images
+the probability of missing an 80\% sensitivity floor was below one in five on every population,
+and with 400 it was a few per cent, in line with advice on updating prediction models for new
+settings\cite{janssen2008updating,vergouwe2017updating,riley2021samplesize}.
 
-The practical recommendations follow directly and cost no additional training. Model
-comparisons should be reported at matched calibration, with the fitting procedure named,
-because a per-grade verdict can depend on it (Supplementary Note~3). External evaluations
-should report the operating curve and the transfer gap of any development-fitted threshold
-rather than a single sensitivity, since the same threshold landed \pn{aptos.tr.e08.A.gap} points
-from its target on one population and \pn{ddr.tr.e08.A.gap} on another. Deployment should include local recalibration of the
-cut-points on about 200 labelled images, a procedure whose probability of harm, not only its mean
-benefit, we report, in line with long-standing advice on updating prediction models for new
-settings\cite{janssen2008updating,vergouwe2017updating} and with the sample sizes recommended
-for external validation\cite{riley2021samplesize}. The recalibration need not change the network:
-it is a re-estimation of four numbers.
+The study has limitations. All data are public and retrospective, the populations are defined by
+dataset rather than by a prospective screening programme, and APTOS and EyePACS labels come from
+single graders. Patient identifiers are unavailable for most corpora, so resampling is by image
+and fellow-eye pairs may be correlated. The external-label rules (R4, R4m) are diagnostics of what
+local labels could recover, not external validation; the deployable recommendation rests on the
+separate sample-size analysis. Referable disease was defined by DR grade alone because macular
+oedema is not graded in the external sets, whereas real screening refers for both; the
+macular-oedema head could not be validated externally and is reported only in the Supplement. The
+reverse direction, the seeds and the large-data models each use one or two architectures. Finally,
+the analysis plans were committed to version control rather than to a public registry, and the
+pre-specification of development runs trained before the repository history begins cannot be
+verified. The decision-rule effects should be confirmed prospectively, with cut-points fitted on
+an initial local sample and then frozen.
 
-The limits of the argument matter as much as its reach. First, decision rules do not explain
-everything. In the APTOS-to-Messidor-2 direction, refitting the cut-points of a published model
-raised mild recall several-fold but left mild F1 below 0.3, and in our own model trained on
-APTOS external cut-points raised mild recall only to \pn{rev.m2.R4m.mild}\% (pre-registered O5
-falsified), so part of the mild-grade failure in that direction is representational; and the
-internal mild-grade errors of our own models were only partly recoverable. The claim is that the decision rule must be separated before the representation is
-blamed, not that representation never matters. Second, the cut-points that recover the mild
-grade were fitted on external labels; they bound what local recalibration can achieve and are
-not themselves external validation, which is why the deployable rules and the sample-size
-analysis are reported separately. Third, all data are public and retrospective. APTOS labels
-come from a single grader, so part of any internal-to-external difference is label noise;
-none of the development or external corpora publishes patient identifiers, so resampling is by
-image and fellow-eye pairs may be correlated across folds; EyePACS, used for pretraining, also
-contributes to the retinal foundation model's pretraining corpus\cite{zhou2023retfound}; and the
-checkpoint epoch was selected on the held-out fold, which makes development estimates slightly
-optimistic (median \pn{optimism.median} QWK) without affecting external ones. Fourth, the
-macular-oedema head has no external validation: the one candidate corpus overlapped the
-development pool by 88\%, and the three-grade label could not be derived from published
-annotations, so our DME conclusions rest on 516 images and are stated as a supervision ceiling
-rather than a performance claim. Finally, the reverse direction and the seed replicates use a
-single architecture, and the published-model reanalysis uses one model family; the decision-rule
-effect should be tested in prospective screening data, where cut-points can be fitted on an
-initial local sample and then frozen.
+\section{Conclusions}\label{sec:conclusions}
 
-In summary, external failures of DR grading models are routinely attributed to learned
-representations, but a substantial part of them, and of the apparent differences between models,
-lies in the decision rule that converts scores into grades, and that part can be diagnosed and
-repaired without retraining. Reporting threshold-free discrimination beside matched-calibration
-comparisons, full operating curves and the transfer gap of any threshold, and recalibrating
-cut-points locally before deployment, would separate the two components and make published
-results comparable with one another and with the clinical decision they are meant to support.
+External failures and apparent differences between DR grading models are routinely attributed to
+learned representations. In the settings studied here a substantial part of them lay in the
+decision rule that converts scores into grades and could be diagnosed and repaired without
+retraining, while the remainder reflected real losses of ranking that no rule recovers. Reporting
+per-threshold discrimination, full operating curves, the transfer gap of thresholds and
+matched-decision-rule comparisons, and setting referral thresholds on a local sample of known size
+before deployment, would separate the two.

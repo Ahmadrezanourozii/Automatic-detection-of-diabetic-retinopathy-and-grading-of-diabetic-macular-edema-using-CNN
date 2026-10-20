@@ -191,6 +191,97 @@ def secondary(corpus):
     put(f"rf.{c}.auroc", r["_threshold_free"]["ref_auroc"], q3, src)
 
 
+def revision():
+    """The no-training revision analyses (src/paper_revision.py)."""
+    src = f"{GP}/revision.json"
+    d = load(src)
+    if not d:
+        return
+    sm = lambda v: f"{v:+.2f}".replace("-", "\\textminus{}")
+    for m in ("E08", "E11FULL"):
+        dv = d["dev"][m]
+        put(f"r2.dev.{m.lower()}.mildf1", dv["summary_R1"]["mild"]["f1"], q3, src)
+        put(f"r2.dev.{m.lower()}.cindex", dv["cindex"], q3, src)
+        for k in range(5):
+            put(f"r2.dev.{m.lower()}.es{k}", dv["es_by_grade"][k], "{:.2f}", src)
+    for c, C in d["corpora"].items():
+        k = c.lower()
+        ms = list(C["models"])
+        put(f"r2.{k}.n", C["n"], i0, src)
+        put(f"r2.{k}.nmodels", len(ms), i0, src)
+        gd = C["grade_dist"]
+        for g in range(5):
+            put(f"r2.{k}.pct{g}", gd[g] / sum(gd), p1, src)
+        put(f"r2.{k}.prevref", sum(gd[2:]) / sum(gd), p1, src)
+        for t in range(4):
+            v = [C["models"][m]["auc_k"][t] for m in ms]
+            put(f"r2.{k}.auc{t}.min", min(v), q3, src); put(f"r2.{k}.auc{t}.max", max(v), q3, src)
+        allauc = [x for m in ms for x in C["models"][m]["auc_k"]]
+        put(f"r2.{k}.aucall.min", min(allauc), q3, src)
+        v = [C["models"][m]["cindex"] for m in ms]
+        put(f"r2.{k}.cindex.min", min(v), q3, src); put(f"r2.{k}.cindex.max", max(v), q3, src)
+        put(f"r2.{k}.A1above", C["A1_above"], i0, src)
+        put(f"r2.{k}.A1below", C["A1_below"], i0, src)
+        put(f"r2.{k}.B25", C["B_n_models_R5_closes_25pct"], i0, src)
+        kt = C["kendall_qwkR1_vs_sens_at_spec90"]
+        put(f"r2.{k}.tau", kt["tau"], sm, src)
+        for m in ms:
+            if m not in ("E08", "E11FULL"):
+                continue
+            r = C["models"][m]
+            mm = m.lower()
+            for k2 in range(5):
+                put(f"r2.{k}.{mm}.es{k2}", r["es_by_grade"][k2], "{:.2f}", src)
+            for rule in ("R1", "R4", "R4m", "R5", "R5b", "R0a"):
+                b = r["rules"][rule]
+                put(f"r2.{k}.{mm}.{rule}.sens", b["ref_sens"], p1, src)
+                put(f"r2.{k}.{mm}.{rule}.spec", b["ref_spec"], p1, src)
+                put(f"r2.{k}.{mm}.{rule}.mildp", b["mild"]["precision"] if b["mild"]["precision"] == b["mild"]["precision"] else 0.0, q3, src)
+                put(f"r2.{k}.{mm}.{rule}.mildf1", b["mild"]["f1"], q3, src)
+                put(f"r2.{k}.{mm}.{rule}.mildr", b["mild"]["recall"], p1, src)
+                put(f"r2.{k}.{mm}.{rule}.modtomild", b["confusion"][2][1], i0, src)
+            for n, v in r.get("sample_size", {}).items():
+                put(f"r2.{k}.{mm}.ss{n}.sens", v["sens_mean"], p1, src)
+                put(f"r2.{k}.{mm}.ss{n}.lo", v["sens_lo"], p1, src)
+                put(f"r2.{k}.{mm}.ss{n}.harm", v["p_harm"], p1, src)
+                put(f"r2.{k}.{mm}.ss{n}.spec", v["spec_mean"], p1, src)
+            # what the operating point means for a screening programme
+            for prev in (5, 10, 20):
+                pv = prev / 100
+                for rule in ("R1", "R4"):
+                    se, sp = r["rules"][rule]["ref_sens"], r["rules"][rule]["ref_spec"]
+                    put(f"r2.{k}.{mm}.{rule}.miss{prev}", (1 - se) * pv * 10000, i0, src)
+                    put(f"r2.{k}.{mm}.{rule}.fref{prev}", (1 - sp) * (1 - pv) * 10000, i0, src)
+                    ppv = se * pv / (se * pv + (1 - sp) * (1 - pv))
+                    npv = sp * (1 - pv) / (sp * (1 - pv) + (1 - se) * pv)
+                    put(f"r2.{k}.{mm}.{rule}.ppv{prev}", ppv, p1, src)
+                    put(f"r2.{k}.{mm}.{rule}.npv{prev}", npv, p1, src)
+        f1r4m = [C["models"][m]["rules"]["R4m"]["mild"]["f1"] for m in ms]
+        f1r1 = [C["models"][m]["rules"]["R1"]["mild"]["f1"] for m in ms]
+        put(f"r2.{k}.R4m.mildf1.min", min(f1r4m), q3, src); put(f"r2.{k}.R4m.mildf1.max", max(f1r4m), q3, src)
+        put(f"r2.{k}.R1.mildf1.min", min(f1r1), q3, src); put(f"r2.{k}.R1.mildf1.max", max(f1r1), q3, src)
+        gaps = [C["models"][m]["gap_closed_ref_sens"]["R5"] for m in ms
+                if C["models"][m]["gap_closed_ref_sens"]["R5"] is not None]
+        if gaps:
+            put(f"r2.{k}.R5gap.min", min(gaps), "{:.2f}", src); put(f"r2.{k}.R5gap.max", max(gaps), "{:.2f}", src)
+            put(f"r2.{k}.R5gap.median", float(np.median(gaps)), "{:.2f}", src)
+    a1 = [x for C in d["corpora"].values() for x in (C["models"][m]["auc_k"][1] for m in C["models"])]
+    put("r2.auc1.allmin", min(a1), q3, src)
+    # outcome verdicts of the revision plan
+    if "DDR" in d["corpora"]:
+        C = d["corpora"]["DDR"]
+        put("r2.B.verdict", "held" if C["B_n_models_R5_closes_25pct"] >= 6 else "was falsified", "{}", src)
+    a1 = all(d["corpora"][c]["A1_above"] >= 8 for c in ("APTOS",) if c in d["corpora"]) and \
+        all(d["corpora"][c]["A1_below"] >= 8 for c in ("DDR",) if c in d["corpora"])
+    put("r2.A1.verdict", "held" if a1 else "was falsified", "{}", src)
+    harm = [d["corpora"][c]["models"][m]["sample_size"]["200"]["p_harm"]
+            for c in d["corpora"] for m in ("E08", "E11FULL")
+            if m in d["corpora"][c]["models"] and "200" in d["corpora"][c]["models"][m].get("sample_size", {})]
+    if harm:
+        put("r2.C.verdict", "held" if max(harm) < 0.20 else "was falsified", "{}", src)
+        put("r2.C.harm200.max", max(harm), p1, src); put("r2.C.harm200.min", min(harm), p1, src)
+
+
 def transfer(corpus):
     d = load(f"{GP}/transfer_{corpus.lower()}.json")
     if not d:
@@ -451,6 +542,6 @@ if __name__ == "__main__":
     for f in (thesis_ledger, interventions, lambda: phase0("APTOS"), lambda: phase0("DDR"),
               lambda: transfer("APTOS"), lambda: transfer("DDR"),
               lambda: secondary("APTOS"), lambda: secondary("DDR"), orderdr, recalibration,
-              optimism, record, seeds, reverse, outcomes, overlap, misc):
+              optimism, record, seeds, reverse, outcomes, overlap, revision, misc):
         f()
     write()

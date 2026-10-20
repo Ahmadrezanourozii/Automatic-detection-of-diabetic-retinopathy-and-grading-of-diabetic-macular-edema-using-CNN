@@ -27,24 +27,64 @@ def ci(lo, hi, d=4):
 
 
 def cohorts():
-    reg = load("results/predictions/registry.json") or {}
     rows = [
-        ("Development pool", "IDRiD", "India", "516", "DR 0--4; DME 0--2", "3 graders (published grading)"),
-        ("", "Messidor-2", "France", "1,744", "DR 0--4; referable DME", "adjudicated (3 specialists)"),
-        ("Pretraining only", "EyePACS 2015", "USA", "35,126", "DR 0--4", "single grader"),
-        ("External (forward)", "APTOS 2019", "India", "3,662", "DR 0--4", "single grader"),
-        ("", "DDR", "China (147 hospitals)", "12,522", "DR 0--4", "7 graders"),
-        ("Reverse direction", "APTOS $\\rightarrow$ Messidor-2, IDRiD", "", "3,662 $\\rightarrow$ 2,260", "DR 0--4", "as above"),
+        ("Development", "IDRiD", "India", "516", "3 graders (published grading)"),
+        ("", "Messidor-2", "France", "1,744", "adjudicated by 3 specialists"),
+        ("Pretraining; large-data models", "EyePACS 2015", "USA", "35,126", "single grader"),
+        ("External", "APTOS 2019", "India", "3,662", "single grader"),
+        ("", "DDR", "China, 147 hospitals", "12,522", "7 graders"),
+        ("", "DeepDRiD (regular)", "China, Shanghai", "2,000 (500 patients)", "challenge release"),
+        ("", "SUSTech-SYSU", "China, Shenzhen", "1,151", "international scale, released"),
+        ("Reverse direction", "APTOS $\\rightarrow$ Messidor-2, IDRiD", "", "3,662 $\\rightarrow$ 2,260", "as above"),
     ]
-    t = ["\\begin{table}[t]", "\\caption{\\textbf{Cohorts.} No external image was used for training,",
-         "model selection or threshold fitting. DR, diabetic retinopathy (international 5-grade",
-         "scale); DME, diabetic macular oedema.}\\label{tab:cohorts}", "\\centering\\scriptsize\\setlength{\\tabcolsep}{3pt}",
-         "\\begin{tabular}{@{}p{2.0cm}p{2.5cm}p{1.9cm}p{1.6cm}p{1.8cm}p{2.0cm}@{}}", "\\toprule",
-         "Role & Corpus & Origin & Images & Labels & Grading \\\\", "\\midrule"]
+    t = ["\\begin{table}[t]", "\\caption{\\textbf{Cohorts.} DR is graded on the international 5-grade scale",
+         "in every corpus. No external image was used for training, model selection or",
+         "threshold fitting.}\\label{tab:cohorts}", "\\centering\\footnotesize\\setlength{\\tabcolsep}{3pt}",
+         "\\begin{tabular}{@{}p{2.3cm}p{3.1cm}p{2.4cm}p{2.3cm}p{2.7cm}@{}}", "\\toprule",
+         "Role & Corpus & Origin & Images & Grading \\\\", "\\midrule"]
     for r in rows:
         t.append(" & ".join(r) + " \\\\")
     t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
     open(os.path.join(OUT, "table_cohorts.tex"), "w").write("\n".join(t) + "\n")
+
+
+MODELS = [
+    ("E08", "DenseNet121", "448", "reference"),
+    ("E09", "DenseNet121", "224", "resolution"),
+    ("E10", "DenseNet121", "640 (560 effective)", "resolution"),
+    ("E17NAT", "DenseNet121", "640", "native-resolution source images"),
+    ("E11FULL", "EfficientNet-B3", "448", "backbone (selected model)"),
+    ("E14MAC", "DenseNet121", "448", "macula-centred crop for the DME head"),
+    ("E15LPFT", "DenseNet121", "448", "linear probe, then fine-tune"),
+    ("E20CORAL", "DenseNet121", "448", "CORAL ordinal head"),
+    ("E22CORN", "DenseNet121", "448", "CORN ordinal head"),
+    ("E21CNXA", "ConvNeXt-tiny", "448", "backbone (2 of 5 folds)"),
+    ("I24FULL", "RETFound ViT-L/16", "224", "foundation encoder (not in the O7 set)"),
+]
+
+
+def models():
+    dev = load(f"{GP}/dev_summary.json") or {}
+    eye = load(f"{GP}/eyepacs.json") or {}
+    sys_path = os.path.dirname(os.path.abspath(__file__))
+    import sys
+    sys.path.insert(0, sys_path)
+    from paper_figures import MODEL_LABELS
+    t = ["\\begin{table}[t]", "\\caption{\\textbf{Models.} Each development model changes one factor relative",
+         "to the reference. Development QWK: out-of-fold DR QWK under the matched decision rule",
+         "(fold-wise cross-fitted cut-points). Repository codes are given for traceability.}\\label{tab:models}",
+         "\\centering\\footnotesize\\setlength{\\tabcolsep}{3pt}", "\\begin{tabular}{@{}p{4.3cm}p{2.3cm}p{1.6cm}p{3.4cm}r@{}}", "\\toprule",
+         "Model (code) & Backbone & Pixels & Factor changed & Dev.\\ QWK \\\\", "\\midrule"]
+    for code, bb, px, fac in MODELS:
+        q = dev.get(code, {}).get("qwk_matched")
+        t.append(f"{MODEL_LABELS.get(code, code)} ({code}) & {bb} & {px} & {fac} & "
+                 + ("--" if q is None else f"{q:.4f}") + " \\\\")
+    for code, bb in (("EYEDN", "DenseNet121"), ("EYEEB3", "EfficientNet-B3")):
+        q = eye.get("models", {}).get(code, {}).get("dev", {}).get("qwk_matched")
+        t.append(f"{MODEL_LABELS[code]} ({code}) & {bb} & 448 & trained on EyePACS & "
+                 + ("--" if q is None else f"{q:.4f}") + " \\\\")
+    t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
+    open(os.path.join(OUT, "table_models.tex"), "w").write("\n".join(t) + "\n")
 
 
 def record():
@@ -76,20 +116,15 @@ def record():
                  sg(e["dr_default"]["diff"]) + " " + ci(e["dr_default"]["lo"], e["dr_default"]["hi"]),
                  sg(e["dr_matched"]["diff"]) + " " + ci(e["dr_matched"]["lo"], e["dr_matched"]["hi"]),
                  "survives"))
-    sc = r["source_control"]
-    rows.append(("Image source (E12), moderate recall (points)$^\\dagger$",
-                 sg(100*sc["shipped"]["recall"][2]["diff"], 1) + " " + ci(100*sc["shipped"]["recall"][2]["lo"], 100*sc["shipped"]["recall"][2]["hi"], 1),
-                 sg(100*sc["matched"]["recall"][2]["diff"], 1) + " " + ci(100*sc["matched"]["recall"][2]["lo"], 100*sc["matched"]["recall"][2]["hi"], 1),
-                 "procedure-dependent"))
     t = ["\\begin{table}[t]",
-         "\\caption{\\textbf{Matched calibration changes model comparisons.} Differences (first minus",
+         "\\caption{\\textbf{The matched decision rule changes model comparisons.} Differences (first minus",
          "second) with 95\\% paired-bootstrap intervals at the shipped rule and with both models'",
          "cut-points refitted by the same procedure (external rows: R4, two-fold cross-fitted on",
          "APTOS labels; development rows: fold-wise cross-fitted). $^\\ast$Interval excludes zero.",
-         "$^\\dagger$Under random-half cross-fitting the matched difference is significant; under",
-         "fold-wise cross-fitting it is not (Supplementary Note~3).}\\label{tab:record}",
+         "A per-grade verdict that depends on the cross-fitting procedure is reported in Supplementary",
+         "Note~3.}\\label{tab:record}",
          "\\centering\\scriptsize\\setlength{\\tabcolsep}{3pt}", "\\begin{tabular}{@{}p{4.0cm}p{2.7cm}p{2.7cm}l@{}}", "\\toprule",
-         "Comparison & Shipped rule & Matched calibration & Verdict \\\\", "\\midrule"]
+         "Comparison & Shipped rule & Matched decision rule & Verdict \\\\", "\\midrule"]
     for x in rows:
         t.append(" & ".join(x) + " \\\\")
     t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
@@ -142,6 +177,6 @@ def interventions():
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
-    for f in (cohorts, record, orderdr, interventions):
+    for f in (cohorts, models, record, orderdr, interventions):
         f()
     print("tables written")

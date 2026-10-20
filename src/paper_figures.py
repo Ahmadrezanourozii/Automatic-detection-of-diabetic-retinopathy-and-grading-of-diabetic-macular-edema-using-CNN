@@ -12,12 +12,25 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import matplotlib.ticker
 from matplotlib.patches import FancyBboxPatch
 
 G = "docs/generated"
 GP = "docs/generated/paper"
 OUT = "paper/figures"
 BLUE, ORANGE, AQUA, GREY, INK, MUTED = "#2a78d6", "#eb6834", "#1baf7a", "#8a8984", "#0b0b0b", "#52514e"
+YELLOW = "#eda100"
+# corpora: colour AND marker, because two of the four hues sit below 3:1 on white
+CORPUS_STYLE = {"Development": (GREY, "o"), "APTOS": (BLUE, "s"), "DDR": (ORANGE, "^"),
+                "DeepDRiD": (AQUA, "D"), "SUSTech": (YELLOW, "v")}
+# readable names for the configuration codes used in the repository
+MODEL_LABELS = {"E08": "DenseNet121-448 (reference)", "E09": "DenseNet121-224",
+                "E10": "DenseNet121-560", "E17NAT": "DenseNet121-640 native",
+                "E11FULL": "EfficientNet-B3 (selected)", "E14MAC": "DenseNet121 + macula crop",
+                "E15LPFT": "DenseNet121 LP-FT", "E20CORAL": "DenseNet121 CORAL head",
+                "E22CORN": "DenseNet121 CORN head", "E21CNXA": "ConvNeXt-T (2 folds)",
+                "I24FULL": "RETFound ViT-L/16", "EYEDN": "DenseNet121, EyePACS-trained",
+                "EYEEB3": "EfficientNet-B3, EyePACS-trained"}
 RULE_STYLE = {"R1": (GREY, "o", "R1 shipped (0.5)"),
               "R2": (BLUE, "s", "R2 dev-tuned (QWK)"),
               "R3": (AQUA, "D", "R3 dev-tuned (sens ≥ 0.90)"),
@@ -61,25 +74,26 @@ def fig_design():
         ax.annotate("", xy=(x1, y1), xytext=(x0, y0),
                     arrowprops=dict(arrowstyle="-|>", lw=0.8, color=MUTED))
 
-    box(1, 19, 20, 14, "Pretraining", "EyePACS 2015\n35,126 images\nDR head only", "#f1f0ec")
-    box(26, 19, 24, 14, "Development pool",
-        "IDRiD 516 + Messidor-2 1,744\n5-fold CV, frozen split\nconfigurations + seed replicates",
+    box(1, 19, 20, 14, "EyePACS 2015", "35,126 images\npretraining; and two models\ntrained on 4 of 5 folds\n(about 28,000 images)",
+        "#f1f0ec")
+    box(25, 19, 24, 14, "Development pool",
+        "IDRiD 516 + Messidor-2 1,744\n5-fold CV, frozen split\n10 models + 5 seeds",
         "#e8f0fb")
-    box(55, 19, 20, 14, "External (forward)", "APTOS 2019: 3,662\nDDR: 12,522\n(never used to\nselect or tune)",
+    box(53, 19, 23, 14, "External (forward)", "APTOS 2019  3,662\nDDR  12,522\nDeepDRiD  2,000\nSUSTech-SYSU  1,151",
         "#fdeee6")
-    box(79, 19, 20, 14, "Reverse direction", "train APTOS 3,662\n→ Messidor-2 1,744\n→ IDRiD 516",
+    box(80, 19, 19, 14, "Reverse direction", "train APTOS 3,662\n→ Messidor-2 1,744\n→ IDRiD 516",
         "#e6f6ef")
-    arrow(21.5, 26, 25.5, 26); arrow(50.5, 26, 54.5, 26)
+    arrow(21.5, 26, 24.5, 26); arrow(49.5, 26, 52.5, 26)
 
     ax.text(1, 15.5, "Decision rules applied to every model's ordinal scores "
             "(expected grade s = Σ P(y > k))", fontsize=6.5, color=INK, fontweight="bold")
-    rules = [("R1", "shipped: P(y>k) > 0.5"),
-             ("R2", "QWK-optimal cut-points on s,\nfitted on development OOF"),
-             ("R3", "R2, referral cut moved to\ndev. sensitivity ≥ 0.90"),
-             ("R4 / R4m", "cut-points fitted on external\nlabels (2-fold, diagnostic)")]
+    rules = [("R1", "shipped:\nP(y>k) > 0.5"),
+             ("R2 / R3", "cut-points fitted on\ndevelopment predictions"),
+             ("R4 / R4m", "cut-points fitted on external\nlabels (2-fold, diagnostic)"),
+             ("R5 / R5b", "label-free prior adaptation\n(EM; black-box shift)")]
     for i, (k, v) in enumerate(rules):
         x = 1 + i * 24.8
-        col = [GREY, BLUE, AQUA, ORANGE][i]
+        col = [GREY, BLUE, ORANGE, AQUA][i]
         ax.add_patch(FancyBboxPatch((x, 2), 23, 10.5, boxstyle="round,pad=0.3,rounding_size=1",
                                     fc="white", ec=col, lw=1.0))
         ax.text(x + 1.2, 10.8, k, fontsize=7, fontweight="bold", color=INK, va="top")
@@ -111,7 +125,7 @@ def fig_rules():
                     ax.scatter(v, yi, s=16, marker=mk, color=cc, zorder=3,
                                edgecolors="white", linewidths=0.4)
             ax.set_yticks(range(len(order)))
-            ax.set_yticklabels([f"{m}" for m in order])
+            ax.set_yticklabels([MODEL_LABELS.get(m, m) if col == 0 else "" for m in order])
             ax.set_xlabel(title)
             ax.set_title(f"{c} (n = {d['rule_matrix'][order[0]]['R1']['support'] and sum(d['rule_matrix'][order[0]]['R1']['support']):,})",
                          loc="left", color=INK)
@@ -166,9 +180,12 @@ def fig_frontier():
 
 # ── Figure 3: transfer gap of development-fitted referral thresholds ─────────
 def fig_transfer():
-    fig, ax = plt.subplots(figsize=(110 * MM, 70 * MM))
-    ax.plot([78, 100.5], [78, 100.5], color=GREY, lw=0.8, ls="--", zorder=1)
-    for c, col, mk, dx in (("APTOS", BLUE, "o", -0.25), ("DDR", ORANGE, "s", 0.25)):
+    fig, ax = plt.subplots(figsize=(120 * MM, 72 * MM))
+    ax.plot([0, 100.5], [0, 100.5], color=GREY, lw=0.8, ls="--", zorder=1)
+    cs = [c for c in ("APTOS", "DDR", "DeepDRiD", "SUSTech") if load(f"{GP}/transfer_{c.lower()}.json")]
+    for j, c in enumerate(cs):
+        col, mk = CORPUS_STYLE[c]
+        dx = (j - (len(cs) - 1) / 2) * 0.3
         d = load(f"{GP}/transfer_{c.lower()}.json")
         if not d or "E08" not in d["models"]:
             continue
@@ -177,12 +194,13 @@ def fig_transfer():
         y = np.array([100 * r["ext_sens"] for r in rows])
         lo = np.array([100 * r["ext_sens_ci"][0] for r in rows]); hi = np.array([100 * r["ext_sens_ci"][1] for r in rows])
         ax.errorbar(x, y, yerr=[y - lo, hi - y], fmt=mk, color=col, ms=4.5, lw=1.0, capsize=2,
-                    label=f"{c}", zorder=3)
+                    label=f"{c}", zorder=3, markeredgecolor="white", markeredgewidth=0.4)
     ax.set_xlabel("Target sensitivity, fitted on development data (%)")
     ax.set_ylabel("Achieved external sensitivity (%)")
     ax.set_xlim(78, 97.5)
     ax.legend(frameon=False, loc="lower right")
-    ax.text(79, 79.6, "perfect transfer", color=MUTED, fontsize=6, rotation=0)
+    ax.set_ylim(40, 101)
+    ax.text(79, 77.0, "perfect transfer", color=MUTED, fontsize=6, rotation=0)
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, "fig3_transfer.pdf"))
     plt.close(fig)
@@ -246,9 +264,104 @@ def fig_recal():
     plt.close(fig)
 
 
+
+# ── Figure 2: ranking transfers, the score-to-grade mapping does not ─────────
+def fig_shift():
+    d = load(f"{GP}/revision.json")
+    if not d:
+        return
+    corp = [c for c in ("APTOS", "DDR", "DeepDRiD", "SUSTech") if c in d["corpora"]]
+    fig, axes = plt.subplots(1, 2, figsize=(183 * MM, 62 * MM))
+    ax = axes[0]
+    series = [("Development", [d["dev"][m]["auc_k"] for m in d["models"]])] + \
+             [(c, [d["corpora"][c]["models"][m]["auc_k"] for m in d["corpora"][c]["models"]]) for c in corp]
+    for j, (name, rows) in enumerate(series):
+        a = np.array(rows)
+        col, mk = CORPUS_STYLE[name]
+        x = np.arange(4) + (j - (len(series) - 1) / 2) * 0.13
+        med = np.median(a, axis=0)
+        ax.vlines(x, a.min(axis=0), a.max(axis=0), color=col, lw=1.0)
+        ax.scatter(x, med, marker=mk, s=18, color=col, edgecolors="white", linewidths=0.4,
+                   zorder=3, label=name)
+    ax.set_xticks(range(4))
+    ax.set_xticklabels(["P(y>0)\nany DR", "P(y>1)\nreferable", "P(y>2)", "P(y>3)\nproliferative"])
+    ax.set_ylabel("Area under the ROC curve")
+    ax.set_ylim(0.80, 1.0)
+    ax.legend(frameon=False, loc="lower left", ncol=2)
+    ax.set_title("Ranking at every ordinal threshold", loc="left", color=INK)
+    ax.grid(axis="x", visible=False)
+    label_panel(ax, "a")
+    ax = axes[1]
+    grades = np.arange(5)
+    ax.plot([-0.3, 4.3], [-0.3, 4.3], color="#d6d5d0", lw=0.8, ls="--", zorder=0)
+    series = [("Development", [d["dev"][m]["es_by_grade"] for m in d["models"]])] + \
+             [(c, [d["corpora"][c]["models"][m]["es_by_grade"] for m in d["corpora"][c]["models"]]) for c in corp]
+    for j, (name, rows) in enumerate(series):
+        a = np.array(rows)
+        col, mk = CORPUS_STYLE[name]
+        x = grades + (j - (len(series) - 1) / 2) * 0.11
+        ax.vlines(x, np.nanmin(a, axis=0), np.nanmax(a, axis=0), color=col, lw=1.0)
+        ax.plot(x, np.nanmedian(a, axis=0), color=col, lw=0.8, marker=mk, ms=3.6,
+                markeredgecolor="white", markeredgewidth=0.4, label=name)
+    ax.set_xticks(grades)
+    ax.set_xticklabels(["No DR", "Mild", "Moderate", "Severe", "PDR"])
+    ax.set_xlabel("Reference grade")
+    ax.set_ylabel("Mean expected grade (model score)")
+    ax.set_title("Score given the true grade", loc="left", color=INK)
+    ax.grid(axis="x", visible=False)
+    label_panel(ax, "b")
+    fig.tight_layout()
+    fig.savefig(os.path.join(OUT, "fig2_shift.pdf"))
+    plt.close(fig)
+
+
+# ── Figure 5: how many local labels a referral threshold needs ───────────────
+def fig_samplesize():
+    d = load(f"{GP}/revision.json")
+    if not d:
+        return
+    corp = [c for c in ("APTOS", "DDR", "DeepDRiD", "SUSTech") if c in d["corpora"]
+            and "sample_size" in d["corpora"][c]["models"].get("E11FULL", {})]
+    if not corp:
+        return
+    fig, axes = plt.subplots(1, 2, figsize=(183 * MM, 62 * MM))
+    for j, c in enumerate(corp):
+        ss = d["corpora"][c]["models"]["E11FULL"]["sample_size"]
+        ns = sorted(int(n) for n in ss)
+        col, mk = CORPUS_STYLE[c]
+        x = np.array(ns, dtype=float) * (1 + (j - (len(corp) - 1) / 2) * 0.05)
+        sens = np.array([ss[str(n)]["sens_mean"] for n in ns]) * 100
+        lo = np.array([ss[str(n)]["sens_lo"] for n in ns]) * 100
+        hi = np.array([ss[str(n)]["sens_hi"] for n in ns]) * 100
+        axes[0].vlines(x, lo, hi, color=col, lw=1.0)
+        axes[0].plot(x, sens, color=col, marker=mk, ms=3.6, lw=0.8, markeredgecolor="white",
+                     markeredgewidth=0.4, label=c)
+        axes[1].plot(x, [100 * ss[str(n)]["p_harm"] for n in ns], color=col, marker=mk, ms=3.6,
+                     lw=0.8, markeredgecolor="white", markeredgewidth=0.4, label=c)
+    for ax in axes:
+        ax.set_xscale("log")
+        ax.set_xticks([25, 50, 100, 200, 400, 800])
+        ax.set_xticklabels(["25", "50", "100", "200", "400", "800"])
+        ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
+        ax.set_xlabel("Locally labelled images used to set the referral threshold")
+        ax.grid(axis="x", visible=False)
+    axes[0].axhline(85, color=MUTED, lw=0.6, ls="--")
+    axes[0].axhline(80, color=MUTED, lw=0.6, ls=":")
+    axes[0].set_ylabel("Held-out referable sensitivity (%)")
+    axes[0].set_title("Target 85% (dashed); harm below 80% (dotted)", loc="left", color=INK)
+    axes[1].axhline(20, color=MUTED, lw=0.6, ls="--")
+    axes[1].set_ylabel("Probability of harm (%)")
+    axes[1].set_title("Draws ending below 80% sensitivity", loc="left", color=INK)
+    axes[0].legend(frameon=False, loc="lower right")
+    label_panel(axes[0], "a"); label_panel(axes[1], "b")
+    fig.tight_layout()
+    fig.savefig(os.path.join(OUT, "fig5_samplesize.pdf"))
+    plt.close(fig)
+
 def main():
     os.makedirs(OUT, exist_ok=True)
-    for f in (fig_design, fig_rules, fig_transfer, fig_frontier, fig_forest, fig_recal):
+    for f in (fig_design, fig_rules, fig_shift, fig_transfer, fig_frontier, fig_forest, fig_recal,
+              fig_samplesize):
         f()
         print("ok", f.__name__)
 
