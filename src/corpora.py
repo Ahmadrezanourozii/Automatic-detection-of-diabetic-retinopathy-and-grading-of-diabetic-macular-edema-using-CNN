@@ -325,6 +325,98 @@ def load_ddr(roots):
     return out
 
 
+# ── DeepDRiD (regular fundus) and SUSTech-SYSU: third and fourth external DR sets ──
+def _walk_find(roots, filename, path_fragment):
+    """First file called `filename` (case-insensitive) in a directory whose path contains
+    `path_fragment`. As for DDR, the fragment keeps one corpus's loader from picking up
+    another corpus's identically named label file."""
+    for root in roots:
+        if not os.path.isdir(root):
+            continue
+        for dirpath, _, files in os.walk(root):
+            hit = [f for f in files if f.lower() == filename.lower()]
+            if hit and path_fragment in dirpath.lower():
+                return os.path.join(dirpath, hit[0])
+    return None
+
+
+def load_deepdrid(roots):
+    """DR only, the 2 000 regular fundus images of DeepDRiD (Liu et al., Patterns 2022):
+    500 patients from Shanghai community screening, two views of each eye, eye-level DR
+    grades 0-4 for the training (1 200), validation (400) and challenge-test (400) sets.
+    Evaluation only. Patient ids are published, so `patient` groups all four images of a
+    patient for bootstrap resampling. `quality` carries the released overall-quality flag
+    (training and validation sets only; None for the challenge-test images)."""
+    tr = _walk_find(roots, "regular-fundus-training.csv", "regular")
+    if not tr:
+        return []
+    base = os.path.dirname(os.path.dirname(tr))          # .../regular_fundus_images
+    idx = index_images(base)
+    labels = {}
+    for name in ("regular-fundus-training.csv", "regular-fundus-validation.csv"):
+        p = _walk_find([base], name, "regular")
+        for r in (_rows(p) if p else []):
+            g = (r.get("left_eye_DR_Level") or "").strip() or (r.get("right_eye_DR_Level") or "").strip()
+            if g == "":
+                continue
+            q = (r.get("Overall quality") or "").strip()
+            labels[r["image_id"].strip()] = (int(float(g)), r["patient_id"].strip(),
+                                             int(q) if q != "" else None)
+    xl = _walk_find([base], "Challenge1_labels.xlsx", "evaluation")
+    if xl:
+        import openpyxl
+        ws = openpyxl.load_workbook(xl, read_only=True).active
+        for i, row in enumerate(ws.values):
+            if i == 0 or row[0] is None or row[1] is None:
+                continue
+            iid = str(row[0]).strip()
+            labels[iid] = (int(row[1]), iid.split("_")[0], None)
+    out = []
+    for iid, (g, pid, q) in sorted(labels.items()):
+        path = idx.get(iid)
+        if not path or g > 4:
+            continue
+        out.append({
+            "uid": f"DEEPDRID_{iid}",
+            "corpus": "DeepDRiD",
+            "path": path,
+            "dr": g,
+            "dme": None, "dme_candidates": None, "dme_label_space": None,
+            "fovea": None, "optic_disc": None,
+            "patient": f"DEEPDRID_P{pid}",
+            "quality": q,
+        })
+    return out
+
+
+def load_sustech(roots):
+    """DR only, the SUSTech-SYSU grading set (Lin et al., Sci Data 2023 / figshare): fundus
+    photographs from Shenzhen, graded on the international clinical scale (the column used
+    here) as well as AAO and Scottish protocols. Evaluation only; no patient ids."""
+    p = _walk_find(roots, "Labels.csv", "sustech")
+    if not p:
+        return []
+    idx = index_images(os.path.dirname(p))
+    out = []
+    for r in _rows(p):
+        code = (r.get("Fundus_images") or "").strip()
+        g = (r.get("DR_grade_International_Clinical_DR_Severity_Scale") or "").strip()
+        if not code or g == "" or int(g) > 4:
+            continue
+        path = idx.get(os.path.splitext(code)[0])
+        if not path:
+            continue
+        out.append({
+            "uid": f"SUSTECH_{os.path.splitext(code)[0]}",
+            "corpus": "SUSTech",
+            "path": path,
+            "dr": int(g),
+            "dme": None, "dme_candidates": None, "dme_label_space": None,
+            "fovea": None, "optic_disc": None,
+        })
+    return out
+
+
 # ── EyePACS 2015 ──────────────────────────────────────────────────────────────
 _EYEPACS_RE = re.compile(r"^(\d+)_(left|right)$", re.I)
 
@@ -371,7 +463,8 @@ def load_eyepacs(roots):
 
 # ── assembly ──────────────────────────────────────────────────────────────────
 LOADERS = {"IDRiD": load_idrid, "Messidor-2": load_messidor2,
-           "APTOS": load_aptos, "EyePACS": load_eyepacs, "DDR": load_ddr}
+           "APTOS": load_aptos, "EyePACS": load_eyepacs, "DDR": load_ddr,
+           "DeepDRiD": load_deepdrid, "SUSTech": load_sustech}
 
 
 def build(roots, corpora=("IDRiD", "Messidor-2")):

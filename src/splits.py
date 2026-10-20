@@ -77,6 +77,15 @@ def dedup_group(rows, thresh=16):
             print(f"[dedup] hashed {i + 1}/{len(rows)}", flush=True)
     H = np.stack(H)
     dsu = DSU(len(rows))
+    # keep the groups the loader already set (EyePACS links a patient's two eyes): merging
+    # near-duplicates must add to them, never overwrite them
+    first = {}
+    for i, r in enumerate(rows):
+        g = r.get("group") or r["uid"]
+        if g in first:
+            dsu.union(first[g], i)
+        else:
+            first[g] = i
     n_pairs = 0
     for i, j, _ in pairwise_within(H, thresh):
         dsu.union(i, j); n_pairs += 1

@@ -86,7 +86,8 @@ def build(rows, datasets, cache_dir=None, extra=None):
 # APTOS attached and one without consumed the same development pool.
 # DDR joins it for the journal-paper experiments: a second external DR set, read only by the
 # external evaluation step, never by training (its loader is not in any --corpora list).
-EVAL_ONLY_DATASETS = {"mariaherrerot/aptos2019", "mariaherrerot/ddrdataset"}
+EVAL_ONLY_DATASETS = {"mariaherrerot/aptos2019", "mariaherrerot/ddrdataset",
+                      "nancyhisham/deepdrid", "mariaherrerot/the-sustechsysu-dataset"}
 
 
 def retrofit_from_kernel_metadata(run_id, kaggle_dir="kaggle"):
