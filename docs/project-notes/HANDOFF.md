@@ -1,6 +1,6 @@
 # HANDOFF.md — session handover, 2026-09-08
 
-Written because the previous session ran out of context. **Read `STATE.md` first, then this
+Written because the previous session ran out of context. **Read `docs/project-notes/STATE.md` first, then this
 file, then `PROTOCOL.md`.** This document covers what was done, what is running, what stopped
 mid-flight, and the exact next actions.
 
@@ -39,8 +39,8 @@ linear ordinal head, on identical images, folds, decoding and calibration.
 
 ## 2. Findings ledger — `FINDINGS.md` is authoritative
 
-⚠️ **`CLAIMS (2).md` uses a DIFFERENT F-numbering.** A crosswalk table was inserted into both
-`CLAIMS (2).md` and `FINAL-PROMPT.md`. **Always cite `FINDINGS.md` numbers.**
+⚠️ **`docs/project-notes/literature-claims.md` uses a DIFFERENT F-numbering.** A crosswalk table was inserted into both
+`docs/project-notes/literature-claims.md` and `FINAL-PROMPT.md`. **Always cite `FINDINGS.md` numbers.**
 
 | CLAIMS says | actually is |
 |---|---|

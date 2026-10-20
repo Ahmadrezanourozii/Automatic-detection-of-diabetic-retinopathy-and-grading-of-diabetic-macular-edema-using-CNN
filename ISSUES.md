@@ -1135,7 +1135,7 @@ that **every run pre-registers a hypothesis and a falsifying outcome before laun
 did not, and the session that launched it is gone, so the record cannot be recovered.
 
 **Why it matters, and why it is not a formality.** The control (E08 at DR QWK 0.8646) and the
-±0.015 criterion used to judge E21CNXA are **reconstructed from `HANDOFF.md`, not read off a
+±0.015 criterion used to judge E21CNXA are **reconstructed from `docs/project-notes/HANDOFF.md`, not read off a
 stamped record**. Reconstructing a criterion *after* seeing the number is exactly the freedom
 pre-registration exists to remove — even when, as here, the reconstruction is honest and the
 result is negative in a direction nobody wanted. A negative result makes the lapse cheap; it
@@ -1221,7 +1221,7 @@ guards now exist because an argument was substituted for an inspection.
 ## §30. The matched-calibration script decoded CORN as if it were a cumulative head — a "significant" deficit that does not exist  — 2026-10-16, FIXED
 
 **Symptom.** `docs/generated/matched_corn_e08.json` reported CORN (E22CORN) significantly
-worse than E08 at matched calibration: **−0.0479 [−0.0656, −0.0325]**. `HANDOFF.md`,
+worse than E08 at matched calibration: **−0.0479 [−0.0656, −0.0325]**. `docs/project-notes/HANDOFF.md`,
 `IDEAS.md` and the thesis then explained the deficit mechanistically ("CORN's conditional
 subsets collapse under class imbalance — threshold 3 trains on only 265 of 2 260 rows").
 
