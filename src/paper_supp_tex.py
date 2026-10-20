@@ -247,11 +247,11 @@ def s_eyepacs():
         return
     t = ["\\begin{table}[h]", f"\\caption{{{cap}}}\\label{{tab:eyepacs}}", "\\centering\\scriptsize",
          "\\begin{tabular}{@{}llrrrrrr@{}}", "\\toprule",
-         "Model & Corpus & AUC & Pred.$-$true & Sens.\\ R1 & Spec.\\ R1 & Sens.\\ R4 & Sens.\\ (85\\% thr.) \\\\",
+         "Model (EyePACS-trained) & Corpus & AUC & Pred.$-$true & Sens.\\ R1 & Spec.\\ R1 & Sens.\\ R4 & Sens.\\ thr.\\ 85 \\\\",
          "\\midrule"]
     for m, v in d["models"].items():
         for j, (c, r) in enumerate(v["external"].items()):
-            t.append(f"{v['label'] if j == 0 else ''} & {c} & {r['auroc']:.3f} & {sg(r['mean_R1'], 2)} & "
+            t.append(f"{v['label'].split(',')[0] if j == 0 else ''} & {c} & {r['auroc']:.3f} & {sg(r['mean_R1'], 2)} & "
                      f"{100*r['sens_R1']:.1f} & {100*r['spec_R1']:.1f} & {100*r['sens_R4']:.1f} & {100*r['sens_tr85']:.1f} \\\\")
         t.append("\\addlinespace")
     t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
@@ -275,7 +275,8 @@ def s_mechanism():
     for cond in d["conditions"]:
         a = d["models"].get("E08", {}).get(cond, {}); b = d["models"].get("E11FULL", {}).get(cond, {})
         f = lambda r, k, sc: "--" if k not in r else sg(sc * r[k], 2 if sc == 1 else 1)
-        t.append(f"{d['labels'][cond]} & {f(a, 'dmean', 1)} & {f(a, 'dsens', 100)} & {f(b, 'dmean', 1)} & {f(b, 'dsens', 100)} \\\\")
+        name = d['labels'][cond].replace('%', r'\%')
+        t.append(f"{name} & {f(a, 'dmean', 1)} & {f(a, 'dsens', 100)} & {f(b, 'dmean', 1)} & {f(b, 'dsens', 100)} \\\\")
     t += ["\\midrule", "Corpus & Long side (px) & JPEG quality & Brightness & Laplacian var. \\\\", "\\midrule"]
     for c, v in d.get("stats", {}).items():
         g = lambda k, fmt: "--" if not v.get(k) else fmt.format(v[k]["median"])
