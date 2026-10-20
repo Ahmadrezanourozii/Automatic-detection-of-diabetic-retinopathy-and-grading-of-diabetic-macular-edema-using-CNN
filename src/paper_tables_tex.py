@@ -51,7 +51,7 @@ def cohorts():
 MODELS = [
     ("E08", "DenseNet121", "448", "reference"),
     ("E09", "DenseNet121", "224", "resolution"),
-    ("E10", "DenseNet121", "640 (560 effective)", "resolution"),
+    ("E10", "DenseNet121", "560", "resolution"),
     ("E17NAT", "DenseNet121", "640", "native-resolution source images"),
     ("E11FULL", "EfficientNet-B3", "448", "backbone (selected model)"),
     ("E14MAC", "DenseNet121", "448", "macula-centred crop for the DME head"),
@@ -73,15 +73,16 @@ def models():
     t = ["\\begin{table}[t]", "\\caption{\\textbf{Models.} Each development model changes one factor relative",
          "to the reference. Development QWK: out-of-fold DR QWK under the matched decision rule",
          "(fold-wise cross-fitted cut-points). Repository codes are given for traceability.}\\label{tab:models}",
-         "\\centering\\footnotesize\\setlength{\\tabcolsep}{3pt}", "\\begin{tabular}{@{}p{4.3cm}p{2.3cm}p{1.6cm}p{3.4cm}r@{}}", "\\toprule",
-         "Model (code) & Backbone & Pixels & Factor changed & Dev.\\ QWK \\\\", "\\midrule"]
+         "\\centering\\def\\baselinestretch{1}\\footnotesize\\setlength{\\tabcolsep}{3pt}",
+         "\\begin{tabular}{@{}p{4.1cm}lrp{3.7cm}r@{}}", "\\toprule",
+         "Model & Code & Pixels & Factor changed & Dev.\\ QWK \\\\", "\\midrule"]
     for code, bb, px, fac in MODELS:
         q = dev.get(code, {}).get("qwk_matched")
-        t.append(f"{MODEL_LABELS.get(code, code)} ({code}) & {bb} & {px} & {fac} & "
+        t.append(f"{MODEL_LABELS.get(code, code)} & {code} & {px} & {fac} & "
                  + ("--" if q is None else f"{q:.4f}") + " \\\\")
     for code, bb in (("EYEDN", "DenseNet121"), ("EYEEB3", "EfficientNet-B3")):
         q = eye.get("models", {}).get(code, {}).get("dev", {}).get("qwk_matched")
-        t.append(f"{MODEL_LABELS[code]} ({code}) & {bb} & 448 & trained on EyePACS & "
+        t.append(f"{MODEL_LABELS[code]} & {code} & 448 & trained on EyePACS & "
                  + ("--" if q is None else f"{q:.4f}") + " \\\\")
     t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
     open(os.path.join(OUT, "table_models.tex"), "w").write("\n".join(t) + "\n")
