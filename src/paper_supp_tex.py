@@ -62,7 +62,7 @@ def s2_configs():
         qs = "--" if q is None else f"{q:.4f}" + ("" if not folds or len(folds) == 5 else f" ({len(folds)} f)")
         t.append(" & ".join([m, c, bb, hd, px, pre, ep, fac, qs]) + " \\\\")
     t += ["\\bottomrule", "\\end{tabular}}", "\\end{table}"]
-    write("table_s2.tex", t)
+    write("table_configs.tex", t)
 
 
 def s3_interventions():
@@ -77,7 +77,7 @@ def s3_interventions():
         t.append(f"{r['label']} & {r['control']} & {r['folds']} & {sg(r['diff'])} "
                  f"[{sg(r['lo'])}, {sg(r['hi'])}] & {r['verdict']} \\\\")
     t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
-    write("table_s3.tex", t)
+    write("table_interv_supp.tex", t)
 
 
 def rule_table(corpus, label):
@@ -105,8 +105,8 @@ def rule_table(corpus, label):
 
 
 def s4_s5_rules():
-    write("table_s4.tex", rule_table("APTOS", "tab:s4"))
-    write("table_s5.tex", rule_table("DDR", "tab:s5"))
+    for c in ("APTOS", "DDR", "DeepDRiD", "SUSTech"):
+        write(f"table_rules_{c.lower()}.tex", rule_table(c, f"tab:rules_{c.lower()}"))
 
 
 def s6_seeds():
@@ -114,7 +114,7 @@ def s6_seeds():
     cap = ("\\textbf{Seed variation of the reference configuration (O1--O3).} Five independent"
            " training seeds of E08 (identical data, split and recipe).")
     if not d:
-        write("table_s6.tex", placeholder("seeds.json", cap, "tab:s6"))
+        write("table_seeds.tex", placeholder("seeds.json", cap, "tab:s6"))
         return
     t = ["\\begin{table}[h]", f"\\caption{{{cap}}}\\label{{tab:s6}}", "\\centering\\scriptsize",
          "\\begin{tabular}{@{}lrrrrr@{}}", "\\toprule",
@@ -130,7 +130,7 @@ def s6_seeds():
                  f"{f(ap['R1']['recall'][1] if ap else None, 100, 1)} & "
                  f"{f(ap['R4m']['recall'][1] if ap else None, 100, 1)} & {f(g(dd, 'R1', 'qwk'))} \\\\")
     t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
-    write("table_s6.tex", t)
+    write("table_seeds.tex", t)
 
 
 def s7_reverse():
@@ -138,7 +138,7 @@ def s7_reverse():
     cap = ("\\textbf{Reverse direction (O4--O6).} The reference recipe trained on APTOS 2019"
            " and evaluated on Messidor-2 and IDRiD.")
     if not d:
-        write("table_s7.tex", placeholder("reverse.json", cap, "tab:s7"))
+        write("table_reverse.tex", placeholder("reverse.json", cap, "tab:s7"))
         return
     t = ["\\begin{table}[h]", f"\\caption{{{cap}}}\\label{{tab:s7}}", "\\centering\\scriptsize",
          "\\begin{tabular}{@{}llrrrrrr@{}}", "\\toprule",
@@ -154,7 +154,7 @@ def s7_reverse():
                      f"{sg(b['mean_pred_minus_true'], 2)} \\\\")
         t.append("\\addlinespace")
     t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
-    write("table_s7.tex", t)
+    write("table_reverse.tex", t)
 
 
 def s8_overlap():
@@ -162,7 +162,7 @@ def s8_overlap():
     cap = ("\\textbf{Content-overlap audit.} Pairs of images across corpora whose 256-bit"
            " difference hashes lie within the stated Hamming distance.")
     if not d:
-        write("table_s8.tex", placeholder("overlap_audit.json", cap, "tab:s8"))
+        write("table_overlap.tex", placeholder("overlap_audit.json", cap, "tab:s8"))
         return
     t = ["\\begin{table}[h]", f"\\caption{{{cap}}}\\label{{tab:s8}}", "\\centering\\scriptsize",
          "\\begin{tabular}{@{}lrrrr@{}}", "\\toprule",
@@ -183,11 +183,108 @@ def s8_overlap():
     t.append(f"\\multicolumn{{5}}{{@{{}}l}}{{Threshold {d['threshold_bits']} bits; development pairs "
              f"split across folds: {len([p for p in d.get('dev_within_cross_fold_examples', []) if p[2] <= 8]):,}}} \\\\")
     t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
-    write("table_s8.tex", t)
+    write("table_overlap.tex", t)
+
+
+def s_provenance():
+    d = load(f"{GP}/provenance.json")
+    cap = ("\\textbf{Analysis plans and the runs they cover.} Commit identifiers and times (UTC) are from "
+           "the public repository history; launch times are from the Kaggle kernel listing archived in "
+           "docs/generated/paper/kaggle\\_runs.csv. Every run listed was launched after the commit of its "
+           "plan and pinned the code commit it ran.")
+    if not d:
+        write("table_provenance.tex", placeholder("provenance.json", cap, "tab:provenance"))
+        return
+    t = ["\\begin{table}[h]", f"\\caption{{{cap}}}\\label{{tab:provenance}}", "\\centering\\scriptsize",
+         "\\begin{tabular}{@{}p{6.2cm}lll@{}}", "\\toprule",
+         "Plan & Commit & Committed (UTC) & First run launched (UTC) \\\\", "\\midrule"]
+    for r in d:
+        t.append(f"{r['plan']} & \\texttt{{{r['commit']}}} & {r['commit_utc']} & {r['first_launch_utc'] or '--'} \\\\")
+    t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
+    write("table_provenance.tex", t)
+
+
+def s_clinical():
+    d = load(f"{GP}/revision.json")
+    cap = ("\\textbf{What the operating point means for a screening programme.} Referable patients missed "
+           "and false referrals per 10\\,000 people screened, and predictive values, for the selected model "
+           "at its shipped rule (R1) and with cut-points refitted on local labels (R4), at three referable "
+           "prevalences. Sensitivity and specificity are those measured on each external set.")
+    if not d:
+        write("table_clinical.tex", placeholder("revision.json", cap, "tab:clinical"))
+        return
+    t = ["\\begin{table}[h]", f"\\caption{{{cap}}}\\label{{tab:clinical}}", "\\centering\\scriptsize",
+         "\\begin{tabular}{@{}llrrrrrrr@{}}", "\\toprule",
+         "Corpus & Rule & Sens. & Spec. & Prevalence & Missed & False referrals & PPV & NPV \\\\",
+         " & & (\\%) & (\\%) & (\\%) & /10\\,000 & /10\\,000 & (\\%) & (\\%) \\\\", "\\midrule"]
+    for c, C in d["corpora"].items():
+        r = C["models"].get("E11FULL")
+        if not r:
+            continue
+        for rule in ("R1", "R4"):
+            se, sp = r["rules"][rule]["ref_sens"], r["rules"][rule]["ref_spec"]
+            for k, prev in enumerate((0.05, 0.10, 0.20)):
+                ppv = se * prev / (se * prev + (1 - sp) * (1 - prev))
+                npv = sp * (1 - prev) / (sp * (1 - prev) + (1 - se) * prev)
+                t.append(f"{c if rule == 'R1' and k == 0 else ''} & {rule if k == 0 else ''} & "
+                         f"{100*se:.1f} & {100*sp:.1f} & {100*prev:.0f} & {(1-se)*prev*1e4:,.0f} & "
+                         f"{(1-sp)*(1-prev)*1e4:,.0f} & {100*ppv:.1f} & {100*npv:.1f} \\\\")
+        t.append("\\addlinespace")
+    t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
+    write("table_clinical.tex", t)
+
+
+def s_eyepacs():
+    d = load(f"{GP}/eyepacs.json")
+    cap = ("\\textbf{Models trained on about 28\\,000 EyePACS images (outcome E2).} Referral area under the "
+           "curve, mean predicted-minus-true grade and referable sensitivity at the shipped rule (R1), with "
+           "cut-points refitted on external labels (R4), and with a threshold fitted on the held-out "
+           "EyePACS fold for 85\\% sensitivity.")
+    if not d:
+        write("table_eyepacs.tex", placeholder("eyepacs.json", cap, "tab:eyepacs"))
+        return
+    t = ["\\begin{table}[h]", f"\\caption{{{cap}}}\\label{{tab:eyepacs}}", "\\centering\\scriptsize",
+         "\\begin{tabular}{@{}llrrrrrr@{}}", "\\toprule",
+         "Model & Corpus & AUC & Pred.$-$true & Sens.\\ R1 & Spec.\\ R1 & Sens.\\ R4 & Sens.\\ (85\\% thr.) \\\\",
+         "\\midrule"]
+    for m, v in d["models"].items():
+        for j, (c, r) in enumerate(v["external"].items()):
+            t.append(f"{v['label'] if j == 0 else ''} & {c} & {r['auroc']:.3f} & {sg(r['mean_R1'], 2)} & "
+                     f"{100*r['sens_R1']:.1f} & {100*r['spec_R1']:.1f} & {100*r['sens_R4']:.1f} & {100*r['sens_tr85']:.1f} \\\\")
+        t.append("\\addlinespace")
+    t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
+    write("table_eyepacs.tex", t)
+
+
+def s_mechanism():
+    d = load(f"{GP}/mechanism.json")
+    cap = ("\\textbf{Image degradation and image statistics (outcomes A2, A3).} Top: change relative to the "
+           "undegraded re-scoring of the development pool (out of fold) in mean predicted-minus-true grade "
+           "and in referable sensitivity at the shipped rule. Bottom: median image statistics per corpus "
+           "(interquartile range in the repository).")
+    if not d:
+        write("table_mechanism.tex", placeholder("mechanism.json", cap, "tab:mechanism"))
+        return
+    t = ["\\begin{table}[h]", f"\\caption{{{cap}}}\\label{{tab:mechanism}}", "\\centering\\scriptsize",
+         "\\begin{tabular}{@{}lrrrr@{}}", "\\toprule",
+         "Degradation & \\multicolumn{2}{c}{Reference model} & \\multicolumn{2}{c}{Selected model} \\\\",
+         " & $\\Delta$ pred.$-$true & $\\Delta$ sens.\\ (pts) & $\\Delta$ pred.$-$true & $\\Delta$ sens.\\ (pts) \\\\",
+         "\\midrule"]
+    for cond in d["conditions"]:
+        a = d["models"].get("E08", {}).get(cond, {}); b = d["models"].get("E11FULL", {}).get(cond, {})
+        f = lambda r, k, sc: "--" if k not in r else sg(sc * r[k], 2 if sc == 1 else 1)
+        t.append(f"{d['labels'][cond]} & {f(a, 'dmean', 1)} & {f(a, 'dsens', 100)} & {f(b, 'dmean', 1)} & {f(b, 'dsens', 100)} \\\\")
+    t += ["\\midrule", "Corpus & Long side (px) & JPEG quality & Brightness & Laplacian var. \\\\", "\\midrule"]
+    for c, v in d.get("stats", {}).items():
+        g = lambda k, fmt: "--" if not v.get(k) else fmt.format(v[k]["median"])
+        t.append(f"{c} & {g('resolution', '{:,.0f}')} & {g('jpeg_quality', '{:.0f}')} & {g('brightness', '{:.0f}')} & {g('laplacian_var', '{:.0f}')} \\\\")
+    t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
+    write("table_mechanism.tex", t)
 
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
-    for f in (s2_configs, s3_interventions, s4_s5_rules, s6_seeds, s7_reverse, s8_overlap):
+    for f in (s_provenance, s2_configs, s3_interventions, s_eyepacs, s_mechanism, s_clinical,
+              s4_s5_rules, s6_seeds, s7_reverse, s8_overlap):
         f()
     print("supplementary tables written to", OUT)

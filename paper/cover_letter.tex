@@ -1,4 +1,4 @@
-%% Cover letter for the npj Digital Medicine submission. Numbers come from numbers.tex.
+%% Cover letter for the Computers in Biology and Medicine submission. Numbers come from numbers.tex.
 \documentclass[11pt]{letter}
 \usepackage[a4paper,margin=2.5cm]{geometry}
 \usepackage[T1]{fontenc}
@@ -9,49 +9,43 @@
   \@latex@error{Undefined number key `#1'}{Run src/paper_numbers.py}\textbf{??#1??}\fi}
 \makeatother
 \input{numbers.tex}
-\signature{[Corresponding author name]\\School of Electrical and Computer Engineering\\
-University of Tehran}
-\address{[Corresponding author name]\\School of Electrical and Computer Engineering\\
-College of Engineering, University of Tehran\\Tehran, Iran\\{}[email]}
+\signature{Ahmadreza Nourozi\\(on behalf of both authors)}
+\address{Ahmadreza Nourozi\\Friedrich-Alexander-Universit\"at Erlangen-N\"urnberg (FAU)\\
+Schlossplatz 4, 91054 Erlangen, Germany\\Ahmadreza.nourozi@fau.de}
 \begin{document}
-\begin{letter}{The Editors\\npj Digital Medicine}
+\begin{letter}{The Editors\\Computers in Biology and Medicine}
 \opening{Dear Editors,}
 
-We submit the Article ``Separating decision rule failures from representation failures in external
-validation of diabetic retinopathy grading'' for consideration in \emph{npj Digital Medicine}.
+We submit the Full Length Article ``Separating decision-rule failures from representation failures
+in external validation of diabetic retinopathy grading models'' for consideration in
+\emph{Computers in Biology and Medicine}, section Foundations of Artificial Intelligence in Medicine.
 
-When a diabetic retinopathy grading model fails on a new population, the field attributes the
-failure to the learned representation and responds by changing the model: a larger backbone, a
-foundation encoder, a new ordinal loss. We separate that contribution from the decision rule that
-turns a model's ordinal outputs into a grade. Across ten development models, two external
-populations (APTOS 2019 and DDR), five training seeds and the reverse direction of transfer, the
-ranking of images by severity transferred while the mapping from score to grade did not: the
-same models over-graded one population and under-graded the other, so a referral threshold
-fitted for 85\% sensitivity reached \pn{aptos.tr.e08.B.sens}\% and \pn{ddr.tr.e08.B.sens}\%.
-Refitting four cut-points alone restored the mild grade on APTOS and raised referral sensitivity
-in the reverse direction from \pn{rev.m2.R1.sens}\% to \pn{rev.m2.R4.sens}\%; where the ranking
-itself failed, recalibration could not help. We report with equal weight that two of our own
-pre-registered predictions were falsified: the mild-grade collapse did not generalise beyond
-APTOS, and models differed more than deployable rules. Reanalysing the released predictions of a
-published ordinal model reproduces its result and shows the same rule dependence, and
-\pn{iv.nfalsified} of \pn{iv.n} pre-registered interventions on the representation, including a
-retinal foundation model, were falsified at matched calibration.
+When a diabetic retinopathy grading model fails on a new population, the failure is usually
+attributed to the learned representation and answered by changing the model. Ordinal grading
+models, however, convert scores into grades with a decision rule that is rarely examined. Across ten
+development models, four external populations (APTOS 2019, DDR, DeepDRiD and SUSTech-SYSU), the
+reverse direction of transfer, two models trained on about 28\,000 images and five training seeds,
+we show that the ranking of images transferred while the mapping from score to grade did not: the
+same models over-graded one population and under-graded another, so that a referral threshold
+fitted for 85\% sensitivity reached \pn{aptos.tr.e08.B.sens}\% on one and \pn{ddr.tr.e08.B.sens}\% on
+the other. Refitting cut-points alone recovered part of the loss, but only where ranking survived and
+only with local labels; label-free adaptation did not help. We report with equal weight that two of
+our own predictions were falsified.
 
-We think the work suits \emph{npj Digital Medicine} for three reasons. First, its message is
-practical for deployment: before a grading model is replaced, its decision rule should be
-recalibrated and evaluated against its full operating curve, and we quantify how many locally labelled images that requires and
-how often it does harm. Second, it corrects how model comparisons are reported: we propose
-\emph{matched calibration} as a reporting rule and document its record, including a case in
-which our own earlier archived result did not survive regeneration from per-image predictions.
-Third, the study is fully reproducible: every outcome was pre-registered in a public
-repository before the corresponding run, every number in the manuscript is generated from
-archived per-image predictions, and code, splits and predictions are public.
+We believe the work suits the journal for three reasons. It contributes evaluation methodology for
+medical AI: a decomposition of external performance, and a matched decision rule for comparing
+models, with its record of changed and unchanged conclusions, including a published model whose
+reported advantage did not survive it. It is directly usable in deployment: we quantify how many
+locally labelled images a referral threshold needs and how often that procedure fails, and translate
+the operating point into missed referrals per 10\,000 people screened. And it is reproducible: the
+analysis plans were committed to a public repository before the corresponding analyses, every
+number in the manuscript is generated from archived per-image predictions, and code, splits and
+predictions are public.
 
-The manuscript has not been published and is not under consideration elsewhere. All data are
-public and de-identified. The authors declare no competing interests. The use of an AI
-assistant in analysis and drafting is disclosed in Methods.
-
-[Optional: suggested and excluded reviewers, to be added by the authors.]
+The manuscript has not been published and is not under consideration elsewhere. Parts of the
+development work form the basis of a Master's thesis at the University of Tehran. All data are public
+and de-identified. The authors declare no competing interests. The use of an AI assistant is
+described in the Methods and in the generative-AI declaration.
 
 \closing{Sincerely,}
 \end{letter}

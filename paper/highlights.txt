@@ -1,0 +1,7 @@
+Highlights
+
+- DR grading models ranked external images well but misplaced their grade cut-points
+- The same models over-graded one population and under-graded another
+- Refitting cut-points without retraining helped only where ranking survived
+- Training seeds alone produced spurious per-grade differences between models
+- About 200 local labels set a referral threshold with under 20% risk of harm

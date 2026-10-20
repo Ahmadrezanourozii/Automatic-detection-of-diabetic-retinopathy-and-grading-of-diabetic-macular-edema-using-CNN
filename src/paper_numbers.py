@@ -282,6 +282,67 @@ def revision():
         put("r2.C.harm200.max", max(harm), p1, src); put("r2.C.harm200.min", min(harm), p1, src)
 
 
+def eyepacs():
+    src = f"{GP}/eyepacs.json"
+    d = load(src)
+    if not d or not d.get("models"):
+        return
+    ms = d["models"]
+    short = {"EYEDN": "dn", "EYEEB3": "eb3"}
+    aucs, tr = [], []
+    for m, v in ms.items():
+        k = short[m]
+        put(f"eye.{k}.devn", v["dev"]["n"], i0, src)
+        if v.get("train_n"):
+            put(f"eye.{k}.trainn", v["train_n"], i0, src)
+        put(f"eye.{k}.devqwk", v["dev"]["qwk_matched"], q4, src)
+        put(f"eye.{k}.ngap", v["n_gap_gt5"], i0, src)
+        for c, r in v["external"].items():
+            cc = c.lower().replace("-", "")
+            put(f"eye.{k}.{cc}.auc", r["auroc"], q3, src)
+            put(f"eye.{k}.{cc}.mean", r["mean_R1"], lambda x: f"{x:+.2f}".replace("-", "\\textminus{}"), src)
+            put(f"eye.{k}.{cc}.tr85", r["sens_tr85"], p1, src)
+            put(f"eye.{k}.{cc}.r1sens", r["sens_R1"], p1, src)
+            put(f"eye.{k}.{cc}.r4sens", r["sens_R4"], p1, src)
+            aucs.append(r["auroc"]); tr.append(r["sens_tr85"])
+    if aucs:
+        put("eye.auc.min", min(aucs), q3, src); put("eye.auc.max", max(aucs), q3, src)
+        put("eye.tr85.min", min(tr), p1, src); put("eye.tr85.max", max(tr), p1, src)
+    held = [v["E2_holds"] for v in ms.values() if v.get("E2_holds") is not None]
+    if held:
+        put("eye.E2.verdict", "held" if all(held) else "was falsified", "{}", src)
+
+
+def mechanism():
+    src = f"{GP}/mechanism.json"
+    d = load(src)
+    if not d:
+        return
+    sm = lambda v: f"{v:+.2f}".replace("-", "\\textminus{}")
+    sp = lambda v: f"{100 * v:+.1f}".replace("-", "\\textminus{}")
+    for m, res in d["models"].items():
+        k = m.lower()
+        for cond, short in d["short"].items():
+            if cond in res:
+                put(f"mech.{k}.{short}.dmean", res[cond]["dmean"], sm, src)
+                put(f"mech.{k}.{short}.dsens", res[cond]["dsens"], sp, src)
+        put(f"mech.{k}.orig.mean", res["orig"]["mean"], sm, src)
+        put(f"mech.{k}.orig.sens", res["orig"]["sens"], p1, src)
+        b = res["_most_negative"]
+        put(f"mech.{k}.best.name", d["labels"][b].lower(), "{}", src)
+        put(f"mech.{k}.best.dmean", res[b]["dmean"], sm, src)
+        put(f"mech.{k}.best.dsens", res[b]["dsens"], sp, src)
+        put(f"mech.{k}.nhits", len(res["_hits"]), i0, src)
+    put("mech.A2.verdict", "held" if d.get("A2_holds") else "was falsified", "{}", src)
+    for c, v in d.get("stats", {}).items():
+        k = c.lower().replace("-", "")
+        for key, name, fmt in (("laplacian_var", "sharp", "{:.0f}"), ("jpeg_quality", "jpegq", "{:.0f}"),
+                               ("brightness", "bright", "{:.0f}"), ("rms_contrast", "contrast", "{:.0f}"),
+                               ("resolution", "res", i0)):
+            if v.get(key):
+                put(f"stats.{k}.{name}", v[key]["median"], fmt, src)
+
+
 def transfer(corpus):
     d = load(f"{GP}/transfer_{corpus.lower()}.json")
     if not d:
@@ -540,7 +601,9 @@ def write():
 
 if __name__ == "__main__":
     for f in (thesis_ledger, interventions, lambda: phase0("APTOS"), lambda: phase0("DDR"),
+              lambda: phase0("DeepDRiD"), lambda: phase0("SUSTech"),
               lambda: transfer("APTOS"), lambda: transfer("DDR"),
+              lambda: transfer("DeepDRiD"), lambda: transfer("SUSTech"), eyepacs, mechanism,
               lambda: secondary("APTOS"), lambda: secondary("DDR"), orderdr, recalibration,
               optimism, record, seeds, reverse, outcomes, overlap, revision, misc):
         f()
