@@ -1,0 +1,10 @@
+{
+  "title": "Separating decision-rule failures from representation failures in external validation of diabetic retinopathy grading models: code, splits, analysis plans and per-image predictions",
+  "upload_type": "software",
+  "creators": [
+    {"name": "Nourozi, Ahmadreza", "affiliation": "Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU)"},
+    {"name": "Chegeni, Alireza", "affiliation": "University of Tehran"}
+  ],
+  "description": "Code, frozen data splits, analysis plans committed before each analysis (with their git history), archived per-image predictions for every model, and the generator that compiles every number in the accompanying manuscript.",
+  "keywords": ["diabetic retinopathy", "ordinal classification", "decision threshold", "external validation", "dataset shift", "recalibration"]
+}

@@ -1,6 +1,6 @@
 [
  {
-  "plan": "Repository history begins (evaluation protocol PROTOCOL.md present)",
+  "plan": "Repository history begins (evaluation protocol present)",
   "commit": "5846b1b",
   "commit_utc": "2026-08-31 17:51",
   "runs": [],
@@ -28,7 +28,7 @@
   "all_after_commit": true
  },
  {
-  "plan": "Journal outcomes O1-O9 (docs/PAPER_EXPERIMENTS_preregistration.md)",
+  "plan": "Journal outcomes O1-O9 (journal experiments plan)",
   "commit": "46f1bdd",
   "commit_utc": "2026-10-16 11:03",
   "runs": [
@@ -44,7 +44,7 @@
   "all_after_commit": true
  },
  {
-  "plan": "Revision outcomes A1-E2 (docs/PAPER_REVISION_preregistration.md)",
+  "plan": "Revision outcomes A1-E2 (revision plan)",
   "commit": "1456815",
   "commit_utc": "2026-10-20 11:21",
   "runs": [

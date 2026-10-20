@@ -191,15 +191,17 @@ def s_provenance():
     cap = ("\\textbf{Analysis plans and the runs they cover.} Commit identifiers and times (UTC) are from "
            "the public repository history; launch times are from the Kaggle kernel listing archived in "
            "docs/generated/paper/kaggle\\_runs.csv. Every run listed was launched after the commit of its "
-           "plan and pinned the code commit it ran.")
+           "plan and pinned the code commit it ran. Plans: docs/PAPER\\_EXPERIMENTS\\_preregistration.md "
+           "and docs/PAPER\\_REVISION\\_preregistration.md.")
     if not d:
         write("table_provenance.tex", placeholder("provenance.json", cap, "tab:provenance"))
         return
     t = ["\\begin{table}[h]", f"\\caption{{{cap}}}\\label{{tab:provenance}}", "\\centering\\scriptsize",
-         "\\begin{tabular}{@{}p{6.2cm}lll@{}}", "\\toprule",
+         "\\begin{tabular}{@{}p{5.6cm}lll@{}}", "\\toprule",
          "Plan & Commit & Committed (UTC) & First run launched (UTC) \\\\", "\\midrule"]
     for r in d:
-        t.append(f"{r['plan']} & \\texttt{{{r['commit']}}} & {r['commit_utc']} & {r['first_launch_utc'] or '--'} \\\\")
+        plan = r["plan"].replace("_", "\\_").replace("O1-O9", "O1--O9").replace("A1-E2", "A1--E2")
+        t.append(f"{plan} & \\texttt{{{r['commit']}}} & {r['commit_utc']} & {r['first_launch_utc'] or '--'} \\\\")
     t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
     write("table_provenance.tex", t)
 
