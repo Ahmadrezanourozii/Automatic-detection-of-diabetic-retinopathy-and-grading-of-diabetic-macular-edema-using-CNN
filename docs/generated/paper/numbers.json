@@ -4056,6 +4056,201 @@
   "value": 0.9412675145172825,
   "source": "docs/generated/paper/transfer_sustech.json"
  },
+ "eye.eb3.devn": {
+  "tex": "7,030",
+  "value": 7030,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.trainn": {
+  "tex": "28,096",
+  "value": 28096,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.devqwk": {
+  "tex": "0.7747",
+  "value": 0.7747309125160055,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.ngap": {
+  "tex": "6",
+  "value": 6,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.aptos.auc": {
+  "tex": "0.938",
+  "value": 0.9384762964852477,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.aptos.mean": {
+  "tex": "+0.14",
+  "value": 0.1395412342981977,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.aptos.tr85": {
+  "tex": "99.9",
+  "value": 0.9993275050437121,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.aptos.r1sens": {
+  "tex": "98.9",
+  "value": 0.9892400806993947,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.aptos.r4sens": {
+  "tex": "96.4",
+  "value": 0.9643577673167452,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.ddr.auc": {
+  "tex": "0.952",
+  "value": 0.9517450055798278,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.ddr.mean": {
+  "tex": "\\textminus{}0.23",
+  "value": -0.22704040888037055,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.ddr.tr85": {
+  "tex": "90.8",
+  "value": 0.9079274795591895,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.ddr.r1sens": {
+  "tex": "73.8",
+  "value": 0.7376466405972272,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.ddr.r4sens": {
+  "tex": "80.1",
+  "value": 0.8011020263064345,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.messidor2.auc": {
+  "tex": "0.956",
+  "value": 0.9557696133188475,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.messidor2.mean": {
+  "tex": "\\textminus{}0.08",
+  "value": -0.07626146788990826,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.messidor2.tr85": {
+  "tex": "95.8",
+  "value": 0.9584245076586433,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.messidor2.r1sens": {
+  "tex": "85.3",
+  "value": 0.8533916849015317,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.messidor2.r4sens": {
+  "tex": "77.2",
+  "value": 0.7724288840262582,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.idrid.auc": {
+  "tex": "0.984",
+  "value": 0.9841591940839602,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.idrid.mean": {
+  "tex": "+0.06",
+  "value": 0.06395348837209303,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.idrid.tr85": {
+  "tex": "99.4",
+  "value": 0.9938080495356038,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.idrid.r1sens": {
+  "tex": "96.6",
+  "value": 0.9659442724458205,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.idrid.r4sens": {
+  "tex": "94.4",
+  "value": 0.9442724458204335,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.deepdrid.auc": {
+  "tex": "0.969",
+  "value": 0.9685385897561294,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.deepdrid.mean": {
+  "tex": "\\textminus{}0.01",
+  "value": -0.0075,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.deepdrid.tr85": {
+  "tex": "98.7",
+  "value": 0.9872685185185185,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.deepdrid.r1sens": {
+  "tex": "92.9",
+  "value": 0.9293981481481481,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.deepdrid.r4sens": {
+  "tex": "91.2",
+  "value": 0.9120370370370371,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.sustech.auc": {
+  "tex": "0.999",
+  "value": 0.9991504555528194,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.sustech.mean": {
+  "tex": "+0.05",
+  "value": 0.04865334491746308,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.sustech.tr85": {
+  "tex": "100.0",
+  "value": 1.0,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.sustech.r1sens": {
+  "tex": "98.8",
+  "value": 0.9879032258064516,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.sustech.r4sens": {
+  "tex": "99.0",
+  "value": 0.9899193548387096,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.auc.min": {
+  "tex": "0.938",
+  "value": 0.9384762964852477,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.auc.max": {
+  "tex": "0.999",
+  "value": 0.9991504555528194,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.tr85.min": {
+  "tex": "90.8",
+  "value": 0.9079274795591895,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.tr85.max": {
+  "tex": "100.0",
+  "value": 1.0,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.E2.verdict": {
+  "tex": "held",
+  "value": "held",
+  "source": "docs/generated/paper/eyepacs.json"
+ },
  "mech.e08.jpeg.dmean": {
   "tex": "\\textminus{}0.45",
   "value": -0.445575221238938,
