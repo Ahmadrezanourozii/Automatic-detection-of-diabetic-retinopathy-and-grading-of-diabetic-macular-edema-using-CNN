@@ -55,6 +55,12 @@ for _m in ("E08", "E09", "E10", "E11FULL", "E14MAC", "E15LPFT", "E17NAT", "E20CO
     REGISTRY[_m][2].setdefault("DDR", _m)
 for _m in ("E20CORAL", "E22CORN", "E21CNXA"):
     REGISTRY[_m][2].setdefault("APTOS", _m)
+# DeepDRiD and SUSTech-SYSU were scored for these models in kernel X5NEW (revision plan, E1),
+# which writes each model's predictions into a directory named after the model
+for _m in ("E08", "E09", "E10", "E11FULL", "E14MAC", "E15LPFT", "E17NAT", "E20CORAL",
+           "E22CORN", "E21CNXA", "I24FULL", "S1E08", "S2E08"):
+    REGISTRY[_m][2].setdefault("DeepDRiD", _m)
+    REGISTRY[_m][2].setdefault("SUSTech", _m)
 # the reverse direction: trained on APTOS (own split), external Messidor-2 and IDRiD
 REVERSE = {"R1APTOS": ("ordinal", ["R1APTOS"], {"Messidor-2": "R1APTOS", "IDRiD": "R1APTOS"},
                        "E08 recipe trained on APTOS (reverse direction)")}

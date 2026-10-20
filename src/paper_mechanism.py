@@ -54,12 +54,22 @@ def main():
         for cond in res:
             res[cond]["dmean"] = res[cond]["mean"] - res["orig"]["mean"]
             res[cond]["dsens"] = res[cond]["sens"] - res["orig"]["sens"]
-        hits = [c for c in res if c != "orig" and res[c]["dmean"] <= -0.10 and res[c]["dsens"] <= -0.10]
-        best = min((c for c in res if c != "orig"), key=lambda c: res[c]["dmean"])
+        # control: the undegraded re-scoring against the archived out-of-fold predictions
+        arch = os.path.join("results/predictions", m, "oof.npz")
+        if os.path.exists(arch):
+            zo = np.load(conds["orig"], allow_pickle=True)
+            o = np.load(arch, allow_pickle=True)
+            io = {u: i for i, u in enumerate(o["uids"])}
+            j = np.array([io[u] for u in zo["uids"]])
+            yo = np.asarray(zo["y_dr"]).astype(int)
+            bo = P.block(yo, P.shipped(np.asarray(o["dr_logits"], dtype=np.float64)[j], "ordinal"))
+            res["_archived"] = {"qwk": bo["qwk"], "sens": bo["ref_sens"], "mean": bo["mean_pred_minus_true"]}
+        hits = [c for c in CONDS if c in res and c != "orig" and res[c]["dmean"] <= -0.10 and res[c]["dsens"] <= -0.10]
+        best = min((c for c in CONDS if c in res and c != "orig"), key=lambda c: res[c]["dmean"])
         res["_A2_holds"] = bool(hits); res["_hits"] = hits; res["_most_negative"] = best
         verdicts.append(bool(hits))
         out["models"][m] = res
-        print(m, {c: (round(res[c]["dmean"], 3), round(100 * res[c]["dsens"], 1)) for c in CONDS if c in res},
+        print(m, {c: (round(res[c]["dmean"], 3), round(100 * res[c]["dsens"], 1)) for c in CONDS if c in res}, res.get("_archived"),
               "A2", bool(hits), hits)
     out["A2_holds"] = bool(verdicts) and all(verdicts)
     json.dump(out, open(a.out, "w"), indent=1, default=float)

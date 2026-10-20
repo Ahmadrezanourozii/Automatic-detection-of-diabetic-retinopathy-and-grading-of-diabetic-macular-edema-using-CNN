@@ -1696,6 +1696,1286 @@
   "value": 0.11111149744792237,
   "source": "docs/generated/paper/phase0_ddr.json"
  },
+ "deepdrid.nmodels": {
+  "tex": "10",
+  "value": 10,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R1.mild.min": {
+  "tex": "10.8",
+  "value": 0.10810810810810811,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R1.mild.max": {
+  "tex": "34.2",
+  "value": 0.34234234234234234,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R1.sens.min": {
+  "tex": "77.8",
+  "value": 0.7777777777777778,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R1.sens.max": {
+  "tex": "90.3",
+  "value": 0.9027777777777778,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R1.qwk.min": {
+  "tex": "0.7469",
+  "value": 0.7469406087585653,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R1.qwk.max": {
+  "tex": "0.8193",
+  "value": 0.8193085721963842,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R2.mild.min": {
+  "tex": "10.8",
+  "value": 0.10810810810810811,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R2.mild.max": {
+  "tex": "29.3",
+  "value": 0.2927927927927928,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R2.sens.min": {
+  "tex": "63.1",
+  "value": 0.6307870370370371,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R2.sens.max": {
+  "tex": "87.6",
+  "value": 0.8761574074074074,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R2.qwk.min": {
+  "tex": "0.7568",
+  "value": 0.7568248371901103,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R2.qwk.max": {
+  "tex": "0.8283",
+  "value": 0.8282758899349469,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R3.mild.min": {
+  "tex": "5.4",
+  "value": 0.05405405405405406,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R3.mild.max": {
+  "tex": "18.9",
+  "value": 0.1891891891891892,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R3.sens.min": {
+  "tex": "83.1",
+  "value": 0.8310185185185185,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R3.sens.max": {
+  "tex": "89.1",
+  "value": 0.8912037037037037,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R3.qwk.min": {
+  "tex": "0.7772",
+  "value": 0.7772304847528414,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R3.qwk.max": {
+  "tex": "0.8299",
+  "value": 0.829913532291979,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R4.mild.min": {
+  "tex": "26.1",
+  "value": 0.26126126126126126,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R4.mild.max": {
+  "tex": "37.4",
+  "value": 0.3738738738738739,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R4.sens.min": {
+  "tex": "76.5",
+  "value": 0.7650462962962963,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R4.sens.max": {
+  "tex": "91.4",
+  "value": 0.9143518518518519,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R4.qwk.min": {
+  "tex": "0.7935",
+  "value": 0.7934570649547871,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R4.qwk.max": {
+  "tex": "0.8445",
+  "value": 0.8444549857141281,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R4m.mild.min": {
+  "tex": "32.0",
+  "value": 0.31981981981981983,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R4m.mild.max": {
+  "tex": "60.4",
+  "value": 0.6036036036036037,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R4m.sens.min": {
+  "tex": "77.1",
+  "value": 0.7708333333333334,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R4m.sens.max": {
+  "tex": "87.8",
+  "value": 0.8784722222222222,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R4m.qwk.min": {
+  "tex": "0.7813",
+  "value": 0.7812626971521441,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R4m.qwk.max": {
+  "tex": "0.8390",
+  "value": 0.8389613057723544,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R1.spec.min": {
+  "tex": "92.3",
+  "value": 0.9234154929577465,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R1.spec.max": {
+  "tex": "95.6",
+  "value": 0.9559859154929577,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R1.mean.min": {
+  "tex": "\\textminus{}0.27",
+  "value": -0.273,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R1.mean.max": {
+  "tex": "\\textminus{}0.08",
+  "value": -0.081,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R4.spec.min": {
+  "tex": "90.7",
+  "value": 0.9066901408450704,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R4.spec.max": {
+  "tex": "95.2",
+  "value": 0.9524647887323944,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R4.mean.min": {
+  "tex": "\\textminus{}0.04",
+  "value": -0.038,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.R4.mean.max": {
+  "tex": "+0.08",
+  "value": 0.0795,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.devmild.min": {
+  "tex": "26.8",
+  "value": 0.2677966101694915,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.devmild.max": {
+  "tex": "62.0",
+  "value": 0.6203389830508474,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.auroc.min": {
+  "tex": "0.943",
+  "value": 0.9434347694966093,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.auroc.max": {
+  "tex": "0.969",
+  "value": 0.969394928599374,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.o7.nfail": {
+  "tex": "2",
+  "value": 2,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.r2worse": {
+  "tex": "1",
+  "value": 1,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.o7.mildrecall.within": {
+  "tex": "15.3",
+  "value": 0.15315315315315314,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.o7.mildrecall.between": {
+  "tex": "23.4",
+  "value": 0.23423423423423423,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.o7.mildrecall.holds": {
+  "tex": "was falsified",
+  "value": "was falsified",
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.o7.refsens.within": {
+  "tex": "4.9",
+  "value": 0.049189814814814825,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.o7.refsens.between": {
+  "tex": "12.5",
+  "value": 0.125,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.o7.refsens.holds": {
+  "tex": "was falsified",
+  "value": "was falsified",
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.o7.qwk.within": {
+  "tex": "0.0181",
+  "value": 0.018129563649704417,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.o7.qwk.between": {
+  "tex": "0.0724",
+  "value": 0.07236796343781893,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.o7.qwk.holds": {
+  "tex": "was falsified",
+  "value": "was falsified",
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.rho.R1vsR2": {
+  "tex": "0.77",
+  "value": 0.7666666666666667,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.rho.R1vsR3": {
+  "tex": "0.82",
+  "value": 0.8166666666666667,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.rho.R2vsR3": {
+  "tex": "0.98",
+  "value": 0.9833333333333333,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.rho.R1vsR4": {
+  "tex": "0.77",
+  "value": 0.7666666666666667,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.rho.devmatchedvsR1": {
+  "tex": "0.73",
+  "value": 0.7333333333333334,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.rho.devmatchedvsR4": {
+  "tex": "0.58",
+  "value": 0.5833333333333334,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R1.sens": {
+  "tex": "86.57",
+  "value": 0.8657407407407407,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R1.spec": {
+  "tex": "93.93",
+  "value": 0.9392605633802817,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R1.mild": {
+  "tex": "19.8",
+  "value": 0.1981981981981982,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R1.qwk": {
+  "tex": "0.7920",
+  "value": 0.7920165346163086,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R2.sens": {
+  "tex": "83.68",
+  "value": 0.8368055555555556,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R2.spec": {
+  "tex": "94.72",
+  "value": 0.9471830985915493,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R2.mild": {
+  "tex": "10.8",
+  "value": 0.10810810810810811,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R2.qwk": {
+  "tex": "0.8123",
+  "value": 0.8122890223255129,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R3.sens": {
+  "tex": "86.57",
+  "value": 0.8657407407407407,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R3.spec": {
+  "tex": "93.40",
+  "value": 0.9339788732394366,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R3.mild": {
+  "tex": "6.3",
+  "value": 0.06306306306306306,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R3.qwk": {
+  "tex": "0.8151",
+  "value": 0.8151139737120918,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R4.sens": {
+  "tex": "86.92",
+  "value": 0.8692129629629629,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R4.spec": {
+  "tex": "92.96",
+  "value": 0.9295774647887324,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R4.mild": {
+  "tex": "33.8",
+  "value": 0.33783783783783783,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R4.qwk": {
+  "tex": "0.8326",
+  "value": 0.8325610839508668,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R4m.sens": {
+  "tex": "87.04",
+  "value": 0.8703703703703703,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R4m.spec": {
+  "tex": "92.43",
+  "value": 0.9242957746478874,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R4m.mild": {
+  "tex": "40.5",
+  "value": 0.40540540540540543,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e08.R4m.qwk": {
+  "tex": "0.8177",
+  "value": 0.8176649384031236,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R1.sens": {
+  "tex": "90.28",
+  "value": 0.9027777777777778,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R1.spec": {
+  "tex": "92.34",
+  "value": 0.9234154929577465,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R1.mild": {
+  "tex": "23.0",
+  "value": 0.22972972972972974,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R1.qwk": {
+  "tex": "0.8193",
+  "value": 0.8193085721963842,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R2.sens": {
+  "tex": "87.62",
+  "value": 0.8761574074074074,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R2.spec": {
+  "tex": "93.13",
+  "value": 0.9313380281690141,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R2.mild": {
+  "tex": "18.9",
+  "value": 0.1891891891891892,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R2.qwk": {
+  "tex": "0.8283",
+  "value": 0.8282758899349469,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R3.sens": {
+  "tex": "88.08",
+  "value": 0.8807870370370371,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R3.spec": {
+  "tex": "93.13",
+  "value": 0.9313380281690141,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R3.mild": {
+  "tex": "18.9",
+  "value": 0.1891891891891892,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R3.qwk": {
+  "tex": "0.8299",
+  "value": 0.829913532291979,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R4.sens": {
+  "tex": "91.44",
+  "value": 0.9143518518518519,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R4.spec": {
+  "tex": "91.11",
+  "value": 0.9110915492957746,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R4.mild": {
+  "tex": "31.5",
+  "value": 0.3153153153153153,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R4.qwk": {
+  "tex": "0.8445",
+  "value": 0.8444549857141281,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R4m.sens": {
+  "tex": "87.85",
+  "value": 0.8784722222222222,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R4m.spec": {
+  "tex": "92.96",
+  "value": 0.9295774647887324,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R4m.mild": {
+  "tex": "41.0",
+  "value": 0.4099099099099099,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.e11full.R4m.qwk": {
+  "tex": "0.8390",
+  "value": 0.8389613057723544,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R1.qwk": {
+  "tex": "0.8193",
+  "value": 0.8193085721963842,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R1.mild": {
+  "tex": "23.0",
+  "value": 0.22972972972972974,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R1.sens": {
+  "tex": "90.28",
+  "value": 0.9027777777777778,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R1.spec": {
+  "tex": "92.34",
+  "value": 0.9234154929577465,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R1.mean": {
+  "tex": "\\textminus{}0.08",
+  "value": -0.081,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R2.qwk": {
+  "tex": "0.8283",
+  "value": 0.8282758899349469,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R2.mild": {
+  "tex": "18.9",
+  "value": 0.1891891891891892,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R2.sens": {
+  "tex": "87.62",
+  "value": 0.8761574074074074,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R2.spec": {
+  "tex": "93.13",
+  "value": 0.9313380281690141,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R2.mean": {
+  "tex": "\\textminus{}0.08",
+  "value": -0.08,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R3.qwk": {
+  "tex": "0.8299",
+  "value": 0.829913532291979,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R3.mild": {
+  "tex": "18.9",
+  "value": 0.1891891891891892,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R3.sens": {
+  "tex": "88.08",
+  "value": 0.8807870370370371,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R3.spec": {
+  "tex": "93.13",
+  "value": 0.9313380281690141,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R3.mean": {
+  "tex": "\\textminus{}0.08",
+  "value": -0.078,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R4.qwk": {
+  "tex": "0.8445",
+  "value": 0.8444549857141281,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R4.mild": {
+  "tex": "31.5",
+  "value": 0.3153153153153153,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R4.sens": {
+  "tex": "91.44",
+  "value": 0.9143518518518519,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R4.spec": {
+  "tex": "91.11",
+  "value": 0.9110915492957746,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R4.mean": {
+  "tex": "+0.04",
+  "value": 0.041,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R4m.qwk": {
+  "tex": "0.8390",
+  "value": 0.8389613057723544,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R4m.mild": {
+  "tex": "41.0",
+  "value": 0.4099099099099099,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R4m.sens": {
+  "tex": "87.85",
+  "value": 0.8784722222222222,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R4m.spec": {
+  "tex": "92.96",
+  "value": 0.9295774647887324,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.R4m.mean": {
+  "tex": "+0.07",
+  "value": 0.067,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.auroc": {
+  "tex": "0.969",
+  "value": 0.969394928599374,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.brier": {
+  "tex": "0.065",
+  "value": 0.06542604994463098,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "deepdrid.sel.ece": {
+  "tex": "0.026",
+  "value": 0.02644209211931742,
+  "source": "docs/generated/paper/phase0_deepdrid.json"
+ },
+ "sustech.nmodels": {
+  "tex": "10",
+  "value": 10,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R1.mild.min": {
+  "tex": "16.7",
+  "value": 0.16666666666666666,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R1.mild.max": {
+  "tex": "58.3",
+  "value": 0.5833333333333334,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R1.sens.min": {
+  "tex": "97.6",
+  "value": 0.9758064516129032,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R1.sens.max": {
+  "tex": "99.2",
+  "value": 0.9919354838709677,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R1.qwk.min": {
+  "tex": "0.8829",
+  "value": 0.882892965594966,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R1.qwk.max": {
+  "tex": "0.9290",
+  "value": 0.9290024254787622,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R2.mild.min": {
+  "tex": "20.8",
+  "value": 0.20833333333333334,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R2.mild.max": {
+  "tex": "58.3",
+  "value": 0.5833333333333334,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R2.sens.min": {
+  "tex": "97.4",
+  "value": 0.9737903225806451,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R2.sens.max": {
+  "tex": "98.4",
+  "value": 0.9838709677419355,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R2.qwk.min": {
+  "tex": "0.8888",
+  "value": 0.8888492709052956,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R2.qwk.max": {
+  "tex": "0.9239",
+  "value": 0.923874341582693,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R3.mild.min": {
+  "tex": "4.2",
+  "value": 0.041666666666666664,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R3.mild.max": {
+  "tex": "33.3",
+  "value": 0.3333333333333333,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R3.sens.min": {
+  "tex": "98.6",
+  "value": 0.9858870967741935,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R3.sens.max": {
+  "tex": "100.0",
+  "value": 1.0,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R3.qwk.min": {
+  "tex": "0.8574",
+  "value": 0.8573601731928134,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R3.qwk.max": {
+  "tex": "0.9239",
+  "value": 0.9239083157452207,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R4.mild.min": {
+  "tex": "4.2",
+  "value": 0.041666666666666664,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R4.mild.max": {
+  "tex": "25.0",
+  "value": 0.25,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R4.sens.min": {
+  "tex": "97.4",
+  "value": 0.9737903225806451,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R4.sens.max": {
+  "tex": "99.8",
+  "value": 0.9979838709677419,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R4.qwk.min": {
+  "tex": "0.9246",
+  "value": 0.9246154294407561,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R4.qwk.max": {
+  "tex": "0.9368",
+  "value": 0.9367720765173428,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R4m.mild.min": {
+  "tex": "50.0",
+  "value": 0.5,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R4m.mild.max": {
+  "tex": "79.2",
+  "value": 0.7916666666666666,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R4m.sens.min": {
+  "tex": "90.1",
+  "value": 0.9012096774193549,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R4m.sens.max": {
+  "tex": "97.4",
+  "value": 0.9737903225806451,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R4m.qwk.min": {
+  "tex": "0.8867",
+  "value": 0.8867341105634193,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R4m.qwk.max": {
+  "tex": "0.9199",
+  "value": 0.9198737506527773,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R1.spec.min": {
+  "tex": "93.9",
+  "value": 0.9389312977099237,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R1.spec.max": {
+  "tex": "99.2",
+  "value": 0.9923664122137404,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R1.mean.min": {
+  "tex": "+0.08",
+  "value": 0.07732406602953953,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R1.mean.max": {
+  "tex": "+0.28",
+  "value": 0.2832319721980886,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R4.spec.min": {
+  "tex": "98.2",
+  "value": 0.981679389312977,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R4.spec.max": {
+  "tex": "99.1",
+  "value": 0.9908396946564886,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R4.mean.min": {
+  "tex": "\\textminus{}0.03",
+  "value": -0.02519548218940052,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.R4.mean.max": {
+  "tex": "+0.02",
+  "value": 0.016507384882710686,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.devmild.min": {
+  "tex": "26.8",
+  "value": 0.2677966101694915,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.devmild.max": {
+  "tex": "62.0",
+  "value": 0.6203389830508474,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.auroc.min": {
+  "tex": "0.996",
+  "value": 0.9956229992612657,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.auroc.max": {
+  "tex": "0.999",
+  "value": 0.9993566855454321,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.o7.nfail": {
+  "tex": "2",
+  "value": 2,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.r2worse": {
+  "tex": "9",
+  "value": 9,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.o7.mildrecall.within": {
+  "tex": "25.0",
+  "value": 0.25,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.o7.mildrecall.between": {
+  "tex": "41.7",
+  "value": 0.41666666666666674,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.o7.mildrecall.holds": {
+  "tex": "was falsified",
+  "value": "was falsified",
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.o7.refsens.within": {
+  "tex": "1.4",
+  "value": 0.014112903225806439,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.o7.refsens.between": {
+  "tex": "1.6",
+  "value": 0.016129032258064502,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.o7.refsens.holds": {
+  "tex": "was falsified",
+  "value": "was falsified",
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.o7.qwk.within": {
+  "tex": "0.0113",
+  "value": 0.011277598862321936,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.o7.qwk.between": {
+  "tex": "0.0461",
+  "value": 0.04610945988379622,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.o7.qwk.holds": {
+  "tex": "was falsified",
+  "value": "was falsified",
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.rho.R1vsR2": {
+  "tex": "0.18",
+  "value": 0.18333333333333335,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.rho.R1vsR3": {
+  "tex": "0.40",
+  "value": 0.39999999999999997,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.rho.R2vsR3": {
+  "tex": "0.88",
+  "value": 0.8833333333333333,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.rho.R1vsR4": {
+  "tex": "0.65",
+  "value": 0.65,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.rho.devmatchedvsR1": {
+  "tex": "0.78",
+  "value": 0.7833333333333333,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.rho.devmatchedvsR4": {
+  "tex": "0.80",
+  "value": 0.7999999999999999,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R1.sens": {
+  "tex": "98.99",
+  "value": 0.9899193548387096,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R1.spec": {
+  "tex": "97.86",
+  "value": 0.9786259541984733,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R1.mild": {
+  "tex": "33.3",
+  "value": 0.3333333333333333,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R1.qwk": {
+  "tex": "0.9234",
+  "value": 0.923358636303103,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R2.sens": {
+  "tex": "98.19",
+  "value": 0.9818548387096774,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R2.spec": {
+  "tex": "98.32",
+  "value": 0.983206106870229,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R2.mild": {
+  "tex": "25.0",
+  "value": 0.25,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R2.qwk": {
+  "tex": "0.9045",
+  "value": 0.9044988014443514,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R3.sens": {
+  "tex": "99.19",
+  "value": 0.9919354838709677,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R3.spec": {
+  "tex": "97.25",
+  "value": 0.9725190839694656,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R3.mild": {
+  "tex": "12.5",
+  "value": 0.125,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R3.qwk": {
+  "tex": "0.9025",
+  "value": 0.9024661233688355,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R4.sens": {
+  "tex": "97.38",
+  "value": 0.9737903225806451,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R4.spec": {
+  "tex": "98.63",
+  "value": 0.9862595419847329,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R4.mild": {
+  "tex": "25.0",
+  "value": 0.25,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R4.qwk": {
+  "tex": "0.9321",
+  "value": 0.9321357895479081,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R4m.sens": {
+  "tex": "92.54",
+  "value": 0.9254032258064516,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R4m.spec": {
+  "tex": "99.54",
+  "value": 0.9954198473282443,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R4m.mild": {
+  "tex": "79.2",
+  "value": 0.7916666666666666,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e08.R4m.qwk": {
+  "tex": "0.8999",
+  "value": 0.8998581881010723,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R1.sens": {
+  "tex": "98.79",
+  "value": 0.9879032258064516,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R1.spec": {
+  "tex": "98.47",
+  "value": 0.9847328244274809,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R1.mild": {
+  "tex": "33.3",
+  "value": 0.3333333333333333,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R1.qwk": {
+  "tex": "0.9289",
+  "value": 0.9288635885230644,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R2.sens": {
+  "tex": "98.39",
+  "value": 0.9838709677419355,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R2.spec": {
+  "tex": "98.93",
+  "value": 0.9893129770992366,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R2.mild": {
+  "tex": "20.8",
+  "value": 0.20833333333333334,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R2.qwk": {
+  "tex": "0.9239",
+  "value": 0.923874341582693,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R3.sens": {
+  "tex": "98.59",
+  "value": 0.9858870967741935,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R3.spec": {
+  "tex": "98.78",
+  "value": 0.9877862595419847,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R3.mild": {
+  "tex": "16.7",
+  "value": 0.16666666666666666,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R3.qwk": {
+  "tex": "0.9239",
+  "value": 0.9239083157452207,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R4.sens": {
+  "tex": "98.39",
+  "value": 0.9838709677419355,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R4.spec": {
+  "tex": "98.63",
+  "value": 0.9862595419847329,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R4.mild": {
+  "tex": "20.8",
+  "value": 0.20833333333333334,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R4.qwk": {
+  "tex": "0.9344",
+  "value": 0.9344472001949276,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R4m.sens": {
+  "tex": "95.77",
+  "value": 0.9576612903225806,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R4m.spec": {
+  "tex": "99.85",
+  "value": 0.9984732824427481,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R4m.mild": {
+  "tex": "62.5",
+  "value": 0.625,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.e11full.R4m.qwk": {
+  "tex": "0.9186",
+  "value": 0.9185943864520438,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R1.qwk": {
+  "tex": "0.9289",
+  "value": 0.9288635885230644,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R1.mild": {
+  "tex": "33.3",
+  "value": 0.3333333333333333,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R1.sens": {
+  "tex": "98.79",
+  "value": 0.9879032258064516,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R1.spec": {
+  "tex": "98.47",
+  "value": 0.9847328244274809,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R1.mean": {
+  "tex": "+0.08",
+  "value": 0.07732406602953953,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R2.qwk": {
+  "tex": "0.9239",
+  "value": 0.923874341582693,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R2.mild": {
+  "tex": "20.8",
+  "value": 0.20833333333333334,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R2.sens": {
+  "tex": "98.39",
+  "value": 0.9838709677419355,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R2.spec": {
+  "tex": "98.93",
+  "value": 0.9893129770992366,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R2.mean": {
+  "tex": "+0.12",
+  "value": 0.11902693310165074,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R3.qwk": {
+  "tex": "0.9239",
+  "value": 0.9239083157452207,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R3.mild": {
+  "tex": "16.7",
+  "value": 0.16666666666666666,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R3.sens": {
+  "tex": "98.59",
+  "value": 0.9858870967741935,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R3.spec": {
+  "tex": "98.78",
+  "value": 0.9877862595419847,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R3.mean": {
+  "tex": "+0.12",
+  "value": 0.12076455256298871,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R4.qwk": {
+  "tex": "0.9344",
+  "value": 0.9344472001949276,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R4.mild": {
+  "tex": "20.8",
+  "value": 0.20833333333333334,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R4.sens": {
+  "tex": "98.39",
+  "value": 0.9838709677419355,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R4.spec": {
+  "tex": "98.63",
+  "value": 0.9862595419847329,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R4.mean": {
+  "tex": "\\textminus{}0.02",
+  "value": -0.015638575152041704,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R4m.qwk": {
+  "tex": "0.9186",
+  "value": 0.9185943864520438,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R4m.mild": {
+  "tex": "62.5",
+  "value": 0.625,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R4m.sens": {
+  "tex": "95.77",
+  "value": 0.9576612903225806,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R4m.spec": {
+  "tex": "99.85",
+  "value": 0.9984732824427481,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.R4m.mean": {
+  "tex": "+0.05",
+  "value": 0.051259774109470024,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.auroc": {
+  "tex": "0.999",
+  "value": 0.9993566855454321,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.brier": {
+  "tex": "0.011",
+  "value": 0.010831063254339334,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
+ "sustech.sel.ece": {
+  "tex": "0.032",
+  "value": 0.03194934653776293,
+  "source": "docs/generated/paper/phase0_sustech.json"
+ },
  "aptos.tr.e08.A.sens": {
   "tex": "98.12",
   "value": 0.9811701412239409,
@@ -2295,6 +3575,826 @@
   "tex": "0.8151",
   "value": 0.815115069793588,
   "source": "docs/generated/paper/transfer_ddr.json"
+ },
+ "deepdrid.tr.e08.A.sens": {
+  "tex": "76.04",
+  "value": 0.7604166666666666,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e08.A.spec": {
+  "tex": "96.92",
+  "value": 0.9691901408450704,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e08.A.gap": {
+  "tex": "\\textminus{}4.0",
+  "value": -3.9583333333333415,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e08.A.target": {
+  "tex": "80.0",
+  "value": 80.0,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e08.B.sens": {
+  "tex": "85.07",
+  "value": 0.8506944444444444,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e08.B.spec": {
+  "tex": "94.45",
+  "value": 0.9445422535211268,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e08.B.gap": {
+  "tex": "+0.1",
+  "value": 0.0694444444444442,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e08.B.target": {
+  "tex": "85.0",
+  "value": 85.0,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e08.Bs.sens": {
+  "tex": "86.69",
+  "value": 0.8668981481481481,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e08.Bs.spec": {
+  "tex": "94.01",
+  "value": 0.9401408450704225,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e08.Bs.gap": {
+  "tex": "\\textminus{}0.5",
+  "value": -0.5101851851851857,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e08.Bs.target": {
+  "tex": "87.2",
+  "value": 87.2,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e08.C.sens": {
+  "tex": "96.18",
+  "value": 0.9618055555555556,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e08.C.spec": {
+  "tex": "80.72",
+  "value": 0.8072183098591549,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e08.C.gap": {
+  "tex": "+0.7",
+  "value": 0.680555555555562,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e08.C.target": {
+  "tex": "95.5",
+  "value": 95.5,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.band.e08.sens.lo": {
+  "tex": "78.7",
+  "value": 0.7870370370370371,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.band.e08.sens.hi": {
+  "tex": "91.6",
+  "value": 0.9155092592592593,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.band.e08.spec.lo": {
+  "tex": "87.1",
+  "value": 0.8705985915492958,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.band.e08.spec.hi": {
+  "tex": "96.3",
+  "value": 0.9630281690140845,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.band.e08.miss.lo": {
+  "tex": "73",
+  "value": 73,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.band.e08.miss.hi": {
+  "tex": "184",
+  "value": 184,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.band.e08.nref": {
+  "tex": "864",
+  "value": 864,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.band.e08.qwkmax": {
+  "tex": "0.8361",
+  "value": 0.8361298382864439,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e11full.A.sens": {
+  "tex": "73.15",
+  "value": 0.7314814814814815,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e11full.A.spec": {
+  "tex": "97.89",
+  "value": 0.9788732394366197,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e11full.A.gap": {
+  "tex": "\\textminus{}6.9",
+  "value": -6.851851851851853,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e11full.A.target": {
+  "tex": "80.0",
+  "value": 80.0,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e11full.B.sens": {
+  "tex": "81.48",
+  "value": 0.8148148148148148,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e11full.B.spec": {
+  "tex": "95.95",
+  "value": 0.9595070422535211,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e11full.B.gap": {
+  "tex": "\\textminus{}3.5",
+  "value": -3.518518518518521,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e11full.B.target": {
+  "tex": "85.0",
+  "value": 85.0,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e11full.Bs.sens": {
+  "tex": "85.19",
+  "value": 0.8518518518518519,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e11full.Bs.spec": {
+  "tex": "94.45",
+  "value": 0.9445422535211268,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e11full.Bs.gap": {
+  "tex": "\\textminus{}2.0",
+  "value": -2.0148148148148137,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e11full.Bs.target": {
+  "tex": "87.2",
+  "value": 87.2,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e11full.C.sens": {
+  "tex": "96.41",
+  "value": 0.9641203703703703,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e11full.C.spec": {
+  "tex": "85.21",
+  "value": 0.852112676056338,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e11full.C.gap": {
+  "tex": "+0.9",
+  "value": 0.912037037037039,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.tr.e11full.C.target": {
+  "tex": "95.5",
+  "value": 95.5,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.band.e11full.sens.lo": {
+  "tex": "81.8",
+  "value": 0.8182870370370371,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.band.e11full.sens.hi": {
+  "tex": "94.8",
+  "value": 0.9479166666666666,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.band.e11full.spec.lo": {
+  "tex": "85.2",
+  "value": 0.852112676056338,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.band.e11full.spec.hi": {
+  "tex": "95.8",
+  "value": 0.9577464788732394,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.band.e11full.miss.lo": {
+  "tex": "45",
+  "value": 45,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.band.e11full.miss.hi": {
+  "tex": "157",
+  "value": 157,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.band.e11full.nref": {
+  "tex": "864",
+  "value": 864,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "deepdrid.band.e11full.qwkmax": {
+  "tex": "0.8498",
+  "value": 0.8498224123771536,
+  "source": "docs/generated/paper/transfer_deepdrid.json"
+ },
+ "sustech.tr.e08.A.sens": {
+  "tex": "95.97",
+  "value": 0.9596774193548387,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e08.A.spec": {
+  "tex": "98.78",
+  "value": 0.9877862595419847,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e08.A.gap": {
+  "tex": "+16.0",
+  "value": 15.96774193548387,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e08.A.target": {
+  "tex": "80.0",
+  "value": 80.0,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e08.B.sens": {
+  "tex": "98.59",
+  "value": 0.9858870967741935,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e08.B.spec": {
+  "tex": "98.17",
+  "value": 0.981679389312977,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e08.B.gap": {
+  "tex": "+13.6",
+  "value": 13.588709677419352,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e08.B.target": {
+  "tex": "85.0",
+  "value": 85.0,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e08.Bs.sens": {
+  "tex": "98.99",
+  "value": 0.9899193548387096,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e08.Bs.spec": {
+  "tex": "97.71",
+  "value": 0.9770992366412213,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e08.Bs.gap": {
+  "tex": "+11.8",
+  "value": 11.791935483870963,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e08.Bs.target": {
+  "tex": "87.2",
+  "value": 87.2,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e08.C.sens": {
+  "tex": "100.00",
+  "value": 1.0,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e08.C.spec": {
+  "tex": "86.11",
+  "value": 0.8610687022900764,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e08.C.gap": {
+  "tex": "+4.5",
+  "value": 4.5000000000000036,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e08.C.target": {
+  "tex": "95.5",
+  "value": 95.5,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.band.e08.sens.lo": {
+  "tex": "90.5",
+  "value": 0.905241935483871,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.band.e08.sens.hi": {
+  "tex": "99.4",
+  "value": 0.9939516129032258,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.band.e08.spec.lo": {
+  "tex": "95.9",
+  "value": 0.9587786259541985,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.band.e08.spec.hi": {
+  "tex": "99.7",
+  "value": 0.9969465648854962,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.band.e08.miss.lo": {
+  "tex": "3",
+  "value": 3,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.band.e08.miss.hi": {
+  "tex": "47",
+  "value": 47,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.band.e08.nref": {
+  "tex": "496",
+  "value": 496,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.band.e08.qwkmax": {
+  "tex": "0.9394",
+  "value": 0.9393708721955675,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e11full.A.sens": {
+  "tex": "96.17",
+  "value": 0.9616935483870968,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e11full.A.spec": {
+  "tex": "99.69",
+  "value": 0.9969465648854962,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e11full.A.gap": {
+  "tex": "+16.2",
+  "value": 16.169354838709673,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e11full.A.target": {
+  "tex": "80.0",
+  "value": 80.0,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e11full.B.sens": {
+  "tex": "97.58",
+  "value": 0.9758064516129032,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e11full.B.spec": {
+  "tex": "99.39",
+  "value": 0.9938931297709923,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e11full.B.gap": {
+  "tex": "+12.6",
+  "value": 12.580645161290327,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e11full.B.target": {
+  "tex": "85.0",
+  "value": 85.0,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e11full.Bs.sens": {
+  "tex": "98.19",
+  "value": 0.9818548387096774,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e11full.Bs.spec": {
+  "tex": "99.08",
+  "value": 0.9908396946564886,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e11full.Bs.gap": {
+  "tex": "+11.0",
+  "value": 10.985483870967737,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e11full.Bs.target": {
+  "tex": "87.2",
+  "value": 87.2,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e11full.C.sens": {
+  "tex": "100.00",
+  "value": 1.0,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e11full.C.spec": {
+  "tex": "95.73",
+  "value": 0.9572519083969465,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e11full.C.gap": {
+  "tex": "+4.5",
+  "value": 4.5000000000000036,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.tr.e11full.C.target": {
+  "tex": "95.5",
+  "value": 95.5,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.band.e11full.sens.lo": {
+  "tex": "91.9",
+  "value": 0.9193548387096774,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.band.e11full.sens.hi": {
+  "tex": "99.4",
+  "value": 0.9939516129032258,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.band.e11full.spec.lo": {
+  "tex": "96.0",
+  "value": 0.9603053435114504,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.band.e11full.spec.hi": {
+  "tex": "99.8",
+  "value": 0.9984732824427481,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.band.e11full.miss.lo": {
+  "tex": "3",
+  "value": 3,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.band.e11full.miss.hi": {
+  "tex": "40",
+  "value": 40,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.band.e11full.nref": {
+  "tex": "496",
+  "value": 496,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "sustech.band.e11full.qwkmax": {
+  "tex": "0.9413",
+  "value": 0.9412675145172825,
+  "source": "docs/generated/paper/transfer_sustech.json"
+ },
+ "mech.e08.jpeg.dmean": {
+  "tex": "\\textminus{}0.45",
+  "value": -0.445575221238938,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.jpeg.dsens": {
+  "tex": "\\textminus{}36.8",
+  "value": -0.367948717948718,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.down.dmean": {
+  "tex": "\\textminus{}0.15",
+  "value": -0.15132743362831858,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.down.dsens": {
+  "tex": "\\textminus{}6.2",
+  "value": -0.06153846153846154,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.blur.dmean": {
+  "tex": "\\textminus{}0.30",
+  "value": -0.3008849557522124,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.blur.dsens": {
+  "tex": "\\textminus{}15.4",
+  "value": -0.15384615384615385,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.gamma.dmean": {
+  "tex": "\\textminus{}0.16",
+  "value": -0.1592920353982301,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.gamma.dsens": {
+  "tex": "\\textminus{}8.7",
+  "value": -0.0871794871794872,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.contrast.dmean": {
+  "tex": "\\textminus{}0.13",
+  "value": -0.12743362831858407,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.contrast.dsens": {
+  "tex": "\\textminus{}5.1",
+  "value": -0.05128205128205132,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.orig.mean": {
+  "tex": "\\textminus{}0.06",
+  "value": -0.05663716814159292,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.orig.qwk": {
+  "tex": "0.868",
+  "value": 0.8683501536400309,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.arch.qwk": {
+  "tex": "0.860",
+  "value": 0.8598709309506913,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.arch.sens": {
+  "tex": "87.2",
+  "value": 0.8717948717948718,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.orig.sens": {
+  "tex": "87.4",
+  "value": 0.8743589743589744,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.best.name": {
+  "tex": "jpeg quality 30 at 512 px",
+  "value": "jpeg quality 30 at 512 px",
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.best.dmean": {
+  "tex": "\\textminus{}0.45",
+  "value": -0.445575221238938,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.best.dsens": {
+  "tex": "\\textminus{}36.8",
+  "value": -0.367948717948718,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e08.nhits": {
+  "tex": "2",
+  "value": 2,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.jpeg.dmean": {
+  "tex": "\\textminus{}0.53",
+  "value": -0.5349557522123893,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.jpeg.dsens": {
+  "tex": "\\textminus{}45.6",
+  "value": -0.4564102564102564,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.down.dmean": {
+  "tex": "\\textminus{}0.04",
+  "value": -0.04292035398230089,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.down.dsens": {
+  "tex": "\\textminus{}1.3",
+  "value": -0.012820512820512775,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.blur.dmean": {
+  "tex": "\\textminus{}0.24",
+  "value": -0.23539823008849559,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.blur.dsens": {
+  "tex": "\\textminus{}15.9",
+  "value": -0.15897435897435896,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.gamma.dmean": {
+  "tex": "\\textminus{}0.09",
+  "value": -0.09469026548672567,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.gamma.dsens": {
+  "tex": "\\textminus{}6.7",
+  "value": -0.06666666666666665,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.contrast.dmean": {
+  "tex": "\\textminus{}0.06",
+  "value": -0.0575221238938053,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.contrast.dsens": {
+  "tex": "\\textminus{}2.3",
+  "value": -0.023076923076922995,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.orig.mean": {
+  "tex": "\\textminus{}0.07",
+  "value": -0.06902654867256637,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.orig.qwk": {
+  "tex": "0.899",
+  "value": 0.8989806252530274,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.arch.qwk": {
+  "tex": "0.888",
+  "value": 0.8882910566471596,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.arch.sens": {
+  "tex": "91.2",
+  "value": 0.9115384615384615,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.orig.sens": {
+  "tex": "91.4",
+  "value": 0.9141025641025641,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.best.name": {
+  "tex": "jpeg quality 30 at 512 px",
+  "value": "jpeg quality 30 at 512 px",
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.best.dmean": {
+  "tex": "\\textminus{}0.53",
+  "value": -0.5349557522123893,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.best.dsens": {
+  "tex": "\\textminus{}45.6",
+  "value": -0.4564102564102564,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.e11full.nhits": {
+  "tex": "2",
+  "value": 2,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "mech.A2.verdict": {
+  "tex": "held",
+  "value": "held",
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.idrid.sharp": {
+  "tex": "52",
+  "value": 52.345537024475526,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.idrid.jpegq": {
+  "tex": "50",
+  "value": 50.0,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.idrid.bright": {
+  "tex": "97",
+  "value": 96.96945458605295,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.idrid.contrast": {
+  "tex": "20",
+  "value": 19.782650933527407,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.idrid.res": {
+  "tex": "4,288",
+  "value": 4288.0,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.messidor2.sharp": {
+  "tex": "39",
+  "value": 38.60074276644236,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.messidor2.jpegq": {
+  "tex": "95",
+  "value": 94.9972885032538,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.messidor2.bright": {
+  "tex": "87",
+  "value": 87.29037005617857,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.messidor2.contrast": {
+  "tex": "15",
+  "value": 15.226112392135404,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.messidor2.res": {
+  "tex": "512",
+  "value": 512.0,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.aptos.sharp": {
+  "tex": "52",
+  "value": 51.95313112189015,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.aptos.bright": {
+  "tex": "91",
+  "value": 90.67746428335943,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.aptos.contrast": {
+  "tex": "16",
+  "value": 16.372962281988464,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.aptos.res": {
+  "tex": "2,048",
+  "value": 2048.0,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.ddr.sharp": {
+  "tex": "70",
+  "value": 69.66494720532553,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.ddr.jpegq": {
+  "tex": "95",
+  "value": 94.9972885032538,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.ddr.bright": {
+  "tex": "93",
+  "value": 93.2723878780049,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.ddr.contrast": {
+  "tex": "23",
+  "value": 22.73757337085069,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.ddr.res": {
+  "tex": "512",
+  "value": 512.0,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.deepdrid.sharp": {
+  "tex": "47",
+  "value": 46.84069252089358,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.deepdrid.jpegq": {
+  "tex": "95",
+  "value": 94.9972885032538,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.deepdrid.bright": {
+  "tex": "93",
+  "value": 92.69778336939478,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.deepdrid.contrast": {
+  "tex": "32",
+  "value": 31.744681861322718,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.deepdrid.res": {
+  "tex": "1,824",
+  "value": 1824.0,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.sustech.sharp": {
+  "tex": "51",
+  "value": 50.93229606835426,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.sustech.jpegq": {
+  "tex": "75",
+  "value": 74.81019522776573,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.sustech.bright": {
+  "tex": "120",
+  "value": 119.80970965992717,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.sustech.contrast": {
+  "tex": "16",
+  "value": 16.087914519913355,
+  "source": "docs/generated/paper/mechanism.json"
+ },
+ "stats.sustech.res": {
+  "tex": "2,880",
+  "value": 2880.0,
+  "source": "docs/generated/paper/mechanism.json"
  },
  "rf.aptos.R1.qwk": {
   "tex": "0.703",
@@ -6203,9 +8303,2119 @@
   "value": 0.14363981429198835,
   "source": "docs/generated/paper/revision.json"
  },
+ "r2.deepdrid.n": {
+  "tex": "2,000",
+  "value": 2000,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.nmodels": {
+  "tex": "10",
+  "value": 10,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.pct0": {
+  "tex": "45.7",
+  "value": 0.457,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.pct1": {
+  "tex": "11.1",
+  "value": 0.111,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.pct2": {
+  "tex": "19.9",
+  "value": 0.199,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.pct3": {
+  "tex": "17.7",
+  "value": 0.177,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.pct4": {
+  "tex": "5.6",
+  "value": 0.056,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.prevref": {
+  "tex": "43.2",
+  "value": 0.432,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.auc0.min": {
+  "tex": "0.895",
+  "value": 0.8951057017702931,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.auc0.max": {
+  "tex": "0.927",
+  "value": 0.9273018242924671,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.auc1.min": {
+  "tex": "0.943",
+  "value": 0.9434347694966093,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.auc1.max": {
+  "tex": "0.969",
+  "value": 0.969394928599374,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.auc2.min": {
+  "tex": "0.936",
+  "value": 0.9359678475303702,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.auc2.max": {
+  "tex": "0.962",
+  "value": 0.9617650844100252,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.auc3.min": {
+  "tex": "0.783",
+  "value": 0.7828224311440678,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.auc3.max": {
+  "tex": "0.897",
+  "value": 0.8973829070823245,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.aucall.min": {
+  "tex": "0.783",
+  "value": 0.7828224311440678,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.cindex.min": {
+  "tex": "0.876",
+  "value": 0.8756072954918243,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.cindex.max": {
+  "tex": "0.910",
+  "value": 0.9101337468996714,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.A1above": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.A1below": {
+  "tex": "10",
+  "value": 10,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.B25": {
+  "tex": "3",
+  "value": 3,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.tau": {
+  "tex": "+0.22",
+  "value": 0.22473328748774737,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.es0": {
+  "tex": "0.30",
+  "value": 0.29523654220047724,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.es1": {
+  "tex": "0.70",
+  "value": 0.6971214203516697,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.es2": {
+  "tex": "1.71",
+  "value": 1.7118402455294948,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.es3": {
+  "tex": "2.74",
+  "value": 2.7431035250609153,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.es4": {
+  "tex": "2.55",
+  "value": 2.551576017645913,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.sens": {
+  "tex": "86.6",
+  "value": 0.8657407407407407,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.spec": {
+  "tex": "93.9",
+  "value": 0.9392605633802817,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.mildp": {
+  "tex": "0.355",
+  "value": 0.3548387096774194,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.mildf1": {
+  "tex": "0.254",
+  "value": 0.2543352601156069,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.mildr": {
+  "tex": "19.8",
+  "value": 0.1981981981981982,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.modtomild": {
+  "tex": "22",
+  "value": 22,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.sens": {
+  "tex": "86.9",
+  "value": 0.8692129629629629,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.spec": {
+  "tex": "93.0",
+  "value": 0.9295774647887324,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.mildp": {
+  "tex": "0.247",
+  "value": 0.24671052631578946,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.mildf1": {
+  "tex": "0.285",
+  "value": 0.28517110266159695,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.mildr": {
+  "tex": "33.8",
+  "value": 0.33783783783783783,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.modtomild": {
+  "tex": "59",
+  "value": 59,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4m.sens": {
+  "tex": "87.0",
+  "value": 0.8703703703703703,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4m.spec": {
+  "tex": "92.4",
+  "value": 0.9242957746478874,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4m.mildp": {
+  "tex": "0.230",
+  "value": 0.22959183673469388,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4m.mildf1": {
+  "tex": "0.293",
+  "value": 0.2931596091205212,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4m.mildr": {
+  "tex": "40.5",
+  "value": 0.40540540540540543,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4m.modtomild": {
+  "tex": "66",
+  "value": 66,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R5.sens": {
+  "tex": "88.8",
+  "value": 0.8877314814814815,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R5.spec": {
+  "tex": "90.9",
+  "value": 0.909330985915493,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R5.mildp": {
+  "tex": "0.000",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R5.mildf1": {
+  "tex": "0.000",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R5.mildr": {
+  "tex": "0.0",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R5.modtomild": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R5b.sens": {
+  "tex": "88.8",
+  "value": 0.8877314814814815,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R5b.spec": {
+  "tex": "91.0",
+  "value": 0.9102112676056338,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R5b.mildp": {
+  "tex": "0.000",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R5b.mildf1": {
+  "tex": "0.000",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R5b.mildr": {
+  "tex": "0.0",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R5b.modtomild": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R0a.sens": {
+  "tex": "86.5",
+  "value": 0.8645833333333334,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R0a.spec": {
+  "tex": "93.0",
+  "value": 0.9295774647887324,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R0a.mildp": {
+  "tex": "0.422",
+  "value": 0.42168674698795183,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R0a.mildf1": {
+  "tex": "0.230",
+  "value": 0.22950819672131148,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R0a.mildr": {
+  "tex": "15.8",
+  "value": 0.15765765765765766,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R0a.modtomild": {
+  "tex": "13",
+  "value": 13,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss25.sens": {
+  "tex": "81.9",
+  "value": 0.8189214995310266,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss25.lo": {
+  "tex": "52.6",
+  "value": 0.5257310627095287,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss25.harm": {
+  "tex": "37.0",
+  "value": 0.37,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss25.spec": {
+  "tex": "92.6",
+  "value": 0.9261330249494569,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss50.sens": {
+  "tex": "83.0",
+  "value": 0.8299992423856599,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss50.lo": {
+  "tex": "62.2",
+  "value": 0.621851563189318,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss50.harm": {
+  "tex": "31.6",
+  "value": 0.316,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss50.spec": {
+  "tex": "93.7",
+  "value": 0.9374705668820054,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss100.sens": {
+  "tex": "83.6",
+  "value": 0.835539959261881,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss100.lo": {
+  "tex": "70.6",
+  "value": 0.7062499999999999,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss100.harm": {
+  "tex": "23.8",
+  "value": 0.238,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss100.spec": {
+  "tex": "94.5",
+  "value": 0.9449524404710071,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss200.sens": {
+  "tex": "84.6",
+  "value": 0.8460301042289826,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss200.lo": {
+  "tex": "75.5",
+  "value": 0.7552767052767052,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss200.harm": {
+  "tex": "15.4",
+  "value": 0.154,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss200.spec": {
+  "tex": "94.4",
+  "value": 0.9437534463753527,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss400.sens": {
+  "tex": "84.7",
+  "value": 0.8473916077008553,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss400.lo": {
+  "tex": "78.8",
+  "value": 0.7883309050607691,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss400.harm": {
+  "tex": "7.0",
+  "value": 0.07,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss400.spec": {
+  "tex": "94.6",
+  "value": 0.9463423782897877,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss800.sens": {
+  "tex": "85.0",
+  "value": 0.8500595555507013,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss800.lo": {
+  "tex": "80.4",
+  "value": 0.8043598797598083,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss800.harm": {
+  "tex": "1.4",
+  "value": 0.014,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.ss800.spec": {
+  "tex": "94.6",
+  "value": 0.9461845360932963,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.miss5": {
+  "tex": "67",
+  "value": 67.12962962962966,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.fref5": {
+  "tex": "577",
+  "value": 577.0246478873233,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.ppv5": {
+  "tex": "42.9",
+  "value": 0.42862907781956733,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.npv5": {
+  "tex": "99.3",
+  "value": 0.9925329426334886,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.miss5": {
+  "tex": "65",
+  "value": 65.39351851851855,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.fref5": {
+  "tex": "669",
+  "value": 669.0140845070423,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.ppv5": {
+  "tex": "39.4",
+  "value": 0.39380063662749903,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.npv5": {
+  "tex": "99.3",
+  "value": 0.9926494233970603,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.miss10": {
+  "tex": "134",
+  "value": 134.25925925925932,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.fref10": {
+  "tex": "547",
+  "value": 546.6549295774644,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.ppv10": {
+  "tex": "61.3",
+  "value": 0.6129590729669216,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.npv10": {
+  "tex": "98.4",
+  "value": 0.9843659239404857,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.miss10": {
+  "tex": "131",
+  "value": 130.7870370370371,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.fref10": {
+  "tex": "634",
+  "value": 633.8028169014086,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.ppv10": {
+  "tex": "57.8",
+  "value": 0.5783125996464246,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.npv10": {
+  "tex": "98.5",
+  "value": 0.9846078286544176,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.miss20": {
+  "tex": "269",
+  "value": 268.51851851851865,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.fref20": {
+  "tex": "486",
+  "value": 485.9154929577461,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.ppv20": {
+  "tex": "78.1",
+  "value": 0.7808622007880963,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R1.npv20": {
+  "tex": "96.5",
+  "value": 0.9654975953885081,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.miss20": {
+  "tex": "262",
+  "value": 261.5740740740742,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.fref20": {
+  "tex": "563",
+  "value": 563.380281690141,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.ppv20": {
+  "tex": "75.5",
+  "value": 0.7552442599963173,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e08.R4.npv20": {
+  "tex": "96.6",
+  "value": 0.9660213705800887,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.es0": {
+  "tex": "0.30",
+  "value": 0.2993403093737105,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.es1": {
+  "tex": "0.72",
+  "value": 0.7215521605895819,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.es2": {
+  "tex": "1.78",
+  "value": 1.781737857458798,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.es3": {
+  "tex": "2.87",
+  "value": 2.871684609904161,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.es4": {
+  "tex": "2.79",
+  "value": 2.7874458169806116,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.sens": {
+  "tex": "90.3",
+  "value": 0.9027777777777778,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.spec": {
+  "tex": "92.3",
+  "value": 0.9234154929577465,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.mildp": {
+  "tex": "0.425",
+  "value": 0.425,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.mildf1": {
+  "tex": "0.298",
+  "value": 0.2982456140350877,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.mildr": {
+  "tex": "23.0",
+  "value": 0.22972972972972974,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.modtomild": {
+  "tex": "26",
+  "value": 26,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.sens": {
+  "tex": "91.4",
+  "value": 0.9143518518518519,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.spec": {
+  "tex": "91.1",
+  "value": 0.9110915492957746,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.mildp": {
+  "tex": "0.311",
+  "value": 0.3111111111111111,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.mildf1": {
+  "tex": "0.313",
+  "value": 0.3131991051454139,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.mildr": {
+  "tex": "31.5",
+  "value": 0.3153153153153153,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.modtomild": {
+  "tex": "36",
+  "value": 36,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4m.sens": {
+  "tex": "87.8",
+  "value": 0.8784722222222222,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4m.spec": {
+  "tex": "93.0",
+  "value": 0.9295774647887324,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4m.mildp": {
+  "tex": "0.277",
+  "value": 0.2765957446808511,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4m.mildf1": {
+  "tex": "0.330",
+  "value": 0.33030852994555354,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4m.mildr": {
+  "tex": "41.0",
+  "value": 0.4099099099099099,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4m.modtomild": {
+  "tex": "65",
+  "value": 65,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R5.sens": {
+  "tex": "92.9",
+  "value": 0.9293981481481481,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R5.spec": {
+  "tex": "87.6",
+  "value": 0.8758802816901409,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R5.mildp": {
+  "tex": "0.000",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R5.mildf1": {
+  "tex": "0.000",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R5.mildr": {
+  "tex": "0.0",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R5.modtomild": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R5b.sens": {
+  "tex": "92.8",
+  "value": 0.9282407407407407,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R5b.spec": {
+  "tex": "87.8",
+  "value": 0.8776408450704225,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R5b.mildp": {
+  "tex": "0.000",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R5b.mildf1": {
+  "tex": "0.000",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R5b.mildr": {
+  "tex": "0.0",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R5b.modtomild": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R0a.sens": {
+  "tex": "90.9",
+  "value": 0.9085648148148148,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R0a.spec": {
+  "tex": "91.5",
+  "value": 0.914612676056338,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R0a.mildp": {
+  "tex": "0.467",
+  "value": 0.4666666666666667,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R0a.mildf1": {
+  "tex": "0.269",
+  "value": 0.2692307692307692,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R0a.mildr": {
+  "tex": "18.9",
+  "value": 0.1891891891891892,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R0a.modtomild": {
+  "tex": "17",
+  "value": 17,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss25.sens": {
+  "tex": "81.6",
+  "value": 0.8163161191647598,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss25.lo": {
+  "tex": "55.9",
+  "value": 0.5591042154566744,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss25.harm": {
+  "tex": "38.4",
+  "value": 0.384,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss25.spec": {
+  "tex": "94.0",
+  "value": 0.9404756413877574,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss50.sens": {
+  "tex": "83.2",
+  "value": 0.8318550699799494,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss50.lo": {
+  "tex": "65.8",
+  "value": 0.6580636568468488,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss50.harm": {
+  "tex": "28.8",
+  "value": 0.288,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss50.spec": {
+  "tex": "94.4",
+  "value": 0.944324687165907,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss100.sens": {
+  "tex": "83.7",
+  "value": 0.836520080870933,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss100.lo": {
+  "tex": "71.8",
+  "value": 0.7184688000756864,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss100.harm": {
+  "tex": "24.6",
+  "value": 0.246,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss100.spec": {
+  "tex": "94.7",
+  "value": 0.9472619952735873,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss200.sens": {
+  "tex": "84.4",
+  "value": 0.8438300148023493,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss200.lo": {
+  "tex": "75.2",
+  "value": 0.7516511304874476,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss200.harm": {
+  "tex": "13.0",
+  "value": 0.13,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss200.spec": {
+  "tex": "94.6",
+  "value": 0.9463284037451432,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss400.sens": {
+  "tex": "84.9",
+  "value": 0.84851507878366,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss400.lo": {
+  "tex": "78.5",
+  "value": 0.7849182953072499,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss400.harm": {
+  "tex": "4.8",
+  "value": 0.048,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss400.spec": {
+  "tex": "94.5",
+  "value": 0.9451479727237293,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss800.sens": {
+  "tex": "84.9",
+  "value": 0.8488211359206569,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss800.lo": {
+  "tex": "79.9",
+  "value": 0.799,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss800.harm": {
+  "tex": "2.6",
+  "value": 0.026,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.ss800.spec": {
+  "tex": "94.6",
+  "value": 0.9457943054784496,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.miss5": {
+  "tex": "49",
+  "value": 48.611111111111114,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.fref5": {
+  "tex": "728",
+  "value": 727.5528169014083,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.ppv5": {
+  "tex": "38.3",
+  "value": 0.38287634297092143,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.npv5": {
+  "tex": "99.4",
+  "value": 0.994489197385418,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.miss5": {
+  "tex": "43",
+  "value": 42.824074074074076,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.fref5": {
+  "tex": "845",
+  "value": 844.630281690141,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.ppv5": {
+  "tex": "35.1",
+  "value": 0.35118585489243404,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.npv5": {
+  "tex": "99.5",
+  "value": 0.9950766705023784,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.miss10": {
+  "tex": "97",
+  "value": 97.22222222222223,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.fref10": {
+  "tex": "689",
+  "value": 689.2605633802816,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.ppv10": {
+  "tex": "56.7",
+  "value": 0.5670578116360508,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.npv10": {
+  "tex": "98.8",
+  "value": 0.9884368856368438,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.miss10": {
+  "tex": "86",
+  "value": 85.64814814814815,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.fref10": {
+  "tex": "800",
+  "value": 800.1760563380284,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.ppv10": {
+  "tex": "53.3",
+  "value": 0.5332965695595954,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.npv10": {
+  "tex": "99.0",
+  "value": 0.9896628523759305,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.miss20": {
+  "tex": "194",
+  "value": 194.44444444444446,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.fref20": {
+  "tex": "613",
+  "value": 612.676056338028,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.ppv20": {
+  "tex": "74.7",
+  "value": 0.7466429380359166,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R1.npv20": {
+  "tex": "97.4",
+  "value": 0.9743536818205273,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.miss20": {
+  "tex": "171",
+  "value": 171.2962962962963,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.fref20": {
+  "tex": "711",
+  "value": 711.267605633803,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.ppv20": {
+  "tex": "72.0",
+  "value": 0.7199702205221677,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.e11full.R4.npv20": {
+  "tex": "97.7",
+  "value": 0.9770381182969574,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.R4m.mildf1.min": {
+  "tex": "0.229",
+  "value": 0.22903225806451613,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.R4m.mildf1.max": {
+  "tex": "0.330",
+  "value": 0.33030852994555354,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.R1.mildf1.min": {
+  "tex": "0.149",
+  "value": 0.14906832298136646,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.R1.mildf1.max": {
+  "tex": "0.336",
+  "value": 0.3355408388520971,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.R5gap.min": {
+  "tex": "\\textminus{}0.36",
+  "value": -0.35999999999999815,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.R5gap.max": {
+  "tex": "2.04",
+  "value": 2.0399999999999974,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.deepdrid.R5gap.median": {
+  "tex": "0.60",
+  "value": 0.6046511627906974,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.n": {
+  "tex": "1,151",
+  "value": 1151,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.nmodels": {
+  "tex": "10",
+  "value": 10,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.pct0": {
+  "tex": "54.8",
+  "value": 0.5482189400521286,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.pct1": {
+  "tex": "2.1",
+  "value": 0.020851433536055605,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.pct2": {
+  "tex": "31.7",
+  "value": 0.317115551694179,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.pct3": {
+  "tex": "6.3",
+  "value": 0.0634231103388358,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.pct4": {
+  "tex": "5.0",
+  "value": 0.05039096437880104,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.prevref": {
+  "tex": "43.1",
+  "value": 0.4309296264118158,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.auc0.min": {
+  "tex": "0.993",
+  "value": 0.9932677069364867,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.auc0.max": {
+  "tex": "0.998",
+  "value": 0.9977721565280995,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.auc1.min": {
+  "tex": "0.996",
+  "value": 0.9956229992612657,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.auc1.max": {
+  "tex": "0.999",
+  "value": 0.9993566855454321,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.auc2.min": {
+  "tex": "0.935",
+  "value": 0.9354550217033378,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.auc2.max": {
+  "tex": "0.962",
+  "value": 0.9621389013620716,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.auc3.min": {
+  "tex": "0.897",
+  "value": 0.8968908729532763,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.auc3.max": {
+  "tex": "0.937",
+  "value": 0.9365239612581633,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.aucall.min": {
+  "tex": "0.897",
+  "value": 0.8968908729532763,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.cindex.min": {
+  "tex": "0.973",
+  "value": 0.9729795216707093,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.cindex.max": {
+  "tex": "0.978",
+  "value": 0.9780245005394403,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.A1above": {
+  "tex": "10",
+  "value": 10,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.A1below": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.B25": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.tau": {
+  "tex": "+0.53",
+  "value": 0.5284193913361779,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.es0": {
+  "tex": "0.24",
+  "value": 0.23576635243388833,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.es1": {
+  "tex": "1.17",
+  "value": 1.1730068750583786,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.es2": {
+  "tex": "2.35",
+  "value": 2.3485104545493867,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.es3": {
+  "tex": "3.02",
+  "value": 3.019760438031775,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.es4": {
+  "tex": "3.19",
+  "value": 3.1867932435931574,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.sens": {
+  "tex": "99.0",
+  "value": 0.9899193548387096,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.spec": {
+  "tex": "97.9",
+  "value": 0.9786259541984733,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.mildp": {
+  "tex": "0.276",
+  "value": 0.27586206896551724,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.mildf1": {
+  "tex": "0.302",
+  "value": 0.3018867924528302,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.mildr": {
+  "tex": "33.3",
+  "value": 0.3333333333333333,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.modtomild": {
+  "tex": "4",
+  "value": 4,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.sens": {
+  "tex": "97.4",
+  "value": 0.9737903225806451,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.spec": {
+  "tex": "98.6",
+  "value": 0.9862595419847329,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.mildp": {
+  "tex": "0.240",
+  "value": 0.24,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.mildf1": {
+  "tex": "0.245",
+  "value": 0.24489795918367346,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.mildr": {
+  "tex": "25.0",
+  "value": 0.25,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.modtomild": {
+  "tex": "9",
+  "value": 9,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4m.sens": {
+  "tex": "92.5",
+  "value": 0.9254032258064516,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4m.spec": {
+  "tex": "99.5",
+  "value": 0.9954198473282443,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4m.mildp": {
+  "tex": "0.116",
+  "value": 0.11585365853658537,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4m.mildf1": {
+  "tex": "0.202",
+  "value": 0.20212765957446807,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4m.mildr": {
+  "tex": "79.2",
+  "value": 0.7916666666666666,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4m.modtomild": {
+  "tex": "36",
+  "value": 36,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R5.sens": {
+  "tex": "99.2",
+  "value": 0.9919354838709677,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R5.spec": {
+  "tex": "96.8",
+  "value": 0.9679389312977099,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R5.mildp": {
+  "tex": "0.000",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R5.mildf1": {
+  "tex": "0.000",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R5.mildr": {
+  "tex": "0.0",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R5.modtomild": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R5b.sens": {
+  "tex": "99.2",
+  "value": 0.9919354838709677,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R5b.spec": {
+  "tex": "96.8",
+  "value": 0.9679389312977099,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R5b.mildp": {
+  "tex": "0.000",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R5b.mildf1": {
+  "tex": "0.000",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R5b.mildr": {
+  "tex": "0.0",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R5b.modtomild": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R0a.sens": {
+  "tex": "99.0",
+  "value": 0.9899193548387096,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R0a.spec": {
+  "tex": "97.4",
+  "value": 0.9740458015267176,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R0a.mildp": {
+  "tex": "0.389",
+  "value": 0.3888888888888889,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R0a.mildf1": {
+  "tex": "0.333",
+  "value": 0.3333333333333333,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R0a.mildr": {
+  "tex": "29.2",
+  "value": 0.2916666666666667,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R0a.modtomild": {
+  "tex": "2",
+  "value": 2,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss25.sens": {
+  "tex": "81.9",
+  "value": 0.8193148167415177,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss25.lo": {
+  "tex": "51.5",
+  "value": 0.5148841474324567,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss25.harm": {
+  "tex": "36.2",
+  "value": 0.362,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss25.spec": {
+  "tex": "99.7",
+  "value": 0.9969063266149991,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss50.sens": {
+  "tex": "83.2",
+  "value": 0.8319705453709647,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss50.lo": {
+  "tex": "62.7",
+  "value": 0.6270483193277311,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss50.harm": {
+  "tex": "29.6",
+  "value": 0.296,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss50.spec": {
+  "tex": "99.8",
+  "value": 0.9976281696207456,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss100.sens": {
+  "tex": "84.3",
+  "value": 0.8429810674380736,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss100.lo": {
+  "tex": "71.9",
+  "value": 0.7188655599899744,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss100.harm": {
+  "tex": "21.0",
+  "value": 0.21,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss100.spec": {
+  "tex": "99.8",
+  "value": 0.9978350361390723,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss200.sens": {
+  "tex": "84.6",
+  "value": 0.8464237078945125,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss200.lo": {
+  "tex": "76.7",
+  "value": 0.7670421894240893,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss200.harm": {
+  "tex": "13.4",
+  "value": 0.134,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss200.spec": {
+  "tex": "99.8",
+  "value": 0.9977970561889085,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss400.sens": {
+  "tex": "84.8",
+  "value": 0.8475196504052087,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss400.lo": {
+  "tex": "77.4",
+  "value": 0.774294670846395,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss400.harm": {
+  "tex": "6.8",
+  "value": 0.068,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss400.spec": {
+  "tex": "99.8",
+  "value": 0.9978027929742541,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss800.sens": {
+  "tex": "84.6",
+  "value": 0.8457811313808004,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss800.lo": {
+  "tex": "76.3",
+  "value": 0.7634027777777778,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss800.harm": {
+  "tex": "10.0",
+  "value": 0.1,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.ss800.spec": {
+  "tex": "99.8",
+  "value": 0.9977893060758792,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.miss5": {
+  "tex": "5",
+  "value": 5.040322580645185,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.fref5": {
+  "tex": "203",
+  "value": 203.05343511450351,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.ppv5": {
+  "tex": "70.9",
+  "value": 0.7090979646823553,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.npv5": {
+  "tex": "99.9",
+  "value": 0.9994581455938799,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.miss5": {
+  "tex": "13",
+  "value": 13.104838709677436,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.fref5": {
+  "tex": "131",
+  "value": 130.53435114503776,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.ppv5": {
+  "tex": "78.9",
+  "value": 0.7885842051343414,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.npv5": {
+  "tex": "99.9",
+  "value": 0.998603278416395,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.miss10": {
+  "tex": "10",
+  "value": 10.08064516129037,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.fref10": {
+  "tex": "192",
+  "value": 192.36641221374018,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.ppv10": {
+  "tex": "83.7",
+  "value": 0.8372927953845475,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.npv10": {
+  "tex": "99.9",
+  "value": 0.9988567734341375,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.miss10": {
+  "tex": "26",
+  "value": 26.209677419354872,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.fref10": {
+  "tex": "124",
+  "value": 123.66412213740419,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.ppv10": {
+  "tex": "88.7",
+  "value": 0.887317307125969,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.npv10": {
+  "tex": "99.7",
+  "value": 0.9970559344788968,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.miss20": {
+  "tex": "20",
+  "value": 20.16129032258074,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.fref20": {
+  "tex": "171",
+  "value": 170.9923664122135,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.ppv20": {
+  "tex": "92.0",
+  "value": 0.9204993975058748,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R1.npv20": {
+  "tex": "99.7",
+  "value": 0.9974314108260347,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.miss20": {
+  "tex": "52",
+  "value": 52.419354838709744,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.fref20": {
+  "tex": "110",
+  "value": 109.92366412213705,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.ppv20": {
+  "tex": "94.7",
+  "value": 0.9465742727117687,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e08.R4.npv20": {
+  "tex": "99.3",
+  "value": 0.9934001406006453,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.es0": {
+  "tex": "0.19",
+  "value": 0.18666038841250465,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.es1": {
+  "tex": "1.08",
+  "value": 1.082020290210878,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.es2": {
+  "tex": "2.31",
+  "value": 2.3143820721874673,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.es3": {
+  "tex": "2.98",
+  "value": 2.9767340000868763,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.es4": {
+  "tex": "3.10",
+  "value": 3.0981774065480954,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.sens": {
+  "tex": "98.8",
+  "value": 0.9879032258064516,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.spec": {
+  "tex": "98.5",
+  "value": 0.9847328244274809,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.mildp": {
+  "tex": "0.364",
+  "value": 0.36363636363636365,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.mildf1": {
+  "tex": "0.348",
+  "value": 0.34782608695652173,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.mildr": {
+  "tex": "33.3",
+  "value": 0.3333333333333333,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.modtomild": {
+  "tex": "3",
+  "value": 3,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.sens": {
+  "tex": "98.4",
+  "value": 0.9838709677419355,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.spec": {
+  "tex": "98.6",
+  "value": 0.9862595419847329,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.mildp": {
+  "tex": "0.278",
+  "value": 0.2777777777777778,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.mildf1": {
+  "tex": "0.238",
+  "value": 0.23809523809523808,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.mildr": {
+  "tex": "20.8",
+  "value": 0.20833333333333334,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.modtomild": {
+  "tex": "3",
+  "value": 3,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4m.sens": {
+  "tex": "95.8",
+  "value": 0.9576612903225806,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4m.spec": {
+  "tex": "99.8",
+  "value": 0.9984732824427481,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4m.mildp": {
+  "tex": "0.192",
+  "value": 0.19230769230769232,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4m.mildf1": {
+  "tex": "0.294",
+  "value": 0.29411764705882354,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4m.mildr": {
+  "tex": "62.5",
+  "value": 0.625,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4m.modtomild": {
+  "tex": "17",
+  "value": 17,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R5.sens": {
+  "tex": "98.8",
+  "value": 0.9879032258064516,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R5.spec": {
+  "tex": "98.5",
+  "value": 0.9847328244274809,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R5.mildp": {
+  "tex": "0.000",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R5.mildf1": {
+  "tex": "0.000",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R5.mildr": {
+  "tex": "0.0",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R5.modtomild": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R5b.sens": {
+  "tex": "99.0",
+  "value": 0.9899193548387096,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R5b.spec": {
+  "tex": "98.3",
+  "value": 0.983206106870229,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R5b.mildp": {
+  "tex": "0.000",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R5b.mildf1": {
+  "tex": "0.000",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R5b.mildr": {
+  "tex": "0.0",
+  "value": 0.0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R5b.modtomild": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R0a.sens": {
+  "tex": "99.0",
+  "value": 0.9899193548387096,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R0a.spec": {
+  "tex": "98.6",
+  "value": 0.9862595419847329,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R0a.mildp": {
+  "tex": "0.467",
+  "value": 0.4666666666666667,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R0a.mildf1": {
+  "tex": "0.359",
+  "value": 0.358974358974359,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R0a.mildr": {
+  "tex": "29.2",
+  "value": 0.2916666666666667,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R0a.modtomild": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss25.sens": {
+  "tex": "81.5",
+  "value": 0.814924028227926,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss25.lo": {
+  "tex": "56.1",
+  "value": 0.5609927667954253,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss25.harm": {
+  "tex": "40.4",
+  "value": 0.404,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss25.spec": {
+  "tex": "99.9",
+  "value": 0.9988356674875021,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss50.sens": {
+  "tex": "82.9",
+  "value": 0.828623018234302,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss50.lo": {
+  "tex": "65.9",
+  "value": 0.6589185049019608,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss50.harm": {
+  "tex": "32.6",
+  "value": 0.326,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss50.spec": {
+  "tex": "99.9",
+  "value": 0.999310405616337,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss100.sens": {
+  "tex": "84.3",
+  "value": 0.8428124023603998,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss100.lo": {
+  "tex": "72.4",
+  "value": 0.7235745614035087,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss100.harm": {
+  "tex": "19.8",
+  "value": 0.198,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss100.spec": {
+  "tex": "99.9",
+  "value": 0.9993708814290602,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss200.sens": {
+  "tex": "84.6",
+  "value": 0.8462639928755619,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss200.lo": {
+  "tex": "76.2",
+  "value": 0.7616525423728814,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss200.harm": {
+  "tex": "14.2",
+  "value": 0.142,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss200.spec": {
+  "tex": "99.9",
+  "value": 0.9993087530571793,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss400.sens": {
+  "tex": "84.7",
+  "value": 0.8471070116476214,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss400.lo": {
+  "tex": "77.3",
+  "value": 0.7730697408536585,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss400.harm": {
+  "tex": "8.6",
+  "value": 0.086,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss400.spec": {
+  "tex": "99.9",
+  "value": 0.9994316249632591,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss800.sens": {
+  "tex": "84.8",
+  "value": 0.8479492322134384,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss800.lo": {
+  "tex": "76.6",
+  "value": 0.7660180009863554,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss800.harm": {
+  "tex": "9.0",
+  "value": 0.09,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.ss800.spec": {
+  "tex": "100.0",
+  "value": 0.9995221551068674,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.miss5": {
+  "tex": "6",
+  "value": 6.048387096774189,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.fref5": {
+  "tex": "145",
+  "value": 145.03816793893154,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.ppv5": {
+  "tex": "77.3",
+  "value": 0.7730195813964688,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.npv5": {
+  "tex": "99.9",
+  "value": 0.9993538745332853,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.miss5": {
+  "tex": "8",
+  "value": 8.064516129032251,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.fref5": {
+  "tex": "131",
+  "value": 130.53435114503776,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.ppv5": {
+  "tex": "79.0",
+  "value": 0.7902961014300696,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.npv5": {
+  "tex": "99.9",
+  "value": 0.999140017042105,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.miss10": {
+  "tex": "12",
+  "value": 12.096774193548377,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.fref10": {
+  "tex": "137",
+  "value": 137.404580152672,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.ppv10": {
+  "tex": "87.8",
+  "value": 0.8778960037200141,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.npv10": {
+  "tex": "99.9",
+  "value": 0.9986369359151779,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.miss10": {
+  "tex": "16",
+  "value": 16.129032258064502,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.fref10": {
+  "tex": "124",
+  "value": 123.66412213740419,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.ppv10": {
+  "tex": "88.8",
+  "value": 0.8883429308313141,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.npv10": {
+  "tex": "99.8",
+  "value": 0.9981862135615843,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.miss20": {
+  "tex": "24",
+  "value": 24.193548387096754,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.fref20": {
+  "tex": "122",
+  "value": 122.13740458015288,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.ppv20": {
+  "tex": "94.2",
+  "value": 0.9417823292936999,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R1.npv20": {
+  "tex": "99.7",
+  "value": 0.9969383223876411,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.miss20": {
+  "tex": "32",
+  "value": 32.258064516129004,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.fref20": {
+  "tex": "110",
+  "value": 109.92366412213705,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.ppv20": {
+  "tex": "94.7",
+  "value": 0.9470927062839265,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.e11full.R4.npv20": {
+  "tex": "99.6",
+  "value": 0.995928212205417,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.R4m.mildf1.min": {
+  "tex": "0.150",
+  "value": 0.14977973568281938,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.R4m.mildf1.max": {
+  "tex": "0.305",
+  "value": 0.3050847457627119,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.R1.mildf1.min": {
+  "tex": "0.113",
+  "value": 0.11299435028248588,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.sustech.R1.mildf1.max": {
+  "tex": "0.421",
+  "value": 0.42105263157894735,
+  "source": "docs/generated/paper/revision.json"
+ },
  "r2.auc1.allmin": {
   "tex": "0.914",
   "value": 0.9135132837078435,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.dev.auc0.min": {
+  "tex": "0.874",
+  "value": 0.8743319908608604,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.dev.auc0.max": {
+  "tex": "0.933",
+  "value": 0.9325597095476401,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.dev.auc1.min": {
+  "tex": "0.952",
+  "value": 0.951841729531603,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.dev.auc1.max": {
+  "tex": "0.977",
+  "value": 0.9773068260568261,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.dev.auc2.min": {
+  "tex": "0.946",
+  "value": 0.9463609494781564,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.dev.auc2.max": {
+  "tex": "0.978",
+  "value": 0.9781879226367807,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.dev.auc3.min": {
+  "tex": "0.814",
+  "value": 0.8142097701149426,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.dev.auc3.max": {
+  "tex": "0.963",
+  "value": 0.9631430191934646,
+  "source": "docs/generated/paper/revision.json"
+ },
+ "r2.aucall.allmin": {
+  "tex": "0.783",
+  "value": 0.7828224311440678,
   "source": "docs/generated/paper/revision.json"
  },
  "r2.B.verdict": {

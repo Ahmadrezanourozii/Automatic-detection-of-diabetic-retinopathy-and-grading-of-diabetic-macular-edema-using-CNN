@@ -267,6 +267,11 @@ def revision():
             put(f"r2.{k}.R5gap.median", float(np.median(gaps)), "{:.2f}", src)
     a1 = [x for C in d["corpora"].values() for x in (C["models"][m]["auc_k"][1] for m in C["models"])]
     put("r2.auc1.allmin", min(a1), q3, src)
+    for t in range(4):
+        v = [d["dev"][m]["auc_k"][t] for m in d["models"]]
+        put(f"r2.dev.auc{t}.min", min(v), q3, src); put(f"r2.dev.auc{t}.max", max(v), q3, src)
+    ak = [x for C in d["corpora"].values() for m in C["models"] for x in C["models"][m]["auc_k"]]
+    put("r2.aucall.allmin", min(ak), q3, src)
     # outcome verdicts of the revision plan
     if "DDR" in d["corpora"]:
         C = d["corpora"]["DDR"]
@@ -327,6 +332,10 @@ def mechanism():
                 put(f"mech.{k}.{short}.dmean", res[cond]["dmean"], sm, src)
                 put(f"mech.{k}.{short}.dsens", res[cond]["dsens"], sp, src)
         put(f"mech.{k}.orig.mean", res["orig"]["mean"], sm, src)
+        put(f"mech.{k}.orig.qwk", res["orig"]["qwk"], q3, src)
+        if "_archived" in res:
+            put(f"mech.{k}.arch.qwk", res["_archived"]["qwk"], q3, src)
+            put(f"mech.{k}.arch.sens", res["_archived"]["sens"], p1, src)
         put(f"mech.{k}.orig.sens", res["orig"]["sens"], p1, src)
         b = res["_most_negative"]
         put(f"mech.{k}.best.name", d["labels"][b].lower(), "{}", src)

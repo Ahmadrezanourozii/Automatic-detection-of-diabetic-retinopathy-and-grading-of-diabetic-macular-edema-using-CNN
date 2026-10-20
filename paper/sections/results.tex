@@ -12,20 +12,22 @@ development data before any external number was examined, reached \pn{sel.dev.qw
 
 \subsection{Ranking transferred to new populations; the mapping from score to grade did not}
 
-Discrimination survived the change of population at every ordinal threshold
+Discrimination largely survived the change of population
 (Fig.~\ref{fig:shift}a). Across the ten models the area under the ROC curve for referable
 disease, $P(y>1)$, was \pn{r2.aptos.auc1.min}--\pn{r2.aptos.auc1.max} on APTOS,
 \pn{r2.ddr.auc1.min}--\pn{r2.ddr.auc1.max} on DDR, \pn{r2.deepdrid.auc1.min}--\pn{r2.deepdrid.auc1.max}
-on DeepDRiD and \pn{r2.sustech.auc1.min}--\pn{r2.sustech.auc1.max} on SUSTech-SYSU, and no threshold
-on any corpus fell below \pn{r2.ddr.aucall.min}; Harrell's C of the expected grade was
+on DeepDRiD and \pn{r2.sustech.auc1.min}--\pn{r2.sustech.auc1.max} on SUSTech-SYSU, and the weakest
+threshold, proliferative DR, was weak already in development (\pn{r2.dev.auc3.min}--\pn{r2.dev.auc3.max})
+and fell no lower than \pn{r2.aucall.allmin} externally; Harrell's C of the expected grade was
 \pn{r2.aptos.cindex.min}--\pn{r2.aptos.cindex.max} on APTOS and
 \pn{r2.ddr.cindex.min}--\pn{r2.ddr.cindex.max} on DDR, against \pn{r2.dev.e08.cindex} on development
 data for the reference model.
 
 Where the scores fell did not transfer, and it moved in opposite directions
-(Fig.~\ref{fig:shift}b). On APTOS the models scored images of the same true grade higher than in
-development for at least three of the five grades in \pn{r2.aptos.A1above} of 10 models; on DDR
-they scored them lower in \pn{r2.ddr.A1below} of 10 (pre-registered outcome A1
+(Fig.~\ref{fig:shift}b). On APTOS and SUSTech-SYSU the models scored images of the same true grade
+higher than in development for at least three of the five grades (in \pn{r2.aptos.A1above} and
+\pn{r2.sustech.A1above} of 10 models); on DDR and DeepDRiD they scored them lower (in
+\pn{r2.ddr.A1below} and \pn{r2.deepdrid.A1below} of 10; pre-registered outcome A1
 \pn{r2.A1.verdict}). The shift is therefore not a change in prevalence alone, under which the
 score given the true grade would not move. Its shape differed between the two populations. On
 APTOS it was concentrated in one grade: for the reference model, mild images had a mean expected
@@ -38,9 +40,9 @@ the mean predicted-minus-true grade at the shipped rule was \pn{aptos.R1.mean.mi
 
 A referral threshold fitted on development predictions therefore did not hold its operating
 point (Fig.~\ref{fig:transfer}). Fitted for 85\% sensitivity, the reference model referred
-\pn{aptos.tr.e08.B.sens}\% of referable patients on APTOS, \pn{ddr.tr.e08.B.sens}\% on DDR,
-\pn{deepdrid.tr.e08.B.sens}\% on DeepDRiD and \pn{sustech.tr.e08.B.sens}\% on SUSTech-SYSU
-(pre-registered O8 \pn{ddr.o8}). The same behaviour appeared in models trained on
+\pn{aptos.tr.e08.B.sens}\% of referable patients on APTOS and \pn{sustech.tr.e08.B.sens}\% on
+SUSTech-SYSU but \pn{ddr.tr.e08.B.sens}\% on DDR (pre-registered O8 \pn{ddr.o8}); only on DeepDRiD,
+where the shift was smallest, did it land near its target (\pn{deepdrid.tr.e08.B.sens}\%). The same behaviour appeared in models trained on
 \pn{eye.dn.trainn} EyePACS images: their referral area under the curve stayed between
 \pn{eye.auc.min} and \pn{eye.auc.max} on the six external sets, while a threshold fitted on their
 held-out development fold for 85\% sensitivity reached \pn{eye.tr85.min}--\pn{eye.tr85.max}\%
@@ -48,18 +50,24 @@ held-out development fold for 85\% sensitivity reached \pn{eye.tr85.min}--\pn{ey
 a small development set.
 
 \subsection{Why the mapping moved}
-% TODO(after X5NEW): rewrite this paragraph from A2/A3 -- written before the degradation data exist
 
-Image quality could produce the DDR pattern. Re-scored out of fold after degradation, the
-development pool was under-graded by the reference model: \pn{mech.e08.best.name} shifted the
-mean predicted-minus-true grade by \pn{mech.e08.best.dmean} and referable sensitivity at the
-shipped rule by \pn{mech.e08.best.dsens} points (outcome A2 \pn{mech.A2.verdict};
-Supplementary Table~S7). DDR images were less sharp than development images (median Laplacian
-variance \pn{stats.ddr.sharp} against \pn{stats.messidor2.sharp} for Messidor-2) and more
-strongly compressed (estimated JPEG quality \pn{stats.ddr.jpegq}). Image quality cannot explain
-the APTOS pattern, in which mild images alone moved up by about one grade while no-DR images moved
-down. A difference in how the mild grade was assigned by APTOS's single grader is the simpler
-explanation, and it changes what local recalibration does there: it fits the local grading
+Image quality can produce under-grading, but it does not explain DDR. Re-scored out of fold after
+degradation, the development pool was under-graded by both re-scored models: JPEG compression at
+quality 30 shifted the mean predicted-minus-true grade by \pn{mech.e08.jpeg.dmean} and
+\pn{mech.e11full.jpeg.dmean} and referable sensitivity at the shipped rule by
+\pn{mech.e08.jpeg.dsens} and \pn{mech.e11full.jpeg.dsens} points, and Gaussian blur by
+\pn{mech.e08.blur.dmean} and \pn{mech.e08.blur.dsens} points for the reference model (outcome A2
+\pn{mech.A2.verdict}; the undegraded re-scoring reproduced the archived out-of-fold QWK,
+\pn{mech.e08.orig.qwk} against \pn{mech.e08.arch.qwk}; Supplementary Table~S7). DDR images,
+however, were not degraded on these measures: they share the 512-pixel size and the estimated JPEG
+quality of the Messidor-2 development images (\pn{stats.ddr.jpegq} against
+\pn{stats.messidor2.jpegq}) and have higher contrast and Laplacian variance (\pn{stats.ddr.sharp}
+against \pn{stats.messidor2.sharp}). Resolution, compression and blur therefore do not account for
+the under-grading on DDR; camera and population characteristics we could not measure, or a stricter
+grading convention, remain candidates that public data cannot separate. The APTOS pattern is of a
+different kind: mild images alone moved up by about one grade while no-DR images moved down, which a
+global change in image quality does not produce and a difference in how APTOS's single grader
+assigned the mild grade would. Where that is the cause, local recalibration fits the local grading
 standard (Discussion).
 
 \subsection{What the decision rule can and cannot recover}

@@ -29,15 +29,16 @@ has also been reported to degrade unevenly under domain shift\cite{gradeye2026},
 the grade-specific movement we observed on APTOS.
 
 The central objection to this kind of analysis is that refitting cut-points on local labels may
-fit local label noise rather than fix the model. The two populations answer it differently. On
-DDR every grade moved down by a similar amount and degrading development images reproduced the
-direction (A2), so recalibration there corrects a change in the images. On APTOS one grade moved
-by about a whole step while its neighbours did not, which image quality does not produce and a
-difference in how a single grader assigned the mild grade would; recalibration there aligns the
-model with the local grading standard. Whether that is a fix depends on whether the local standard
-is the one the screening programme acts on --- which, for a programme deploying a model, it
-usually is. Either way, the rule must be fitted where it will be used, on a sample large enough
-for its risk to be known.
+fit local label noise rather than fix the model. The populations answer it differently. On DDR every
+grade moved down by a similar amount, yet the images were not degraded on any measure we could
+compute, although degradation can produce exactly this pattern; the change lies in what the images
+show or in how they were graded, and recalibration corrects the mapping without revealing which. On
+APTOS one grade moved by about a whole step while its neighbours did not, which a change in image
+quality does not produce and a difference in how a single grader assigned the mild grade would;
+recalibration there aligns the model with the local grading standard. Whether that is a fix depends on
+whether the local standard is the one the screening programme acts on --- which, for a programme
+deploying a model, it usually is. Either way, the rule must be fitted where it will be used, on a
+sample large enough for its risk to be known.
 
 The practical recommendations cost no additional training. External evaluations should report
 discrimination at each ordinal threshold beside grade-level agreement, the full referral operating
