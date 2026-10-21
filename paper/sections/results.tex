@@ -157,9 +157,12 @@ APTOS and DDR: models trained on the same data differed materially at their ship
 \pn{ddr.o7.refsens.between} points of referable sensitivity on DDR). Which model looked best,
 however, depended on the rule and on the metric. The rankings of models by external QWK at the
 shipped rule and by referable sensitivity at a fixed 90\% specificity were at most weakly related
-(Kendall $\tau$ \pn{ph.aptos.tau} on APTOS, \pn{ph.ddr.tau} on DDR, \pn{ph.deepdrid.tau} on DeepDRiD
-and \pn{ph.sustech.tau} on SUSTech-SYSU; permutation $p$ \pn{ph.tau.p.min}--\pn{ph.tau.p.max}), so
-with ten models neither ranking could be predicted from the other.
+(Kendall $\tau$ \pn{ph.aptos.tau} [\pn{ph.aptos.tau.lo}, \pn{ph.aptos.tau.hi}] on APTOS,
+\pn{ph.ddr.tau} [\pn{ph.ddr.tau.lo}, \pn{ph.ddr.tau.hi}] on DDR, \pn{ph.deepdrid.tau}
+[\pn{ph.deepdrid.tau.lo}, \pn{ph.deepdrid.tau.hi}] on DeepDRiD and \pn{ph.sustech.tau}
+[\pn{ph.sustech.tau.lo}, \pn{ph.sustech.tau.hi}] on SUSTech-SYSU; permutation $p$
+\pn{ph.tau.p.min}--\pn{ph.tau.p.max}), so with ten models neither ranking could be predicted from
+the other.
 
 Under the matched decision rule several conclusions of the usual kind changed
 (Table~\ref{tab:record}). On APTOS, the selected EfficientNet-B3 model led the reference DenseNet121 by
