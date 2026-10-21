@@ -958,3 +958,30 @@ a run that collapsed (`ISSUES.md` §1). So every row here is a first measurement
 improvement over anything. **The consequence is that re-implementing the two literature
 baselines on our exact split (`IDEAS.md` I16) is the only route to knowing whether these
 numbers are good**, and it is prioritised accordingly.
+
+---
+
+## Runs for the article (October 2026)
+
+These runs were planned in `docs/PAPER_EXPERIMENTS_preregistration.md` (commit `46f1bdd`) and
+`docs/PAPER_REVISION_preregistration.md` (commit `1456815`); their outcomes are recorded at the end
+of those two files and their numbers are generated into `docs/generated/paper/`. Launch times are
+UTC from the Kaggle kernel listing (`docs/generated/paper/kaggle_runs.csv`); every kernel cloned the
+repository at the commit given here.
+
+| ID | Account | Launched | Commit | Plan | Purpose | Status | Outputs |
+|---|---|---|---|---|---|---|---|
+| S1E08, S2E08 | 1 | 2026-10-16 11:03 | `46f1bdd` | G1 (O1, O2) | seed replicates of E08 | complete | `results/predictions/S1E08`, `S2E08`; `seeds.json` |
+| S3E08, S4E08 | 2 | 2026-10-16 11:03 | `46f1bdd` | G1 (O1, O2) | seed replicates of E08 | complete | `results/predictions/S3E08`, `S4E08`; `seeds.json` |
+| X3AUDIT | 1 | 2026-10-16 11:20 | `ed6705d` | — | content-level overlap audit (CPU session) | **error, empty log**; no output used | superseded by X4AUDIT |
+| X2DDR | 1 | 2026-10-16 15:08 | `fcfc64e` | G3 (O7, O8) | DDR as a second external set for every archived model | complete | `results/predictions/*/external_ddr.npz` |
+| I24FT234 | 1 | 2026-10-16 15:08 | `55244b7` | G4 (O9) | RETFound folds 2–4 (I24FT01 + I24FT234 = I24FULL) | complete | `results/predictions/I24FULL` |
+| R1APTOS | 2 | 2026-10-16 15:14 | `15104a5` | G2 (O4–O6) | reverse direction, APTOS → Messidor-2 and IDRiD | complete (first push failed with an empty log and was re-pushed) | `results/predictions/R1APTOS`; `reverse.json` |
+| X4AUDIT | 1 | 2026-10-16 22:41 | `0b1768a` | — | content-level overlap audit, rerun of X3AUDIT | complete | `overlap_audit.json`, `overlap_sensitivity.json` |
+| X5NEW | 1 | 2026-10-20 11:22 | `1456815` | E1, A2, A3 | DeepDRiD and SUSTech-SYSU for every development model; degradation re-scoring; image statistics | complete | `results/predictions/*/external_{deepdrid,sustech}.npz`; `results/degradation/` |
+| EYEDN | 1 | 2026-10-20 11:21 | `1456815` | E2 | DenseNet121 trained on EyePACS, 15 epochs (5.3 h, T4) | complete | `results/predictions/EYEDN`; `data/splits/eyepacs_v1.json` |
+| EYEEB3 | 2 | 2026-10-20 11:22 | `1456815` | E2 | EfficientNet-B3 trained on EyePACS, 15 epochs (3.6 h, T4) | complete | `results/predictions/EYEEB3` |
+
+No kernel of this project is still running (checked 2026-10-21). The only runs that did not
+complete are E07 (killed at the 12 h limit, see above), E21CONVNEXT (launched 2026-09-05 17:46
+and cancelled; ConvNeXt-tiny was then run as the two-fold E21CNXA, `IDEAS.md` I05) and X3AUDIT.

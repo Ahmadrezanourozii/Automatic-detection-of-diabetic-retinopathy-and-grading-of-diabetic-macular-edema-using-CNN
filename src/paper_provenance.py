@@ -33,8 +33,8 @@ out = []
 for name, h, kernels in PLANS:
     t = commit_time(h)
     launches = sorted(runs[k] for k in kernels if k in runs)
-    out.append({"plan": name, "commit": h, "commit_utc": t.strftime("%Y-%m-%d %H:%M"),
-                "runs": kernels, "first_launch_utc": launches[0].strftime("%Y-%m-%d %H:%M") if launches else None,
+    out.append({"plan": name, "commit": h, "commit_utc": t.strftime("%Y-%m-%d %H:%M:%S"),
+                "runs": kernels, "first_launch_utc": launches[0].strftime("%Y-%m-%d %H:%M:%S") if launches else None,
                 "all_after_commit": all(x >= t for x in launches) if launches else None})
     print(out[-1])
 json.dump(out, open("docs/generated/paper/provenance.json", "w"), indent=1)
