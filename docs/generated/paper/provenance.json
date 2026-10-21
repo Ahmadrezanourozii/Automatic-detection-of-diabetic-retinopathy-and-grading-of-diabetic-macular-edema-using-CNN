@@ -28,7 +28,7 @@
   "all_after_commit": true
  },
  {
-  "plan": "Journal outcomes O1-O9 (journal experiments plan)",
+  "plan": "First-stage outcomes O1-O9 (first-stage plan)",
   "commit": "46f1bdd",
   "commit_utc": "2026-10-16 11:03:04",
   "runs": [
@@ -44,7 +44,7 @@
   "all_after_commit": true
  },
  {
-  "plan": "Revision outcomes A1-E2 (revision plan)",
+  "plan": "Second-stage outcomes A1-E2 (second-stage plan)",
   "commit": "1456815",
   "commit_utc": "2026-10-20 11:21:07",
   "runs": [

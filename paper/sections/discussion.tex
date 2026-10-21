@@ -1,15 +1,16 @@
 \section{Discussion}\label{sec:discussion}
 
 In the DR-grading settings studied here, an external failure separated into two components that
-call for different remedies. The ranking of images by severity transferred to four new
-populations and to models trained on twelve times more data; the mapping from score to grade did
-not, and its error had opposite signs on different populations because the score given the true
-grade moved. Where ranking survived, part of the loss was a property of the decision rule and
+call for different remedies. The ranking of images by severity largely transferred to new
+populations, also for models whose final training set was EyePACS rather than the development
+pool; the mapping from score to grade did not, and its error had opposite signs on different
+populations because the score given the true grade moved. Where ranking survived, part of the loss was a property of the decision rule and
 could be recovered without retraining --- the mild grade on APTOS, referral sensitivity in the
 reverse direction --- but only as a trade between grades, and only with local labels. Where ranking
 degraded, as for the foundation model on DDR, no rule helped. Two of our own predictions bound the
-argument: deployable rules did not outweigh the choice of model, and the mild-grade collapse that
-the literature reads as representational blindness was specific to one corpus. A reader who sees
+argument: deployable rules did not outweigh the choice of model, and the collapse of mild recall
+that the literature reads as representational blindness was specific to one corpus, although mild
+F1 stayed low on every population. A reader who sees
 an external failure should therefore ask, in order, whether the model still ranks the new
 population, where its cut-points were set and on which population, and only then what it has
 learned.
@@ -18,14 +19,17 @@ These results refine rather than contradict recent work. ORDER-DR separated thre
 grade assignment from threshold-independent risk ranking and noted threshold shift on external
 data\cite{sheng2026orderdr}; reanalysing its released predictions shows that its reported
 advantage over its own branches does not survive the matched decision rule. Tabibu and Abhyankar
-found that the probability calibration of a binary referral model degrades across cameras mostly
-through prevalence, and that 100--200 labelled images restore it\cite{tabibu2026discrimination}.
-Our sample-size estimate agrees, for an ordinal model and a referral threshold rather than a
-calibration map, but the mechanism we found differs: the score given the true grade moved, so
-prior adaptation without labels failed, and temperature-style rescaling cannot be expected to help
-either, as reported for frozen encoders\cite{poyrazer2026calibration}. Per-threshold calibration
-has also been reported to degrade unevenly under domain shift\cite{gradeye2026}, consistent with
-the grade-specific movement we observed on APTOS.
+found, in a preprint, that the probability calibration of a binary referral model degrades
+across cameras mostly through prevalence, and that 100--200 labelled images restore
+it\cite{tabibu2026discrimination}. The mechanism we found differs: the score given the true grade
+moved, so prior adaptation without labels failed even against its own decoding, and
+temperature-style rescaling cannot be expected to help either, as reported for frozen
+encoders\cite{poyrazer2026calibration}. For a referral threshold, the number of labels needed is
+set by the referable cases among them, and the risk follows a distribution-free form, so a few
+hundred images suffice only where referable disease is common. A public, not yet peer-reviewed
+model repository reports that per-threshold calibration degrades unevenly under domain shift and
+that the mild grade fails on every held-out domain\cite{gradeye2026}, consistent with the
+grade-specific movement and the low mild F1 we observed.
 
 The central objection to this kind of analysis is that refitting cut-points on local labels may
 fit local label noise rather than fix the model. The populations answer it differently. On DDR every
@@ -34,10 +38,16 @@ compute, although degradation can produce exactly this pattern; the change lies 
 show or in how they were graded, and recalibration corrects the mapping without revealing which. On
 APTOS one grade moved by about a whole step while its neighbours did not, which a change in image
 quality does not produce and a difference in how a single grader assigned the mild grade would;
-recalibration there aligns the model with the local grading standard. Whether that is a fix depends on
-whether the local standard is the one the screening programme acts on --- which, for a programme
-deploying a model, it usually is. Either way, the rule must be fitted where it will be used, on a
-sample large enough for its risk to be known.
+recalibration there aligns the model with the local grading standard. The models trained on EyePACS
+add a second line of evidence: they under-graded DDR as the development-pool models did, yet their
+EyePACS-fitted threshold over-referred there, because a transferred threshold carries the reference
+standard of the set it was fitted on. Where a threshold lands is thus partly a property of the
+labels on both sides, which is consistent with, though not proof of, a difference in grading
+convention; re-grading a random sample of APTOS mild and DDR images by one ophthalmologist would
+test it directly. Whether recalibration is a fix depends on whether the local standard is the one
+the screening programme acts on --- which, for a programme deploying a model, it usually is. Either
+way, the rule must be fitted where it will be used, on a sample large enough for its risk to be
+known.
 
 The practical recommendations cost no additional training. External evaluations should report
 discrimination at each ordinal threshold beside grade-level agreement, the full referral operating
@@ -45,23 +55,33 @@ curve, and the transfer gap of any development-fitted threshold, since the same 
 \pn{aptos.tr.e08.A.gap} and \pn{ddr.tr.e08.A.gap} points from an 80\% target on two populations.
 Model comparisons should be made under a matched decision rule that names its fitting procedure,
 with differences judged against the variation between seeds of one configuration. Deployment
-should include setting the referral threshold on a local sample: with about 200 labelled images
-the probability of missing an 80\% sensitivity floor was below one in five on every population,
-and with 400 it was a few per cent, in line with advice on updating prediction models for new
-settings\cite{janssen2008updating,vergouwe2017updating,riley2021samplesize}.
+should include setting the referral threshold on a local sample, sized by its referable cases
+rather than its images: about 120 referable cases keep the probability of missing an 80\%
+sensitivity floor near one in ten and about 200 near one in twenty, which at a referable prevalence
+of 10\% means 1\,000 to 2\,000 consecutive images; where fewer cases are available, setting the cut
+for a higher sample sensitivity buys the same safety with specificity. This is in line with advice
+on updating prediction models for new
+settings\cite{janssen2008updating,vergouwe2017updating,riley2021samplesize}, and because the risk
+does not depend on the model or the population it can be planned before any local data are
+collected.
 
 The study has limitations. All data are public and retrospective, the populations are defined by
 dataset rather than by a prospective screening programme, and APTOS and EyePACS labels come from
-single graders. Patient identifiers are unavailable for most corpora, so resampling is by image
+single graders. SUSTech-SYSU is a case--control collection with few mild images, and APTOS's no-DR
+and mild images separate unusually easily, so discrimination there overstates what a screening
+population would show. Patient identifiers are unavailable for most corpora, so resampling is by image
 and fellow-eye pairs may be correlated. The external-label rules (R4, R4m) are diagnostics of what
 local labels could recover, not external validation; the deployable recommendation rests on the
 separate sample-size analysis. Referable disease was defined by DR grade alone because macular
 oedema is not graded in the external sets, whereas real screening refers for both; the
 macular-oedema head could not be validated externally and is reported only in the Supplement. The
-reverse direction, the seeds and the large-data models each use one or two architectures. Finally,
-the analysis plans were committed to version control rather than to a public registry, and the
-pre-specification of development runs trained before the repository history begins cannot be
-verified. The decision-rule effects should be confirmed prospectively, with cut-points fitted on
+reverse direction, the seeds and the large-data models each use one or two architectures, and the
+EyePACS models selected their checkpoint on the same fold that set their development threshold.
+Finally, the analysis plans were committed to version control rather than to a public registry,
+the pre-specification of development runs trained before the repository history begins cannot be
+verified, the second-stage prediction on the direction of the shift was written knowing it for
+APTOS and DDR, and the analyses added after an internal editorial assessment, including the
+sample-size analysis in referable cases, are post hoc. The decision-rule effects should be confirmed prospectively, with cut-points fitted on
 an initial local sample and then frozen.
 
 \section{Conclusions}\label{sec:conclusions}
@@ -71,5 +91,5 @@ learned representations. In the settings studied here a substantial part of them
 decision rule that converts scores into grades and could be diagnosed and repaired without
 retraining, while the remainder reflected real losses of ranking that no rule recovers. Reporting
 per-threshold discrimination, full operating curves, the transfer gap of thresholds and
-matched-decision-rule comparisons, and setting referral thresholds on a local sample of known size
-before deployment, would separate the two.
+matched-decision-rule comparisons, and setting referral thresholds on a local sample with enough
+referable cases before deployment, would separate the two.

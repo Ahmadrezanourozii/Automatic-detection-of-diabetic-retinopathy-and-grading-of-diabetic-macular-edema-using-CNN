@@ -301,6 +301,7 @@ def eyepacs():
         if v.get("train_n"):
             put(f"eye.{k}.trainn", v["train_n"], i0, src)
         put(f"eye.{k}.devqwk", v["dev"]["qwk_matched"], q4, src)
+        put(f"eye.{k}.devauc", v["dev"]["auroc"], q3, src)
         put(f"eye.{k}.ngap", v["n_gap_gt5"], i0, src)
         for c, r in v["external"].items():
             cc = c.lower().replace("-", "")
@@ -420,7 +421,7 @@ def recalibration():
     for n in d["sizes"]:
         g = r[str(n)]
         put(f"recal.{n}.gain", g["macro_recall_gain"][0], "{:+.2f}", src)
-        put(f"recal.{n}.ci", g["macro_recall_gain"][1:], lambda x: f"[{x[0]:+.2f}, {x[1]:+.2f}]", src)
+        put(f"recal.{n}.ci", g["macro_recall_gain"][1:], lambda x: f"[{x[0]:+.2f}, {x[1]:+.2f}]".replace("-", "\\textminus{}"), src)
         put(f"recal.{n}.harm", 100 * g["p_harmful"], "{:.1f}", src)
         put(f"recal.{n}.mild", g["mild_recall_gain"][0], "{:+.1f}", src)
     put("recal.draws", d["draws"], i0, src)
@@ -454,7 +455,7 @@ def record():
         a = lp[mode]["accuracy"]
         put(f"rec.lpft.{nm}", 100 * a["diff"], "{:+.2f}", src)
         put(f"rec.lpft.{nm}ci", (100 * a["lo"], 100 * a["hi"]),
-            lambda x: f"[{x[0]:+.2f}, {x[1]:+.2f}]", src)
+            lambda x: f"[{x[0]:+.2f}, {x[1]:+.2f}]".replace("-", "\\textminus{}"), src)
     for mode, v in d["source_control"].items():
         r = v["recall"][2]
         put(f"rec.e12.{mode}", 100 * r["diff"], lambda x: f"{x:+.1f}".replace("-", "\\textminus{}"), src)
@@ -567,6 +568,96 @@ def overlap():
             put(f"ov.{c.lower()}.maxchange", 100 * v["max_abs_change"], "{:.2f}", ssrc)
 
 
+def posthoc():
+    """Analyses added after an internal editorial assessment (src/paper_posthoc.py); post hoc."""
+    src = f"{GP}/posthoc.json"
+    d = load(src)
+    if not d:
+        return
+    pct1 = lambda v: f"{100 * v:.1f}"
+    pts = lambda v: f"{100 * v:+.1f}".replace("-", "\\textminus{}")
+    sg2 = lambda v: f"{v:+.2f}".replace("-", "\\textminus{}")
+    ex = d["exact"]
+    for k, v in ex["harm_by_k"].items():
+        put(f"ph.harm.k{k}", v, pct1, src)
+    for key, v in ex["harm_by_prevalence"].items():
+        p_, n_ = key.split("_")
+        put(f"ph.harm.n{n_}.p{int(round(100 * float(p_)))}", v, pct1, src)
+    for k, v in ex["required_sample_sens"].items():
+        put(f"ph.req.k{k}.r05", v["0.05"], pct1, src)
+        put(f"ph.req.k{k}.r10", v["0.10"], pct1, src)
+    put("ph.sim.maxdev", 100 * ex["max_abs_dev_sim"], "{:.1f}", src)
+    sims = {}
+    for c, C in d["corpora"].items():
+        for m, v in C["models"].items():
+            for k, r in v.get("by_cases", {}).items():
+                sims.setdefault(k, []).append(r["p_harm"])
+    for k, v in sims.items():
+        put(f"ph.sim.k{k}.min", min(v), pct1, src); put(f"ph.sim.k{k}.max", max(v), pct1, src)
+    dv = d["dev"]
+    mr = [v["mild_mr"]["f1"] for v in dv.values()]
+    put("ph.dev.mildmr.min", min(mr), q3, src); put("ph.dev.mildmr.max", max(mr), q3, src)
+    put("ph.dev.e11full.mildmr", dv["E11FULL"]["mild_mr"]["f1"], q3, src)
+    for key in ("auc_ref", "auc_0v1", "auc_1v2", "auc_0v2"):
+        v = [x["spectrum"][key] for x in dv.values()]
+        kk = key.replace("auc_", "")
+        put(f"ph.dev.auc{kk}.min", min(v), q3, src); put(f"ph.dev.auc{kk}.max", max(v), q3, src)
+    for c, C in d["corpora"].items():
+        k = c.lower()
+        ms = C["models"]
+        put(f"ph.{k}.nmild", C["grade_dist"][1], i0, src)
+        put(f"ph.{k}.pctmild", C["grade_dist"][1] / C["n"], pct1, src)
+        for key in ("auc_ref", "auc_ref_devmix", "auc_0v1", "auc_1v2", "auc_0v2"):
+            v = [x["spectrum"][key] for x in ms.values()]
+            kk = key.replace("auc_", "").replace("_", "")
+            put(f"ph.{k}.auc{kk}.min", min(v), q3, src); put(f"ph.{k}.auc{kk}.max", max(v), q3, src)
+        r = [x["R5_vs_R0a"] for x in ms.values()]
+        ds = [x["sens"]["R5"] - x["sens"]["R0a"] for x in r]
+        put(f"ph.{k}.r5.dsens.med", float(np.median(ds)), pts, src)
+        put(f"ph.{k}.r5.dsens.min", min(ds), pts, src); put(f"ph.{k}.r5.dsens.max", max(ds), pts, src)
+        dq = [x["qwk"]["R5"] - x["qwk"]["R0a"] for x in r]
+        put(f"ph.{k}.r5.dqwk.med", float(np.median(dq)), lambda v: f"{v:+.3f}".replace("-", "\\textminus{}"), src)
+        put(f"ph.{k}.r0a.mild.med", float(np.median([x["mild_recall"]["R0a"] for x in r])), pct1, src)
+        put(f"ph.{k}.r5.mild.med", float(np.median([x["mild_recall"]["R5"] for x in r])), pct1, src)
+        put(f"ph.{k}.r5.nmildmodels", sum(x["mild_npred"]["R5"] > 0 for x in r), i0, src)
+        put(f"ph.{k}.r5.closed25", sum(1 for x in r if x["closed_R5"] is not None and x["closed_R5"] >= 0.25), i0, src)
+        t = C["tau"]
+        put(f"ph.{k}.tau", t["tau"], sg2, src); put(f"ph.{k}.tau.lo", t["lo"], sg2, src)
+        put(f"ph.{k}.tau.hi", t["hi"], sg2, src); put(f"ph.{k}.tau.p", t["p_perm"], "{:.2f}", src)
+        for m in ("E08", "E11FULL"):
+            sa = ms[m].get("spec_at_sens")
+            if sa:
+                for t_ in ("0.85", "0.9"):
+                    put(f"ph.{k}.{m.lower()}.spec{int(round(100 * float(t_)))}", sa[t_], pct1, src)
+    ps = [C["tau"]["p_perm"] for C in d["corpora"].values()]
+    put("ph.tau.p.min", min(ps), "{:.2f}", src); put("ph.tau.p.max", max(ps), "{:.2f}", src)
+    allr = [x["R5_vs_R0a"] for C in d["corpora"].values() for x in C["models"].values()]
+    put("ph.r5.nmild.models", sum(x["mild_npred"]["R5"] > 0 for x in allr), i0, src)
+    put("ph.r5.n", len(allr), i0, src)
+    prev = [C["n_ref"] / C["n"] for C in d["corpora"].values()]
+    put("ph.prev.min", min(prev), pct1, src); put("ph.prev.max", max(prev), pct1, src)
+    put("ph.k200", 200 * float(np.mean(prev)), i0, src)       # referable cases in 200 enriched images
+
+
+def verdicts():
+    """One-word verdicts for the outcome table (Supplementary Table S2), read from the keys the
+    analyses already wrote; 'held' or 'falsified'."""
+    word = lambda k: None if k not in LEDGER else ("falsified" if "falsified" in LEDGER[k]["value"] else "held")
+    pairs = {"O2": "seeds.o2", "O3": "seeds.o3", "O4": "rev.o4", "O5": "rev.o5", "O6": "rev.o6",
+             "O8": "ddr.o8", "O9": "retfound.o9", "A1": "r2.A1.verdict", "A2": "mech.A2.verdict",
+             "B": "r2.B.verdict", "C": "r2.C.verdict", "E2": "eye.E2.verdict"}
+    for o, k in pairs.items():
+        w = word(k)
+        if w:
+            put(f"v.{o}", w, "{}", f"ledger key {k}")
+    o7 = [k for k in LEDGER if k.endswith(".holds") and ".o7." in k and ("mildrecall" in k or "refsens" in k)]
+    if o7:
+        n_f = sum("falsified" in LEDGER[k]["value"] for k in o7)
+        put("v.O7", "falsified" if n_f == len(o7) else ("partly falsified" if n_f else "held"), "{}",
+            "ledger keys " + ", ".join(sorted(o7)))
+        put("v.O7.n", n_f, i0, "ledger"); put("v.O7.of", len(o7), i0, "ledger")
+
+
 def misc():
     put("grid.effect", 0.0033, "{:.4f}", "src/paper_rules.py: E08 matched QWK 0.8646 (grid 60) vs 0.8613 (grid 80)")
     put("fovea.median", 0.196, "{:.3f}", "runs/E13gate/fovea_gate.json")
@@ -614,6 +705,6 @@ if __name__ == "__main__":
               lambda: transfer("APTOS"), lambda: transfer("DDR"),
               lambda: transfer("DeepDRiD"), lambda: transfer("SUSTech"), eyepacs, mechanism,
               lambda: secondary("APTOS"), lambda: secondary("DDR"), orderdr, recalibration,
-              optimism, record, seeds, reverse, outcomes, overlap, revision, misc):
+              optimism, record, seeds, reverse, outcomes, overlap, revision, posthoc, misc, verdicts):
         f()
     write()

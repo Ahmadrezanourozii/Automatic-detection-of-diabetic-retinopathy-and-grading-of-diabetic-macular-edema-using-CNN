@@ -30,16 +30,17 @@ def cohorts():
     rows = [
         ("Development", "IDRiD", "India", "516", "3 graders (published grading)"),
         ("", "Messidor-2", "France", "1,744", "adjudicated by 3 specialists"),
-        ("Pretraining; large-data models", "EyePACS 2015", "USA", "35,126", "single grader"),
+        ("Pretraining; EyePACS models", "EyePACS 2015", "USA", "35,126", "single grader per image"),
         ("External", "APTOS 2019", "India", "3,662", "single grader"),
         ("", "DDR", "China, 147 hospitals", "12,522", "7 graders"),
-        ("", "DeepDRiD (regular)", "China, Shanghai", "2,000 (500 patients)", "challenge release"),
-        ("", "SUSTech-SYSU", "China, Shenzhen", "1,151", "international scale, released"),
+        ("", "DeepDRiD (regular)", "China, 3 diabetes screening programmes", "2,000 (500 patients)", "doctor annotations (challenge release)"),
+        ("", "SUSTech-SYSU", "China, Guangdong; case--control", "1,151 graded of 1,219", "2 ophthalmologists, adjudicated"),
         ("Reverse direction", "APTOS $\\rightarrow$ Messidor-2, IDRiD", "", "3,662 $\\rightarrow$ 2,260", "as above"),
     ]
     t = ["\\begin{table}[t]", "\\caption{\\textbf{Cohorts.} DR is graded on the international 5-grade scale",
          "in every corpus. No external image was used for training, model selection or",
-         "threshold fitting.}\\label{tab:cohorts}", "\\centering\\footnotesize\\setlength{\\tabcolsep}{3pt}",
+         "threshold fitting. Messidor-2 and DDR were used from public 512-pixel mirrors; SUSTech-SYSU's",
+         "grade-0 images are of healthy volunteers without diabetes, and its 68 laser-scar images carry no grade.}\\label{tab:cohorts}", "\\centering\\footnotesize\\setlength{\\tabcolsep}{3pt}",
          "\\begin{tabular}{@{}p{2.3cm}p{3.1cm}p{2.4cm}p{2.3cm}p{2.7cm}@{}}", "\\toprule",
          "Role & Corpus & Origin & Images & Grading \\\\", "\\midrule"]
     for r in rows:
@@ -72,7 +73,9 @@ def models():
     from paper_figures import MODEL_LABELS
     t = ["\\begin{table}[t]", "\\caption{\\textbf{Models.} Each development model changes one factor relative",
          "to the reference. Development QWK: out-of-fold DR QWK under the matched decision rule",
-         "(fold-wise cross-fitted cut-points). Repository codes are given for traceability.}\\label{tab:models}",
+         "(fold-wise cross-fitted cut-points); for the two EyePACS models, on their single held-out EyePACS fold",
+         "(\\pn{eye.eb3.devn} single-graded images, cut-points two-fold cross-fitted within it), which also selected",
+         "their checkpoint. Repository codes are given for traceability.}\\label{tab:models}",
          "\\centering\\def\\baselinestretch{1}\\footnotesize\\setlength{\\tabcolsep}{3pt}",
          "\\begin{tabular}{@{}p{4.1cm}lrp{3.7cm}r@{}}", "\\toprule",
          "Model & Code & Pixels & Factor changed & Dev.\\ QWK \\\\", "\\midrule"]
@@ -164,9 +167,9 @@ def orderdr():
 def interventions():
     rows = load(f"{GP}/interventions.json")
     t = ["\\begin{table}[h]",
-         "\\caption{\\textbf{Pre-registered interventions on the model.} Development DR QWK",
-         "difference (intervention minus control) at shipped and matched calibration with 95\\%",
-         "paired-bootstrap intervals; the macula crop was registered on the DME head and the",
+         "\\caption{\\textbf{Pre-specified interventions on the model.} Development DR QWK",
+         "difference (intervention minus control) at the shipped and the matched decision rule with 95\\%",
+         "paired-bootstrap intervals; the macula crop was specified on the DME head and the",
          "ensemble on the external set.}\\label{tab:interv}", "\\centering\\scriptsize\\setlength{\\tabcolsep}{3pt}",
          "\\begin{tabular}{@{}lllll@{}}", "\\toprule",
          "Intervention & Control & Folds & Matched difference & Verdict \\\\", "\\midrule"]

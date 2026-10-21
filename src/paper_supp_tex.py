@@ -6,6 +6,7 @@ compiles and the gap is visible.
 """
 from __future__ import annotations
 import json, os
+import numpy as np
 
 GP = "docs/generated/paper"
 OUT = "paper/supp"
@@ -51,7 +52,7 @@ def s2_configs():
     dev = load(f"{GP}/dev_summary.json") or {}
     t = ["\\begin{table}[h]",
          "\\caption{\\textbf{Configurations.} Each configuration changes one factor relative to its",
-         "control. Dev QWK: development out-of-fold DR QWK at matched calibration (fold-wise",
+         "control. Dev QWK: development out-of-fold DR QWK under the matched decision rule (fold-wise",
          "cross-fitted cut-points); folds: development folds trained.}\\label{tab:s2}",
          "\\centering\\scriptsize", "\\resizebox{\\textwidth}{!}{%", "\\begin{tabular}{@{}lllllllll@{}}", "\\toprule",
          "Model & Control & Backbone & DR head & Pixels & Pretraining & Epochs & Factor & Dev QWK \\\\",
@@ -68,7 +69,7 @@ def s2_configs():
 def s3_interventions():
     rows = load(f"{GP}/interventions.json")
     t = ["\\begin{table}[h]",
-         "\\caption{\\textbf{Pre-registered interventions, shipped and matched calibration.}",
+         "\\caption{\\textbf{Pre-specified interventions, shipped and matched decision rule.}",
          "Difference (intervention minus control) in development DR QWK with 95\\% paired-bootstrap",
          "intervals (DME QWK for the macula crop; APTOS DR QWK for the ensemble).}\\label{tab:s3}",
          "\\centering\\scriptsize", "\\begin{tabular}{@{}lllll@{}}", "\\toprule",
@@ -191,8 +192,9 @@ def s_provenance():
     cap = ("\\textbf{Analysis plans and the runs they cover.} Commit identifiers and times (UTC) are from "
            "the public repository history; launch times are from the Kaggle kernel listing archived in "
            "docs/generated/paper/kaggle\\_runs.csv. Every run listed was launched after the commit of its "
-           "plan and pinned the code commit it ran. Plans: docs/PAPER\\_EXPERIMENTS\\_preregistration.md "
-           "and docs/PAPER\\_REVISION\\_preregistration.md.")
+           "plan and pinned the code commit it ran. The two outcome plans are the analysis-plan files in docs/ "
+           "of the repository; the second-stage plan was written after an internal pre-submission review "
+           "of an earlier draft.")
     if not d:
         write("table_provenance.tex", placeholder("provenance.json", cap, "tab:provenance"))
         return
@@ -238,10 +240,13 @@ def s_clinical():
 
 def s_eyepacs():
     d = load(f"{GP}/eyepacs.json")
-    cap = ("\\textbf{Models trained on about 28\\,000 EyePACS images (outcome E2).} Referral area under the "
-           "curve, mean predicted-minus-true grade and referable sensitivity at the shipped rule (R1), with "
-           "cut-points refitted on external labels (R4), and with a threshold fitted on the held-out "
-           "EyePACS fold for 85\\% sensitivity.")
+    cap = ("\\textbf{Models fine-tuned on EyePACS (outcome E2).} Trained on four folds of a patient-grouped "
+           "EyePACS split (\\pn{eye.eb3.trainn} images); the fifth fold (\\pn{eye.eb3.devn} single-graded images) "
+           "selected the checkpoint and is the development set. Referral area under the curve, mean "
+           "predicted-minus-true grade and referable sensitivity and specificity at the shipped rule (R1), "
+           "sensitivity with cut-points refitted on external labels (R4), and with a threshold fitted on the "
+           "held-out EyePACS fold for 85\\% sensitivity. The development row shows the referral area under the "
+           "curve on the held-out fold itself.")
     if not d:
         write("table_eyepacs.tex", placeholder("eyepacs.json", cap, "tab:eyepacs"))
         return
@@ -250,8 +255,9 @@ def s_eyepacs():
          "Model (EyePACS-trained) & Corpus & AUC & Pred.$-$true & Sens.\\ R1 & Spec.\\ R1 & Sens.\\ R4 & Sens.\\ thr.\\ 85 \\\\",
          "\\midrule"]
     for m, v in d["models"].items():
+        t.append(f"{v['label'].split(',')[0]} & EyePACS fold 0 (dev.) & {v['dev']['auroc']:.3f} & -- & -- & -- & -- & -- \\\\")
         for j, (c, r) in enumerate(v["external"].items()):
-            t.append(f"{v['label'].split(',')[0] if j == 0 else ''} & {c} & {r['auroc']:.3f} & {sg(r['mean_R1'], 2)} & "
+            t.append(f" & {c} & {r['auroc']:.3f} & {sg(r['mean_R1'], 2)} & "
                      f"{100*r['sens_R1']:.1f} & {100*r['spec_R1']:.1f} & {100*r['sens_R4']:.1f} & {100*r['sens_tr85']:.1f} \\\\")
         t.append("\\addlinespace")
     t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
@@ -285,9 +291,121 @@ def s_mechanism():
     write("table_mechanism.tex", t)
 
 
+def s_samplesize():
+    d = load(f"{GP}/posthoc.json")
+    cap = ("\\textbf{How many locally labelled cases a referral threshold needs (post hoc).} The threshold "
+           "is set to the largest value giving at least 85\\% sensitivity on the referable cases of a "
+           "labelled sample; harm is a population sensitivity below 80\\%. Top: by the number $k$ of "
+           "referable cases in the sample. The closed form is distribution-free (with continuous scores the "
+           "population sensitivity of the cut at the $j$-th largest of $k$ referable scores, "
+           "$j=\\lceil0.85k\\rceil$, follows a Beta$(j,k-j+1)$ distribution); the simulated range covers the "
+           "selected and reference models on the four external sets (2\\,000 draws each, sensitivity measured "
+           "on the corpus's referable images not drawn; $k$ at most a quarter of them). The last two columns "
+           "give the sample sensitivity at which the cut must be set for the risk to stay at or below 5\\% or "
+           "10\\%. Bottom: by the number of consecutive images labelled at a given referable prevalence "
+           "(closed form, binomial number of referable cases; no referable case counts as harm).")
+    if not d:
+        write("table_samplesize.tex", placeholder("posthoc.json", cap, "tab:samplesize"))
+        return
+    ex = d["exact"]
+    sims = {}
+    for C in d["corpora"].values():
+        for v in C["models"].values():
+            for k, r in v.get("by_cases", {}).items():
+                sims.setdefault(k, []).append(r["p_harm"])
+    pc = lambda v: "--" if v is None else f"{100 * v:.1f}"
+    t = ["\\begin{table}[h]", f"\\caption{{{cap}}}\\label{{tab:samplesize}}", "\\centering\\scriptsize",
+         "\\begin{tabular}{@{}rrrrr@{}}", "\\toprule",
+         "Referable cases $k$ & Harm, closed form (\\%) & Harm, simulated (\\%) & "
+         "Sample sens.\\ for $\\leq$5\\% & for $\\leq$10\\% \\\\", "\\midrule"]
+    for k in (20, 40, 60, 80, 100, 120, 160, 200, 300):
+        sk = sims.get(str(k))
+        rq = ex["required_sample_sens"].get(str(k), {})
+        t.append(f"{k} & {pc(ex['harm_by_k'].get(str(k)))} & "
+                 + ("--" if not sk else f"{100 * min(sk):.1f}--{100 * max(sk):.1f}")
+                 + f" & {pc(rq.get('0.05'))} & {pc(rq.get('0.10'))} \\\\")
+    t += ["\\midrule", "Images labelled & \\multicolumn{4}{l}{Harm (\\%) at a referable prevalence of 5\\% / 10\\% / 20\\%} \\\\",
+          "\\midrule"]
+    for n in (100, 200, 500, 1000, 2000):
+        h = [ex["harm_by_prevalence"][f"{p:.2f}_{n}"] for p in (0.05, 0.10, 0.20)]
+        t.append(f"{n:,} & \\multicolumn{{4}}{{l}}{{{' / '.join(pc(x) for x in h)}}} \\\\")
+    t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
+    write("table_samplesize.tex", t)
+
+
+def s_labelfree():
+    d = load(f"{GP}/posthoc.json")
+    cap = ("\\textbf{Label-free prior adaptation against the decoding it uses (post hoc).} R5 (EM prior "
+           "adaptation) and R5b (black-box shift estimation) decode the adapted class posteriors by argmax, so "
+           "the like-for-like reference is R0a, the argmax of the unadapted posteriors, not the 0.5 rule R1. "
+           "Median (range) over the ten development models. Mild recall: median over models.")
+    if not d:
+        write("table_labelfree.tex", placeholder("posthoc.json", cap, "tab:labelfree"))
+        return
+    t = ["\\begin{table}[h]", f"\\caption{{{cap}}}\\label{{tab:labelfree}}", "\\centering\\scriptsize",
+         "\\begin{tabular}{@{}llrrrrr@{}}", "\\toprule",
+         "Corpus & Quantity & R1 & R0a & R5 & R5b & R4 (diagnostic) \\\\", "\\midrule"]
+    names = {"APTOS": "APTOS", "DDR": "DDR", "DeepDRiD": "DeepDRiD", "SUSTech": "SUSTech-SYSU"}
+    for c, C in d["corpora"].items():
+        r = [v["R5_vs_R0a"] for v in C["models"].values()]
+        rules = ("R1", "R0a", "R5", "R5b", "R4")
+        med = lambda key, rule, sc=100, dd=1: f"{sc * np.median([x[key][rule] for x in r]):.{dd}f}"
+        rng = lambda key, rule: f"{100 * min(x[key][rule] for x in r):.1f}--{100 * max(x[key][rule] for x in r):.1f}"
+        t.append(f"{names[c]} & Referable sensitivity (\\%) & " + " & ".join(f"{med('sens', q)} ({rng('sens', q)})" for q in rules) + " \\\\")
+        t.append(" & QWK & " + " & ".join(med("qwk", q, 1, 3) for q in rules) + " \\\\")
+        t.append(" & Mild recall (\\%) & " + " & ".join(med("mild_recall", q) for q in rules) + " \\\\")
+        t.append("\\addlinespace")
+    t[-1:] = []
+    t += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
+    write("table_labelfree.tex", ["\\begin{table}[h]"] + t[1:3] + ["\\resizebox{\\textwidth}{!}{%"] + t[3:-1] + ["}", "\\end{table}"])
+
+
+def s_spectrum():
+    d = load(f"{GP}/posthoc.json")
+    acq = load(f"{GP}/acquisition.json")
+    cap = ("\\textbf{Case mix and discrimination of each population (post hoc).} Areas under the ROC "
+           "curve, range over the ten development models. Referral AUC standardised to the development grade "
+           "mix weights each image by the development share of its grade over the corpus share, within "
+           "referable and within non-referable images. Adjacent-grade AUCs use $P(y>0)$ for no DR against mild "
+           "and $P(y>1)$ for the other pairs."
+           + (" Acquisition: the largest distance from 0.5 of the AUC with which any single acquisition "
+              "statistic of the image (resolution, file size, JPEG quality, share of the frame inside the "
+              "retinal mask, brightness, contrast, sharpness) separates referable from non-referable images, "
+              "and no DR from any DR, without a model." if acq else ""))
+    if not d:
+        write("table_spectrum.tex", placeholder("posthoc.json", cap, "tab:spectrum"))
+        return
+    rngf = lambda v: f"{min(v):.3f}--{max(v):.3f}"
+    cols = "@{}lrrrrrr" + ("rr" if acq else "") + "@{}"
+    head = ("Population & Mild (\\%) & Referral AUC & Standardised & No DR vs mild & Mild vs moderate & "
+            "No DR vs moderate" + (" & Acq.\\ referable & Acq.\\ any DR" if acq else "") + " \\\\")
+    t = ["\\begin{table}[h]", f"\\caption{{{cap}}}\\label{{tab:spectrum}}", "\\centering\\scriptsize",
+         "\\resizebox{\\textwidth}{!}{%", f"\\begin{{tabular}}{{{cols}}}", "\\toprule", head, "\\midrule"]
+    names = {"dev": "Development", "APTOS": "APTOS", "DDR": "DDR", "DeepDRiD": "DeepDRiD", "SUSTech": "SUSTech-SYSU"}
+    acq_key = {"dev": None, "APTOS": "APTOS", "DDR": "DDR", "DeepDRiD": "DeepDRiD", "SUSTech": "SUSTech"}
+    dev_y = None
+    rows = [("dev", list(d["dev"].values()), None)] + [(c, list(C["models"].values()), C) for c, C in d["corpora"].items()]
+    for key, ms, C in rows:
+        sp = lambda k: [m["spectrum"][k] for m in ms]
+        if C is None:
+            g = (load(f"{GP}/revision.json") or {}).get("dev", {}).get("E08", {}).get("grade_dist")
+            pm = "--" if not g else f"{100 * g[1] / sum(g):.1f}"
+        else:
+            pm = f"{100 * C['grade_dist'][1] / C['n']:.1f}"
+        line = (f"{names[key]} & {pm} & {rngf(sp('auc_ref'))} & "
+                + ("--" if key == "dev" else rngf(sp("auc_ref_devmix")))
+                + f" & {rngf(sp('auc_0v1'))} & {rngf(sp('auc_1v2'))} & {rngf(sp('auc_0v2'))}")
+        if acq:
+            a = acq.get(acq_key[key] or "", None) if key != "dev" else acq.get("dev")
+            line += (" & --- & ---" if not a else f" & {a['max_ref']:.2f} & {a['max_any']:.2f}")
+        t.append(line + " \\\\")
+    t += ["\\bottomrule", "\\end{tabular}}", "\\end{table}"]
+    write("table_spectrum.tex", t)
+
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     for f in (s_provenance, s2_configs, s3_interventions, s_eyepacs, s_mechanism, s_clinical,
-              s4_s5_rules, s6_seeds, s7_reverse, s8_overlap):
+              s4_s5_rules, s6_seeds, s7_reverse, s8_overlap, s_samplesize, s_labelfree, s_spectrum):
         f()
     print("supplementary tables written to", OUT)

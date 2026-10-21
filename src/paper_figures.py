@@ -206,7 +206,7 @@ def fig_transfer():
     plt.close(fig)
 
 
-# ── Figure 4: matched calibration and the seed noise floor ───────────────────
+# ── Figure S1: matched decision rule and the seed noise floor ───────────────────
 def fig_forest():
     rows = load(f"{GP}/interventions.json")
     if not rows:
@@ -223,7 +223,7 @@ def fig_forest():
         ax.scatter(r["diff"], i, color=col, s=14, zorder=3)
     ax.set_yticks(range(len(rows)))
     ax.set_yticklabels([r["label"] for r in rows[::-1]])
-    ax.set_xlabel("Δ development DR QWK at matched calibration (intervention − control)")
+    ax.set_xlabel("Δ development DR QWK, matched decision rule (intervention − control)")
     ax.grid(axis="y", visible=False)
     if seeds:
         ax.legend(frameon=False, loc="lower left")
@@ -286,7 +286,8 @@ def fig_shift():
     ax.set_xticks(range(4))
     ax.set_xticklabels(["P(y>0)\nany DR", "P(y>1)\nreferable", "P(y>2)", "P(y>3)\nproliferative"])
     ax.set_ylabel("Area under the ROC curve")
-    ax.set_ylim(0.80, 1.0)
+    lo = min(min(min(r) for r in rows) for _, rows in series)
+    ax.set_ylim(np.floor(lo * 20) / 20 - 0.01, 1.005)
     ax.legend(frameon=False, loc="lower left", ncol=2)
     ax.set_title("Ranking at every ordinal threshold", loc="left", color=INK)
     ax.grid(axis="x", visible=False)
@@ -317,46 +318,69 @@ def fig_shift():
 
 # ── Figure 5: how many local labels a referral threshold needs ───────────────
 def fig_samplesize():
-    d = load(f"{GP}/revision.json")
-    if not d:
+    """a: risk of harm against the number of REFERABLE cases in the labelled sample -- closed
+    form (distribution-free) and simulation on each corpus; b: against the number of images at
+    screening prevalences, beside the pre-specified simulation on the enriched external sets."""
+    import sys
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from paper_posthoc import harm_exact, harm_prevalence_exact
+    ph, rv = load(f"{GP}/posthoc.json"), load(f"{GP}/revision.json")
+    if not ph or not rv:
         return
-    corp = [c for c in ("APTOS", "DDR", "DeepDRiD", "SUSTech") if c in d["corpora"]
-            and "sample_size" in d["corpora"][c]["models"].get("E11FULL", {})]
-    if not corp:
-        return
-    fig, axes = plt.subplots(1, 2, figsize=(183 * MM, 62 * MM))
-    for j, c in enumerate(corp):
-        ss = d["corpora"][c]["models"]["E11FULL"]["sample_size"]
-        ns = sorted(int(n) for n in ss)
+    fig, axes = plt.subplots(1, 2, figsize=(183 * MM, 66 * MM))
+    ax = axes[0]
+    ks = np.arange(20, 301, 20)
+    ax.plot(ks, [100 * harm_exact(int(k)) for k in ks], color=INK, lw=1.0, zorder=2,
+            label="Closed form (any model, any population)")
+    for j, c in enumerate(("APTOS", "DDR", "DeepDRiD", "SUSTech")):
+        bc = ph["corpora"][c]["models"]["E11FULL"]["by_cases"]
+        kk = np.array(sorted(int(k) for k in bc), dtype=float)
         col, mk = CORPUS_STYLE[c]
-        x = np.array(ns, dtype=float) * (1 + (j - (len(corp) - 1) / 2) * 0.05)
-        sens = np.array([ss[str(n)]["sens_mean"] for n in ns]) * 100
-        lo = np.array([ss[str(n)]["sens_lo"] for n in ns]) * 100
-        hi = np.array([ss[str(n)]["sens_hi"] for n in ns]) * 100
-        axes[0].vlines(x, lo, hi, color=col, lw=1.0)
-        axes[0].plot(x, sens, color=col, marker=mk, ms=3.6, lw=0.8, markeredgecolor="white",
-                     markeredgewidth=0.4, label=c)
-        axes[1].plot(x, [100 * ss[str(n)]["p_harm"] for n in ns], color=col, marker=mk, ms=3.6,
-                     lw=0.8, markeredgecolor="white", markeredgewidth=0.4, label=c)
-    for ax in axes:
-        ax.set_xscale("log")
-        ax.set_xticks([25, 50, 100, 200, 400, 800])
-        ax.set_xticklabels(["25", "50", "100", "200", "400", "800"])
-        ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
-        ax.set_xlabel("Locally labelled images used to set the referral threshold")
-        ax.grid(axis="x", visible=False)
-    axes[0].axhline(85, color=MUTED, lw=0.6, ls="--")
-    axes[0].axhline(80, color=MUTED, lw=0.6, ls=":")
-    axes[0].set_ylabel("Held-out referable sensitivity (%)")
-    axes[0].set_title("Target 85% (dashed); harm below 80% (dotted)", loc="left", color=INK)
-    axes[1].axhline(20, color=MUTED, lw=0.6, ls="--")
-    axes[1].set_ylabel("Probability of harm (%)")
-    axes[1].set_title("Draws ending below 80% sensitivity", loc="left", color=INK)
-    axes[0].legend(frameon=False, loc="lower right")
-    label_panel(axes[0], "a"); label_panel(axes[1], "b")
+        ax.plot(kk + (j - 1.5) * 2.2, [100 * bc[str(int(k))]["p_harm"] for k in kk], ls="none",
+                marker=mk, ms=3.8, color=col, markeredgecolor="white", markeredgewidth=0.4,
+                zorder=3, label=f"{c} (simulated)")
+    for y in (10, 5):
+        ax.axhline(y, color=MUTED, lw=0.6, ls=":")
+    ax.set_xlim(0, 310); ax.set_ylim(0, 45)
+    ax.set_xlabel("Referable cases in the labelled sample")
+    ax.set_ylabel("Probability that sensitivity falls below 80% (%)")
+    ax.set_title("Threshold set for 85% sensitivity on the sample", loc="left", color=INK)
+    ax.legend(frameon=False, loc="upper right")
+    ax.grid(axis="x", visible=False)
+    label_panel(ax, "a")
+
+    ax = axes[1]
+    ns = np.unique(np.geomspace(50, 4000, 60).astype(int))
+    blues = {0.05: "#8db6ea", 0.10: BLUE, 0.20: "#173f73"}
+    for p_, col in blues.items():
+        h = [100 * harm_prevalence_exact(int(n), p_) for n in ns]
+        ax.plot(ns, h, color=col, lw=1.1, label=f"{int(100 * p_)}% referable")
+    prev = np.mean([ph["corpora"][c]["n_ref"] / ph["corpora"][c]["n"] for c in ph["corpora"]])
+    ax.plot(ns, [100 * harm_prevalence_exact(int(n), prev) for n in ns], color=GREY, lw=1.0, ls="--",
+            label=f"{100 * prev:.0f}% referable (external sets as sampled)")
+    for j, c in enumerate(("APTOS", "DDR", "DeepDRiD", "SUSTech")):
+        ss = rv["corpora"][c]["models"]["E11FULL"].get("sample_size", {})
+        nn = np.array(sorted(int(n) for n in ss), dtype=float)
+        col, mk = CORPUS_STYLE[c]
+        ax.plot(nn * (1 + (j - 1.5) * 0.04), [100 * ss[str(int(n))]["p_harm"] for n in nn], ls="none",
+                marker=mk, ms=3.4, color=col, markeredgecolor="white", markeredgewidth=0.4, zorder=3)
+    ax.legend(frameon=False, loc="upper right")
+    for y in (10, 5):
+        ax.axhline(y, color=MUTED, lw=0.6, ls=":")
+    ax.set_xscale("log")
+    ax.set_xticks([50, 100, 200, 500, 1000, 2000, 4000])
+    ax.set_xticklabels(["50", "100", "200", "500", "1000", "2000", "4000"])
+    ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
+    ax.set_xlim(45, 4400); ax.set_ylim(0, 50)
+    ax.set_xlabel("Consecutive images labelled")
+    ax.set_ylabel("Probability that sensitivity falls below 80% (%)")
+    ax.set_title("At screening prevalence", loc="left", color=INK)
+    ax.grid(axis="x", visible=False)
+    label_panel(ax, "b")
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, "fig5_samplesize.pdf"))
     plt.close(fig)
+
 
 def main():
     os.makedirs(OUT, exist_ok=True)

@@ -4071,6 +4071,11 @@
   "value": 0.7503138638801308,
   "source": "docs/generated/paper/eyepacs.json"
  },
+ "eye.dn.devauc": {
+  "tex": "0.917",
+  "value": 0.9173577061386325,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
  "eye.dn.ngap": {
   "tex": "6",
   "value": 6,
@@ -4239,6 +4244,11 @@
  "eye.eb3.devqwk": {
   "tex": "0.7747",
   "value": 0.7747309125160055,
+  "source": "docs/generated/paper/eyepacs.json"
+ },
+ "eye.eb3.devauc": {
+  "tex": "0.917",
+  "value": 0.916780886387811,
   "source": "docs/generated/paper/eyepacs.json"
  },
  "eye.eb3.ngap": {
@@ -5587,7 +5597,7 @@
   "source": "docs/generated/recalibration_curve.json"
  },
  "recal.25.ci": {
-  "tex": "[-7.84, +6.99]",
+  "tex": "[\\textminus{}7.84, +6.99]",
   "value": [
    -7.835566282969951,
    6.98634925791957
@@ -5610,7 +5620,7 @@
   "source": "docs/generated/recalibration_curve.json"
  },
  "recal.50.ci": {
-  "tex": "[-5.92, +6.76]",
+  "tex": "[\\textminus{}5.92, +6.76]",
   "value": [
    -5.924875271656991,
    6.762412957589222
@@ -5633,7 +5643,7 @@
   "source": "docs/generated/recalibration_curve.json"
  },
  "recal.100.ci": {
-  "tex": "[-3.09, +7.43]",
+  "tex": "[\\textminus{}3.09, +7.43]",
   "value": [
    -3.092848783561374,
    7.429165562080771
@@ -5821,7 +5831,7 @@
   "source": "docs/generated/paper/record.json"
  },
  "rec.lpft.shipci": {
-  "tex": "[-7.48, -3.54]",
+  "tex": "[\\textminus{}7.48, \\textminus{}3.54]",
   "value": [
    -7.477876106194692,
    -3.539823008849552
@@ -10808,6 +10818,991 @@
   "value": 0.094,
   "source": "docs/generated/paper/revision.json"
  },
+ "ph.harm.k20": {
+  "tex": "41.1",
+  "value": 0.41144886195656866,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.k40": {
+  "tex": "28.6",
+  "value": 0.28589136983130725,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.k60": {
+  "tex": "21.3",
+  "value": 0.21321478045680395,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.k80": {
+  "tex": "16.4",
+  "value": 0.16404515230291378,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.k100": {
+  "tex": "12.9",
+  "value": 0.1285055148387972,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.k120": {
+  "tex": "10.2",
+  "value": 0.10186722688448385,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.k160": {
+  "tex": "6.6",
+  "value": 0.065525443745013,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.k200": {
+  "tex": "4.3",
+  "value": 0.043021556375661255,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.k240": {
+  "tex": "2.9",
+  "value": 0.028632104308864786,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.k300": {
+  "tex": "1.6",
+  "value": 0.015818573440729445,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.k10": {
+  "tex": "37.6",
+  "value": 0.37580963840000015,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.k30": {
+  "tex": "25.5",
+  "value": 0.25523325474031916,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.k50": {
+  "tex": "19.0",
+  "value": 0.19040981158218973,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.n100.p5": {
+  "tex": "44.4",
+  "value": 0.44437616238832556,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.n200.p5": {
+  "tex": "38.5",
+  "value": 0.3851525084630371,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.n500.p5": {
+  "tex": "28.8",
+  "value": 0.2875698947840444,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.n1000.p5": {
+  "tex": "19.5",
+  "value": 0.19516500759366692,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.n2000.p5": {
+  "tex": "10.5",
+  "value": 0.10518344527687266,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.n100.p10": {
+  "tex": "38.5",
+  "value": 0.38508473853350766,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.n200.p10": {
+  "tex": "31.6",
+  "value": 0.3162450718181391,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.n500.p10": {
+  "tex": "19.5",
+  "value": 0.19503470146453666,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.n1000.p10": {
+  "tex": "10.5",
+  "value": 0.10514678720656347,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.n2000.p10": {
+  "tex": "3.6",
+  "value": 0.0359676002075461,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.n100.p20": {
+  "tex": "31.7",
+  "value": 0.3166468129116093,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.n200.p20": {
+  "tex": "22.6",
+  "value": 0.22604609814772625,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.n500.p20": {
+  "tex": "10.5",
+  "value": 0.10507904527568325,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.n1000.p20": {
+  "tex": "3.6",
+  "value": 0.03592761984361122,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.harm.n2000.p20": {
+  "tex": "0.5",
+  "value": 0.005156516171752311,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k20.r05": {
+  "tex": "100.0",
+  "value": 1.0,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k20.r10": {
+  "tex": "95.0",
+  "value": 0.95,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k40.r05": {
+  "tex": "92.5",
+  "value": 0.925,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k40.r10": {
+  "tex": "90.0",
+  "value": 0.9,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k60.r05": {
+  "tex": "90.0",
+  "value": 0.9,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k60.r10": {
+  "tex": "88.3",
+  "value": 0.8833333333333333,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k80.r05": {
+  "tex": "88.8",
+  "value": 0.8875,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k80.r10": {
+  "tex": "87.5",
+  "value": 0.875,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k100.r05": {
+  "tex": "87.0",
+  "value": 0.87,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k100.r10": {
+  "tex": "86.0",
+  "value": 0.86,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k120.r05": {
+  "tex": "86.7",
+  "value": 0.8666666666666667,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k120.r10": {
+  "tex": "85.8",
+  "value": 0.8583333333333333,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k160.r05": {
+  "tex": "85.6",
+  "value": 0.85625,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k160.r10": {
+  "tex": "84.4",
+  "value": 0.84375,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k200.r05": {
+  "tex": "85.0",
+  "value": 0.85,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k200.r10": {
+  "tex": "84.0",
+  "value": 0.84,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k300.r05": {
+  "tex": "84.0",
+  "value": 0.84,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.req.k300.r10": {
+  "tex": "83.3",
+  "value": 0.8333333333333334,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.maxdev": {
+  "tex": "3.5",
+  "value": 3.499448516120279,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k20.min": {
+  "tex": "39.9",
+  "value": 0.3985,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k20.max": {
+  "tex": "42.2",
+  "value": 0.4225,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k40.min": {
+  "tex": "26.7",
+  "value": 0.2665,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k40.max": {
+  "tex": "30.0",
+  "value": 0.3005,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k60.min": {
+  "tex": "21.1",
+  "value": 0.2105,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k60.max": {
+  "tex": "23.8",
+  "value": 0.238,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k80.min": {
+  "tex": "15.3",
+  "value": 0.153,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k80.max": {
+  "tex": "19.2",
+  "value": 0.1925,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k100.min": {
+  "tex": "11.3",
+  "value": 0.1135,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k100.max": {
+  "tex": "16.4",
+  "value": 0.1635,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k120.min": {
+  "tex": "9.4",
+  "value": 0.094,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k120.max": {
+  "tex": "13.2",
+  "value": 0.1325,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k160.min": {
+  "tex": "6.2",
+  "value": 0.062,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k160.max": {
+  "tex": "9.0",
+  "value": 0.0905,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k200.min": {
+  "tex": "4.2",
+  "value": 0.0415,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k200.max": {
+  "tex": "7.1",
+  "value": 0.0715,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k240.min": {
+  "tex": "3.7",
+  "value": 0.037,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k240.max": {
+  "tex": "4.5",
+  "value": 0.045,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k300.min": {
+  "tex": "1.4",
+  "value": 0.014,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sim.k300.max": {
+  "tex": "2.4",
+  "value": 0.0235,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.dev.mildmr.min": {
+  "tex": "0.262",
+  "value": 0.2621082621082621,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.dev.mildmr.max": {
+  "tex": "0.420",
+  "value": 0.42032332563510394,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.dev.e11full.mildmr": {
+  "tex": "0.395",
+  "value": 0.3953823953823954,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.dev.aucref.min": {
+  "tex": "0.952",
+  "value": 0.951841729531603,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.dev.aucref.max": {
+  "tex": "0.977",
+  "value": 0.9773068260568261,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.dev.auc0v1.min": {
+  "tex": "0.664",
+  "value": 0.6638922518159807,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.dev.auc0v1.max": {
+  "tex": "0.815",
+  "value": 0.815491668454552,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.dev.auc1v2.min": {
+  "tex": "0.878",
+  "value": 0.8778936975481323,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.dev.auc1v2.max": {
+  "tex": "0.927",
+  "value": 0.9265920684548297,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.dev.auc0v2.min": {
+  "tex": "0.939",
+  "value": 0.9390806803490627,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.dev.auc0v2.max": {
+  "tex": "0.979",
+  "value": 0.9787448281512433,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.nmild": {
+  "tex": "370",
+  "value": 370,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.pctmild": {
+  "tex": "10.1",
+  "value": 0.1010376843255052,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.aucref.min": {
+  "tex": "0.914",
+  "value": 0.9135132837078435,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.aucref.max": {
+  "tex": "0.973",
+  "value": 0.9729806986217718,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.aucrefdevmix.min": {
+  "tex": "0.900",
+  "value": 0.8997435582856003,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.aucrefdevmix.max": {
+  "tex": "0.969",
+  "value": 0.9692804240501796,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.auc0v1.min": {
+  "tex": "0.973",
+  "value": 0.973041850714981,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.auc0v1.max": {
+  "tex": "0.996",
+  "value": 0.996100172194355,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.auc1v2.min": {
+  "tex": "0.534",
+  "value": 0.5344804263723183,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.auc1v2.max": {
+  "tex": "0.800",
+  "value": 0.799840380921462,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.auc0v2.min": {
+  "tex": "0.999",
+  "value": 0.9989673884410727,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.auc0v2.max": {
+  "tex": "1.000",
+  "value": 0.999788708375966,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.r5.dsens.med": {
+  "tex": "+0.2",
+  "value": 0.0020174848688634395,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.r5.dsens.min": {
+  "tex": "\\textminus{}0.2",
+  "value": -0.0020174848688635505,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.r5.dsens.max": {
+  "tex": "+0.9",
+  "value": 0.00941492938802957,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.r5.dqwk.med": {
+  "tex": "\\textminus{}0.002",
+  "value": -0.0018894880154372573,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.r0a.mild.med": {
+  "tex": "3.0",
+  "value": 0.02972972972972973,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.r5.mild.med": {
+  "tex": "0.0",
+  "value": 0.0,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.r5.nmildmodels": {
+  "tex": "1",
+  "value": 1,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.r5.closed25": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.tau": {
+  "tex": "\\textminus{}0.16",
+  "value": -0.15555555555555553,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.tau.lo": {
+  "tex": "\\textminus{}0.33",
+  "value": -0.3333333333333333,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.tau.hi": {
+  "tex": "+0.20",
+  "value": 0.19999999999999998,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.tau.p": {
+  "tex": "0.61",
+  "value": 0.6073,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.e08.spec85": {
+  "tex": "90.9",
+  "value": 0.9089655172413793,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.e08.spec90": {
+  "tex": "89.8",
+  "value": 0.8979310344827586,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.e11full.spec85": {
+  "tex": "91.7",
+  "value": 0.9167816091954023,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.aptos.e11full.spec90": {
+  "tex": "90.3",
+  "value": 0.9029885057471264,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.nmild": {
+  "tex": "630",
+  "value": 630,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.pctmild": {
+  "tex": "5.0",
+  "value": 0.05031145184475323,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.aucref.min": {
+  "tex": "0.921",
+  "value": 0.9208744560389573,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.aucref.max": {
+  "tex": "0.955",
+  "value": 0.9545248671440107,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.aucrefdevmix.min": {
+  "tex": "0.923",
+  "value": 0.92338754578362,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.aucrefdevmix.max": {
+  "tex": "0.952",
+  "value": 0.9515084959115921,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.auc0v1.min": {
+  "tex": "0.748",
+  "value": 0.7479839547266933,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.auc0v1.max": {
+  "tex": "0.860",
+  "value": 0.85969264714078,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.auc1v2.min": {
+  "tex": "0.769",
+  "value": 0.7689845098936008,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.auc1v2.max": {
+  "tex": "0.832",
+  "value": 0.8315100815100815,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.auc0v2.min": {
+  "tex": "0.916",
+  "value": 0.9162608319530235,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.auc0v2.max": {
+  "tex": "0.958",
+  "value": 0.9581013815265041,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.r5.dsens.med": {
+  "tex": "+1.5",
+  "value": 0.01466405972271595,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.r5.dsens.min": {
+  "tex": "\\textminus{}2.1",
+  "value": -0.021151795236402426,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.r5.dsens.max": {
+  "tex": "+10.2",
+  "value": 0.10184856025595457,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.r5.dqwk.med": {
+  "tex": "\\textminus{}0.008",
+  "value": -0.008304334133853508,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.r0a.mild.med": {
+  "tex": "29.6",
+  "value": 0.29603174603174603,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.r5.mild.med": {
+  "tex": "0.0",
+  "value": 0.0,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.r5.nmildmodels": {
+  "tex": "3",
+  "value": 3,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.r5.closed25": {
+  "tex": "2",
+  "value": 2,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.tau": {
+  "tex": "+0.22",
+  "value": 0.22473328748774737,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.tau.lo": {
+  "tex": "+0.13",
+  "value": 0.13483997249264842,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.tau.hi": {
+  "tex": "+0.42",
+  "value": 0.4222222222222222,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.tau.p": {
+  "tex": "0.43",
+  "value": 0.4304,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.e08.spec85": {
+  "tex": "91.2",
+  "value": 0.911977958236659,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.e08.spec90": {
+  "tex": "84.1",
+  "value": 0.8413573085846868,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.e11full.spec85": {
+  "tex": "93.8",
+  "value": 0.9380800464037123,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.ddr.e11full.spec90": {
+  "tex": "88.1",
+  "value": 0.880945475638051,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.nmild": {
+  "tex": "222",
+  "value": 222,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.pctmild": {
+  "tex": "11.1",
+  "value": 0.111,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.aucref.min": {
+  "tex": "0.943",
+  "value": 0.9434347694966093,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.aucref.max": {
+  "tex": "0.969",
+  "value": 0.969394928599374,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.aucrefdevmix.min": {
+  "tex": "0.929",
+  "value": 0.9285105378740919,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.aucrefdevmix.max": {
+  "tex": "0.964",
+  "value": 0.9637379791697278,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.auc0v1.min": {
+  "tex": "0.686",
+  "value": 0.6860991188124668,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.auc0v1.max": {
+  "tex": "0.766",
+  "value": 0.7660294320578784,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.auc1v2.min": {
+  "tex": "0.853",
+  "value": 0.8527604237403232,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.auc1v2.max": {
+  "tex": "0.901",
+  "value": 0.9011385757616913,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.auc0v2.min": {
+  "tex": "0.917",
+  "value": 0.917130785217114,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.auc0v2.max": {
+  "tex": "0.969",
+  "value": 0.9691565046237753,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.r5.dsens.med": {
+  "tex": "+2.4",
+  "value": 0.02430555555555558,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.r5.dsens.min": {
+  "tex": "\\textminus{}0.7",
+  "value": -0.00694444444444442,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.r5.dsens.max": {
+  "tex": "+6.1",
+  "value": 0.06134259259259256,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.r5.dqwk.med": {
+  "tex": "+0.008",
+  "value": 0.007805017293665006,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.r0a.mild.med": {
+  "tex": "20.0",
+  "value": 0.20045045045045046,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.r5.mild.med": {
+  "tex": "0.0",
+  "value": 0.0,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.r5.nmildmodels": {
+  "tex": "2",
+  "value": 2,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.r5.closed25": {
+  "tex": "2",
+  "value": 2,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.tau": {
+  "tex": "+0.22",
+  "value": 0.22473328748774737,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.tau.lo": {
+  "tex": "+0.18",
+  "value": 0.1797866299901979,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.tau.hi": {
+  "tex": "+0.72",
+  "value": 0.7191465199607916,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.tau.p": {
+  "tex": "0.43",
+  "value": 0.4279,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.e08.spec85": {
+  "tex": "94.5",
+  "value": 0.9445422535211268,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.e08.spec90": {
+  "tex": "90.6",
+  "value": 0.9058098591549296,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.e11full.spec85": {
+  "tex": "94.5",
+  "value": 0.9454225352112676,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.deepdrid.e11full.spec90": {
+  "tex": "92.3",
+  "value": 0.9225352112676056,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.nmild": {
+  "tex": "24",
+  "value": 24,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.pctmild": {
+  "tex": "2.1",
+  "value": 0.020851433536055605,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.aucref.min": {
+  "tex": "0.996",
+  "value": 0.9956229992612657,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.aucref.max": {
+  "tex": "0.999",
+  "value": 0.9993566855454321,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.aucrefdevmix.min": {
+  "tex": "0.984",
+  "value": 0.9844897190546443,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.aucrefdevmix.max": {
+  "tex": "0.997",
+  "value": 0.9972388991092458,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.auc0v1.min": {
+  "tex": "0.893",
+  "value": 0.8932910723718964,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.auc0v1.max": {
+  "tex": "0.958",
+  "value": 0.9580031695721077,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.auc1v2.min": {
+  "tex": "0.922",
+  "value": 0.9222602739726027,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.auc1v2.max": {
+  "tex": "0.981",
+  "value": 0.9810502283105023,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.auc0v2.min": {
+  "tex": "0.998",
+  "value": 0.9976249918589758,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.auc0v2.max": {
+  "tex": "1.000",
+  "value": 0.9999435555652042,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.r5.dsens.med": {
+  "tex": "+0.1",
+  "value": 0.0010080645161290591,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.r5.dsens.min": {
+  "tex": "\\textminus{}0.2",
+  "value": -0.002016129032258007,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.r5.dsens.max": {
+  "tex": "+0.8",
+  "value": 0.008064516129032251,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.r5.dqwk.med": {
+  "tex": "\\textminus{}0.006",
+  "value": -0.005624202980124449,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.r0a.mild.med": {
+  "tex": "33.3",
+  "value": 0.3333333333333333,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.r5.mild.med": {
+  "tex": "0.0",
+  "value": 0.0,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.r5.nmildmodels": {
+  "tex": "1",
+  "value": 1,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.r5.closed25": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.tau": {
+  "tex": "+0.53",
+  "value": 0.5284193913361779,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.tau.lo": {
+  "tex": "+0.27",
+  "value": 0.2732856766546143,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.tau.hi": {
+  "tex": "+0.59",
+  "value": 0.5905863785521988,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.tau.p": {
+  "tex": "0.07",
+  "value": 0.0739,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.e08.spec85": {
+  "tex": "99.8",
+  "value": 0.9984732824427481,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.e08.spec90": {
+  "tex": "99.7",
+  "value": 0.9969465648854962,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.e11full.spec85": {
+  "tex": "100.0",
+  "value": 1.0,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.sustech.e11full.spec90": {
+  "tex": "99.8",
+  "value": 0.9984732824427481,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.tau.p.min": {
+  "tex": "0.07",
+  "value": 0.0739,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.tau.p.max": {
+  "tex": "0.61",
+  "value": 0.6073,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.r5.nmild.models": {
+  "tex": "7",
+  "value": 7,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.r5.n": {
+  "tex": "40",
+  "value": 40,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.prev.min": {
+  "tex": "40.6",
+  "value": 0.4060622610595303,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.prev.max": {
+  "tex": "44.9",
+  "value": 0.4492892509183836,
+  "source": "docs/generated/paper/posthoc.json"
+ },
+ "ph.k200": {
+  "tex": "86",
+  "value": 85.9140569194865,
+  "source": "docs/generated/paper/posthoc.json"
+ },
  "grid.effect": {
   "tex": "0.0033",
   "value": 0.0033,
@@ -11025,5 +12020,80 @@
   "tex": "0.7377",
   "value": 0.7377433793545946,
   "source": "docs/generated/paper/dev_summary.json"
+ },
+ "v.O2": {
+  "tex": "held",
+  "value": "held",
+  "source": "ledger key seeds.o2"
+ },
+ "v.O3": {
+  "tex": "held",
+  "value": "held",
+  "source": "ledger key seeds.o3"
+ },
+ "v.O4": {
+  "tex": "falsified",
+  "value": "falsified",
+  "source": "ledger key rev.o4"
+ },
+ "v.O5": {
+  "tex": "falsified",
+  "value": "falsified",
+  "source": "ledger key rev.o5"
+ },
+ "v.O6": {
+  "tex": "held",
+  "value": "held",
+  "source": "ledger key rev.o6"
+ },
+ "v.O8": {
+  "tex": "held",
+  "value": "held",
+  "source": "ledger key ddr.o8"
+ },
+ "v.O9": {
+  "tex": "held",
+  "value": "held",
+  "source": "ledger key retfound.o9"
+ },
+ "v.A1": {
+  "tex": "held",
+  "value": "held",
+  "source": "ledger key r2.A1.verdict"
+ },
+ "v.A2": {
+  "tex": "held",
+  "value": "held",
+  "source": "ledger key mech.A2.verdict"
+ },
+ "v.B": {
+  "tex": "falsified",
+  "value": "falsified",
+  "source": "ledger key r2.B.verdict"
+ },
+ "v.C": {
+  "tex": "held",
+  "value": "held",
+  "source": "ledger key r2.C.verdict"
+ },
+ "v.E2": {
+  "tex": "held",
+  "value": "held",
+  "source": "ledger key eye.E2.verdict"
+ },
+ "v.O7": {
+  "tex": "falsified",
+  "value": "falsified",
+  "source": "ledger keys aptos.o7.mildrecall.holds, aptos.o7.refsens.holds, ddr.o7.mildrecall.holds, ddr.o7.refsens.holds, deepdrid.o7.mildrecall.holds, deepdrid.o7.refsens.holds, sustech.o7.mildrecall.holds, sustech.o7.refsens.holds"
+ },
+ "v.O7.n": {
+  "tex": "8",
+  "value": 8,
+  "source": "ledger"
+ },
+ "v.O7.of": {
+  "tex": "8",
+  "value": 8,
+  "source": "ledger"
  }
 }

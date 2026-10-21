@@ -12,10 +12,10 @@ PLANS = [
     ("Part A: derivation test of the macular-oedema grade", "f79abc4", []),
     ("CORAL, CORN and ConvNeXt interventions (hypotheses in EXPERIMENTS.md)", "b723945",
      ["dr-dme-e20coral", "dr-dme-e22corn", "dr-dme-e21cnxa"]),
-    ("Journal outcomes O1-O9 (journal experiments plan)", "46f1bdd",
+    ("First-stage outcomes O1-O9 (first-stage plan)", "46f1bdd",
      ["dr-dme-s1e08", "dr-dme-s2e08", "dr-dme-s3e08", "dr-dme-s4e08", "dr-dme-x2ddr",
       "dr-dme-r1aptos", "dr-dme-i24ft234"]),
-    ("Revision outcomes A1-E2 (revision plan)", "1456815",
+    ("Second-stage outcomes A1-E2 (second-stage plan)", "1456815",
      ["dr-dme-eyedn", "dr-dme-eyeeb3", "dr-dme-x5new"]),
 ]
 

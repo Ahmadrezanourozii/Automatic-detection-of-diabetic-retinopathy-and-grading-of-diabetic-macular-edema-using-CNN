@@ -30,8 +30,8 @@ threshold-independent risk ranking and noted that models trained on one public d
 threshold shift externally\cite{sheng2026orderdr}. For binary referable DR across fundus
 cameras, a recent preprint showed that discrimination transfers while probability calibration
 degrades, mostly through prevalence, and that 100--200 labelled target images restore it
-\cite{tabibu2026discrimination}; concurrent work reports that calibration degrades unevenly
-across ordinal thresholds under domain shift\cite{gradeye2026}. What these studies do not
+\cite{tabibu2026discrimination}; a public model repository reports that calibration degrades
+unevenly across ordinal thresholds under domain shift\cite{gradeye2026}. What these studies do not
 provide is a decomposition across many models and several populations of how much of an external
 failure, and of an apparent difference between models, the ordinal decision rule accounts for;
 evidence on why the score-to-grade mapping moves; a rule for comparing models that removes it;
@@ -42,9 +42,10 @@ corresponding analyses were run, reporting falsified predictions with the same w
 confirmed ones. Ten development models trained on \pn{n.dev} images were evaluated on four
 external populations --- APTOS 2019 (India), DDR (China, 147 hospitals), DeepDRiD (Shanghai)
 and SUSTech-SYSU (Shenzhen) --- and a model trained on APTOS was evaluated in the reverse
-direction. Two further models were trained on about 28\,000 EyePACS images to test whether the
-findings depend on the size of the development set, five seeds of the reference model measured
-training noise, and the released predictions of ORDER-DR were reanalysed. The contributions are:
+direction. Two further models were fine-tuned on \pn{eye.eb3.trainn} EyePACS images instead of the
+\pn{n.dev}-image development pool, to test whether the findings depend on the development set and
+its labels; five seeds of the reference model measured training noise, and the released
+predictions of ORDER-DR were reanalysed. The contributions are:
 \begin{itemize}
 \item a decomposition of external performance into discrimination at every ordinal threshold
 and the mapping from score to grade, which shows that the mapping moves in opposite directions
@@ -53,6 +54,7 @@ on different populations through a shift in the score \emph{given} the true grad
 result for label-free prior adaptation;
 \item the \emph{matched decision rule}, a comparison rule under which both models' cut-points are
 refitted by the same procedure, with its record of changed, unchanged and reversed comparisons;
-\item the number of locally labelled images needed to set a referral threshold, with its
-probability of harm, and what the operating point means per 10\,000 people screened.
+\item the number of locally labelled referable cases needed to set a referral threshold, with a
+distribution-free probability of harm that translates into images at any screening prevalence, and
+what the operating point means per 10\,000 people screened.
 \end{itemize}

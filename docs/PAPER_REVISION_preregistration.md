@@ -124,3 +124,31 @@ Observation, labelled as such in the paper: the direction of the shift reproduce
 training (APTOS +0.20 and +0.14, DDR −0.18 and −0.23 mean predicted-minus-true grade), whereas
 the sign of the DDR threshold gap did not (63.4 % from the development pool, 90.9 % and 90.8 %
 from EyePACS).
+
+---
+
+## Post-hoc analyses — added 2026-10-21 after an internal editorial assessment
+
+Not pre-specified; the manuscript labels them as post hoc. Nothing above this line was edited.
+Code: `src/paper_posthoc.py`, `src/paper_acquisition.py`, and `src/paper_overlap_audit.py
+--externals DeepDRiD,SUSTech` (Kaggle runs X6ACQ and X7AUDIT); outputs in `docs/generated/paper/`.
+
+* **Sample size in referable cases.** Outcome C fixed the number of *images*; the threshold rule
+  depends only on the referable images among them, and the external sets are 40–45 % referable,
+  so C's answer does not transfer to screening prevalence. Re-expressed in the number k of
+  referable cases (threshold sensitivity measured on the corpus's undrawn referable images), the
+  risk agrees with a distribution-free closed form, P[Beta(⌈0.85k⌉, k − ⌈0.85k⌉ + 1) < 0.80],
+  within 3.5 points on four corpora and two models: 41 % at k = 20, 10 % at 120, 4 % at 200; at
+  10 % prevalence 200 images carry a 32 % risk and about 1 000–2 000 images are needed.
+* **Label-free rules against their own decoding.** R5/R5b decode by argmax, so they are compared
+  with R0a (argmax of unadapted posteriors) on all four corpora; median sensitivity change
+  +0.1 to +2.4 points; B's verdict (against R1) is unchanged.
+* **Case mix.** SUSTech-SYSU's referral AUC (0.996–0.999) exceeds development; standardised to
+  the development grade mix it stays 0.984–0.997, and no DR vs moderate separates at 0.998–1.000.
+  The set is case–control (grade 0 = healthy non-diabetic volunteers) with 24 mild images, so it
+  is not used as evidence that ranking transferred. Acquisition shortcut check: X6ACQ.
+* **Kendall τ** with an image-bootstrap interval and a permutation p-value (ties allowed).
+* **Like-for-like mild F1**: development mild F1 under the R4m objective (macro-recall cut-points
+  cross-fitted across folds), 0.262–0.420.
+* **Overlap audit of DeepDRiD and SUSTech-SYSU** against the development pool and EyePACS
+  (X7AUDIT), which the first audit (X4AUDIT) did not cover.
