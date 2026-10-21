@@ -54,5 +54,25 @@
   ],
   "first_launch_utc": "2026-10-20 11:21:57",
   "all_after_commit": true
+ },
+ {
+  "plan": "Post hoc: acquisition statistics (code commit)",
+  "commit": "d3c42f7",
+  "commit_utc": "2026-10-21 07:10:13",
+  "runs": [
+   "dr-dme-x6acq"
+  ],
+  "first_launch_utc": "2026-10-21 07:10:59",
+  "all_after_commit": true
+ },
+ {
+  "plan": "Post hoc: overlap audit of DeepDRiD and SUSTech-SYSU (code commit)",
+  "commit": "fe82a52",
+  "commit_utc": "2026-10-21 07:16:26",
+  "runs": [
+   "dr-dme-x7audit"
+  ],
+  "first_launch_utc": "2026-10-21 07:16:41",
+  "all_after_commit": true
  }
 ]

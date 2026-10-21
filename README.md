@@ -19,6 +19,7 @@ decision rule that turns scores into grades, and how much in the learned represe
 | `src/` | training (`train.py`, `model.py`), data loading (`corpora.py`, `splits.py`), external evaluation (`eval_external.py`) and every analysis behind the article (`paper_*.py`) |
 | `data/splits/` | the frozen development split, the split used for the reverse-direction model and the EyePACS split (`eyepacs_v1.json`) |
 | `results/predictions/` | per-image out-of-fold and external predictions of every model (`EYEDN/`, `EYEEB3/`: the EyePACS-trained models, held-out fold 0) |
+| `results/acquisition/` | acquisition statistics of every image with its grade (shortcut check, Supplementary Table S12) |
 | `results/degradation/` | out-of-fold re-scoring of the development pool under five image degradations, and per-corpus image statistics (Supplementary Table S7) |
 | `docs/` | evaluation protocol, analysis plans (`PAPER_EXPERIMENTS_preregistration.md`, `PAPER_REVISION_preregistration.md`) and generated tables (`docs/generated/`) |
 | `kaggle/`, `kaggle2/` | the notebooks that ran each training and evaluation job, each pinned to a code commit |

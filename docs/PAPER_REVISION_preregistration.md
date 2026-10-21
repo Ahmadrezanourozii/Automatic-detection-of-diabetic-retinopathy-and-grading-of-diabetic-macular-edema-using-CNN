@@ -146,7 +146,10 @@ Code: `src/paper_posthoc.py`, `src/paper_acquisition.py`, and `src/paper_overlap
 * **Case mix.** SUSTech-SYSU's referral AUC (0.996–0.999) exceeds development; standardised to
   the development grade mix it stays 0.984–0.997, and no DR vs moderate separates at 0.998–1.000.
   The set is case–control (grade 0 = healthy non-diabetic volunteers) with 24 mild images, so it
-  is not used as evidence that ranking transferred. Acquisition shortcut check: X6ACQ.
+  is not used as evidence that ranking transferred. Acquisition shortcut check (X6ACQ): a single
+  acquisition statistic separates any DR from no DR at AUC 0.86 in APTOS (image width) and referable
+  images at 0.79 in SUSTech-SYSU (sharpness, partly lesion content) and 0.79 in the pooled
+  development set (JPEG quality: its two corpora differ in storage and grade mix); DDR at most 0.60.
 * **Kendall τ** with an image-bootstrap interval and a permutation p-value (ties allowed).
 * **Like-for-like mild F1**: development mild F1 under the R4m objective (macro-recall cut-points
   cross-fitted across folds), 0.262–0.420.

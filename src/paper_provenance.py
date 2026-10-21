@@ -17,6 +17,9 @@ PLANS = [
       "dr-dme-r1aptos", "dr-dme-i24ft234"]),
     ("Second-stage outcomes A1-E2 (second-stage plan)", "1456815",
      ["dr-dme-eyedn", "dr-dme-eyeeb3", "dr-dme-x5new"]),
+    # post hoc, after an internal editorial assessment: no plan, so the commit is the code's
+    ("Post hoc: acquisition statistics (code commit)", "d3c42f7", ["dr-dme-x6acq"]),
+    ("Post hoc: overlap audit of DeepDRiD and SUSTech-SYSU (code commit)", "fe82a52", ["dr-dme-x7audit"]),
 ]
 
 

@@ -308,22 +308,27 @@ at the shipped rule was \pn{rev.m2.R1.mean} (O6, under-grading, \pn{rev.o6}).
 \clearpage
 \note{Supplementary Note 7. Content-overlap audit}
 
-Every image of the development pool, APTOS, DDR and EyePACS was reduced to a 256-bit difference hash
-after the training crop. In this project's data, re-encodings of one photograph lie within 8 bits of
+Every image of the development pool, the four external sets and EyePACS was reduced to a 256-bit
+difference hash after the training crop (APTOS and DDR in the first audit; DeepDRiD and SUSTech-SYSU,
+added in the second stage, in a second audit, post hoc). In this project's data, re-encodings of one photograph lie within 8 bits of
 each other and distinct photographs at least 28 bits apart; all pairs within \pn{ov.bits} bits were
 counted and every pair within 8 bits was archived.
 
 \emph{Development pool and external sets.} No development image lay within 8 bits of any APTOS or DDR
-image (closest pairs \pn{ov.devvsAPTOS.mind} and \pn{ov.devvsDDR.mind} bits).
+image (closest pairs \pn{ov.devvsAPTOS.mind} and \pn{ov.devvsDDR.mind} bits), and none lay within
+\pn{ov.bits} bits of any DeepDRiD or SUSTech-SYSU image.
 
 \emph{EyePACS and external sets.} No external image was hash-identical to an EyePACS image.
 \pn{ov.EyePACSvsAPTOS.le8} APTOS--EyePACS pairs (\pn{ov.aptos.flagged} APTOS images) and
-\pn{ov.EyePACSvsDDR.le8} DDR--EyePACS pairs (\pn{ov.ddr.flagged} DDR images) lay within 8 bits, the
-closest at \pn{ov.EyePACSvsAPTOS.mind} and \pn{ov.EyePACSvsDDR.mind} bits; their distances rise
-towards the threshold rather than peaking at zero, as expected of hash collisions between dark,
-low-contrast photographs. Removing every flagged image changed no model's shipped-rule referable
-sensitivity, mild recall, QWK or referral AUC by more than \pn{ov.ddr.maxchange} percentage points on
-DDR and \pn{ov.aptos.maxchange} on APTOS.
+\pn{ov.EyePACSvsDDR.le8} DDR--EyePACS pairs (\pn{ov.ddr.flagged} DDR images) and
+\pn{ov.EyePACSvsDeepDRiD.le8} DeepDRiD--EyePACS pairs (\pn{ov.deepdrid.flagged} DeepDRiD images) lay
+within 8 bits, the closest at \pn{ov.EyePACSvsAPTOS.mind}, \pn{ov.EyePACSvsDDR.mind} and
+\pn{ov.EyePACSvsDeepDRiD.mind} bits; no SUSTech-SYSU image came within \pn{ov.EyePACSvsSUSTech.mind}
+bits. The distances rise towards the threshold rather than peaking at zero, as expected of hash
+collisions between dark, low-contrast photographs. Removing every flagged image changed no
+development or EyePACS model's shipped-rule referable sensitivity, mild recall, QWK or referral AUC
+by more than \pn{ov.ddr.maxchange} percentage points on DDR, \pn{ov.aptos.maxchange} on APTOS and
+\pn{ov.deepdrid.maxchange} on DeepDRiD.
 
 \emph{Within corpora.} The development pool contains \pn{ov.devwithin.exact} hash-identical pairs,
 \pn{ov.crossfold} of which straddle two folds of the frozen split (\pn{dup.nimg} images, missed when the

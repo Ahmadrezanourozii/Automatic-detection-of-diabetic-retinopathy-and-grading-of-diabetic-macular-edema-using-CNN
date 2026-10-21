@@ -6326,7 +6326,7 @@
  "ov.devwithin": {
   "tex": "29",
   "value": 29,
-  "source": "docs/generated/paper/overlap_audit.json"
+  "source": "docs/generated/paper/overlap_audit_x7.json"
  },
  "ov.devvsAPTOS": {
   "tex": "47",
@@ -6366,7 +6366,7 @@
  "ov.EyePACSvsdev": {
   "tex": "178",
   "value": 178,
-  "source": "docs/generated/paper/overlap_audit.json"
+  "source": "docs/generated/paper/overlap_audit_x7.json"
  },
  "ov.crossfold": {
   "tex": "7",
@@ -6376,7 +6376,7 @@
  "ov.devwithin.le8": {
   "tex": "10",
   "value": 10,
-  "source": "docs/generated/paper/overlap_audit.json"
+  "source": "docs/generated/paper/overlap_audit_x7.json"
  },
  "ov.devwithin.exact": {
   "tex": "10",
@@ -6386,7 +6386,7 @@
  "ov.devwithin.mind": {
   "tex": "0",
   "value": 0,
-  "source": "docs/generated/paper/overlap_audit.json"
+  "source": "docs/generated/paper/overlap_audit_x7.json"
  },
  "ov.devvsAPTOS.le8": {
   "tex": "0",
@@ -6496,7 +6496,7 @@
  "ov.EyePACSvsdev.le8": {
   "tex": "0",
   "value": 0,
-  "source": "docs/generated/paper/overlap_audit.json"
+  "source": "docs/generated/paper/overlap_audit_x7.json"
  },
  "ov.EyePACSvsdev.exact": {
   "tex": "0",
@@ -6506,7 +6506,97 @@
  "ov.EyePACSvsdev.mind": {
   "tex": "12",
   "value": 12,
-  "source": "docs/generated/paper/overlap_audit.json"
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.devvsDeepDRiD": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.devvsDeepDRiD.le8": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.DeepDRiDwithin": {
+  "tex": "1,240",
+  "value": 1240,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.DeepDRiDwithin.le8": {
+  "tex": "45",
+  "value": 45,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.DeepDRiDwithin.mind": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.devvsSUSTech": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.devvsSUSTech.le8": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.SUSTechwithin": {
+  "tex": "34",
+  "value": 34,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.SUSTechwithin.le8": {
+  "tex": "25",
+  "value": 25,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.SUSTechwithin.mind": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.DeepDRiDvsSUSTech": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.DeepDRiDvsSUSTech.le8": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.EyePACSvsDeepDRiD": {
+  "tex": "17,028",
+  "value": 17028,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.EyePACSvsDeepDRiD.le8": {
+  "tex": "55",
+  "value": 55,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.EyePACSvsDeepDRiD.mind": {
+  "tex": "6",
+  "value": 6,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.EyePACSvsSUSTech": {
+  "tex": "2",
+  "value": 2,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.EyePACSvsSUSTech.le8": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
+ },
+ "ov.EyePACSvsSUSTech.mind": {
+  "tex": "16",
+  "value": 16,
+  "source": "docs/generated/paper/overlap_audit_x7.json"
  },
  "ov.ddr.flagged": {
   "tex": "202",
@@ -6514,8 +6604,8 @@
   "source": "docs/generated/paper/overlap_sensitivity.json"
  },
  "ov.ddr.maxchange": {
-  "tex": "0.55",
-  "value": 0.5483405483405535,
+  "tex": "0.69",
+  "value": 0.6926406926406947,
   "source": "docs/generated/paper/overlap_sensitivity.json"
  },
  "ov.aptos.flagged": {
@@ -6527,6 +6617,446 @@
   "tex": "0.04",
   "value": 0.043589830856671785,
   "source": "docs/generated/paper/overlap_sensitivity.json"
+ },
+ "ov.deepdrid.flagged": {
+  "tex": "13",
+  "value": 13,
+  "source": "docs/generated/paper/overlap_sensitivity.json"
+ },
+ "ov.deepdrid.maxchange": {
+  "tex": "0.15",
+  "value": 0.15490603725897834,
+  "source": "docs/generated/paper/overlap_sensitivity.json"
+ },
+ "ov.sustech.flagged": {
+  "tex": "0",
+  "value": 0,
+  "source": "docs/generated/paper/overlap_sensitivity.json"
+ },
+ "ov.sustech.maxchange": {
+  "tex": "0.00",
+  "value": 0.0,
+  "source": "docs/generated/paper/overlap_sensitivity.json"
+ },
+ "acq.aptos.maxref": {
+  "tex": "0.824",
+  "value": 0.8239357187579713,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.aptos.maxany": {
+  "tex": "0.862",
+  "value": 0.8617085610037337,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.aptos.height.ref": {
+  "tex": "0.793",
+  "value": 0.7933429183189172,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.aptos.height.any": {
+  "tex": "0.831",
+  "value": 0.8314381310814661,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.aptos.width.ref": {
+  "tex": "0.824",
+  "value": 0.8239357187579713,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.aptos.width.any": {
+  "tex": "0.862",
+  "value": 0.8617085610037337,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.aptos.filebytes.ref": {
+  "tex": "0.776",
+  "value": 0.7758671706513925,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.aptos.filebytes.any": {
+  "tex": "0.805",
+  "value": 0.8053335660382143,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.aptos.retinafraction.ref": {
+  "tex": "0.535",
+  "value": 0.5345688688944028,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.aptos.retinafraction.any": {
+  "tex": "0.597",
+  "value": 0.5968434179573583,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.aptos.brightness.ref": {
+  "tex": "0.570",
+  "value": 0.5697154650650464,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.aptos.brightness.any": {
+  "tex": "0.595",
+  "value": 0.5947135716171646,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.aptos.rmscontrast.ref": {
+  "tex": "0.649",
+  "value": 0.6491937017368922,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.aptos.rmscontrast.any": {
+  "tex": "0.701",
+  "value": 0.7011284695029811,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.aptos.laplacianvar.ref": {
+  "tex": "0.669",
+  "value": 0.66883086365358,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.aptos.laplacianvar.any": {
+  "tex": "0.691",
+  "value": 0.6910280334796689,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.maxref": {
+  "tex": "0.597",
+  "value": 0.5973010315052008,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.maxany": {
+  "tex": "0.605",
+  "value": 0.6054273693615444,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.height.ref": {
+  "tex": "0.535",
+  "value": 0.5353325430982933,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.height.any": {
+  "tex": "0.535",
+  "value": 0.5354588544885196,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.width.ref": {
+  "tex": "0.535",
+  "value": 0.5353938237739432,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.width.any": {
+  "tex": "0.536",
+  "value": 0.5355885608035246,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.filebytes.ref": {
+  "tex": "0.570",
+  "value": 0.5703073513922351,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.filebytes.any": {
+  "tex": "0.574",
+  "value": 0.574025647794332,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.jpegquality.ref": {
+  "tex": "0.556",
+  "value": 0.5563362723657068,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.jpegquality.any": {
+  "tex": "0.556",
+  "value": 0.556212872539904,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.retinafraction.ref": {
+  "tex": "0.539",
+  "value": 0.5386604253082514,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.retinafraction.any": {
+  "tex": "0.543",
+  "value": 0.5430163104702601,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.brightness.ref": {
+  "tex": "0.509",
+  "value": 0.5087591027900789,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.brightness.any": {
+  "tex": "0.517",
+  "value": 0.5173459524180757,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.rmscontrast.ref": {
+  "tex": "0.512",
+  "value": 0.5119398598279615,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.rmscontrast.any": {
+  "tex": "0.510",
+  "value": 0.5098935216893347,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.laplacianvar.ref": {
+  "tex": "0.597",
+  "value": 0.5973010315052008,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.ddr.laplacianvar.any": {
+  "tex": "0.605",
+  "value": 0.6054273693615444,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.maxref": {
+  "tex": "0.741",
+  "value": 0.741046394105373,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.maxany": {
+  "tex": "0.772",
+  "value": 0.772332168719852,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.height.ref": {
+  "tex": "0.705",
+  "value": 0.7053134780907668,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.height.any": {
+  "tex": "0.698",
+  "value": 0.6983429444169075,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.width.ref": {
+  "tex": "0.696",
+  "value": 0.695858600678143,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.width.any": {
+  "tex": "0.705",
+  "value": 0.704669737377645,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.filebytes.ref": {
+  "tex": "0.710",
+  "value": 0.710364909363589,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.filebytes.any": {
+  "tex": "0.772",
+  "value": 0.772332168719852,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.jpegquality.ref": {
+  "tex": "0.506",
+  "value": 0.5063158173578508,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.jpegquality.any": {
+  "tex": "0.508",
+  "value": 0.5083220498809192,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.retinafraction.ref": {
+  "tex": "0.741",
+  "value": 0.741046394105373,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.retinafraction.any": {
+  "tex": "0.764",
+  "value": 0.7641138863030977,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.brightness.ref": {
+  "tex": "0.673",
+  "value": 0.6734073422013562,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.brightness.any": {
+  "tex": "0.691",
+  "value": 0.6912066644905723,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.rmscontrast.ref": {
+  "tex": "0.546",
+  "value": 0.5458367974047992,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.rmscontrast.any": {
+  "tex": "0.533",
+  "value": 0.5327864888716951,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.laplacianvar.ref": {
+  "tex": "0.513",
+  "value": 0.5132826763823684,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.deepdrid.laplacianvar.any": {
+  "tex": "0.506",
+  "value": 0.5056558305225447,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.sustech.maxref": {
+  "tex": "0.789",
+  "value": 0.7886311868997784,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.sustech.maxany": {
+  "tex": "0.781",
+  "value": 0.781029806168475,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.sustech.filebytes.ref": {
+  "tex": "0.519",
+  "value": 0.5190239473036198,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.sustech.filebytes.any": {
+  "tex": "0.520",
+  "value": 0.5204605022552724,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.sustech.jpegquality.ref": {
+  "tex": "0.670",
+  "value": 0.6703505909874415,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.sustech.jpegquality.any": {
+  "tex": "0.674",
+  "value": 0.6744742777032793,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.sustech.retinafraction.ref": {
+  "tex": "0.585",
+  "value": 0.5846143191332185,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.sustech.retinafraction.any": {
+  "tex": "0.582",
+  "value": 0.5820096306229428,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.sustech.brightness.ref": {
+  "tex": "0.547",
+  "value": 0.5469850406303867,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.sustech.brightness.any": {
+  "tex": "0.544",
+  "value": 0.5444319151529928,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.sustech.rmscontrast.ref": {
+  "tex": "0.734",
+  "value": 0.7340233316917015,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.sustech.rmscontrast.any": {
+  "tex": "0.731",
+  "value": 0.7306595148116543,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.sustech.laplacianvar.ref": {
+  "tex": "0.789",
+  "value": 0.7886311868997784,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.sustech.laplacianvar.any": {
+  "tex": "0.781",
+  "value": 0.781029806168475,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.maxref": {
+  "tex": "0.790",
+  "value": 0.7902493835637816,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.maxany": {
+  "tex": "0.745",
+  "value": 0.7449506689395113,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.height.ref": {
+  "tex": "0.642",
+  "value": 0.6418485793485793,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.height.any": {
+  "tex": "0.591",
+  "value": 0.590974389166912,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.width.ref": {
+  "tex": "0.642",
+  "value": 0.6418485793485793,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.width.any": {
+  "tex": "0.591",
+  "value": 0.590974389166912,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.filebytes.ref": {
+  "tex": "0.686",
+  "value": 0.6862482674982675,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.filebytes.any": {
+  "tex": "0.673",
+  "value": 0.6731559218918653,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.jpegquality.ref": {
+  "tex": "0.790",
+  "value": 0.7902493835637816,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.jpegquality.any": {
+  "tex": "0.745",
+  "value": 0.7449506689395113,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.retinafraction.ref": {
+  "tex": "0.705",
+  "value": 0.7049575537075536,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.retinafraction.any": {
+  "tex": "0.664",
+  "value": 0.6635584339122755,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.brightness.ref": {
+  "tex": "0.608",
+  "value": 0.6081994975744975,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.brightness.any": {
+  "tex": "0.651",
+  "value": 0.6514642331468943,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.rmscontrast.ref": {
+  "tex": "0.558",
+  "value": 0.5584043659043659,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.rmscontrast.any": {
+  "tex": "0.550",
+  "value": 0.5497148464331273,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.laplacianvar.ref": {
+  "tex": "0.628",
+  "value": 0.6278027546777547,
+  "source": "docs/generated/paper/acquisition.json"
+ },
+ "acq.dev.laplacianvar.any": {
+  "tex": "0.651",
+  "value": 0.6505775684427436,
+  "source": "docs/generated/paper/acquisition.json"
  },
  "r2.dev.e08.mildf1": {
   "tex": "0.415",

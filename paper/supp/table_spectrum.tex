@@ -1,16 +1,16 @@
 \begin{table}[h]
-\caption{\textbf{Case mix and discrimination of each population (post hoc).} Areas under the ROC curve, range over the ten development models. Referral AUC standardised to the development grade mix weights each image by the development share of its grade over the corpus share, within referable and within non-referable images. Adjacent-grade AUCs use $P(y>0)$ for no DR against mild and $P(y>1)$ for the other pairs.}\label{tab:spectrum}
+\caption{\textbf{Case mix and discrimination of each population (post hoc).} Areas under the ROC curve, range over the ten development models. Referral AUC standardised to the development grade mix weights each image by the development share of its grade over the corpus share, within referable and within non-referable images. Adjacent-grade AUCs use $P(y>0)$ for no DR against mild and $P(y>1)$ for the other pairs. Acquisition (post hoc, run X6ACQ): the largest area under the curve, taken in whichever direction separates better, with which any single acquisition statistic of the image (resolution, file size, estimated JPEG quality, share of the frame inside the retinal mask, brightness, contrast, sharpness) separates referable from non-referable images, and any DR from no DR, without a model; 0.5 is no separation. Contrast and sharpness also rise with lesions.}\label{tab:spectrum}
 \centering\scriptsize
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}lrrrrrr@{}}
+\begin{tabular}{@{}lrrrrrrrr@{}}
 \toprule
-Population & Mild (\%) & Referral AUC & Standardised & No DR vs mild & Mild vs moderate & No DR vs moderate \\
+Population & Mild (\%) & Referral AUC & Standardised & No DR vs mild & Mild vs moderate & No DR vs moderate & Acq.\ referable & Acq.\ any DR \\
 \midrule
-Development & 13.1 & 0.952--0.977 & -- & 0.664--0.815 & 0.878--0.927 & 0.939--0.979 \\
-APTOS & 10.1 & 0.914--0.973 & 0.900--0.969 & 0.973--0.996 & 0.534--0.800 & 0.999--1.000 \\
-DDR & 5.0 & 0.921--0.955 & 0.923--0.952 & 0.748--0.860 & 0.769--0.832 & 0.916--0.958 \\
-DeepDRiD & 11.1 & 0.943--0.969 & 0.929--0.964 & 0.686--0.766 & 0.853--0.901 & 0.917--0.969 \\
-SUSTech-SYSU & 2.1 & 0.996--0.999 & 0.984--0.997 & 0.893--0.958 & 0.922--0.981 & 0.998--1.000 \\
+Development & 13.1 & 0.952--0.977 & -- & 0.664--0.815 & 0.878--0.927 & 0.939--0.979 & 0.79 & 0.74 \\
+APTOS & 10.1 & 0.914--0.973 & 0.900--0.969 & 0.973--0.996 & 0.534--0.800 & 0.999--1.000 & 0.82 & 0.86 \\
+DDR & 5.0 & 0.921--0.955 & 0.923--0.952 & 0.748--0.860 & 0.769--0.832 & 0.916--0.958 & 0.60 & 0.61 \\
+DeepDRiD & 11.1 & 0.943--0.969 & 0.929--0.964 & 0.686--0.766 & 0.853--0.901 & 0.917--0.969 & 0.74 & 0.77 \\
+SUSTech-SYSU & 2.1 & 0.996--0.999 & 0.984--0.997 & 0.893--0.958 & 0.922--0.981 & 0.998--1.000 & 0.79 & 0.78 \\
 \bottomrule
 \end{tabular}}
 \end{table}

@@ -192,7 +192,7 @@ def s_provenance():
     cap = ("\\textbf{Analysis plans and the runs they cover.} Commit identifiers and times (UTC) are from "
            "the public repository history; launch times are from the Kaggle kernel listing archived in "
            "docs/generated/paper/kaggle\\_runs.csv. Every run listed was launched after the commit of its "
-           "plan and pinned the code commit it ran. The two outcome plans are the analysis-plan files in docs/ "
+           "plan (for the post-hoc checks, of its code) and pinned the code commit it ran. The two outcome plans are the analysis-plan files in docs/ "
            "of the repository; the second-stage plan was written after an internal pre-submission review "
            "of an earlier draft.")
     if not d:
@@ -368,10 +368,11 @@ def s_spectrum():
            "mix weights each image by the development share of its grade over the corpus share, within "
            "referable and within non-referable images. Adjacent-grade AUCs use $P(y>0)$ for no DR against mild "
            "and $P(y>1)$ for the other pairs."
-           + (" Acquisition: the largest distance from 0.5 of the AUC with which any single acquisition "
-              "statistic of the image (resolution, file size, JPEG quality, share of the frame inside the "
-              "retinal mask, brightness, contrast, sharpness) separates referable from non-referable images, "
-              "and no DR from any DR, without a model." if acq else ""))
+           + (" Acquisition (post hoc, run X6ACQ): the largest area under the curve, taken in whichever direction "
+              "separates better, with which any single acquisition statistic of the image (resolution, file "
+              "size, estimated JPEG quality, share of the frame inside the retinal mask, brightness, contrast, "
+              "sharpness) separates referable from non-referable images, and any DR from no DR, without a "
+              "model; 0.5 is no separation. Contrast and sharpness also rise with lesions." if acq else ""))
     if not d:
         write("table_spectrum.tex", placeholder("posthoc.json", cap, "tab:spectrum"))
         return

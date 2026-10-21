@@ -36,7 +36,13 @@ the cases are within grades, not only in the grade mix. APTOS showed a narrower 
 pattern: its no-DR and mild images separated far better than in development
 (\pn{ph.aptos.auc0v1.min}--\pn{ph.aptos.auc0v1.max} against \pn{ph.dev.auc0v1.min}--\pn{ph.dev.auc0v1.max}),
 while its mild and moderate images separated worse (\pn{ph.aptos.auc1v2.min}--\pn{ph.aptos.auc1v2.max}).
-%%ACQ%%
+Acquisition alone carried grade information in these sets (Supplementary Table~S12): the width
+of an APTOS image separated images with any DR from those without at an area under the curve of
+\pn{acq.aptos.width.any}, and in SUSTech-SYSU, whose images all share one size, the estimated JPEG
+quality of the file separated referable images at \pn{acq.sustech.jpegquality.ref} and sharpness,
+which lesions also raise, at \pn{acq.sustech.laplacianvar.ref}. Models resize every image, but
+cameras that differ in resolution differ in ways a model can see, so part of this excess
+discrimination may reflect acquisition rather than retinopathy.
 We therefore do not count SUSTech-SYSU as evidence that ranking transferred; that evidence rests on
 APTOS, DDR and DeepDRiD.
 
@@ -93,7 +99,8 @@ reproduced the archived out-of-fold QWK, \pn{mech.e08.orig.qwk} against \pn{mech
 Supplementary Table~S8). DDR images, however, were not degraded on these measures: as used here they
 share the 512-pixel size and the estimated JPEG quality of the Messidor-2 development images (\pn{stats.ddr.jpegq} against
 \pn{stats.messidor2.jpegq}) and have higher contrast and Laplacian variance (\pn{stats.ddr.sharp}
-against \pn{stats.messidor2.sharp}). Resolution, compression and blur therefore do not account for
+against \pn{stats.messidor2.sharp}), and no acquisition statistic separated DDR's referable images
+better than \pn{acq.ddr.maxref}. Resolution, compression and blur therefore do not account for
 the under-grading on DDR; camera and population characteristics we could not measure, or a stricter
 grading convention, remain candidates that public data cannot separate. The APTOS pattern is of a
 different kind: mild images alone moved up by about one grade while no-DR images moved down, which a

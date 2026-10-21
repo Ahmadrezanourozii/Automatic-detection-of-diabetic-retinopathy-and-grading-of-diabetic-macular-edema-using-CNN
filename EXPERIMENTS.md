@@ -981,7 +981,9 @@ repository at the commit given here.
 | X5NEW | 1 | 2026-10-20 11:22 | `1456815` | E1, A2, A3 | DeepDRiD and SUSTech-SYSU for every development model; degradation re-scoring; image statistics | complete | `results/predictions/*/external_{deepdrid,sustech}.npz`; `results/degradation/` |
 | EYEDN | 1 | 2026-10-20 11:21 | `1456815` | E2 | DenseNet121 trained on EyePACS, 15 epochs (5.3 h, T4) | complete | `results/predictions/EYEDN`; `data/splits/eyepacs_v1.json` |
 | EYEEB3 | 2 | 2026-10-20 11:22 | `1456815` | E2 | EfficientNet-B3 trained on EyePACS, 15 epochs (3.6 h, T4) | complete | `results/predictions/EYEEB3` |
+| X6ACQ | 1 | 2026-10-21 07:10 | `d3c42f7` | post hoc | per-image acquisition statistics of every image (shortcut check) | complete | `results/acquisition/`; `acquisition.json` |
+| X7AUDIT | 1 | 2026-10-21 07:16 | `fe82a52` | post hoc | overlap audit of DeepDRiD and SUSTech-SYSU against the development pool and EyePACS | complete | `overlap_audit_x7.json` |
 
-No kernel of this project is still running (checked 2026-10-21). The only runs that did not
+No kernel of this project is still running (checked 2026-10-21, after X6ACQ and X7AUDIT). The only runs that did not
 complete are E07 (killed at the 12 h limit, see above), E21CONVNEXT (launched 2026-09-05 17:46
 and cancelled; ConvNeXt-tiny was then run as the two-fold E21CNXA, `IDEAS.md` I05) and X3AUDIT.

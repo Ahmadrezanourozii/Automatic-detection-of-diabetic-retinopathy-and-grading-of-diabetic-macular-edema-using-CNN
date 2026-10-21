@@ -560,12 +560,30 @@ def overlap():
             nz = [i for i, h in enumerate(v["hist"]) if h]
             if nz:
                 put(f"ov.{tag.replace('_', '')}.mind", nz[0], i0, src)
+    x7src = f"{GP}/overlap_audit_x7.json"            # DeepDRiD and SUSTech-SYSU (X7AUDIT, post hoc)
+    x7 = load(x7src)
+    if x7:
+        for tag, v in x7["pairs"].items():
+            k = tag.replace("_", "")
+            put(f"ov.{k}", v["n_pairs"], i0, x7src)
+            put(f"ov.{k}.le8", v["n_le8"], i0, x7src)
+            nz = [i for i, h in enumerate(v["hist"]) if h]
+            put(f"ov.{k}.mind", nz[0] if nz else None, i0, x7src)
     ssrc = f"{GP}/overlap_sensitivity.json"
     sd = load(ssrc)
     if sd:
         for c, v in sd["corpora"].items():
             put(f"ov.{c.lower()}.flagged", v["n_flagged"], i0, ssrc)
             put(f"ov.{c.lower()}.maxchange", 100 * v["max_abs_change"], "{:.2f}", ssrc)
+    asrc = f"{GP}/acquisition.json"                    # shortcut check (X6ACQ, post hoc)
+    a = load(asrc)
+    if a:
+        for c, v in a.items():
+            k = c.lower().replace("-", "")
+            put(f"acq.{k}.maxref", v["max_ref"], q3, asrc); put(f"acq.{k}.maxany", v["max_any"], q3, asrc)
+            for f, r in v["by_feature"].items():
+                for which, val in r.items():
+                    put(f"acq.{k}.{f.replace('_', '')}.{which}", val, q3, asrc)
 
 
 def posthoc():

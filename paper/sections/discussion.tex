@@ -68,8 +68,11 @@ collected.
 The study has limitations. All data are public and retrospective, the populations are defined by
 dataset rather than by a prospective screening programme, and APTOS and EyePACS labels come from
 single graders. SUSTech-SYSU is a case--control collection with few mild images, and APTOS's no-DR
-and mild images separate unusually easily, so discrimination there overstates what a screening
-population would show. Patient identifiers are unavailable for most corpora, so resampling is by image
+and mild images separate unusually easily, partly through acquisition, so discrimination there
+overstates what a screening population would show; acquisition statistics also carried grade
+information within the development pool, whose two corpora differ in both storage and grade mix
+(estimated JPEG quality, area under the curve \pn{acq.dev.jpegquality.ref}), a shortcut the models
+may have used. Patient identifiers are unavailable for most corpora, so resampling is by image
 and fellow-eye pairs may be correlated. The external-label rules (R4, R4m) are diagnostics of what
 local labels could recover, not external validation; the deployable recommendation rests on the
 separate sample-size analysis. Referable disease was defined by DR grade alone because macular
