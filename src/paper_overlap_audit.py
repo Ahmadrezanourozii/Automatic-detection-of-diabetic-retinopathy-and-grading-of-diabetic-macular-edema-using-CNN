@@ -13,9 +13,10 @@ threshold 16), and reports:
     external estimate;
   * pairs between the EyePACS pretraining corpus and the external sets -- contamination of the
     external estimate through pretraining;
-  * pairs between APTOS and DDR.
+  * pairs between the external sets.
 
-Runs on CPU. Writes overlap_audit.json into --out.
+--externals names the external corpora (default APTOS,DDR, as in X4AUDIT; X7AUDIT audits
+DeepDRiD and SUSTech-SYSU, which were added in the second stage). Runs on CPU. Writes overlap_audit.json into --out.
 """
 from __future__ import annotations
 import argparse, json, os, sys, time
@@ -66,12 +67,15 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--eyepacs-limit", type=int, default=0,
                     help="debug: hash only the first N EyePACS images")
+    ap.add_argument("--externals", default="APTOS,DDR",
+                    help="external corpora to audit (DeepDRiD and SUSTech were added later: X7AUDIT)")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
 
     sets = {}
-    for name, corp in (("dev", ("IDRiD", "Messidor-2")), ("APTOS", ("APTOS",)),
-                       ("DDR", ("DDR",)), ("EyePACS", ("EyePACS",))):
+    exts = [c for c in a.externals.split(",") if c]
+    for name, corp in [("dev", ("IDRiD", "Messidor-2"))] + [(c, (c,)) for c in exts] + \
+                      [("EyePACS", ("EyePACS",))]:
         rows = corpora.build(a.datasets, corp)
         if name == "EyePACS" and a.eyepacs_limit:
             rows = rows[:a.eyepacs_limit]
@@ -95,14 +99,16 @@ def main():
 
     H, U = sets["dev"]
     record("dev_within", cross_pairs(H, H, same=True), U, U)
-    for ext in ("APTOS", "DDR"):
+    for ext in exts:
         HE, UE = sets[ext]
         record(f"dev_vs_{ext}", cross_pairs(H, HE), U, UE)
         record(f"{ext}_within", cross_pairs(HE, HE, same=True), UE, UE)
-    HA, UA = sets["APTOS"]; HD, UD = sets["DDR"]
-    record("APTOS_vs_DDR", cross_pairs(HA, HD), UA, UD)
+    for i, x in enumerate(exts):
+        for y in exts[i + 1:]:
+            record(f"{x}_vs_{y}", cross_pairs(sets[x][0], sets[y][0]), sets[x][1], sets[y][1])
     HP, UP = sets["EyePACS"]
-    for ext, (HE, UE) in (("APTOS", sets["APTOS"]), ("DDR", sets["DDR"]), ("dev", sets["dev"])):
+    for ext in exts + ["dev"]:
+        HE, UE = sets[ext]
         record(f"EyePACS_vs_{ext}", cross_pairs(HE, HP), UE, UP)
 
     # the split treats every development image as its own group; a within-pool pair whose two
