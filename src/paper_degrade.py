@@ -11,6 +11,9 @@ quality estimated from the luminance quantisation table, mean brightness and RMS
 inside the retinal mask, and Laplacian variance at a common 512 px scale. Writes
 <out>/image_stats.json.
 
+Shortcut check (added after the second-stage plan, post hoc): with --per-image, acquisition
+statistics of every image of the named corpora, with its grade, in <out>/per_image_<corpus>.csv.
+
 The analysis of the predictions is done offline (src/paper_mechanism.py).
 
 Usage (inside a Kaggle kernel):
@@ -109,6 +112,36 @@ def image_stats(rows, n, seed=0):
             "brightness": summ(bright), "rms_contrast": summ(contrast), "laplacian_var": summ(sharp)}
 
 
+def per_image_stats(rows, path):
+    """Acquisition statistics of EVERY image, with its grade, for a shortcut check: can the way
+    an image was acquired or stored predict its grade without looking at the retina? Columns:
+    uid, dr, height, width, file_bytes, jpeg_quality, retina_fraction (share of the frame inside
+    the retinal mask), brightness, rms_contrast, laplacian_var (the last three as in A3)."""
+    import csv
+    cols = ["uid", "dr", "height", "width", "file_bytes", "jpeg_quality", "retina_fraction",
+            "brightness", "rms_contrast", "laplacian_var"]
+    with open(path, "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(cols)
+        for r in rows:
+            img = cv2.imread(r["path"], cv2.IMREAD_COLOR)
+            if img is None:
+                continue
+            h, wd = img.shape[:2]
+            jq = jpeg_quality(r["path"]) if r["path"].lower().endswith((".jpg", ".jpeg")) else None
+            full = cv2.cvtColor(_resize_long(img, 512), cv2.COLOR_BGR2GRAY)
+            frac = float((full > 12).mean())
+            g = cv2.cvtColor(_resize_long(crop_retina(img), 512), cv2.COLOR_BGR2GRAY).astype(np.float64)
+            m = g > 12
+            if m.sum() < 100:
+                stats = ["", "", ""]
+            else:
+                lap = cv2.Laplacian(g, cv2.CV_64F)
+                stats = [f"{g[m].mean():.3f}", f"{g[m].std():.3f}", f"{lap[m].var():.3f}"]
+            w.writerow([r["uid"], r["dr"], h, wd, os.path.getsize(r["path"]),
+                        "" if jq is None else f"{jq:.1f}", f"{frac:.4f}", *stats])
+
+
 def find_ckpts(srcdirs, root="/kaggle/input"):
     found = {}
     for dirpath, _, files in os.walk(root):
@@ -131,6 +164,8 @@ def main():
                     help="NAME=rundir[+rundir...]; fold weights best_<f>.pt found under /kaggle/input")
     ap.add_argument("--stats-corpora", default="")
     ap.add_argument("--stats-n", type=int, default=1000)
+    ap.add_argument("--per-image", default="",
+                    help="corpora whose every image gets acquisition statistics (shortcut check)")
     ap.add_argument("--batch", type=int, default=32)
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
@@ -144,6 +179,12 @@ def main():
             stats[c]["n_corpus"] = len(rows)
             print(f"[stats] {c}: {json.dumps(stats[c])[:300]}  ({time.time() - t0:.0f}s)", flush=True)
         json.dump(stats, open(os.path.join(a.out, "image_stats.json"), "w"), indent=1)
+
+    for c in [c for c in a.per_image.split(",") if c]:
+        t0 = time.time()
+        rows = corpora.build(a.datasets, (c,))
+        per_image_stats(rows, os.path.join(a.out, f"per_image_{c.lower()}.csv"))
+        print(f"[per-image] {c}: {len(rows)} images ({time.time() - t0:.0f}s)", flush=True)
 
     if not a.model:
         return
