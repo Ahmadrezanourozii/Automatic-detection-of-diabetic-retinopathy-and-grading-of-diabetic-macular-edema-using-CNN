@@ -1,0 +1,243 @@
+\section{Results}\label{sec:results}
+
+\subsection{Cohorts and models}
+
+The ten pre-specified development models reached a matched development QWK between
+\pn{dev.e21cnxa.matched} and \pn{dev.e11full.matched}; the selected EfficientNet-B3, chosen on
+development data before any external number was examined, reached \pn{sel.dev.qwk}
+(Table~\ref{tab:models}). The four external populations differed in their grade distributions
+(Table~\ref{tab:cohorts}): referable DR made up \pn{r2.aptos.prevref}\% of APTOS,
+\pn{r2.ddr.prevref}\% of DDR, \pn{r2.deepdrid.prevref}\% of DeepDRiD and
+\pn{r2.sustech.prevref}\% of SUSTech-SYSU.
+
+\subsection{Ranking largely transferred to new populations; the mapping from score to grade did not}
+
+Discrimination largely survived the change of population (Fig.~\ref{fig:shift}a). Across the
+ten development models the area under the ROC curve for referable disease, $P(y>1)$, was
+\pn{r2.aptos.auc1.min}--\pn{r2.aptos.auc1.max} on APTOS, \pn{r2.ddr.auc1.min}--\pn{r2.ddr.auc1.max}
+on DDR and \pn{r2.deepdrid.auc1.min}--\pn{r2.deepdrid.auc1.max} on DeepDRiD, against
+\pn{ph.dev.aucref.min}--\pn{ph.dev.aucref.max} in development; Harrell's C of the expected grade was
+\pn{r2.aptos.cindex.min}--\pn{r2.aptos.cindex.max} on APTOS and
+\pn{r2.ddr.cindex.min}--\pn{r2.ddr.cindex.max} on DDR, against \pn{r2.dev.e08.cindex} for the
+reference model in development. Ranking did not survive everywhere: the proliferative threshold,
+weak already in development (\pn{r2.dev.auc3.min}--\pn{r2.dev.auc3.max}), fell to
+\pn{r2.aucall.allmin} at worst, and the foundation model's referral ranking degraded on DDR
+(\pn{rf.ddr.auroc}; below).
+
+On SUSTech-SYSU the referral area under the curve was \pn{r2.sustech.auc1.min}--\pn{r2.sustech.auc1.max},
+higher than in development, which better models cannot explain (Supplementary Table~S12). The set is
+a case--control collection whose grade-0 images come from healthy volunteers without diabetes, and
+only \pn{ph.sustech.nmild} of its images (\pn{ph.sustech.pctmild}\%) are mild. Weighting its images
+to the development grade mix left the area under the curve at
+\pn{ph.sustech.aucrefdevmix.min}--\pn{ph.sustech.aucrefdevmix.max}, and no-DR against moderate images
+separated almost perfectly (\pn{ph.sustech.auc0v2.min}--\pn{ph.sustech.auc0v2.max}, against
+\pn{ph.dev.auc0v2.min}--\pn{ph.dev.auc0v2.max} in development), so the excess lies in how clear-cut
+the cases are within grades, not only in the grade mix. APTOS showed a narrower version of the same
+pattern: its no-DR and mild images separated far better than in development
+(\pn{ph.aptos.auc0v1.min}--\pn{ph.aptos.auc0v1.max} against \pn{ph.dev.auc0v1.min}--\pn{ph.dev.auc0v1.max}),
+while its mild and moderate images separated worse (\pn{ph.aptos.auc1v2.min}--\pn{ph.aptos.auc1v2.max}).
+Acquisition alone carried grade information in these sets (Supplementary Table~S12): the width
+of an APTOS image separated images with any DR from those without at an area under the curve of
+\pn{acq.aptos.width.any}, and in SUSTech-SYSU, whose images all share one size, the estimated JPEG
+quality of the file separated referable images at \pn{acq.sustech.jpegquality.ref} and sharpness,
+which lesions also raise, at \pn{acq.sustech.laplacianvar.ref}. Models resize every image, but
+cameras that differ in resolution differ in ways a model can see, so part of this excess
+discrimination may reflect acquisition rather than retinopathy.
+We therefore do not count SUSTech-SYSU as evidence that ranking transferred; that evidence rests on
+APTOS, DDR and DeepDRiD.
+
+Where the scores fell did not transfer, and it moved in opposite directions
+(Fig.~\ref{fig:shift}b). On APTOS and SUSTech-SYSU the models scored images of the same true grade
+higher than in development for at least three of the five grades (APTOS: \pn{r2.aptos.A1above}
+of ten models; SUSTech-SYSU: \pn{r2.sustech.A1above} of ten); on DDR and DeepDRiD they scored them
+lower (DDR: \pn{r2.ddr.A1below} of ten; DeepDRiD: \pn{r2.deepdrid.A1below} of ten; pre-specified
+outcome A1 \pn{r2.A1.verdict}). The overall direction on APTOS and DDR was known when A1 was written; on DeepDRiD
+and SUSTech-SYSU it was not, and the same conditional pattern appeared. The shift is therefore not a
+change in prevalence alone, under which the score given the true grade would not move. Its shape differed between the two populations. On
+APTOS it was concentrated in one grade: for the reference model, mild images had a mean expected
+grade of \pn{r2.aptos.e08.es1} against \pn{r2.dev.e08.es1} in development, while no-DR images
+scored lower (\pn{r2.aptos.e08.es0} against \pn{r2.dev.e08.es0}). On DDR every grade scored lower,
+from \pn{r2.ddr.e08.es1} against \pn{r2.dev.e08.es1} for mild to \pn{r2.ddr.e08.es4} against
+\pn{r2.dev.e08.es4} for proliferative DR. Over-grading on APTOS and under-grading on DDR followed:
+the mean predicted-minus-true grade at the shipped rule was \pn{aptos.R1.mean.min} to
+\pn{aptos.R1.mean.max} on APTOS and \pn{ddr.R1.mean.min} to \pn{ddr.R1.mean.max} on DDR.
+
+A referral threshold fitted on development predictions therefore did not hold its operating
+point (Fig.~\ref{fig:transfer}). Fitted for 85\% sensitivity, the reference model referred
+\pn{aptos.tr.e08.B.sens}\% of referable patients on APTOS and \pn{sustech.tr.e08.B.sens}\% on
+SUSTech-SYSU but \pn{ddr.tr.e08.B.sens}\% on DDR (pre-specified O8 \pn{ddr.o8}); only on DeepDRiD,
+where the shift was smallest, did it land near its target (\pn{deepdrid.tr.e08.B.sens}\%).
+
+Models fine-tuned on \pn{eye.eb3.trainn} EyePACS images instead of the development pool
+reproduced the direction of the shift but not the sign of the threshold error (Supplementary
+Table~S7). Like the development-pool models, they over-graded APTOS (mean predicted-minus-true grade
+\pn{eye.dn.aptos.mean} for DenseNet121, \pn{eye.eb3.aptos.mean} for EfficientNet-B3) and
+under-graded DDR (\pn{eye.dn.ddr.mean} and \pn{eye.eb3.ddr.mean}), with a referral area under the
+curve of \pn{eye.auc.min}--\pn{eye.auc.max} on the six external sets. Yet a threshold fitted on their
+held-out EyePACS fold for 85\% sensitivity over-referred on every set
+(\pn{eye.tr85.min}--\pn{eye.tr85.max}\%; outcome E2 \pn{eye.E2.verdict}), DDR included
+(\pn{eye.dn.ddr.tr85}\% and \pn{eye.eb3.ddr.tr85}\%, against \pn{ddr.tr.e08.B.sens}\% from the
+development pool). A transferred threshold carries the reference standard of the set it was fitted
+on. EyePACS referable images, each graded once, were harder to rank than those of any external set
+(development area under the curve \pn{eye.dn.devauc} and \pn{eye.eb3.devauc}, against at least
+\pn{eye.auc.min} externally), so the cut that catches 85\% of them is permissive elsewhere; the
+adjudicated development pool gives a stricter cut, which under-refers where the models under-grade.
+The same reference standard is the likely reason for the modest development QWK of the EyePACS models
+(\pn{eye.dn.devqwk} and \pn{eye.eb3.devqwk}). The direction of the shift belonged to the target
+population; the sign of a transferred threshold's error belonged to the development labels.
+
+\subsection{Why the mapping moved}
+
+Image quality can produce under-grading, but it does not explain DDR. Re-scored out of fold after
+degradation, the development pool was under-graded by both re-scored models: JPEG compression at
+quality 30 shifted the mean predicted-minus-true grade by \pn{mech.e08.jpeg.dmean} and
+\pn{mech.e11full.jpeg.dmean} and referable sensitivity at the shipped rule by
+\pn{mech.e08.jpeg.dsens} and \pn{mech.e11full.jpeg.dsens} points; Gaussian blur shifted the
+reference model's mean grade by \pn{mech.e08.blur.dmean} and its sensitivity by
+\pn{mech.e08.blur.dsens} points (outcome A2 \pn{mech.A2.verdict}; the undegraded re-scoring
+reproduced the archived out-of-fold QWK, \pn{mech.e08.orig.qwk} against \pn{mech.e08.arch.qwk};
+Supplementary Table~S8). DDR images, however, were not degraded on these measures: as used here they
+share the 512-pixel size and the estimated JPEG quality of the Messidor-2 development images (\pn{stats.ddr.jpegq} against
+\pn{stats.messidor2.jpegq}) and have higher contrast and Laplacian variance (\pn{stats.ddr.sharp}
+against \pn{stats.messidor2.sharp}), and no acquisition statistic separated DDR's referable images
+better than \pn{acq.ddr.maxref}. Resolution, compression and blur therefore do not account for
+the under-grading on DDR; camera and population characteristics we could not measure, or a stricter
+grading convention, remain candidates that public data cannot separate. The APTOS pattern is of a
+different kind: mild images alone moved up by about one grade while no-DR images moved down, which a
+global change in image quality does not produce and a difference in how APTOS's single grader
+assigned the mild grade would. Where that is the cause, local recalibration fits the local grading
+standard (Discussion).
+
+\subsection{What the decision rule can and cannot recover}
+
+Where ranking survived, much of the external loss was a property of the rule. On APTOS every
+development model lost the mild grade at the shipped rule (recall
+\pn{aptos.R1.mild.min}--\pn{aptos.R1.mild.max}\%, against \pn{aptos.devmild.min}--\pn{aptos.devmild.max}\%
+in development; Fig.~\ref{fig:rules}a), and so did all five seeds of the reference model
+(\pn{seeds.aptos.mildR1.lo}--\pn{seeds.aptos.mildR1.hi}\%; O3 \pn{seeds.o3}). Cut-points refitted
+on half of the external labels and applied to the other half (R4m) raised mild recall to
+\pn{aptos.R4m.mild.min}--\pn{aptos.R4m.mild.max}\% with mild F1 of
+\pn{r2.aptos.R4m.mildf1.min}--\pn{r2.aptos.R4m.mildf1.max} (precision \pn{r2.aptos.e11full.R4m.mildp}
+for the selected model), above the development mild F1 of the same models under the same
+macro-recall objective with cut-points cross-fitted across folds
+(\pn{ph.dev.mildmr.min}--\pn{ph.dev.mildmr.max}; \pn{ph.dev.e11full.mildmr} for the selected
+model). The gain was a trade, not a free repair: \pn{r2.aptos.e11full.R4m.modtomild}
+moderate images were relabelled mild and referable sensitivity fell from
+\pn{r2.aptos.e11full.R1.sens}\% to \pn{r2.aptos.e11full.R4m.sens}\%, because mild DR is not referable.
+In the reverse direction the model trained on APTOS under-graded Messidor-2 (O6 \pn{rev.o6}) and
+referred \pn{rev.m2.R1.sens}\% of referable eyes at its shipped rule while ranking them with an area
+under the curve of \pn{rev.m2.auroc}; refitted cut-points raised sensitivity to \pn{rev.m2.R4.sens}\%.
+
+Where ranking or the grade itself did not survive, the rule could not help. On DDR the mild grade
+was not collapsed (recall \pn{ddr.R1.mild.min}--\pn{ddr.R1.mild.max}\%) and no rule raised its F1
+above \pn{r2.ddr.R4m.mildf1.max}. The collapse of mild recall was specific to APTOS, but low mild F1
+was not: even with cut-points refitted on external labels it stayed at or below
+\pn{r2.deepdrid.R4m.mildf1.max} on DeepDRiD and \pn{r2.sustech.R4m.mildf1.max} on SUSTech-SYSU, as in
+the released ORDER-DR predictions (below) and in a leave-one-domain-out benchmark of ordinal models
+in which mild F1 never exceeded about 0.16 on any held-out domain\cite{gradeye2026}. In the reverse direction mild
+recall at the shipped rule was \pn{rev.m2.R1.mild}\%, so the pre-specified predictions that a fine-tuned model would reproduce
+the published mild-grade collapse (O4) and that refitted cut-points would triple it (O5) were
+both falsified. RETFound ranked APTOS images as well as the convolutional models (area under the
+curve \pn{rf.aptos.auroc}) and most of its QWK deficit there was the rule (\pn{rf.aptos.R1.qwk} at
+its shipped rule, \pn{rf.aptos.R4.qwk} refitted), but on DDR its ranking itself degraded
+(\pn{rf.ddr.auroc}; QWK \pn{rf.ddr.R4.qwk} even refitted).
+
+Rules that need no external labels did not close the gap. Cut-points fitted on development data
+(R2, R3) left APTOS mild recall at \pn{aptos.R2.mild.min}--\pn{aptos.R2.mild.max}\% and lowered
+external QWK for \pn{aptos.r2worse} of 10 models. Label-free prior adaptation (R5) closed at
+least a quarter of the DDR referral-sensitivity gap between R1 and R4 in only \pn{r2.ddr.B25} of
+10 models (outcome B \pn{r2.B.verdict}). Because R5 decodes by argmax, its fair reference is the
+argmax of the unadapted posteriors (R0a), which already differs from R1; against R0a, prior
+adaptation changed referable sensitivity by a median of \pn{ph.aptos.r5.dsens.med} points on APTOS,
+\pn{ph.ddr.r5.dsens.med} on DDR, \pn{ph.deepdrid.r5.dsens.med} on DeepDRiD and
+\pn{ph.sustech.r5.dsens.med} on SUSTech-SYSU, and predicted any mild image in only
+\pn{ph.r5.nmild.models} of \pn{ph.r5.n} model--population pairs (Supplementary Table~S11). That is
+what a shift in the score given the grade, rather than in prevalence, should produce.
+
+\subsection{Model comparisons depend on the decision rule}
+
+The pre-specified prediction that the choice among deployable rules (R1--R3) would move mild
+recall and referable sensitivity more than the choice among models (O7) was falsified on both
+APTOS and DDR: models trained on the same data differed materially at their shipped rules
+(median within-model range \pn{aptos.o7.mildrecall.within} against a between-model range of
+\pn{aptos.o7.mildrecall.between} points of mild recall on APTOS, \pn{ddr.o7.refsens.within} against
+\pn{ddr.o7.refsens.between} points of referable sensitivity on DDR). Which model looked best,
+however, depended on the rule and on the metric. The rankings of models by external QWK at the
+shipped rule and by referable sensitivity at a fixed 90\% specificity were at most weakly related
+(Kendall $\tau$ \pn{ph.aptos.tau} [\pn{ph.aptos.tau.lo}, \pn{ph.aptos.tau.hi}] on APTOS,
+\pn{ph.ddr.tau} [\pn{ph.ddr.tau.lo}, \pn{ph.ddr.tau.hi}] on DDR, \pn{ph.deepdrid.tau}
+[\pn{ph.deepdrid.tau.lo}, \pn{ph.deepdrid.tau.hi}] on DeepDRiD and \pn{ph.sustech.tau}
+[\pn{ph.sustech.tau.lo}, \pn{ph.sustech.tau.hi}] on SUSTech-SYSU; permutation $p$
+\pn{ph.tau.p.min}--\pn{ph.tau.p.max}), so with ten models neither ranking could be predicted from
+the other.
+
+Under the matched decision rule several conclusions of the usual kind changed
+(Table~\ref{tab:record}). On APTOS, the selected EfficientNet-B3 model led the reference DenseNet121 by
+\pn{rec.bb.R1.qwk} QWK \pn{rec.bb.R1.qwkci} at the shipped rule and by \pn{rec.bb.R4.qwk}
+\pn{rec.bb.R4.qwkci} with both models refitted, and per-grade differences changed sign between
+operating points. On development data, linear-probe-then-fine-tune appeared to cost
+\pn{rec.lpft.ship} accuracy points \pn{rec.lpft.shipci} at shipped cut-points and gained
+\pn{rec.lpft.match} \pn{rec.lpft.matchci} at matched ones. The rule is not a one-way filter: the
+development advantage of EfficientNet-B3 over its DenseNet121 control survived it
+(\pn{iv.effnet.ship} shipped, \pn{iv.effnet.diff} \pn{iv.effnet.ci} matched).
+
+The same held for an independently trained, published model family. Applying our rules to the
+released image-level probabilities of ORDER-DR\cite{sheng2026orderdr} reproduced its reported
+Messidor-2 result exactly (QWK \pn{odr.odr.R2.qwk} $\pm$ \pn{odr.odr.R2.qwksd}; Supplementary
+Table~S6); with external cut-points all four released models converged to QWK
+\pn{odr.R4.qwk.min}--\pn{odr.R4.qwk.max}, so the reported advantage of the fused model over its
+best branch was a decision-rule effect, while mild F1 stayed at or below \pn{odr.R4m.f1.max}.
+
+Training noise set the scale for all of these effects (O1). Matched development QWK varied with
+a standard deviation of \pn{seeds.dev.sd} across five seeds of one configuration
+(\pn{seeds.dev.lo}--\pn{seeds.dev.hi}). Between models that differed only in their seed,
+\pn{seeds.aptos.sigR1} of \pn{seeds.aptos.ntests} per-grade recall comparisons on APTOS had a
+bootstrap interval excluding zero at the shipped rule and \pn{seeds.aptos.sigR4} with refitted
+cut-points (O2 \pn{seeds.o2}). An image-level bootstrap captures the sampling of test images, not
+the variance of training, so per-grade ``effects'' of the size usually attributed to architecture
+arise between identical architectures.
+
+\subsection{Agreement statistics cannot see the referral operating point}
+
+Holding the other cut-points at their QWK-optimal values and sweeping the referral cut
+(Fig.~\ref{fig:frontier}), every operating point of the selected model within 0.01 of its maximum
+QWK on DDR spanned referable sensitivity from \pn{ddr.band.e11full.sens.lo}\% to
+\pn{ddr.band.e11full.sens.hi}\%: between \pn{ddr.band.e11full.miss.lo} and
+\pn{ddr.band.e11full.miss.hi} of \pn{ddr.band.e11full.nref} referable patients missed, with QWK
+unable to tell the operating points apart. In a screening programme with 10\% referable
+prevalence, the selected model's shipped rule on DDR would miss \pn{r2.ddr.e11full.R1.miss10}
+referable patients per 10\,000 screened (negative predictive value \pn{r2.ddr.e11full.R1.npv10}\%),
+and cut-points refitted on local labels \pn{r2.ddr.e11full.R4.miss10}, at the cost of
+\pn{r2.ddr.e11full.R4.fref10} rather than \pn{r2.ddr.e11full.R1.fref10} false referrals
+(Supplementary Table~S9).
+
+\subsection{How many local labels a referral threshold needs}
+
+With the pre-specified objective --- a referral threshold set on $n$ locally labelled images for
+85\% sensitivity --- the probability that sensitivity on the remaining images fell below 80\% with
+200 images was \pn{r2.C.harm200.min}--\pn{r2.C.harm200.max}\% for the selected and reference models
+on every external set (outcome C \pn{r2.C.verdict}), while mean sensitivity stayed close to target
+at every size. Those sets are enriched, however
+(\pn{ph.prev.min}--\pn{ph.prev.max}\% referable): 200 of their images contain about
+\pn{ph.k200} referable cases, and the threshold depends on nothing else. Counted in referable cases,
+the risk was nearly identical on every population and for both models and agreed with the
+distribution-free closed form within \pn{ph.sim.maxdev} points (Fig.~\ref{fig:samplesize}a;
+Supplementary Table~S10): \pn{ph.harm.k20}\% with 20 referable cases, \pn{ph.harm.k60}\% with 60,
+\pn{ph.harm.k120}\% with 120 and \pn{ph.harm.k200}\% with 200. At a screening prevalence of 10\%,
+200 consecutive images therefore carry a \pn{ph.harm.n200.p10}\% risk, and about 1\,000
+(\pn{ph.harm.n1000.p10}\%) to 2\,000 images (\pn{ph.harm.n2000.p10}\%) are needed
+(Fig.~\ref{fig:samplesize}b). Fewer cases suffice if the threshold is set more conservatively: with
+60 referable cases, a cut at \pn{ph.req.k60.r05}\% sample sensitivity keeps the risk at or below
+5\%, at a cost in specificity that depends on the population (for the selected model on DDR,
+\pn{ph.ddr.e11full.spec90}\% rather than \pn{ph.ddr.e11full.spec85}\% at the thresholds giving
+90\% and 85\% sensitivity).
+
+\subsection{Interventions on the representation}
+
+Of \pn{iv.n} pre-specified interventions on the model, \pn{iv.nfalsified} failed their
+criterion under the matched decision rule (Supplementary Fig.~S1 and Table~S5). Only
+the EfficientNet-B3 backbone improved development QWK; the retinal foundation model, fine-tuned at
+its native 224 pixels, fell below a DenseNet121 at the same resolution by \pn{iv.retfound.diff}
+\pn{iv.retfound.ci} over \pn{iv.retfound.folds} folds (O9 \pn{retfound.o9}). No intervention moved
+the macular-oedema head, whose middle grade is supervised by \pn{dme.n1} images (Supplementary
+Note~2).

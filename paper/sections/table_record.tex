@@ -1,0 +1,21 @@
+\begin{table}[t]
+\caption{\textbf{The matched decision rule changes model comparisons.} Differences (first minus
+second) with 95\% paired-bootstrap intervals at the shipped rule and with both models'
+cut-points refitted by the same procedure (external rows: R4, two-fold cross-fitted on
+APTOS labels; development rows: fold-wise cross-fitted). $^\ast$Interval excludes zero.
+A per-grade verdict that depends on the cross-fitting procedure is reported in Supplementary
+Note~3.}\label{tab:record}
+\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{4.0cm}p{2.7cm}p{2.7cm}l@{}}
+\toprule
+Comparison & Shipped rule & Matched decision rule & Verdict \\
+\midrule
+EfficientNet-B3 vs DenseNet121, APTOS QWK & +0.0059 [+0.0007, +0.0110] & +0.0032 [$-$0.0020, +0.0083] & advantage dissolves \\
+\quad recall, moderate (points) & +1.4 & +4.0$^\ast$ & significance changes \\
+\quad recall, severe (points) & $-$1.0 & $-$10.3$^\ast$ & significance changes \\
+\quad recall, proliferative (points) & +8.1$^\ast$ & +6.8$^\ast$ & persists \\
+LP-FT vs fine-tuning, development accuracy (points) & $-$5.54 [$-$7.48, $-$3.54] & +1.95 [+0.18, +3.72] & reverses \\
+EfficientNet-B3 vs DenseNet121, development QWK & +0.0202 [+0.0071, +0.0329] & +0.0207 [+0.0105, +0.0320] & survives \\
+\bottomrule
+\end{tabular}
+\end{table}

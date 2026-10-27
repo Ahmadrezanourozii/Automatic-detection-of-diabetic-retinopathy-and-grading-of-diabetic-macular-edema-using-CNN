@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this code, the splits or the archived predictions, please cite the article and this repository."
+title: "Separating decision-rule failures from representation failures in external validation of diabetic retinopathy grading models: code, splits, analysis plans and per-image predictions"
+authors:
+  - family-names: Nourozi
+    given-names: Ahmadreza
+    affiliation: "Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU)"
+    email: Ahmadreza.nourozi@fau.de
+  - family-names: Chegeni
+    given-names: Alireza
+    affiliation: "School of Electrical and Computer Engineering, University of Tehran"
+repository-code: "https://github.com/Ahmadrezanourozii/Automatic-detection-of-diabetic-retinopathy-and-grading-of-diabetic-macular-edema-using-CNN"
+keywords:
+  - diabetic retinopathy
+  - ordinal classification
+  - decision threshold
+  - external validation
+  - dataset shift

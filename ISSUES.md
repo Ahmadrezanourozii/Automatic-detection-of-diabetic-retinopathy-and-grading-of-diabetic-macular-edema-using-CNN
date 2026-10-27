@@ -1135,7 +1135,7 @@ that **every run pre-registers a hypothesis and a falsifying outcome before laun
 did not, and the session that launched it is gone, so the record cannot be recovered.
 
 **Why it matters, and why it is not a formality.** The control (E08 at DR QWK 0.8646) and the
-±0.015 criterion used to judge E21CNXA are **reconstructed from `HANDOFF.md`, not read off a
+±0.015 criterion used to judge E21CNXA are **reconstructed from `docs/project-notes/HANDOFF.md`, not read off a
 stamped record**. Reconstructing a criterion *after* seeing the number is exactly the freedom
 pre-registration exists to remove — even when, as here, the reconstruction is honest and the
 result is negative in a direction nobody wanted. A negative result makes the lapse cheap; it
@@ -1215,6 +1215,82 @@ which is how the unreproducible `0.78` was caught instead of being retyped in th
 
 **The lesson worth keeping:** *a rendering claim is settled by rendering.* Two of this project's
 guards now exist because an argument was substituted for an inspection.
+
+---
+
+## §30. The matched-calibration script decoded CORN as if it were a cumulative head — a "significant" deficit that does not exist  — 2026-10-16, FIXED
+
+**Symptom.** `docs/generated/matched_corn_e08.json` reported CORN (E22CORN) significantly
+worse than E08 at matched calibration: **−0.0479 [−0.0656, −0.0325]**. `docs/project-notes/HANDOFF.md`,
+`IDEAS.md` and the thesis then explained the deficit mechanistically ("CORN's conditional
+subsets collapse under class imbalance — threshold 3 trains on only 265 of 2 260 rows").
+
+**How it was found.** Re-deriving every development number for the journal paper from the
+archived per-image logits (`src/paper_rules.py`), every run reproduced its archived matched
+QWK exactly — except E22CORN: **0.8564**, not 0.8168. The archived file's own *shipped*
+column (0.8463) also disagreed with the run's `results.json` (0.8527), which `train.py`
+computes with the correct head.
+
+**Root cause.** `compare_matched.py` scored every run with `sigmoid(logits).sum()` and
+`decode(head="ordinal")`. CORN's logits are *conditional* probabilities P(y > k | y > k−1) and
+must be chained by cumulative product (`model.decode` and `model.expected_grade` already do
+this). Treating them as cumulative P(y > k) gives a different expected grade and a worse
+decode. The archived −0.0479 is reproduced exactly by forcing the wrong decoding, which
+confirms the diagnosis.
+
+**Corrected result** (`docs/generated/paper/matched_corn_e08.json`, `src/paper_matched.py`):
+DR QWK at matched calibration **0.8564 vs 0.8646, −0.0082 [−0.0207, +0.0036] —
+indistinguishable**. DME **+0.0070 [−0.0207, +0.0334]**, indistinguishable.
+
+**What changes.** The pre-registered verdict is unchanged — CORN did not beat E08, so it is
+still falsified. What is withdrawn: "significantly worse", and the mechanism offered to
+explain a deficit that was an artefact of the analysis. The ordinal-loss line is closed
+because neither CORAL nor CORN helped, not because CORN hurt.
+
+**Fix.** `compare_matched.py` now reads each run's head from its `results.json` and decodes
+with it. CORAL was unaffected (its logits are cumulative), which is why E20CORAL's archived
+0.8569 reproduces.
+
+**The class of error.** Same as §16/§20: an analysis script that is correct for the runs it
+was written against and silently wrong for a run with a different output convention. It
+raised no error; it produced a confident, significant, mechanistically "explained" number.
+It was caught only because the paper regenerates every number from per-image predictions
+with independent code.
+
+---
+
+## §31. The record's one "confirmed" per-class difference depends on how the cut-points are cross-fitted  — 2026-10-16, RECORDED
+
+**What was claimed.** `PROTOCOL.md` §4.1/§10 cite the E12 source control as the case that
+licenses the matched-calibration rule: Moderate recall native − default was −6.8 at shipped
+cut-points and **−6.5 [−11.9, −0.7] "with both arms recalibrated for QWK"** — the rule
+returned "real difference", so it is not a one-way filter.
+
+**What regenerating it from the per-image logits shows** (`src/paper_record.py`; no script
+for the original analysis was archived):
+
+| cut-points for both arms | Moderate recall, native − default |
+|---|---|
+| shipped (0.5) | −6.9 [−12.1, −2.1] |
+| fitted on all 953 rows (in-sample) | −10.8 [−16.2, −5.4] |
+| random 2-fold cross-fit, grid 80 (the external-recovery procedure) | **−6.6 [−12.0, −1.1]** ← the archived value |
+| fold-wise cross-fit, grid 60 (the procedure every other DEVELOPMENT comparison uses) | **+0.4 [−5.7, +6.1]** |
+
+The archived figure is reproduced by the random-half procedure. Under the project's own
+standard development procedure the difference dissolves. Aggregate QWK is indistinguishable
+under every procedure.
+
+**What changes.** The E12 entry is not a clean confirmation: whether a per-class difference
+"survives matched calibration" depended on which matched calibration was used. That is
+itself the paper's point (per-class comparisons are operating-point dependent), but the
+record must not present E12 as the case that shows the rule can confirm. The two-directional
+property of the rule rests instead on the development comparison E11FULL vs E10, where a
+significant difference **survives** matched calibration (+0.0202 shipped → +0.0207 matched,
+interval excluding zero), and on per-grade cells that stay significant at every operating
+point (Proliferative, E11FULL − E08 on APTOS: +8.1 at R1, +6.8 at R4).
+
+**Rule added.** A matched-calibration claim names its fitting procedure (in-sample, fold-wise
+cross-fit, random-half cross-fit) and, for per-class claims, is reported under at least two.
 
 ---
 

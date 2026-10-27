@@ -1,0 +1,21 @@
+{
+ "id": "ah22reza/dr-dme-x3audit",
+ "title": "DR/DME X3AUDIT",
+ "code_file": "dr-dme-x3audit.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": true,
+ "enable_gpu": false,
+ "enable_internet": true,
+ "dataset_sources": [
+  "aaryapatel98/indian-diabetic-retinopathy-image-dataset",
+  "google-brain/messidor2-dr-grades",
+  "mariaherrerot/messidor2preprocess",
+  "tanlikesmath/diabetic-retinopathy-resized",
+  "mariaherrerot/aptos2019",
+  "mariaherrerot/ddrdataset"
+ ],
+ "competition_sources": [],
+ "kernel_sources": [],
+ "machine_shape": "None"
+}

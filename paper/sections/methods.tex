@@ -1,0 +1,155 @@
+\section{Materials and methods}\label{sec:methods}
+
+\subsection{Study design and analysis plans}
+
+This is a retrospective modelling study on public, de-identified fundus photographs. An
+evaluation protocol (unit of independence, held-out sets, model selection on development data
+only, metrics and uncertainty) was fixed before the first training run. For the analyses
+reported here, the plan --- hypothesis, control, analysis and the result that would falsify
+it --- was committed to the public repository before the analysis was run: the derivation test
+of the macular-oedema grade (Supplementary Note~2), nine first-stage outcomes O1--O9 (seed
+replicates, reverse direction, second external corpus, five-fold foundation model) and
+second-stage outcomes A1--E2 (mechanism, label-free rules, sample size, two further external sets
+and the models trained on EyePACS), written after an internal pre-submission review of an earlier
+draft. These are analysis plans committed to version control, not entries in a public registry;
+their commit identifiers and times are in Supplementary Table~S1, and every outcome with its
+prediction, falsifying result and verdict is in Supplementary Table~S2. Two limits apply. The
+repository history begins on 31 August 2026, so the pre-specification of development runs trained
+before that date cannot be verified, and we call those models pre-specified only in the sense that
+the set of ten was fixed in the first-stage plan. And the second-stage prediction A1 was written
+knowing the overall direction of the shift on APTOS and DDR; what it added was the grade-by-grade
+form, and DeepDRiD and SUSTech-SYSU, for which no direction was known or predicted, were its first
+test on new populations. Analyses added after an internal editorial assessment of the manuscript
+are labelled \emph{post hoc}. Reporting follows TRIPOD+AI\cite{collins2024tripodai} and
+CLAIM\cite{tejani2024claim} (Supplementary Table~S3).
+
+\subsection{Data}
+
+The \emph{development pool} combined IDRiD\cite{porwal2018idrid,porwal2020challenge}
+(\pn{n.idrid} images) and Messidor-2\cite{decenciere2014messidor,abramoff2013messidor2}
+(\pn{n.messidor2} gradable images with the adjudicated grades of Krause \emph{et
+al.}\cite{krause2018grader}), \pn{n.dev} images in total (Table~\ref{tab:cohorts};
+Fig.~\ref{fig:design}). Messidor-2 images were taken from a public mirror of the original release
+preprocessed to 512$\times$512 pixels; the two higher-resolution models (560 and 640 pixels) used a
+mirror at the original 2240$\times$1488 pixels that covers 1\,057 of the 1\,744 images
+(Supplementary Table~S4). The external sets, never used for training, model selection or threshold
+fitting, were APTOS 2019 (\pn{n.aptos} images, India, single grader), DDR\cite{li2019ddr}
+(\pn{n.ddr} gradable images, 147 hospitals in China, seven graders; used from a public 512-pixel
+mirror), the regular fundus images of DeepDRiD\cite{liu2022deepdrid} (\pn{r2.deepdrid.n} images of
+500 patients from three Chinese diabetes screening programmes) and SUSTech-SYSU\cite{lin2020sustech}
+(\pn{r2.sustech.n} graded images; the 68 images of laser scars carry no grade). SUSTech-SYSU is a
+case--control collection: its grade-0 images are of healthy volunteers without diabetes, photographed
+at routine health examinations, and its DR images were graded by two ophthalmologists with
+adjudication by a third\cite{lin2020sustech}. In the reverse direction APTOS was the training corpus
+and Messidor-2 and IDRiD were external. The EyePACS 2015 training set (\pn{n.eyepacs} images,
+single grader) was used to pretrain the development models and, in the second stage, as the
+development set of two further models.
+All corpora use the international 5-grade scale\cite{wilkinson2003scale}; referable DR is grade
+$\geq$2 and, because macular oedema is not graded in the external sets, it is defined by DR
+grade alone. A content audit (256-bit difference hash after the training crop) checked every
+development and EyePACS image against every external image (Supplementary Note~7).
+Patient identifiers are published only for DeepDRiD and EyePACS; Messidor-2 is distributed as
+pairs of images per examination, but the pairing file is not part of the mirrors used, so
+resampling elsewhere is by image (near-duplicates merged).
+
+\subsection{Models}
+
+All models share one design: a backbone, global average pooling and ordinal threshold heads
+that output four logits for $P(y>k)$\cite{cao2020rank}, trained with masked binary
+cross-entropy, a grade-balanced sampler, AdamW, cosine decay, weight averaging and
+dihedral test-time augmentation (details in Supplementary Table~S4). The reference model is a
+DenseNet121\cite{huang2017densenet} pretrained on ImageNet and then EyePACS and fine-tuned at
+448 pixels; the selected model replaces the backbone with EfficientNet-B3\cite{tan2019efficientnet}.
+The other eight pre-specified development models change one factor each
+(Table~\ref{tab:models}): resolution (224, 560 and native 640 pixels), a macula-centred crop,
+linear-probe-then-fine-tune\cite{kumar2022lpft}, CORAL and CORN heads\cite{cao2020rank,shi2023corn}
+and ConvNeXt-tiny\cite{liu2022convnext}; the retinal foundation model RETFound\cite{zhou2023retfound}
+was fine-tuned separately. Development results are out of fold over a frozen 5-fold split
+stratified by corpus and grade; external predictions average the five fold models. The development
+models had seen EyePACS during pretraining; what the two EyePACS models (DenseNet121 and
+EfficientNet-B3, 448 pixels, 15 epochs from ImageNet) changed was the final training set and its
+labels. They were trained on four folds of a patient-grouped split of EyePACS
+(\pn{eye.eb3.trainn} images) and used the fifth (\pn{eye.eb3.devn} images) both to select the
+checkpoint and to fit development rules, so their development estimates are single-fold and
+slightly optimistic.
+
+\subsection{Decision rules and the matched decision rule}
+
+For an ordinal model with $p_k=P(y>k)$ the expected grade is $s=\sum_k p_k$. Every model's
+outputs were decoded under the same rules (Supplementary Note~1). \textbf{R1} is the shipped
+rule: the number of leading thresholds with $p_k>0.5$. \textbf{R2} places four cut-points on $s$
+to maximise QWK on development out-of-fold predictions, and \textbf{R3} moves R2's grade-1/2
+cut to give 90\% development referable sensitivity. \textbf{R4} and \textbf{R4m} fit the
+cut-points on the external labels, maximising QWK or macro-averaged recall, by two-fold
+cross-fitting; they are diagnostics of what local labels could recover, never performance.
+\textbf{R5} adapts the class posteriors (derived from the ordinal outputs) to the external
+population without labels by EM estimation of the target prior\cite{saerens2002adjusting},
+and \textbf{R5b} by black-box shift estimation\cite{lipton2018bbse}; both decode by argmax, so
+their like-for-like reference is \textbf{R0a}, the argmax of the unadapted posteriors.
+
+The \emph{matched decision rule} is the comparison rule used throughout: no difference between
+two models is attributed to the representation unless it survives refitting both models'
+cut-points by the same cross-fitted procedure (on development data, fold $f$'s cut-points come
+from the other four folds; externally, R4). Because a per-grade verdict can depend on how the
+cut-points are cross-fitted (Supplementary Note~3), every matched claim names its procedure.
+
+\subsection{Decomposing external performance}
+
+Discrimination was measured at every ordinal threshold (area under the ROC curve of $p_k$ for
+$y>k$, $k=0,\dots,3$) and overall by Harrell's C of $s$. The mapping from score to grade was
+described by the mean expected grade given the true grade, $\mathrm{E}[s\mid y=k]$; under a pure
+prior (label) shift this quantity is the same in every population, so a grade-by-grade departure
+from its development value indicates a conditional shift (outcome A1). To test whether image
+quality alone can produce the under-grading seen on DDR (A2), the development pool was re-scored
+out of fold after five fixed degradations of the cached image (JPEG quality 30 at 512 pixels;
+downsampling to 256 pixels; Gaussian blur, $\sigma=2$ pixels; gamma 1.8 darkening; contrast
+reduced to 60\%), and per-corpus image statistics were computed (A3).
+
+\subsection{Threshold transfer and local recalibration}
+
+A referral threshold on $P(y\geq2)$ was fitted on development predictions for target
+sensitivities of 80\%, 85\% (the superiority endpoint of the first autonomous pivotal
+trial\cite{abramoff2018pivotal}), 87.2\% and 95.5\%, and applied unchanged externally.
+
+Local recalibration was sized with the operational objective. In the pre-specified analysis (C),
+$n$ external images ($n=25$--800, 500 draws each) were drawn at random, the referral threshold was
+set to the largest value giving at least 85\% sensitivity on those $n$, and sensitivity was measured
+on the remaining images; a draw counts as \emph{harm} when that sensitivity falls below 80\%. Because
+this threshold depends only on the referable images in the sample, and the external sets are
+enriched (40--45\% referable), the analysis was repeated post hoc in terms of the number $k$ of
+referable cases labelled ($k=20$--300, 2\,000 draws), with the threshold's sensitivity measured on
+all of the corpus's referable images not drawn. With continuous scores the population sensitivity of
+the cut at the $j$-th largest of $k$ referable scores ($j=\lceil0.85k\rceil$) follows a
+Beta$(j,\,k-j+1)$ distribution whatever the model or population, which gives the risk of harm in
+closed form; for $n$ consecutive images at referable prevalence $\pi$ the number of referable cases
+is binomial$(n,\pi)$. Positive and negative predictive values and the number of referable patients
+missed per 10\,000 screened were derived at referable prevalences of 5, 10 and 20\%.
+
+\subsection{Statistics}
+
+The primary grading metric is quadratic weighted kappa (QWK)\cite{cohen1968kappa}; the
+operationally primary pair is referable sensitivity and specificity, never quoted alone.
+Per-grade recall, precision and F1, Cohen's $\kappa$, macro-averaged recall (a diagnostic and the
+objective of R4m, never a deployment objective), area under the curve, Brier score and expected
+calibration error are reported
+beside them. Intervals are 95\% percentile intervals from 2\,000 bootstrap resamples of groups
+(patients where identified, otherwise images); differences between models are paired bootstraps,
+and an interval containing zero is reported as indistinguishable, not ranked. Model rankings were
+compared with Kendall's $\tau$, with a two-sided permutation $p$-value (10\,000 permutations) and,
+post hoc, a 95\% interval from 1\,000 image resamples. Because case mix alone can raise an area
+under the curve, the referral AUC was also computed post hoc with each image weighted to the
+development grade mix (within referable and within non-referable images), beside the AUC between
+adjacent grades. A difference between configurations is treated as beyond training
+noise only if it exceeds $2\sqrt{2}$ standard deviations of matched development QWK across five
+seeds of the reference model. No correction for multiplicity is applied; per-grade claims are
+treated as credible only when they replicate across conditions.
+
+\subsection{Software and reproducibility}
+
+Every number in the article is generated from archived per-image predictions into a ledger from
+which the manuscript is compiled; no number is typed by hand. An AI assistant (Claude, Anthropic)
+was used under the authors' direction to write analysis and training code, to run the analyses, to
+submit the training and inference jobs to Kaggle and to draft text. The authors directed the work
+and its interpretation, reviewed the code and its outputs, verified the reported results against
+the archived predictions and take responsibility for them. Code, splits, analysis plans and
+predictions are public (Data and code availability).

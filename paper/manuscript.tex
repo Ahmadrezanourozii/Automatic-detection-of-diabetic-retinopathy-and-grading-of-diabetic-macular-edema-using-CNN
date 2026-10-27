@@ -1,0 +1,72 @@
+%% Manuscript (research article), Elsevier elsarticle
+%% class in its single-column review layout (the journal returns submissions that imitate its
+%% final layout). Every number in the text is a \pn{key} looked up in numbers.tex, which
+%% src/paper_numbers.py generates from the archived artefacts; an undefined key stops the build.
+\documentclass[preprint,review,12pt]{elsarticle}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{lineno}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\linenumbers
+
+\makeatletter
+\newcommand{\pndef}[2]{\expandafter\def\csname pn@#1\endcsname{#2}}
+\newcommand{\pn}[1]{\ifcsname pn@#1\endcsname\csname pn@#1\endcsname\else
+  \@latex@error{Undefined number key `#1'}{Run src/paper_numbers.py}\textbf{??#1??}\fi}
+\makeatother
+\input{numbers.tex}
+
+\journal{Artificial Intelligence in Medicine}
+% the class's "Preprint submitted to" footer collides with the e-mail footnote in this layout
+\makeatletter
+\def\ps@pprintTitle{\let\@oddhead\@empty\let\@evenhead\@empty
+  \def\@oddfoot{}\let\@evenfoot\@oddfoot}
+\makeatother
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Separating decision-rule failures from representation failures in external validation of
+diabetic retinopathy grading models}
+
+\author[fau]{Ahmadreza Nourozi\corref{cor1}}
+\ead{Ahmadreza.nourozi@fau.de}
+\author[ut]{Alireza Chegeni}
+\cortext[cor1]{Corresponding author.}
+\address[fau]{Friedrich-Alexander-Universit\"at Erlangen-N\"urnberg (FAU), Schlossplatz 4,
+91054 Erlangen, Germany}
+\address[ut]{School of Electrical and Computer Engineering, College of Engineering, University of
+Tehran, Tehran, Iran}
+
+\input{abstract.tex}
+
+\begin{keyword}
+diabetic retinopathy \sep ordinal classification \sep decision threshold \sep external validation
+\sep dataset shift \sep recalibration \sep deep learning
+\end{keyword}
+
+\end{frontmatter}
+
+\input{sections/introduction.tex}
+\input{sections/methods.tex}
+\input{sections/results.tex}
+\input{sections/discussion.tex}
+
+\input{sections/backmatter.tex}
+
+\bibliographystyle{elsarticle-num}
+\bibliography{refs}
+
+\clearpage
+\input{sections/figures.tex}
+
+\end{document}

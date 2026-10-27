@@ -1,0 +1,21 @@
+{
+ "id": "ah22reza/dr-dme-x7audit",
+ "title": "DR/DME X7AUDIT",
+ "code_file": "dr-dme-x7audit.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": true,
+ "enable_gpu": true,
+ "machine_shape": "GPU T4 x2",
+ "enable_internet": true,
+ "dataset_sources": [
+  "aaryapatel98/indian-diabetic-retinopathy-image-dataset",
+  "google-brain/messidor2-dr-grades",
+  "mariaherrerot/messidor2preprocess",
+  "tanlikesmath/diabetic-retinopathy-resized",
+  "nancyhisham/deepdrid",
+  "mariaherrerot/the-sustechsysu-dataset"
+ ],
+ "competition_sources": [],
+ "kernel_sources": []
+}

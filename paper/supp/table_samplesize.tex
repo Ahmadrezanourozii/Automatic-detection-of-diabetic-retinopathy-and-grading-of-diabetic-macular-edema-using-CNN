@@ -1,0 +1,27 @@
+\begin{table}[h]
+\caption{\textbf{How many locally labelled cases a referral threshold needs (post hoc).} The threshold is set to the largest value giving at least 85\% sensitivity on the referable cases of a labelled sample; harm is a population sensitivity below 80\%. Top: by the number $k$ of referable cases in the sample. The closed form is distribution-free (with continuous scores the population sensitivity of the cut at the $j$-th largest of $k$ referable scores, $j=\lceil0.85k\rceil$, follows a Beta$(j,k-j+1)$ distribution); the simulated range covers the selected and reference models on the four external sets (2\,000 draws each, sensitivity measured on the corpus's referable images not drawn; $k$ at most a quarter of them). The last two columns give the sample sensitivity at which the cut must be set for the risk to stay at or below 5\% or 10\%. Bottom: by the number of consecutive images labelled at a given referable prevalence (closed form, binomial number of referable cases; no referable case counts as harm).}\label{tab:samplesize}
+\centering\scriptsize
+\begin{tabular}{@{}rrrrr@{}}
+\toprule
+Referable cases $k$ & Harm, closed form (\%) & Harm, simulated (\%) & Sample sens.\ for $\leq$5\% & for $\leq$10\% \\
+\midrule
+20 & 41.1 & 39.9--42.2 & 100.0 & 95.0 \\
+40 & 28.6 & 26.7--30.0 & 92.5 & 90.0 \\
+60 & 21.3 & 21.1--23.8 & 90.0 & 88.3 \\
+80 & 16.4 & 15.3--19.2 & 88.8 & 87.5 \\
+100 & 12.9 & 11.3--16.4 & 87.0 & 86.0 \\
+120 & 10.2 & 9.4--13.2 & 86.7 & 85.8 \\
+160 & 6.6 & 6.2--9.0 & 85.6 & 84.4 \\
+200 & 4.3 & 4.2--7.1 & 85.0 & 84.0 \\
+300 & 1.6 & 1.4--2.4 & 84.0 & 83.3 \\
+\midrule
+Images labelled & \multicolumn{4}{l}{Harm (\%) at a referable prevalence of 5\% / 10\% / 20\%} \\
+\midrule
+100 & \multicolumn{4}{l}{44.4 / 38.5 / 31.7} \\
+200 & \multicolumn{4}{l}{38.5 / 31.6 / 22.6} \\
+500 & \multicolumn{4}{l}{28.8 / 19.5 / 10.5} \\
+1,000 & \multicolumn{4}{l}{19.5 / 10.5 / 3.6} \\
+2,000 & \multicolumn{4}{l}{10.5 / 3.6 / 0.5} \\
+\bottomrule
+\end{tabular}
+\end{table}

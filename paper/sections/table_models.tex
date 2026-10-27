@@ -1,0 +1,27 @@
+\begin{table}[t]
+\caption{\textbf{Models.} Each development model changes one factor relative
+to the reference. Development QWK: out-of-fold DR QWK under the matched decision rule
+(fold-wise cross-fitted cut-points); for the two EyePACS models, on their single held-out EyePACS fold
+(\pn{eye.eb3.devn} single-graded images, cut-points two-fold cross-fitted within it), which also selected
+their checkpoint. Repository codes are given for traceability.}\label{tab:models}
+\centering\def\baselinestretch{1}\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{4.1cm}lrp{3.7cm}r@{}}
+\toprule
+Model & Code & Pixels & Factor changed & Dev.\ QWK \\
+\midrule
+DenseNet121-448 (reference) & E08 & 448 & reference & 0.8646 \\
+DenseNet121-224 & E09 & 224 & resolution & 0.8389 \\
+DenseNet121-560 & E10 & 560 & resolution & 0.8749 \\
+DenseNet121-640 native & E17NAT & 640 & native-resolution source images & 0.8662 \\
+EfficientNet-B3 (selected) & E11FULL & 448 & backbone (selected model) & 0.8954 \\
+DenseNet121 + macula crop & E14MAC & 448 & macula-centred crop for the DME head & 0.8595 \\
+DenseNet121 LP-FT & E15LPFT & 448 & linear probe, then fine-tune & 0.8655 \\
+DenseNet121 CORAL head & E20CORAL & 448 & CORAL ordinal head & 0.8569 \\
+DenseNet121 CORN head & E22CORN & 448 & CORN ordinal head & 0.8564 \\
+ConvNeXt-T (2 folds) & E21CNXA & 448 & backbone (2 of 5 folds) & 0.8267 \\
+RETFound ViT-L/16 & I24FULL & 224 & foundation encoder (not in the O7 set) & 0.7976 \\
+DenseNet121, EyePACS-trained & EYEDN & 448 & trained on EyePACS & 0.7503 \\
+EfficientNet-B3, EyePACS-trained & EYEEB3 & 448 & trained on EyePACS & 0.7747 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,21 @@
+\begin{table}[t]
+\caption{\textbf{Cohorts.} DR is graded on the international 5-grade scale
+in every corpus. No external image was used for training, model selection or
+threshold fitting. Messidor-2 and DDR were used from public 512-pixel mirrors; SUSTech-SYSU's
+grade-0 images are of healthy volunteers without diabetes, and its 68 laser-scar images carry no grade.}\label{tab:cohorts}
+\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{2.3cm}p{3.1cm}p{2.4cm}p{2.3cm}p{2.7cm}@{}}
+\toprule
+Role & Corpus & Origin & Images & Grading \\
+\midrule
+Development & IDRiD & India & 516 & 3 graders (published grading) \\
+ & Messidor-2 & France & 1,744 & adjudicated by 3 specialists \\
+Pretraining; EyePACS models & EyePACS 2015 & USA & 35,126 & single grader per image \\
+External & APTOS 2019 & India & 3,662 & single grader \\
+ & DDR & China, 147 hospitals & 12,522 & 7 graders \\
+ & DeepDRiD (regular) & China, 3 diabetes screening programmes & 2,000 (500 patients) & doctor annotations (challenge release) \\
+ & SUSTech-SYSU & China, Guangdong; case--control & 1,151 graded of 1,219 & 2 ophthalmologists, adjudicated \\
+Reverse direction & APTOS $\rightarrow$ Messidor-2, IDRiD &  & 3,662 $\rightarrow$ 2,260 & as above \\
+\bottomrule
+\end{tabular}
+\end{table}

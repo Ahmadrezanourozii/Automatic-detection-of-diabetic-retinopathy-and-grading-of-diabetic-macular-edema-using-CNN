@@ -1,0 +1,78 @@
+[
+ {
+  "plan": "Repository history begins (evaluation protocol present)",
+  "commit": "5846b1b",
+  "commit_utc": "2026-08-31 17:51:25",
+  "runs": [],
+  "first_launch_utc": null,
+  "all_after_commit": null
+ },
+ {
+  "plan": "Part A: derivation test of the macular-oedema grade",
+  "commit": "f79abc4",
+  "commit_utc": "2026-09-07 17:37:44",
+  "runs": [],
+  "first_launch_utc": null,
+  "all_after_commit": null
+ },
+ {
+  "plan": "CORAL, CORN and ConvNeXt interventions (hypotheses in EXPERIMENTS.md)",
+  "commit": "b723945",
+  "commit_utc": "2026-09-05 17:10:36",
+  "runs": [
+   "dr-dme-e20coral",
+   "dr-dme-e22corn",
+   "dr-dme-e21cnxa"
+  ],
+  "first_launch_utc": "2026-09-05 17:10:42",
+  "all_after_commit": true
+ },
+ {
+  "plan": "First-stage outcomes O1-O9 (first-stage plan)",
+  "commit": "46f1bdd",
+  "commit_utc": "2026-10-16 11:03:04",
+  "runs": [
+   "dr-dme-s1e08",
+   "dr-dme-s2e08",
+   "dr-dme-s3e08",
+   "dr-dme-s4e08",
+   "dr-dme-x2ddr",
+   "dr-dme-r1aptos",
+   "dr-dme-i24ft234"
+  ],
+  "first_launch_utc": "2026-10-16 11:03:32",
+  "all_after_commit": true
+ },
+ {
+  "plan": "Second-stage outcomes A1-E2 (second-stage plan)",
+  "commit": "1456815",
+  "commit_utc": "2026-10-20 11:21:07",
+  "runs": [
+   "dr-dme-eyedn",
+   "dr-dme-eyeeb3",
+   "dr-dme-x5new"
+  ],
+  "first_launch_utc": "2026-10-20 11:21:57",
+  "all_after_commit": true
+ },
+ {
+  "plan": "Post hoc: acquisition statistics (code commit)",
+  "commit": "d3c42f7",
+  "commit_utc": "2026-10-21 07:10:13",
+  "runs": [
+   "dr-dme-x6acq"
+  ],
+  "first_launch_utc": "2026-10-21 07:10:59",
+  "all_after_commit": true
+ },
+ {
+  "plan": "Post hoc: overlap audit of DeepDRiD and SUSTech-SYSU (code commit)",
+  "commit": "fe82a52",
+  "commit_utc": "2026-10-21 07:16:26",
+  "runs": [
+   "dr-dme-x7audit"
+  ],
+  "first_launch_utc": "2026-10-21 07:16:41",
+  "all_after_commit": true
+ }
+]

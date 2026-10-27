@@ -1,0 +1,90 @@
+% Tables and figures, in order of first citation.
+
+\input{sections/table_cohorts.tex}
+\input{sections/table_models.tex}
+\input{sections/table_record.tex}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\textwidth]{figures/fig1_design.pdf}
+\caption{\textbf{Study design.} Development models were trained on a pooled IDRiD and Messidor-2
+set under a frozen 5-fold split (after pretraining on EyePACS) and evaluated without further tuning
+on four external populations; a model trained on APTOS was evaluated in the reverse direction, and
+two models were fine-tuned on \pn{eye.eb3.trainn} EyePACS images. Every model's ordinal outputs
+were decoded under the same decision rules: R1, the shipped default; R2 and R3, fitted on
+development predictions; R4 and R4m, fitted on external labels by two-fold cross-fitting
+(diagnostic only); and R5 and R5b, label-free adaptation to the external population, with R0a, the
+unadapted argmax, as their reference.}
+\label{fig:design}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\textwidth]{figures/fig2_shift.pdf}
+\caption{\textbf{Ranking transferred; the score given the true grade did not.} \textbf{a}, Area
+under the ROC curve of each ordinal output $P(y>k)$ in development (out of fold) and in each external
+population: median (marker) and range (line) across the ten development models. On SUSTech-SYSU,
+a case--control collection, and for no DR against mild on APTOS, discrimination exceeds development
+values because of case mix (Supplementary Table~S12). \textbf{b},
+Mean expected grade $\mathrm{E}[s\mid y]$ for images of each reference grade; under a pure change in
+prevalence these curves would coincide. APTOS images of the mild grade score about one grade higher
+than in development, whereas DDR images of every grade score lower. Colours are paired with marker
+shapes.}
+\label{fig:shift}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/fig3_transfer.pdf}
+\caption{\textbf{Referral thresholds fitted on development data do not hold their operating point.}
+A threshold on $P(\mathrm{grade}\geq2)$ was fitted on the reference model's development out-of-fold
+predictions for each target sensitivity (x-axis) and applied unchanged to each external
+population; points show the achieved sensitivity with 95\% bootstrap intervals, and the diagonal is
+perfect transfer. Targets: 80\%; 85\% (the superiority endpoint of the first autonomous pivotal
+trial); 87.2\% (that trial's achieved sensitivity); 95.5\%. The same thresholds over-refer where the
+models over-grade (APTOS, SUSTech-SYSU), under-refer where they under-grade most (DDR) and transfer
+where the shift is small (DeepDRiD).}
+\label{fig:transfer}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\textwidth]{figures/fig2_rules.pdf}
+\caption{\textbf{External mild-grade recall and referral sensitivity of every development model
+under every decision rule.} Rows are models (Table~\ref{tab:models}) ordered by development QWK;
+markers show the same model under four rules. \textbf{a},\textbf{b}, APTOS 2019; \textbf{c},\textbf{d},
+DDR. On APTOS, mild recall at the shipped rule (R1) is low in every model and is restored by
+cut-points refitted on external labels (R4m, diagnostic) at the cost of referral sensitivity, because
+mild DR is not referable; rules fitted on development data (R2, R3) do not restore it. On DDR the mild
+grade is not collapsed and no rule recovers much. Models differ at a fixed rule by more than the
+deployable rules differ within a model (pre-specified outcome O7 falsified).}
+\label{fig:rules}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\textwidth]{figures/fig4_frontier.pdf}
+\caption{\textbf{Agreement statistics cannot see the referral operating point.} \textbf{a},\textbf{c},
+QWK and Cohen's $\kappa$ of the selected model as the referral cut-point is swept with the other
+cut-points at their QWK-optimal values, against the referable sensitivity it produces, on APTOS
+(\textbf{a}) and DDR (\textbf{c}). The shaded band contains every operating point whose QWK is within
+0.01 of the maximum. \textbf{b},\textbf{d}, the specificity that the same sweep trades for
+sensitivity.}
+\label{fig:frontier}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\textwidth]{figures/fig5_samplesize.pdf}
+\caption{\textbf{How many local labels a referral threshold needs.} The threshold is set to the
+largest value giving at least 85\% sensitivity on the referable cases of a labelled sample; harm is
+a population sensitivity below 80\%. \textbf{a}, risk of harm against the number of referable cases
+in the sample: closed form (line), which holds for any model and population with continuous scores,
+and simulation for the selected model on each external set (markers; 2\,000 draws, sensitivity
+measured on the referable images not drawn; post hoc). \textbf{b}, risk against the number of
+consecutive images labelled at referable prevalences of 5, 10 and 20\% (closed form) and at the
+\pn{ph.prev.min}--\pn{ph.prev.max}\% of the external sets as sampled (dashed), with the pre-specified
+simulation for the selected model (markers; 500 draws, sensitivity measured on the remaining images,
+which adds evaluation noise at large $n$ on the smaller sets). Dotted lines, 10\% and 5\% risk.}
+\label{fig:samplesize}
+\end{figure}

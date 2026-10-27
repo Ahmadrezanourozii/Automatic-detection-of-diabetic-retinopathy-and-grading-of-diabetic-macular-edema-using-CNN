@@ -43,6 +43,11 @@ RETFOUND = "ah22reza/retfound-cfp-encoder"
 # DDR (Li et al. 2019), 12 522 gradable images at 512 px from 147 Chinese hospitals. A second
 # external DR test set for the journal paper; evaluation only, like APTOS.
 DDR = "mariaherrerot/ddrdataset"
+# Third and fourth external DR sets, added at revision (docs/PAPER_REVISION_preregistration.md):
+# DeepDRiD regular fundus images (2 000 images, 500 patients, Shanghai) and SUSTech-SYSU
+# (1 151 images, Shenzhen). Evaluation only.
+DEEPDRID = "nancyhisham/deepdrid"
+SUSTECH = "mariaherrerot/the-sustechsysu-dataset"
 
 # A run whose ID names a piece of work must actually launch that work. E13gate was pushed
 # as the fovea-localiser gate and silently ran src/train.py for 643 s instead, producing a
@@ -67,7 +72,7 @@ RUN_ID_REQUIRES_SCRIPT = {
 
 def cells(run_id, train_args, commit, external_only=False, from_run="", script="",
           ext_args=None, code_dataset="", external_corpora="APTOS", build_split="",
-          external_multi="", cpu=False):
+          external_multi="", cpu=False, split_dedup=16):
     if code_dataset:
         # Account 2's kernels have no internet ("Could not resolve host: github.com"), the
         # standard Kaggle restriction on accounts that have not verified a phone number. The
@@ -238,7 +243,7 @@ SPLIT = f"{{OUT}}/split.json"
 if not os.path.exists(SPLIT):
     cmd = [sys.executable, "-u", "/kaggle/working/repo/src/splits.py",
            "--datasets", "/kaggle/input", "--corpora", "{build_split}",
-           "--dedup-hamming", "16", "--seed", "0", "--out", SPLIT]
+           "--dedup-hamming", "{split_dedup}", "--seed", "0", "--out", SPLIT]
     print(" ".join(cmd), flush=True)
     subprocess.run(cmd, check=True, cwd="/kaggle/working/repo")
 m = json.load(open(SPLIT))
@@ -423,6 +428,13 @@ def main():
                     help="attach the EyePACS 2015 corpus for pretraining")
     ap.add_argument("--ddr", action="store_true",
                     help="attach DDR (second external DR test set, evaluation only)")
+    ap.add_argument("--deepdrid", action="store_true",
+                    help="attach DeepDRiD regular fundus images (evaluation only)")
+    ap.add_argument("--sustech", action="store_true",
+                    help="attach SUSTech-SYSU (evaluation only)")
+    ap.add_argument("--split-dedup", type=int, default=16,
+                    help="dHash threshold for --build-split (0 keeps only loader groups, "
+                         "e.g. EyePACS patients, and skips the O(n^2) hash pass)")
     ap.add_argument("--external-corpora", default="APTOS",
                     help="comma-separated corpora the post-training external step scores, "
                          "e.g. APTOS,DDR, or Messidor-2,IDRiD for the reverse direction")
@@ -488,7 +500,8 @@ def main():
                      "execution_count": None, "outputs": []}
                     for c in cells(a.run_id, train_args, a.commit, a.external_only,
                                    a.from_run, a.script, a.ext_args, a.code_dataset,
-                                   a.external_corpora, a.build_split, a.external_multi)],
+                                   a.external_corpora, a.build_split, a.external_multi,
+                                   split_dedup=a.split_dedup)],
           "metadata": {"kernelspec": {"language": "python", "display_name": "Python 3",
                                       "name": "python3"}},
           "nbformat": 4, "nbformat_minor": 4}
@@ -554,7 +567,9 @@ def main():
                             + ([APTOS] if a.aptos else [])
                             + ([MESSIDOR_HI] if a.messidor_hi else [])
                             + ([RETFOUND] if a.retfound else [])
-                            + ([DDR] if a.ddr else [])),
+                            + ([DDR] if a.ddr else [])
+                            + ([DEEPDRID] if a.deepdrid else [])
+                            + ([SUSTECH] if a.sustech else [])),
         "competition_sources": [],
         # comma-separated: an assembled run's fold weights can live across several kernels
         # (E11FULL takes best_0..2 from E11 and best_3..4 from E19E11C, which do not collide)

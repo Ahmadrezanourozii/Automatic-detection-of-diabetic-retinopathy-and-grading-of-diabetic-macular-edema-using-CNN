@@ -1,0 +1,55 @@
+%% Cover letter for the Artificial Intelligence in Medicine submission. Numbers come from numbers.tex.
+\documentclass[11pt]{letter}
+\usepackage[a4paper,margin=2.1cm,top=1.8cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,textcomp}
+\makeatletter
+\newcommand{\pndef}[2]{\expandafter\def\csname pn@#1\endcsname{#2}}
+\newcommand{\pn}[1]{\ifcsname pn@#1\endcsname\csname pn@#1\endcsname\else
+  \@latex@error{Undefined number key `#1'}{Run src/paper_numbers.py}\textbf{??#1??}\fi}
+\makeatother
+\input{numbers.tex}
+\signature{Ahmadreza Nourozi\\(on behalf of both authors)}
+\address{Ahmadreza Nourozi\\Friedrich-Alexander-Universit\"at Erlangen-N\"urnberg (FAU)\\
+Schlossplatz 4, 91054 Erlangen, Germany\\Ahmadreza.nourozi@fau.de}
+\begin{document}
+\begin{letter}{The Editors\\Artificial Intelligence in Medicine}
+\opening{Dear Editors,}
+
+We submit the research article ``Separating decision-rule failures from representation failures
+in external validation of diabetic retinopathy grading models'' for consideration in
+\emph{Artificial Intelligence in Medicine}.
+
+When a diabetic retinopathy grading model fails on a new population, the failure is usually
+attributed to the learned representation and answered by changing the model. Ordinal grading
+models, however, convert scores into grades with a decision rule that is rarely examined. Across ten
+development models, four external populations, the reverse direction of transfer, two models
+fine-tuned on \pn{eye.eb3.trainn} EyePACS images and five training seeds, we show that the ranking
+of images largely transferred while the mapping from score to grade did not: the same models
+over-graded one population and under-graded another, so that a referral threshold fitted for 85\%
+sensitivity reached \pn{aptos.tr.e08.B.sens}\% on one and \pn{ddr.tr.e08.B.sens}\% on the other.
+The same threshold fitted on EyePACS over-referred everywhere, which shows that the direction of the
+shift belongs to the population and the sign of a transferred threshold's error to the development
+labels. Refitting cut-points recovered part of the loss, but only where ranking survived and only
+with local labels; label-free adaptation did not help.
+
+We believe the work suits the journal for three reasons. It contributes evaluation methodology for
+medical AI: a decomposition of external performance into per-threshold discrimination and the
+score-to-grade mapping, and a matched decision rule for comparing models, with its record of changed
+and unchanged conclusions, including a published model whose reported advantage did not survive it.
+It gives a deployment rule that holds for any model: the risk that a locally set referral threshold
+misses its sensitivity floor depends on the number of referable cases labelled, follows a
+distribution-free form, and translates into images at any screening prevalence. And it is
+transparent about its own evidence: the analysis plans were committed to a public repository before
+the corresponding analyses, every outcome is reported with its verdict, falsified ones included,
+post-hoc analyses are labelled, and every number in the manuscript is generated from archived
+per-image predictions that are public with the code.
+
+The manuscript has not been published and is not under consideration elsewhere. Parts of the
+development work form the basis of a Master's thesis at the University of Tehran. All data are public
+and de-identified. The authors declare no competing interests. The use of an AI assistant for code,
+analysis runs and text is described in the Methods and in the generative-AI declaration.
+
+\closing{Sincerely,}
+\end{letter}
+\end{document}

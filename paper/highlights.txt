@@ -1,0 +1,7 @@
+Highlights
+
+- DR grading models ranked external images well but misplaced their grade cut-points
+- The same models over-graded one population and under-graded another
+- A transferred threshold's error took its sign from the development labels
+- Refitting cut-points without retraining helped only where ranking survived
+- Threshold risk depends on referable cases labelled: ~120 give about 10% risk

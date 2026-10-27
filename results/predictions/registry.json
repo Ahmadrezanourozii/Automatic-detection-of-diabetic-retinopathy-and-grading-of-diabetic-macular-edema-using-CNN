@@ -1,0 +1,633 @@
+{
+ "E05": {
+  "head": "ordinal",
+  "note": "densenet121 448px, no pretraining, 30 ep",
+  "oof_sources": [
+   "E05"
+  ],
+  "external": {},
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E06": {
+  "head": "ordinal",
+  "note": "densenet121 448px, EyePACS pretraining, 25 ep",
+  "oof_sources": [
+   "E06"
+  ],
+  "external": {},
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E08": {
+  "head": "ordinal",
+  "note": "densenet121 448px, EyePACS, 40 ep (control)",
+  "oof_sources": [
+   "E08"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "E08X2",
+    "source": "/tmp/claude-0/kout2/dr-dme-e08x2/E08X2/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": "E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E08/external_ddr_predictions.npz",
+    "n": 12522
+   },
+   "DeepDRiD": {
+    "source_run": "E08",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E08/external_deepdrid_predictions.npz",
+    "n": 2000
+   },
+   "SUSTech": {
+    "source_run": "E08",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E08/external_sustech_predictions.npz",
+    "n": 1151
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E09": {
+  "head": "ordinal",
+  "note": "densenet121 224px",
+  "oof_sources": [
+   "E09"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "EXTE09",
+    "source": "/tmp/claude-0/kout2/dr-dme-exte09/EXTE09/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": "E09",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E09/external_ddr_predictions.npz",
+    "n": 12522
+   },
+   "DeepDRiD": {
+    "source_run": "E09",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E09/external_deepdrid_predictions.npz",
+    "n": 2000
+   },
+   "SUSTech": {
+    "source_run": "E09",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E09/external_sustech_predictions.npz",
+    "n": 1151
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E10": {
+  "head": "ordinal",
+  "note": "densenet121 560px effective",
+  "oof_sources": [
+   "E10"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "EXTE10",
+    "source": "/tmp/claude-0/kout2/dr-dme-exte10/EXTE10/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": "E10",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E10/external_ddr_predictions.npz",
+    "n": 12522
+   },
+   "DeepDRiD": {
+    "source_run": "E10",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E10/external_deepdrid_predictions.npz",
+    "n": 2000
+   },
+   "SUSTech": {
+    "source_run": "E10",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E10/external_sustech_predictions.npz",
+    "n": 1151
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E11FULL": {
+  "head": "ordinal",
+  "note": "efficientnet-b3 448px, EyePACS (selected model)",
+  "oof_sources": [
+   "E11",
+   "E19E11C"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "EXTE11FULL",
+    "source": "/tmp/claude-0/kout3/dr-dme-exte11full/EXTE11FULL/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": "E11FULL",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E11FULL/external_ddr_predictions.npz",
+    "n": 12522
+   },
+   "DeepDRiD": {
+    "source_run": "E11FULL",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E11FULL/external_deepdrid_predictions.npz",
+    "n": 2000
+   },
+   "SUSTech": {
+    "source_run": "E11FULL",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E11FULL/external_sustech_predictions.npz",
+    "n": 1151
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E14MAC": {
+  "head": "ordinal",
+  "note": "densenet121 + macula crop for DME",
+  "oof_sources": [
+   "E14MAC"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "EXTE14MAC",
+    "source": "/tmp/claude-0/kout3/dr-dme-exte14mac/EXTE14MAC/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": "E14MAC",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E14MAC/external_ddr_predictions.npz",
+    "n": 12522
+   },
+   "DeepDRiD": {
+    "source_run": "E14MAC",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E14MAC/external_deepdrid_predictions.npz",
+    "n": 2000
+   },
+   "SUSTech": {
+    "source_run": "E14MAC",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E14MAC/external_sustech_predictions.npz",
+    "n": 1151
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E15LPFT": {
+  "head": "ordinal",
+  "note": "densenet121, LP-FT",
+  "oof_sources": [
+   "E15LPFT"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "EXTE15LPFT",
+    "source": "/tmp/claude-0/kout3/dr-dme-exte15lpft/EXTE15LPFT/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": "E15LPFT",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E15LPFT/external_ddr_predictions.npz",
+    "n": 12522
+   },
+   "DeepDRiD": {
+    "source_run": "E15LPFT",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E15LPFT/external_deepdrid_predictions.npz",
+    "n": 2000
+   },
+   "SUSTech": {
+    "source_run": "E15LPFT",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E15LPFT/external_sustech_predictions.npz",
+    "n": 1151
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E17NAT": {
+  "head": "ordinal",
+  "note": "densenet121 640px native",
+  "oof_sources": [
+   "E17NAT"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "EXTE17NAT",
+    "source": "/tmp/claude-0/kout3/dr-dme-exte17nat/EXTE17NAT/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": "E17NAT",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E17NAT/external_ddr_predictions.npz",
+    "n": 12522
+   },
+   "DeepDRiD": {
+    "source_run": "E17NAT",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E17NAT/external_deepdrid_predictions.npz",
+    "n": 2000
+   },
+   "SUSTech": {
+    "source_run": "E17NAT",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E17NAT/external_sustech_predictions.npz",
+    "n": 1151
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E20CORAL": {
+  "head": "coral",
+  "note": "densenet121, CORAL head",
+  "oof_sources": [
+   "E20CORAL"
+  ],
+  "external": {
+   "DDR": {
+    "source_run": "E20CORAL",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E20CORAL/external_ddr_predictions.npz",
+    "n": 12522
+   },
+   "APTOS": {
+    "source_run": "E20CORAL",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E20CORAL/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DeepDRiD": {
+    "source_run": "E20CORAL",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E20CORAL/external_deepdrid_predictions.npz",
+    "n": 2000
+   },
+   "SUSTech": {
+    "source_run": "E20CORAL",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E20CORAL/external_sustech_predictions.npz",
+    "n": 1151
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E22CORN": {
+  "head": "corn",
+  "note": "densenet121, CORN head",
+  "oof_sources": [
+   "E22CORN"
+  ],
+  "external": {
+   "DDR": {
+    "source_run": "E22CORN",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E22CORN/external_ddr_predictions.npz",
+    "n": 12522
+   },
+   "APTOS": {
+    "source_run": "E22CORN",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E22CORN/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DeepDRiD": {
+    "source_run": "E22CORN",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E22CORN/external_deepdrid_predictions.npz",
+    "n": 2000
+   },
+   "SUSTech": {
+    "source_run": "E22CORN",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E22CORN/external_sustech_predictions.npz",
+    "n": 1151
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "E21CNXA": {
+  "head": "ordinal",
+  "note": "convnext-tiny, folds 0-1 only",
+  "oof_sources": [
+   "E21CNXA"
+  ],
+  "external": {
+   "DDR": {
+    "source_run": "E21CNXA",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E21CNXA/external_ddr_predictions.npz",
+    "n": 12522
+   },
+   "APTOS": {
+    "source_run": "E21CNXA",
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/E21CNXA/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DeepDRiD": {
+    "source_run": "E21CNXA",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E21CNXA/external_deepdrid_predictions.npz",
+    "n": 2000
+   },
+   "SUSTech": {
+    "source_run": "E21CNXA",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/E21CNXA/external_sustech_predictions.npz",
+    "n": 1151
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1
+  ],
+  "oof_n": 910
+ },
+ "I24FT01": {
+  "head": "ordinal",
+  "note": "RETFound ViT-L/16 LP-FT 224px, folds 0-1",
+  "oof_sources": [
+   "I24FT01"
+  ],
+  "external": {},
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1
+  ],
+  "oof_n": 910
+ },
+ "S1E08": {
+  "head": "ordinal",
+  "note": "E08, seed 1",
+  "oof_sources": [
+   "S1E08"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "S1E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-s1e08/S1E08/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": "S1E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-s1e08/S1E08/external_ddr_predictions.npz",
+    "n": 12522
+   },
+   "DeepDRiD": {
+    "source_run": "S1E08",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/S1E08/external_deepdrid_predictions.npz",
+    "n": 2000
+   },
+   "SUSTech": {
+    "source_run": "S1E08",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/S1E08/external_sustech_predictions.npz",
+    "n": 1151
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "S2E08": {
+  "head": "ordinal",
+  "note": "E08, seed 2",
+  "oof_sources": [
+   "S2E08"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "S2E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-s2e08/S2E08/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": "S2E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-s2e08/S2E08/external_ddr_predictions.npz",
+    "n": 12522
+   },
+   "DeepDRiD": {
+    "source_run": "S2E08",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/S2E08/external_deepdrid_predictions.npz",
+    "n": 2000
+   },
+   "SUSTech": {
+    "source_run": "S2E08",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/S2E08/external_sustech_predictions.npz",
+    "n": 1151
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "S3E08": {
+  "head": "ordinal",
+  "note": "E08, seed 3",
+  "oof_sources": [
+   "S3E08"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "S3E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-s3e08/S3E08/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": "S3E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-s3e08/S3E08/external_ddr_predictions.npz",
+    "n": 12522
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "S4E08": {
+  "head": "ordinal",
+  "note": "E08, seed 4",
+  "oof_sources": [
+   "S4E08"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": "S4E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-s4e08/S4E08/external_aptos_predictions.npz",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": "S4E08",
+    "source": "/tmp/claude-0/kout4/dr-dme-s4e08/S4E08/external_ddr_predictions.npz",
+    "n": 12522
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "I24FULL": {
+  "head": "ordinal",
+  "note": "RETFound ViT-L/16 LP-FT 224px, folds 0-1 + 2-4",
+  "oof_sources": [
+   "I24FT01",
+   "I24FT234"
+  ],
+  "external": {
+   "APTOS": {
+    "source_run": [
+     "I24FT01",
+     "I24FT234"
+    ],
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/I24FT01/external_aptos_predictions.npz (x2)+/tmp/claude-0/kout4/dr-dme-i24ft234/I24FT234/external_aptos_predictions.npz (x3)",
+    "n": 3662
+   },
+   "DDR": {
+    "source_run": [
+     "I24FT01",
+     "I24FT234"
+    ],
+    "source": "/tmp/claude-0/kout4/dr-dme-x2ddr/X2DDR/I24FT01/external_ddr_predictions.npz (x2)+/tmp/claude-0/kout4/dr-dme-i24ft234/I24FT234/external_ddr_predictions.npz (x3)",
+    "n": 12522
+   },
+   "DeepDRiD": {
+    "source_run": "I24FULL",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/I24FULL/external_deepdrid_predictions.npz",
+    "n": 2000
+   },
+   "SUSTech": {
+    "source_run": "I24FULL",
+    "source": "/tmp/claude-0/kout5/dr-dme-x5new/X5NEW/I24FULL/external_sustech_predictions.npz",
+    "n": 1151
+   }
+  },
+  "reverse": false,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 2260
+ },
+ "R1APTOS": {
+  "head": "ordinal",
+  "note": "E08 recipe trained on APTOS (reverse direction)",
+  "oof_sources": [
+   "R1APTOS"
+  ],
+  "external": {
+   "Messidor-2": {
+    "source_run": "R1APTOS",
+    "source": "/tmp/claude-0/kout4/dr-dme-r1aptos/R1APTOS/external_messidor-2_predictions.npz",
+    "n": 1744
+   },
+   "IDRiD": {
+    "source_run": "R1APTOS",
+    "source": "/tmp/claude-0/kout4/dr-dme-r1aptos/R1APTOS/external_idrid_predictions.npz",
+    "n": 516
+   }
+  },
+  "reverse": true,
+  "oof_folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "oof_n": 3662
+ }
+}

@@ -131,7 +131,7 @@ Same model, same cut-point, an operating point at opposite ends of the curve. On
 development pool that default sits near candidate B; on APTOS it sits past candidate C.
 
 This is the transfer gap F3 predicted, and it is far larger than expected. It means the
-99.53 % headline in `STATE.md` is **not** a property of the model — it is what an arbitrary
+99.53 % headline in `docs/project-notes/STATE.md` is **not** a property of the model — it is what an arbitrary
 default happens to do on one particular corpus. It also means **T1 cannot be a single
 number**: a threshold fitted to hit 85 % sensitivity on the development pool will not deliver
 85 % on APTOS, and the size and direction of that miss is the actual result of the experiment.

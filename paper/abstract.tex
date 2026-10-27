@@ -1,0 +1,22 @@
+\begin{abstract}
+Failures of diabetic retinopathy (DR) grading models on new populations are usually blamed on the
+learned representation, although ordinal models turn scores into grades with a rarely examined
+decision rule. Under analysis plans committed in advance, we evaluated ten development models on four external populations (APTOS 2019, DDR,
+DeepDRiD, SUSTech-SYSU), a reverse-direction model, two models fine-tuned
+on \pn{eye.eb3.trainn} EyePACS images, five seeds and a published model's released predictions,
+separating per-threshold discrimination from the score-to-grade mapping.
+Referral ranking largely transferred (area under the curve at least \pn{r2.auc1.allmin}), but the
+score given the true grade moved in opposite directions: the same models over-graded APTOS and
+under-graded DDR, so a threshold fitted for 85\% development sensitivity reached
+\pn{aptos.tr.e08.B.sens}\% and \pn{ddr.tr.e08.B.sens}\%. Fitted on EyePACS instead, the threshold
+over-referred everywhere (\pn{eye.tr85.min}--\pn{eye.tr85.max}\%): the direction of the shift
+belonged to the population, the sign of the threshold error to the development labels. Refitting
+cut-points recovered mild-grade recall on APTOS and reverse-direction referral sensitivity
+(\pn{rev.m2.R1.sens}\% to \pn{rev.m2.R4.sens}\%) but not lost ranking; label-free prior adaptation
+did not help. Contrary to two predictions, models differed more than deployable rules, and the
+collapse of mild recall was specific to one corpus, although mild F1 stayed low everywhere. The
+risk that a locally set threshold misses an 80\% sensitivity floor depended on the number of
+referable cases labelled, not of images: about 120 kept it near one in ten (about 1\,000 images at
+10\% prevalence). External evaluations should report per-threshold discrimination and operating
+curves, and referral thresholds should be set locally.
+\end{abstract}

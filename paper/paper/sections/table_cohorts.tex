@@ -1,0 +1,20 @@
+\begin{table}[t]
+\caption{\textbf{Cohorts.} DR is graded on the international 5-grade scale
+in every corpus. No external image was used for training, model selection or
+threshold fitting.}\label{tab:cohorts}
+\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{2.3cm}p{3.1cm}p{2.4cm}p{2.3cm}p{2.7cm}@{}}
+\toprule
+Role & Corpus & Origin & Images & Grading \\
+\midrule
+Development & IDRiD & India & 516 & 3 graders (published grading) \\
+ & Messidor-2 & France & 1,744 & adjudicated by 3 specialists \\
+Pretraining; large-data models & EyePACS 2015 & USA & 35,126 & single grader \\
+External & APTOS 2019 & India & 3,662 & single grader \\
+ & DDR & China, 147 hospitals & 12,522 & 7 graders \\
+ & DeepDRiD (regular) & China, Shanghai & 2,000 (500 patients) & challenge release \\
+ & SUSTech-SYSU & China, Shenzhen & 1,151 & international scale, released \\
+Reverse direction & APTOS $\rightarrow$ Messidor-2, IDRiD &  & 3,662 $\rightarrow$ 2,260 & as above \\
+\bottomrule
+\end{tabular}
+\end{table}
